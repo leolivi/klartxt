@@ -1,25 +1,20 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
-import { viteStaticCopy } from "vite-plugin-static-copy";
+import {defineConfig} from "vite";
+import {crx} from "@crxjs/vite-plugin";
+import manifest from "./public/manifest.json";
+import path from "path";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    viteStaticCopy({
-      targets: [
-        {
-          src: "public/manifest.json",
-          dest: ".",
-        },
-      ],
-    }),
-  ],
+  plugins: [react(), crx({manifest})],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
   build: {
     outDir: "build",
-    rollupOptions: {
-      input: {
-        main: "./index.html",
-      },
-    },
+  },
+  css: {
+    postcss: "./postcss.config.js",
   },
 });
