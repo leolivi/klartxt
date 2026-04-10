@@ -9,14 +9,12 @@
   font-weight: 400;
   font-style: normal;
 }
-
 @font-face {
   font-family: "Manrope";
   src: url("/fonts/Manrope-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
-
 @font-face {
   font-family: "Manrope";
   src: url("/fonts/Manrope-SemiBold.ttf") format("truetype");
@@ -24,109 +22,88 @@
   font-style: normal;
 }
 
+/* ─── Design Tokens ──────────────────────────────────────── */
 :root {
-  line-height: 1.5;
-  font-weight: 400;
+  --color-primary: #2F3E7A;
+  --color-primary-50: #B2B9E6;
+  --color-primary-100: #E5E7F7;
+  --color-primary-300: #B2B9E6;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --color-bg: #F8F9FC;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-text: #121620;
+  --color-text-muted: rgba(18, 22, 32, 0.6);
+
+  --color-risk-high-fill:#F9E8EB;
+  --color-risk-high-border:#C73652;
+  --color-risk-high-text: #7A1030;
+
+  --color-risk-medium-fill:#FAF0E8;
+  --color-risk-medium-border:#D4A878;
+  --color-risk-medium-text: #7A3D12;
+
+  --color-risk-low-fill: #EDF7EF;
+  --color-risk-low-border:#97CFA2;
+  --color-risk-low-text: #2D6B3A;
 }
 
+html.dark {
+  --color-primary: #7286D3;
+  --color-primary-100: #EFF0FA;
+  --color-primary-800: #8293D8;
+  --color-primary-950: #304179;
+
+  --color-bg:#121620;
+
+  --color-text: #F8F9FC;
+  --color-text-muted:rgba(248, 249, 252, 0.7);
+
+  --color-risk-high-fill:#F9E8EB;
+  --color-risk-high-border:#C73652;
+  --color-risk-high-text: #7A1030;
+
+  --color-risk-medium-fill:#FAF0E8;
+  --color-risk-medium-border:#D4A878;
+  --color-risk-medium-text: #7A3D12;
+
+  --color-risk-low-fill: #EDF7EF;
+  --color-risk-low-border:#97CFA2;
+  --color-risk-low-text: #2D6B3A;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
 html, body, #root {
-  font-family: "Manrope", system-ui, sans-serif ;
+  font-family: "Manrope", system-ui, sans-serif;
   font-weight: 400;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html {
+  @apply text-text bg-bg;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+@layer base {
+  h1    { @apply text-h1; }
+  h2    { @apply text-h2; }
+  h3    { @apply text-h3; }
+  p     { @apply text-body; }
+  small { @apply text-small opacity-80; }
 }
 
-h1 {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-h2 {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-h3 {
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-p {
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.text-body {
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.text-body-bold {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.text-secondary {
-  font-size: 12px;
-  font-weight: 400;
-  opacity: 0.8;
-}
-
-.text-small {
-  font-size: 11px;
-  font-weight: 400;
-  opacity: 0.85;
-}
-
-.text-small-bold {
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.text-small-secondary {
-  font-size: 11px;
-  font-weight: 500;
-  opacity: 0.6;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* ─── Components ─────────────────────────────────────────── */
+@layer components {
+  .text-body-bold {
+    @apply text-body font-semibold;
   }
-  a:hover {
-    color: #747bff;
+  .text-secondary {
+    @apply text-secondary;
   }
-  button {
-    background-color: #f9f9f9;
+  .text-small-bold {
+    @apply text-small font-semibold;
+  }
+  .text-small-secondary {
+    @apply text-small font-medium opacity-60;
+  }
+  .text-muted {
+    color: var(--color-text-muted);
   }
 }
