@@ -1,16 +1,22 @@
+import { NETWORK_EXCLUSIONS } from "@/data/false-positive-list";
 import { TRACKER_MAP, type TrackerInfo } from "@/data/tracking-domains";
-
 
 interface HandleNetworkRequests {
   details: chrome.webRequest.OnBeforeRequestDetails;
-  trackersCache: Set<string>;
   onTrackerDetected: (tracker: TrackerInfo) => void;
-  }
+}
+
+// detect subdomains
+function extractRegistrableDomain(hostname: string): string {
+  const parts = hostname.split(".");
+  if (parts.length <= 2) return hostname;
+  return parts.slice(-2).join(".");
+}
+
 
 // function to handle network request tracking
 export function handleNetworkRequests({
   details,
-  trackersCache,
   onTrackerDetected,
 }: HandleNetworkRequests): void {
   let url: URL;
@@ -23,11 +29,14 @@ export function handleNetworkRequests({
 
   // check if request is a tracker
   const domain = url.hostname.replace(/^www\./, "");
-  const tracker = TRACKER_MAP.get(domain);
+  if (NETWORK_EXCLUSIONS.has(domain)) return;
+
+  const registrable = extractRegistrableDomain(domain);
+
+  const tracker = TRACKER_MAP.get(domain) ?? 
+  (domain !== registrable ? TRACKER_MAP.get(registrable) : undefined);
   if (!tracker) return;
-  if (trackersCache.has(domain)) return;
 
   // increment in memory counter of trackers
-  trackersCache.add(domain);
   onTrackerDetected(tracker);
 }
