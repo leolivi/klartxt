@@ -9,6 +9,7 @@ initTrackerData();
 class TrackerCache {
   private trackerDetails = new Map<number, Map<string, TrackerInfo>>();
   private timestamps = new Map<number, number>();
+  private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
   addTrackerDetail(tabId: number, tracker: TrackerInfo): void {
     if (!this.trackerDetails.has(tabId)) {
@@ -18,7 +19,7 @@ class TrackerCache {
     if (existing.has(tracker.domain)) return;
     existing.set(tracker.domain, tracker);
     this.updateTimestamp(tabId);
-    this.persistTab(tabId);
+    this.debouncedPersist(tabId);
   }
 
   getTrackerDetails(tabId: number): TrackerInfo[] {
@@ -34,7 +35,7 @@ class TrackerCache {
   }
 
   // storage only if necessary
- private async persistTab(tabId: number): Promise<void> {
+  private async persistTab(tabId: number): Promise<void> {
     const data: Record<string, unknown> = {
       [`timestamp_${tabId}`]: this.timestamps.get(tabId),
       [`trackerDetails_${tabId}`]: Array.from(
@@ -42,6 +43,16 @@ class TrackerCache {
       ),
     };
     await chrome.storage.session.set(data);
+  }
+
+  private debouncedPersist(tabId: number): void {
+    const existing = this.persistDebounceTimers.get(tabId);
+    if (existing) clearTimeout(existing);
+    const timer = setTimeout(() => {
+      this.persistTab(tabId);
+      this.persistDebounceTimers.delete(tabId);
+    }, 500);
+    this.persistDebounceTimers.set(tabId, timer);
   }
 
   async restoreFromStorage(tabId: number): Promise<void> {
@@ -78,7 +89,6 @@ class TrackerCache {
 }
 
 const cache = new TrackerCache();
-const FILTERED_PROTOCOLS = ["data:", "blob:", "chrome://", "chrome-extension://"];
 
 /* ---- SIDE PANEL ---- */
 chrome.sidePanel
@@ -101,7 +111,10 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo) => {
 chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
     const tabId = details.tabId;
-    if (tabId < 0 || FILTERED_PROTOCOLS.some((p) => details.url.startsWith(p))) return undefined;
+    if (tabId < 0) return undefined;
+
+    // TODO: remove later
+    const start = performance.now();
 
     handleNetworkRequests({
       details,
@@ -109,12 +122,13 @@ chrome.webRequest.onBeforeRequest.addListener(
         cache.addTrackerDetail(tabId, tracker);
         const details = cache.getTrackerDetails(tabId);
         // TODO: remove later
-        console.log(`Tracker (${details.length} total):`, details);
+        const elapsed = performance.now() - start;
+        console.log(`Tracker (${details.length} total):`, details, `${elapsed.toFixed(3)}ms`);
       },
     });
     return undefined;
   },
-  { urls: ["<all_urls>"] }
+  { urls: ["https://*/*", "http://*/*"] }
 );
 
 /* ---- TAB CLEANUP ---- */

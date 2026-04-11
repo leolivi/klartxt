@@ -6,13 +6,18 @@ interface HandleNetworkRequests {
   onTrackerDetected: (tracker: TrackerInfo) => void;
 }
 
+const registrableDomainCache = new Map<string, string>();
+
 // detect subdomains
 function extractRegistrableDomain(hostname: string): string {
+  if (registrableDomainCache.has(hostname)) {
+    return registrableDomainCache.get(hostname)!;
+  }
   const parts = hostname.split(".");
-  if (parts.length <= 2) return hostname;
-  return parts.slice(-2).join(".");
+  const result = parts.length <= 2 ? hostname : parts.slice(-2).join(".");
+  registrableDomainCache.set(hostname, result);
+  return result;
 }
-
 
 // function to handle network request tracking
 export function handleNetworkRequests({

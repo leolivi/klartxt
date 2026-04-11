@@ -76,12 +76,6 @@ export async function initTrackerData(): Promise<void> {
 
     })
     .catch((e) => console.debug("Extended konnte nicht geladen werden", e));
-
-    // TODO: LOOKUP TEST, remove later
-    const start = performance.now();
-    const testResult = TRACKER_MAP.get("doubleclick.net");
-    const elapsed = performance.now() - start;
-    console.log(`[klartxt] Lookup-Test doubleclick.net: ${testResult?.category ?? "nicht gefunden"} | ${elapsed.toFixed(3)}ms`);
 }
 
 
