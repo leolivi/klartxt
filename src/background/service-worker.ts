@@ -2,6 +2,7 @@
 
 import { initTrackerData, type TrackerInfo } from "@/data/tracking-domains";
 import { handleNetworkRequests } from "./handlers/handle-network-requets";
+import { calculateTrackerRiskPageScore } from "@/utils/network-risk-score";
 
 initTrackerData();
 
@@ -121,9 +122,10 @@ chrome.webRequest.onBeforeRequest.addListener(
       onTrackerDetected: (tracker) => {
         cache.addTrackerDetail(tabId, tracker);
         const details = cache.getTrackerDetails(tabId);
+        const trackerRiskPageScore = calculateTrackerRiskPageScore(details);
         // TODO: remove later
         const elapsed = performance.now() - start;
-        console.log(`Tracker (${details.length} total):`, details, `${elapsed.toFixed(3)}ms`);
+        console.log(`Tracker (${details.length} total):`, details, `${elapsed.toFixed(3)}ms`, trackerRiskPageScore);
       },
     });
     return undefined;

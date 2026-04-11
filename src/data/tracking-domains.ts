@@ -1,4 +1,5 @@
-import {TrackerCategory} from "../utils/types/tracking-enums";
+import { calculateTrackerRiskScore } from "@/utils/network-risk-score";
+import {TrackerCategory, TrackerCategoryForUser} from "../utils/types/tracking-enums";
 
 /* -----
   Known tracker domains dataset 
@@ -20,26 +21,96 @@ interface TrackerFile {
 export interface TrackerInfo {
     domain: string;
     owner: string | null;
-    category: TrackerCategory;
+    userCategory: TrackerCategoryForUser;
+    detailedCategories: TrackerCategory[];
+    riskScore: number;
 }
 
 // map categories to match TrackerPurpose
-function mapToCategory(categories: string[]): TrackerCategory {
-    if (categories.some((c) => c.includes("Social"))) return TrackerCategory.SOCIAL;
-    if (categories.some((c) => c.includes("Session Replay"))) return TrackerCategory.SESSION;
-    if (categories.some((c) =>
-    c.includes("Advertising") ||
-    c.includes("Ad Motivated") ||
-    c.includes("Action Pixels")
-    )) return TrackerCategory.AD;
-    if (categories.some((c) =>
-    c.includes("Analytics") ||
-    c.includes("Audience Measurement") ||
-    c.includes("Third-Party Analytics")
-    )) return TrackerCategory.ANALYTICS;
-    if (categories.some((c) => c.includes("CDN"))) return TrackerCategory.CDN;
-    return TrackerCategory.UNKNOWN;
+function mapToCategories(categories: string[]): TrackerCategory[] {
+    const result = new Set<TrackerCategory>();
+    const has = (str: string) => categories.some(c => c.toLowerCase().includes(str.toLowerCase()));
+
+    if (has("Malware") || has("Unknown High Risk"))
+        result.add(TrackerCategory.MALWARE);
+
+    if (has("Session Replay"))
+        result.add(TrackerCategory.SESSION);
+
+    if (has("Advertising") || has("Ad Motivated") || has("Action Pixels"))
+        result.add(TrackerCategory.AD);
+
+    if (has("Analytics") || has("Audience Measurement") || has("Third-Party Analytics"))
+        result.add(TrackerCategory.ANALYTICS);
+
+    if (has("Social"))
+        result.add(TrackerCategory.SOCIAL);
+
+    if (has("Embedded Content"))
+        result.add(TrackerCategory.EMBEDDED);
+
+    if (has("CDN"))
+        result.add(TrackerCategory.CDN);
+
+    if (has("Consent Management"))
+        result.add(TrackerCategory.CONSENT);
+
+    if (has("Tag Manager"))
+        result.add(TrackerCategory.TAG_MANAGER);
+
+    if (
+        has("Online Payment") ||
+        has("Support Chat") ||
+        has("Federated Login") ||
+        has("SSO")
+    ) result.add(TrackerCategory.FUNCTIONAL);
+
+    if (has("Fraud") || has("Ad Fraud"))
+        result.add(TrackerCategory.SECURITY);
+
+    if (result.size === 0)
+        result.add(TrackerCategory.UNKNOWN);
+
+    return Array.from(result);
+}
+
+// simplified category matching for users
+function mapToUserCategory(categories: TrackerCategory[]): TrackerCategoryForUser {
+    if (categories.includes(TrackerCategory.MALWARE)) {
+        return TrackerCategoryForUser.SECURITY;
     }
+
+    if (categories.includes(TrackerCategory.SECURITY)) {
+        return TrackerCategoryForUser.SECURITY;
+    }
+
+    if (
+        categories.includes(TrackerCategory.AD)) {
+        return TrackerCategoryForUser.ADS;
+    }
+
+    if (
+        categories.includes(TrackerCategory.SESSION) ||
+        categories.includes(TrackerCategory.ANALYTICS) ||
+        categories.includes(TrackerCategory.TAG_MANAGER)) {
+        return TrackerCategoryForUser.TRACKING;
+    }
+
+    if (
+        categories.includes(TrackerCategory.FUNCTIONAL) ||
+        categories.includes(TrackerCategory.CONSENT)) {
+        return TrackerCategoryForUser.FUNCTIONAL;
+    }
+
+    if (
+        categories.includes(TrackerCategory.EMBEDDED) ||
+        categories.includes(TrackerCategory.CDN) ||
+        categories.includes(TrackerCategory.SOCIAL)) {
+        return TrackerCategoryForUser.CONTENT;
+    }
+
+    return TrackerCategoryForUser.TRACKING;
+}
 
 export const TRACKER_MAP = new Map<string, TrackerInfo>();
 
@@ -50,12 +121,18 @@ async function loadFromUrl(url: string): Promise<TrackerFile> {
 
 function ingest(data: TrackerFile, overwrite = false): void {
     Object.entries(data.trackers).forEach(([domain, info]) => {
-    if (!overwrite && TRACKER_MAP.has(domain)) return;
-    TRACKER_MAP.set(domain, {
-        domain,
-        owner: info.o,
-        category: mapToCategory(info.c),
-    });
+        if (!overwrite && TRACKER_MAP.has(domain)) return;
+
+        const categories = mapToCategories(info.c);
+        const riskScore = calculateTrackerRiskScore(categories);
+
+        TRACKER_MAP.set(domain, {
+            domain,
+            owner: info.o,
+            userCategory: mapToUserCategory(categories),
+            detailedCategories: categories,
+            riskScore,
+        });
     });
 }
 
