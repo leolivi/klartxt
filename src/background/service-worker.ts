@@ -1,104 +1,38 @@
 /// <reference types="chrome" />
 
-import { initTrackerData, type TrackerInfo } from "@/data/tracking-domains";
+import { initTrackerData } from "@/data/trackers/tracking-domains";
 import { handleNetworkRequests } from "./handlers/handle-network-requets";
-import { calculateTrackerRiskPageScore } from "@/utils/network-risk-score";
+import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
+import { handleCookies } from "./handlers/handle-cookies";
+import { calculateCookieRiskScore } from "@/utils/scoring/cookie-risk-score";
+import { TrackerCache } from "./cache/tracker-cache";
 
 initTrackerData();
 
-/* ---- CACHE MANAGER ---- */
-class TrackerCache {
-  private trackerDetails = new Map<number, Map<string, TrackerInfo>>();
-  private timestamps = new Map<number, number>();
-  private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
-
-  addTrackerDetail(tabId: number, tracker: TrackerInfo): void {
-    if (!this.trackerDetails.has(tabId)) {
-      this.trackerDetails.set(tabId, new Map());
-    }
-    const existing = this.trackerDetails.get(tabId)!;
-    if (existing.has(tracker.domain)) return;
-    existing.set(tracker.domain, tracker);
-    this.updateTimestamp(tabId);
-    this.debouncedPersist(tabId);
-  }
-
-  getTrackerDetails(tabId: number): TrackerInfo[] {
-    return Array.from(this.trackerDetails.get(tabId)?.values() ?? []);
-  }
-
-  getTimestamp(tabId: number): number | null {
-    return this.timestamps.get(tabId) ?? null;
-  }
-
-  private updateTimestamp(tabId: number): void {
-    this.timestamps.set(tabId, Date.now());
-  }
-
-  // storage only if necessary
-  private async persistTab(tabId: number): Promise<void> {
-    const data: Record<string, unknown> = {
-      [`timestamp_${tabId}`]: this.timestamps.get(tabId),
-      [`trackerDetails_${tabId}`]: Array.from(
-        this.trackerDetails.get(tabId)?.values() ?? []
-      ),
-    };
-    await chrome.storage.session.set(data);
-  }
-
-  private debouncedPersist(tabId: number): void {
-    const existing = this.persistDebounceTimers.get(tabId);
-    if (existing) clearTimeout(existing);
-    const timer = setTimeout(() => {
-      this.persistTab(tabId);
-      this.persistDebounceTimers.delete(tabId);
-    }, 500);
-    this.persistDebounceTimers.set(tabId, timer);
-  }
-
-  async restoreFromStorage(tabId: number): Promise<void> {
-    const result = await chrome.storage.session.get([
-      `trackerDetails_${tabId}`,
-      `timestamp_${tabId}`,
-    ]);
-
-    const details = result[`trackerDetails_${tabId}`];
-    if (Array.isArray(details)) {
-      const detailMap = new Map<string, TrackerInfo>();
-      (details as TrackerInfo[]).forEach((t) => detailMap.set(t.domain, t));
-      this.trackerDetails.set(tabId, detailMap);
-    }
-
-    const ts = result[`timestamp_${tabId}`];
-    if (typeof ts === "number") {
-      this.timestamps.set(tabId, ts);
-    }
-  }
-
-  reset(tabId: number): void {
-    this.trackerDetails.delete(tabId);
-    this.timestamps.delete(tabId);
-  }
-
-  clear(tabId: number): void {
-    this.reset(tabId);
-    chrome.storage.session.remove([
-      `trackerDetails_${tabId}`,
-      `timestamp_${tabId}`,
-    ]);
-  }
-}
-
 const cache = new TrackerCache();
+
+/* ---- NOTIFY SIDE PANEL ---- */
+function notifySidePanel(tabId: number): void {
+  const trackers = cache.getTrackerDetails(tabId);
+  const cookies = cache.getCookieDetails(tabId);
+  chrome.runtime.sendMessage({
+    type: "TAB_DATA_UPDATED",
+    tabId,
+    trackerCount: trackers.length,
+    cookieCount: cookies.length,
+  }).catch((error) => {
+    console.debug("Could not send message to tab", tabId, error);
+  });
+}
 
 /* ---- SIDE PANEL ---- */
 chrome.sidePanel
   .setPanelBehavior({openPanelOnActionClick: true})
-  .catch((error) => console.error(error));
+  .catch((error) => console.debug(error));
 
 
 /* ---- TAB UPDATE HANDLER ---- */
-chrome.tabs.onUpdated.addListener(async(tabId, changeInfo) => {
+chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
   if (changeInfo.status === "loading" && changeInfo.url) {
     cache.reset(tabId);
   }
@@ -106,6 +40,20 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo) => {
   if (changeInfo.status !== "complete") return;
 
   await cache.restoreFromStorage(tabId);
+
+  /* ---- COOKIE HANDLER ---- */
+  if (tab.url && !tab.url.startsWith("chrome://")) {
+    await handleCookies({
+      tabUrl: tab.url,
+      onCookiesDetected: (cookies) => {
+        cache.addCookies(tabId, cookies);
+        const riskScore = calculateCookieRiskScore(cookies);
+        notifySidePanel(tabId);
+        // TODO: remove later
+        console.log(`Cookies (${cookies.length} total):`, cookies, `Risk: ${riskScore}`);
+      },
+    });
+  }
 });
 
 /* ---- NETWORK REQUEST HANDLER ---- */
@@ -123,6 +71,7 @@ chrome.webRequest.onBeforeRequest.addListener(
         cache.addTrackerDetail(tabId, tracker);
         const details = cache.getTrackerDetails(tabId);
         const trackerRiskPageScore = calculateTrackerRiskPageScore(details);
+        notifySidePanel(tabId);
         // TODO: remove later
         const elapsed = performance.now() - start;
         console.log(`Tracker (${details.length} total):`, details, `${elapsed.toFixed(3)}ms`, trackerRiskPageScore);
@@ -132,6 +81,50 @@ chrome.webRequest.onBeforeRequest.addListener(
   },
   { urls: ["https://*/*", "http://*/*"] }
 );
+
+/* ---- MESSAGE HANDLER ---- */
+// send info to sidepanel
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  if (message.type === "PING") {
+    sendResponse({ alive: true });
+    return true;
+  }
+
+  if (message.type === "GET_TAB_DATA" && message.tabId != null) {
+    (async () => {
+      await cache.restoreFromStorage(message.tabId);
+
+      // if cache is empty, reload cookie
+      if (cache.getCookieDetails(message.tabId).length === 0) {
+        const tab = await chrome.tabs.get(message.tabId);
+        if (tab.url && !tab.url.startsWith("chrome://")) {
+          await handleCookies({
+            tabUrl: tab.url,
+            onCookiesDetected: (cookies) => {
+              cache.addCookies(message.tabId, cookies);
+            },
+          });
+        }
+      }
+
+      const trackers = cache.getTrackerDetails(message.tabId);
+      const cookies = cache.getCookieDetails(message.tabId);
+
+      sendResponse({
+        trackerCount: trackers.length,
+        cookieCount: cookies.length,
+        isPartialData: trackers.length === 0, // SW has been restarted
+      });
+    })();
+    return true;
+  }
+
+  if (message.type === "RESET_CACHE" && message.tabId != null) {
+    cache.clear(message.tabId);
+    sendResponse({ success: true });
+    return true;
+  }
+});
 
 /* ---- TAB CLEANUP ---- */
 chrome.tabs.onRemoved.addListener((tabId: number) => {

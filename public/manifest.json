@@ -13,7 +13,7 @@
     "32": "img/logo/Klartxt_lm_32.png",
     "64": "img/logo/Klartxt_lm_64.png"
   },
-  "permissions": ["webRequest", "tabs", "storage", "sidePanel"],
+  "permissions": ["webRequest", "cookies", "tabs", "storage", "sidePanel"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "src/background/service-worker.ts",
@@ -29,7 +29,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["img/*.png", "fonts/*.ttf", "src/data/tracker-core.json", "src/data/tracker-extended.json"],
+      "resources": ["img/*.png", "fonts/*.ttf", "src/data/trackers/tracker-core.json", "src/data/trackers/tracker-extended.json"],
       "matches": ["<all_urls>"]
     }
   ]

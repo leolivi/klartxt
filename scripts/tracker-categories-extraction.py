@@ -43,8 +43,8 @@ def plot_categories(categories):
 
 
 def main():
-    data1 = load_json("tracker-core.json")
-    data2 = load_json("tracker-extended.json")
+    data1 = load_json("../src/data/trackers/tracker-core.json")
+    data2 = load_json("../src/data/trackers/tracker-extended.json")
 
     categories = extract_categories([data1, data2])
 

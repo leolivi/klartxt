@@ -1,5 +1,5 @@
-import { NETWORK_EXCLUSIONS } from "@/data/false-positive-list";
-import { TRACKER_MAP, type TrackerInfo } from "@/data/tracking-domains";
+import { NETWORK_EXCLUSIONS } from "@/data/trackers/false-positive-list";
+import { TRACKER_MAP, type TrackerInfo } from "@/data/trackers/tracking-domains";
 
 interface HandleNetworkRequests {
   details: chrome.webRequest.OnBeforeRequestDetails;

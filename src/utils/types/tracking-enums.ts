@@ -4,6 +4,8 @@ Categories are based on categories extraction file @tracker-categories-ectractio
 This file evaluates the categories from the Duck Duck Go Tracker Radar Json Files.
 */
 
+
+// Tracker Category for Users (simplyfied)
 export enum TrackerCategoryForUser {
   TRACKING = "tracking",
   ADS = "ads",

@@ -1,10 +1,11 @@
-import { calculateTrackerRiskScore } from "@/utils/network-risk-score";
-import {TrackerCategory, TrackerCategoryForUser} from "../utils/types/tracking-enums";
+import { calculateTrackerRiskScore } from "@/utils/scoring/network-risk-score";
+import {TrackerCategory, TrackerCategoryForUser} from "../../utils/types/tracking-enums";
 
 /* -----
-  Known tracker domains dataset 
-  sources:
-  - DuckDuckGo Tracker Radar:https://github.com/duckduckgo/tracker-radar/tree/main
+  Networt Request Classification
+  Sources:
+  - DDG Tracker Radar: domain-based Classifications
+    https://github.com/duckduckgo/tracker-radar
 ----- */
 
 interface CompressedTracker {
@@ -84,26 +85,22 @@ function mapToUserCategory(categories: TrackerCategory[]): TrackerCategoryForUse
         return TrackerCategoryForUser.SECURITY;
     }
 
-    if (
-        categories.includes(TrackerCategory.AD)) {
+    if (categories.includes(TrackerCategory.AD)) {
         return TrackerCategoryForUser.ADS;
     }
 
-    if (
-        categories.includes(TrackerCategory.SESSION) ||
+    if (categories.includes(TrackerCategory.SESSION) ||
         categories.includes(TrackerCategory.ANALYTICS) ||
         categories.includes(TrackerCategory.TAG_MANAGER)) {
         return TrackerCategoryForUser.TRACKING;
     }
 
-    if (
-        categories.includes(TrackerCategory.FUNCTIONAL) ||
+    if (categories.includes(TrackerCategory.FUNCTIONAL) ||
         categories.includes(TrackerCategory.CONSENT)) {
         return TrackerCategoryForUser.FUNCTIONAL;
     }
 
-    if (
-        categories.includes(TrackerCategory.EMBEDDED) ||
+    if (categories.includes(TrackerCategory.EMBEDDED) ||
         categories.includes(TrackerCategory.CDN) ||
         categories.includes(TrackerCategory.SOCIAL)) {
         return TrackerCategoryForUser.CONTENT;
@@ -139,14 +136,14 @@ function ingest(data: TrackerFile, overwrite = false): void {
 // known tracker domains and their types detectetd in network requests
 export async function initTrackerData(): Promise<void> {
 // load core data (first badge)
-    const coreUrl = chrome.runtime.getURL("src/data/tracker-core.json");
+    const coreUrl = chrome.runtime.getURL("src/data/trackers/tracker-core.json");
     const core = await loadFromUrl(coreUrl);
     ingest(core);
     console.debug(`Core loaded: ${TRACKER_MAP.size} trackers`);
     
 
     // load extended data (second badge, lazy load)
-    loadFromUrl(chrome.runtime.getURL("src/data/tracker-extended.json"))
+    loadFromUrl(chrome.runtime.getURL("src/data/trackers/tracker-extended.json"))
     .then((extended) => {
         ingest(extended);
         console.debug(`Extended loaded: ${TRACKER_MAP.size} total trackers`);
