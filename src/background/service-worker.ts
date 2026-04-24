@@ -3,12 +3,16 @@
 import { initTrackerData, type TrackerInfo } from "@/data/tracking-domains";
 import { handleNetworkRequests } from "./handlers/handle-network-requets";
 import { calculateTrackerRiskPageScore } from "@/utils/network-risk-score";
+import type { ClassifiedCookie } from "@/utils/types/cookie-types";
+import { handleCookies } from "./handlers/handle-cookies";
+import { calculateCookieRiskScore } from "@/utils/cookie-risk-score";
 
 initTrackerData();
 
 /* ---- CACHE MANAGER ---- */
 class TrackerCache {
   private trackerDetails = new Map<number, Map<string, TrackerInfo>>();
+  private cookieDetails = new Map<number, ClassifiedCookie[]>();
   private timestamps = new Map<number, number>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
@@ -27,6 +31,16 @@ class TrackerCache {
     return Array.from(this.trackerDetails.get(tabId)?.values() ?? []);
   }
 
+  addCookies(tabId: number, cookies: ClassifiedCookie[]): void {
+    this.cookieDetails.set(tabId, cookies);
+    this.updateTimestamp(tabId);
+    this.debouncedPersist(tabId);
+  }
+
+  getCookieDetails(tabId: number): ClassifiedCookie[] {
+    return this.cookieDetails.get(tabId) ?? [];
+  }
+
   getTimestamp(tabId: number): number | null {
     return this.timestamps.get(tabId) ?? null;
   }
@@ -42,6 +56,7 @@ class TrackerCache {
       [`trackerDetails_${tabId}`]: Array.from(
         this.trackerDetails.get(tabId)?.values() ?? []
       ),
+      [`cookieDetails_${tabId}`]: this.cookieDetails.get(tabId) ?? [],
     };
     await chrome.storage.session.set(data);
   }
@@ -59,14 +74,20 @@ class TrackerCache {
   async restoreFromStorage(tabId: number): Promise<void> {
     const result = await chrome.storage.session.get([
       `trackerDetails_${tabId}`,
+      `cookieDetails_${tabId}`,
       `timestamp_${tabId}`,
     ]);
 
-    const details = result[`trackerDetails_${tabId}`];
-    if (Array.isArray(details)) {
-      const detailMap = new Map<string, TrackerInfo>();
-      (details as TrackerInfo[]).forEach((t) => detailMap.set(t.domain, t));
-      this.trackerDetails.set(tabId, detailMap);
+    const trackers = result[`trackerDetails_${tabId}`];
+    if (Array.isArray(trackers)) {
+      const trackerMap = new Map<string, TrackerInfo>();
+      (trackers as TrackerInfo[]).forEach((t) => trackerMap.set(t.domain, t));
+      this.trackerDetails.set(tabId, trackerMap);
+    }
+
+    const cookies = result[`cookieDetails_${tabId}`];
+    if (Array.isArray(cookies)) {
+      this.cookieDetails.set(tabId, cookies as ClassifiedCookie[]);
     }
 
     const ts = result[`timestamp_${tabId}`];
@@ -77,6 +98,7 @@ class TrackerCache {
 
   reset(tabId: number): void {
     this.trackerDetails.delete(tabId);
+    this.cookieDetails.delete(tabId);
     this.timestamps.delete(tabId);
   }
 
@@ -84,6 +106,7 @@ class TrackerCache {
     this.reset(tabId);
     chrome.storage.session.remove([
       `trackerDetails_${tabId}`,
+      `cookieDetails_${tabId}`,
       `timestamp_${tabId}`,
     ]);
   }
@@ -98,7 +121,7 @@ chrome.sidePanel
 
 
 /* ---- TAB UPDATE HANDLER ---- */
-chrome.tabs.onUpdated.addListener(async(tabId, changeInfo) => {
+chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
   if (changeInfo.status === "loading" && changeInfo.url) {
     cache.reset(tabId);
   }
@@ -106,6 +129,19 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo) => {
   if (changeInfo.status !== "complete") return;
 
   await cache.restoreFromStorage(tabId);
+
+  /* ---- COOKIE HANDLER ---- */
+  if (tab.url && !tab.url.startsWith("chrome://")) {
+    await handleCookies({
+      tabUrl: tab.url,
+      onCookiesDetected: (cookies) => {
+        cache.addCookies(tabId, cookies);
+        const riskScore = calculateCookieRiskScore(cookies);
+        // TODO: remove later
+        console.log(`Cookies (${cookies.length} total):`, cookies, `Risk: ${riskScore}`);
+      },
+    });
+  }
 });
 
 /* ---- NETWORK REQUEST HANDLER ---- */

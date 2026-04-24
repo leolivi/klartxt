@@ -13,7 +13,7 @@
     "32": "img/logo/Klartxt_lm_32.png",
     "64": "img/logo/Klartxt_lm_64.png"
   },
-  "permissions": ["webRequest", "tabs", "storage", "sidePanel"],
+  "permissions": ["webRequest", "cookies", "tabs", "storage", "sidePanel"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "src/background/service-worker.ts",

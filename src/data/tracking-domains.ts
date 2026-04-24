@@ -2,9 +2,10 @@ import { calculateTrackerRiskScore } from "@/utils/network-risk-score";
 import {TrackerCategory, TrackerCategoryForUser} from "../utils/types/tracking-enums";
 
 /* -----
-  Known tracker domains dataset 
-  sources:
-  - DuckDuckGo Tracker Radar:https://github.com/duckduckgo/tracker-radar/tree/main
+  Networt Request Classification
+  Sources:
+  - DDG Tracker Radar: domain-based Classifications
+    https://github.com/duckduckgo/tracker-radar
 ----- */
 
 interface CompressedTracker {
@@ -84,26 +85,22 @@ function mapToUserCategory(categories: TrackerCategory[]): TrackerCategoryForUse
         return TrackerCategoryForUser.SECURITY;
     }
 
-    if (
-        categories.includes(TrackerCategory.AD)) {
+    if (categories.includes(TrackerCategory.AD)) {
         return TrackerCategoryForUser.ADS;
     }
 
-    if (
-        categories.includes(TrackerCategory.SESSION) ||
+    if (categories.includes(TrackerCategory.SESSION) ||
         categories.includes(TrackerCategory.ANALYTICS) ||
         categories.includes(TrackerCategory.TAG_MANAGER)) {
         return TrackerCategoryForUser.TRACKING;
     }
 
-    if (
-        categories.includes(TrackerCategory.FUNCTIONAL) ||
+    if (categories.includes(TrackerCategory.FUNCTIONAL) ||
         categories.includes(TrackerCategory.CONSENT)) {
         return TrackerCategoryForUser.FUNCTIONAL;
     }
 
-    if (
-        categories.includes(TrackerCategory.EMBEDDED) ||
+    if (categories.includes(TrackerCategory.EMBEDDED) ||
         categories.includes(TrackerCategory.CDN) ||
         categories.includes(TrackerCategory.SOCIAL)) {
         return TrackerCategoryForUser.CONTENT;
