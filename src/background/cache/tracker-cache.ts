@@ -1,6 +1,6 @@
 /// <reference types="chrome" />
 
-import type { TrackerInfo } from "@/data/tracking-domains";
+import type { TrackerInfo } from "@/data/trackers/tracking-domains";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 
 /* ---- CACHE MANAGER ---- */

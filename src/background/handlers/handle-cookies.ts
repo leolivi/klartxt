@@ -3,7 +3,7 @@ import {
   classifyCookieCategory,
   extractRootDomain,
   mapToUserCategory,
-} from "@/data/cookie-domains";
+} from "@/data/cookies/cookie-domains";
 
 interface HandleCookies {
   tabUrl: string;

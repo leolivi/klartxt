@@ -1,4 +1,4 @@
-import type { ClassifiedCookie } from "./types/cookie-types";
+import type { ClassifiedCookie } from "../types/cookie-types";
 
 
 export function calculateCookieRiskScore(cookies: ClassifiedCookie[]): number {

@@ -1,5 +1,5 @@
-import { calculateTrackerRiskScore } from "@/utils/network-risk-score";
-import {TrackerCategory, TrackerCategoryForUser} from "../utils/types/tracking-enums";
+import { calculateTrackerRiskScore } from "@/utils/scoring/network-risk-score";
+import {TrackerCategory, TrackerCategoryForUser} from "../../utils/types/tracking-enums";
 
 /* -----
   Networt Request Classification

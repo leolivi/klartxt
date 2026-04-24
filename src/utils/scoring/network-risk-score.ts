@@ -1,5 +1,5 @@
-import type { TrackerInfo } from "@/data/tracking-domains";
-import { TrackerCategory } from "./types/tracking-enums";
+import type { TrackerInfo } from "@/data/trackers/tracking-domains";
+import { TrackerCategory } from "../types/tracking-enums";
 
 const CATEGORY_SCORE: Record<TrackerCategory, number> = {
     [TrackerCategory.MALWARE]: 100,

@@ -1,6 +1,6 @@
 import { CookieCategory, CookieCategoryForUser } from "@/utils/types/cookie-types";
-import { TRACKER_MAP } from "@/data/tracking-domains";
-import { ADVERTISING_PATTERNS, ANALYTICS_PATTERNS, NECESSARY_PATTERNS, SESSION_PATTERNS } from "@/data/cookie-heuristics";
+import { TRACKER_MAP } from "@/data/trackers/tracking-domains";
+import { ADVERTISING_PATTERNS, ANALYTICS_PATTERNS, NECESSARY_PATTERNS, SESSION_PATTERNS } from "@/data/cookies/cookie-heuristics";
 
 /* -----
   Cookie Classification

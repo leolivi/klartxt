@@ -1,10 +1,10 @@
 /// <reference types="chrome" />
 
-import { initTrackerData } from "@/data/tracking-domains";
+import { initTrackerData } from "@/data/trackers/tracking-domains";
 import { handleNetworkRequests } from "./handlers/handle-network-requets";
-import { calculateTrackerRiskPageScore } from "@/utils/network-risk-score";
+import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
 import { handleCookies } from "./handlers/handle-cookies";
-import { calculateCookieRiskScore } from "@/utils/cookie-risk-score";
+import { calculateCookieRiskScore } from "@/utils/scoring/cookie-risk-score";
 import { TrackerCache } from "./cache/tracker-cache";
 
 initTrackerData();
