@@ -136,14 +136,14 @@ function ingest(data: TrackerFile, overwrite = false): void {
 // known tracker domains and their types detectetd in network requests
 export async function initTrackerData(): Promise<void> {
 // load core data (first badge)
-    const coreUrl = chrome.runtime.getURL("src/data/tracker-core.json");
+    const coreUrl = chrome.runtime.getURL("src/data/trackers/tracker-core.json");
     const core = await loadFromUrl(coreUrl);
     ingest(core);
     console.debug(`Core loaded: ${TRACKER_MAP.size} trackers`);
     
 
     // load extended data (second badge, lazy load)
-    loadFromUrl(chrome.runtime.getURL("src/data/tracker-extended.json"))
+    loadFromUrl(chrome.runtime.getURL("src/data/trackers/tracker-extended.json"))
     .then((extended) => {
         ingest(extended);
         console.debug(`Extended loaded: ${TRACKER_MAP.size} total trackers`);

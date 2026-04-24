@@ -1,6 +1,6 @@
 import { CookieCategory, CookieCategoryForUser } from "@/utils/types/cookie-types";
 import { TRACKER_MAP } from "@/data/trackers/tracking-domains";
-import { ADVERTISING_PATTERNS, ANALYTICS_PATTERNS, NECESSARY_PATTERNS, SESSION_PATTERNS } from "@/data/cookies/cookie-heuristics";
+import { ADVERTISING_PATTERNS_LOWER, ANALYTICS_PATTERNS_LOWER, NECESSARY_PATTERNS_LOWER, SESSION_PATTERNS_LOWER } from "@/data/cookies/cookie-heuristics";
 
 /* -----
   Cookie Classification
@@ -11,6 +11,8 @@ import { ADVERTISING_PATTERNS, ANALYTICS_PATTERNS, NECESSARY_PATTERNS, SESSION_P
     - Cookie-Name Pattern
     - Cookie-Lifetime
 ----- */
+
+const rootDomainCache = new Map<string, string>();
 
 export function mapToUserCategory(category: CookieCategory): CookieCategoryForUser {
   switch (category) {
@@ -32,10 +34,10 @@ export function mapToUserCategory(category: CookieCategory): CookieCategoryForUs
 // CookieGraph: Cookie-Name Pattern
 export function mapNameToCategory(name: string): CookieCategory {
   const lower = name.toLowerCase();
-  if (NECESSARY_PATTERNS.some((p) => lower.includes(p.toLowerCase()))) return CookieCategory.NECESSARY;
-  if (SESSION_PATTERNS.some((p) => lower.includes(p.toLowerCase()))) return CookieCategory.SESSION;
-  if (ANALYTICS_PATTERNS.some((p) => lower.includes(p.toLowerCase()))) return CookieCategory.ANALYTICS;
-  if (ADVERTISING_PATTERNS.some((p) => lower.includes(p.toLowerCase()))) return CookieCategory.ADVERTISING;
+  if (NECESSARY_PATTERNS_LOWER.some((p) => lower.includes(p))) return CookieCategory.NECESSARY;
+  if (SESSION_PATTERNS_LOWER.some((p) => lower.includes(p))) return CookieCategory.SESSION;
+  if (ANALYTICS_PATTERNS_LOWER.some((p) => lower.includes(p))) return CookieCategory.ANALYTICS;
+  if (ADVERTISING_PATTERNS_LOWER.some((p) => lower.includes(p))) return CookieCategory.ADVERTISING;
   return CookieCategory.UNKNOWN;
 }
 
@@ -67,17 +69,22 @@ export function classifyCookieCategory(
   if (trackerInfo) {
     return mapTrackerCategoryToCookieCategory(trackerInfo.detailedCategories[0] ?? "unknown");
   }
+
+  const nameCategory = mapNameToCategory(cookieName);
+
   // 2. CookieGraph: lange Lebensdauer + name pattern
-  if (isLongLivedCookie(cookie) && mapNameToCategory(cookieName) !== CookieCategory.UNKNOWN) {
-    return mapNameToCategory(cookieName);
+  if (isLongLivedCookie(cookie) && nameCategory !== CookieCategory.UNKNOWN) {
+    return nameCategory;
   }
   // 3. Name-Pattern Fallback
-  return mapNameToCategory(cookieName);
+  return nameCategory;
 }
 
 // Englehardt & Narayanan: First/Third-Party via root domain comparison
 export function extractRootDomain(hostname: string): string {
+  if (rootDomainCache.has(hostname)) return rootDomainCache.get(hostname)!;
   const parts = hostname.replace(/^\./, "").split(".");
-  if (parts.length <= 2) return parts.join(".");
-  return parts.slice(-2).join(".");
+  const result = parts.length <= 2 ? parts.join(".") : parts.slice(-2).join(".");
+  rootDomainCache.set(hostname, result);
+  return result;
 }
