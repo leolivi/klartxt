@@ -4,6 +4,11 @@ Categories are based on categories extraction file @tracker-categories-ectractio
 This file evaluates the categories from the Duck Duck Go Tracker Radar Json Files.
 */
 
+// Conficence Level of Tracking detection
+export enum TrackerConfidence {
+  CONFIRMED = "confirmed",   // DDG Radar Match + Heuristics
+  SUSPICIOUS = "suspicious", // only Heuristics
+}
 
 // Tracker Category for Users (simplyfied)
 export enum TrackerCategoryForUser {

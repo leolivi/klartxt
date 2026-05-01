@@ -80,7 +80,7 @@ export function classifyCookieCategory(
   return nameCategory;
 }
 
-// Englehardt & Narayanan: First/Third-Party via root domain comparison
+// Englehardt & Narayanan: First/Third-Party via root domain comparison (Public Suffix + 1 )
 export function extractRootDomain(hostname: string): string {
   if (rootDomainCache.has(hostname)) return rootDomainCache.get(hostname)!;
   const parts = hostname.replace(/^\./, "").split(".");

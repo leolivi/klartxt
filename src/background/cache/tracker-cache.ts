@@ -1,16 +1,20 @@
 /// <reference types="chrome" />
 
 import type { TrackerInfo } from "@/data/trackers/tracking-domains";
+import { calculateCookieRiskScore } from "@/utils/scoring/cookie-risk-score";
+import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
+import { calculateOverallRiskScore } from "@/utils/scoring/overall-risk-score";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 
 /* ---- CACHE MANAGER ---- */
 export class TrackerCache {
   private trackerDetails = new Map<number, Map<string, TrackerInfo>>();
   private cookieDetails = new Map<number, ClassifiedCookie[]>();
+  private overallRiskScore = new Map<number, number>();
   private timestamps = new Map<number, number>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
-  addTrackerDetail(tabId: number, tracker: TrackerInfo): void {
+  setTrackerDetail(tabId: number, tracker: TrackerInfo): void {
     if (!this.trackerDetails.has(tabId)) {
       this.trackerDetails.set(tabId, new Map());
     }
@@ -25,7 +29,7 @@ export class TrackerCache {
     return Array.from(this.trackerDetails.get(tabId)?.values() ?? []);
   }
 
-  addCookies(tabId: number, cookies: ClassifiedCookie[]): void {
+  setCookies(tabId: number, cookies: ClassifiedCookie[]): void {
     this.cookieDetails.set(tabId, cookies);
     this.updateTimestamp(tabId);
     this.debouncedPersist(tabId);
@@ -33,6 +37,22 @@ export class TrackerCache {
 
   getCookieDetails(tabId: number): ClassifiedCookie[] {
     return this.cookieDetails.get(tabId) ?? [];
+  }
+
+  setOverallRiskScore(tabId: number, score: number): void {
+    this.overallRiskScore.set(tabId, score);
+  }
+
+  getOverallRiskScore(tabId: number): number {
+    return this.overallRiskScore.get(tabId) ?? 0;
+  }
+
+  recalculateOverallRiskScore(tabId: number): number {
+    const trackerScore = calculateTrackerRiskPageScore(this.getTrackerDetails(tabId));
+    const cookieScore = calculateCookieRiskScore(this.getCookieDetails(tabId));
+    const score = calculateOverallRiskScore(trackerScore, cookieScore);
+    this.overallRiskScore.set(tabId, score);
+    return score;
   }
 
   getTimestamp(tabId: number): number | null {
