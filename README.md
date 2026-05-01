@@ -52,6 +52,7 @@ Your React app should now be loaded as a Chrome extension!
 - `tsconfig.json`: TypeScript configuration file.
 - `package.json`: Contains the project dependencies and scripts.
 
+// TODO: add data information (DDG Tracker radar)
 
 ## Source
 
@@ -59,6 +60,10 @@ developer.chrome.com, 2025. Chrome Extensions Manifest V3. [online] Chrome for D
 
 Duck Duck Go, Inc., 2025. duckduckgo/tracker-radar. Verfügbar unter: https://github.com/duckduckgo/tracker-radar [Zugegriffen 13 November
 2025].
+
+Englehardt, S. und Narayanan, A., 2016. Online Tracking: A 1-million-site Measurement 
+and Analysis.  In: Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communi-
+cations Security. [online] Vienna Austria: ACM. https://doi.org/10.1145/2976749.2978313.
 
 Mozilla, 2025. Browser extensions - Mozilla | MDN. [online] MDN Web Docs.
 Verfügbar unter: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/
@@ -68,4 +73,10 @@ Oh, C., 2025. 5tigerjelly/chrome-extension-react-template. Verfügbar unter:
 https://github.com/5tigerjelly/chrome-extension-react-template [Zugegriffen
 13 November 2025].
 
-<!-- TODO: add detecta as a source -->
+<!-- TODO: add cookie graph and detecta as a source -->
+- CookieGraph (Munir et al. 2023): name-based heuristics as fallback
+   - Cookie-Name Pattern
+   - Cookie-Lifetime
+
+
+

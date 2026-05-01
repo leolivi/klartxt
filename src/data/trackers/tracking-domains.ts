@@ -1,5 +1,5 @@
 import { calculateTrackerRiskScore } from "@/utils/scoring/network-risk-score";
-import {TrackerCategory, TrackerCategoryForUser} from "../../utils/types/tracking-enums";
+import {TrackerCategory, TrackerCategoryForUser, TrackerConfidence} from "../../utils/types/tracking-enums";
 
 /* -----
   Networt Request Classification
@@ -25,6 +25,7 @@ export interface TrackerInfo {
     userCategory: TrackerCategoryForUser;
     detailedCategories: TrackerCategory[];
     riskScore: number;
+    confidence: TrackerConfidence;
 }
 
 // map categories to match TrackerPurpose
@@ -121,7 +122,7 @@ function ingest(data: TrackerFile, overwrite = false): void {
         if (!overwrite && TRACKER_MAP.has(domain)) return;
 
         const categories = mapToCategories(info.c);
-        const riskScore = calculateTrackerRiskScore(categories);
+        const riskScore = calculateTrackerRiskScore(categories, TrackerConfidence.SUSPICIOUS);
 
         TRACKER_MAP.set(domain, {
             domain,
@@ -129,6 +130,7 @@ function ingest(data: TrackerFile, overwrite = false): void {
             userCategory: mapToUserCategory(categories),
             detailedCategories: categories,
             riskScore,
+            confidence: TrackerConfidence.CONFIRMED
         });
     });
 }

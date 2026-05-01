@@ -1,14 +1,22 @@
 import { NETWORK_EXCLUSIONS } from "@/data/trackers/false-positive-list";
 import { TRACKER_MAP, type TrackerInfo } from "@/data/trackers/tracking-domains";
+import { TRACKING_PARAMS, TRACKING_PATHS } from "@/data/trackers/tracking-heuristics";
+import { calculateTrackerRiskScore } from "@/utils/scoring/network-risk-score";
+import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence } from "@/utils/types/tracking-enums";
+
+export interface DetectedTracker {
+  tracker: TrackerInfo;
+  confidence: TrackerConfidence;
+}
 
 interface HandleNetworkRequests {
   details: chrome.webRequest.OnBeforeRequestDetails;
-  onTrackerDetected: (tracker: TrackerInfo) => void;
+  onTrackerDetected: (tracker: DetectedTracker) => void;
 }
 
 const registrableDomainCache = new Map<string, string>();
 
-// detect subdomains
+// detect subdomains (DDG)
 function extractRegistrableDomain(hostname: string): string {
   if (registrableDomainCache.has(hostname)) {
     return registrableDomainCache.get(hostname)!;
@@ -17,6 +25,33 @@ function extractRegistrableDomain(hostname: string): string {
   const result = parts.length <= 2 ? hostname : parts.slice(-2).join(".");
   registrableDomainCache.set(hostname, result);
   return result;
+}
+
+// detect tracking params in query string (heuristics)
+function hasTrackingParams(url: URL): boolean {
+  for (const param of url.searchParams.keys()) {
+    if (TRACKING_PARAMS.has(param)) return true;
+  }
+  return false;
+}
+
+// detect pixel request paths (heuristics)
+function hasTrackingPath(url: URL): boolean {
+  const path = url.pathname.toLowerCase();
+  return TRACKING_PATHS.some((p) => path.includes(p));
+}
+
+
+function buildSuspiciousTracker(domain: string): TrackerInfo {
+  const categories = [TrackerCategory.UNKNOWN];
+  return {
+    domain,
+    owner: null,
+    userCategory: TrackerCategoryForUser.TRACKING,
+    detailedCategories: categories,
+    riskScore: calculateTrackerRiskScore(categories, TrackerConfidence.CONFIRMED),
+    confidence: TrackerConfidence.SUSPICIOUS,
+  };
 }
 
 // function to handle network request tracking
@@ -38,10 +73,28 @@ export function handleNetworkRequests({
 
   const registrable = extractRegistrableDomain(domain);
 
-  const tracker = TRACKER_MAP.get(domain) ?? 
-  (domain !== registrable ? TRACKER_MAP.get(registrable) : undefined);
-  if (!tracker) return;
+  // DDG Radar lookup
+  const radarMatch = TRACKER_MAP.get(domain) ?? (domain !== registrable ? TRACKER_MAP.get(registrable) : undefined);
 
-  // increment in memory counter of trackers
-  onTrackerDetected(tracker);
+  // heuristics
+  const heuristicMatch =
+    hasTrackingParams(url) ||
+    hasTrackingPath(url)
+
+  // conficence logic
+  if (radarMatch) { // includes heuristicMatch and radarMatch
+    // increment in memory counter of trackers
+    return onTrackerDetected({
+      tracker: radarMatch,
+      confidence: TrackerConfidence.CONFIRMED,
+    });
+  }
+
+  if (!heuristicMatch) return;
+
+  //if no radar match only heuristics define as suspicious
+  onTrackerDetected({
+    tracker: buildSuspiciousTracker(domain),
+    confidence: TrackerConfidence.SUSPICIOUS,
+  });
 }

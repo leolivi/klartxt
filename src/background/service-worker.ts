@@ -2,9 +2,7 @@
 
 import { initTrackerData } from "@/data/trackers/tracking-domains";
 import { handleNetworkRequests } from "./handlers/handle-network-requets";
-import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
 import { handleCookies } from "./handlers/handle-cookies";
-import { calculateCookieRiskScore } from "@/utils/scoring/cookie-risk-score";
 import { TrackerCache } from "./cache/tracker-cache";
 
 initTrackerData();
@@ -20,6 +18,8 @@ function notifySidePanel(tabId: number): void {
     tabId,
     trackerCount: trackers.length,
     cookieCount: cookies.length,
+    isPartialData: trackers.length === 0,
+    riskScore: cache.getOverallRiskScore(tabId),
   }).catch((error) => {
     console.debug("Could not send message to tab", tabId, error);
   });
@@ -46,8 +46,8 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
     await handleCookies({
       tabUrl: tab.url,
       onCookiesDetected: (cookies) => {
-        cache.addCookies(tabId, cookies);
-        const riskScore = calculateCookieRiskScore(cookies);
+        cache.setCookies(tabId, cookies);
+        const riskScore = cache.recalculateOverallRiskScore(tabId);
         notifySidePanel(tabId);
         // TODO: remove later
         console.log(`Cookies (${cookies.length} total):`, cookies, `Risk: ${riskScore}`);
@@ -67,14 +67,20 @@ chrome.webRequest.onBeforeRequest.addListener(
 
     handleNetworkRequests({
       details,
-      onTrackerDetected: (tracker) => {
-        cache.addTrackerDetail(tabId, tracker);
-        const details = cache.getTrackerDetails(tabId);
-        const trackerRiskPageScore = calculateTrackerRiskPageScore(details);
+      onTrackerDetected: (result) => {
+        cache.setTrackerDetail(tabId, result.tracker);
+        const trackers = cache.getTrackerDetails(tabId);
+        const riskScore = cache.recalculateOverallRiskScore(tabId);
         notifySidePanel(tabId);
         // TODO: remove later
-        const elapsed = performance.now() - start;
-        console.log(`Tracker (${details.length} total):`, details, `${elapsed.toFixed(3)}ms`, trackerRiskPageScore);
+         const elapsed = performance.now() - start;
+          console.log(
+            `Tracker (${trackers.length} total):`,
+            trackers,
+            `${elapsed.toFixed(3)}ms`,
+            `Risk: ${riskScore}`,
+            result.confidence,
+          );
       },
     });
     return undefined;
@@ -101,7 +107,8 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
           await handleCookies({
             tabUrl: tab.url,
             onCookiesDetected: (cookies) => {
-              cache.addCookies(message.tabId, cookies);
+              cache.setCookies(message.tabId, cookies);
+              cache.recalculateOverallRiskScore(message.tabId);
             },
           });
         }
@@ -109,11 +116,13 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
       const trackers = cache.getTrackerDetails(message.tabId);
       const cookies = cache.getCookieDetails(message.tabId);
+      const riskScore = cache.getOverallRiskScore(message.tabId)
 
       sendResponse({
         trackerCount: trackers.length,
         cookieCount: cookies.length,
         isPartialData: trackers.length === 0, // SW has been restarted
+        riskScore: riskScore
       });
     })();
     return true;
