@@ -4,6 +4,7 @@ import { initTrackerData } from "@/data/trackers/tracking-domains";
 import { handleNetworkRequests } from "./handlers/handle-network-requets";
 import { handleCookies } from "./handlers/handle-cookies";
 import { TrackerCache } from "./cache/tracker-cache";
+import { handleDsgvo } from "./handlers/handle-dsgvo";
 
 initTrackerData();
 
@@ -127,6 +128,29 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     })();
     return true;
   }
+
+
+  if (message.type === "DSGVO_CHECKS_RESULT" && _sender.tab?.id != null) {
+  (async () => {
+    const tabId = _sender.tab!.id!;
+    const tab = await chrome.tabs.get(tabId);
+
+    handleDsgvo({
+      contentResult: message.result,
+      trackers: cache.getTrackerDetails(tabId),
+      cookieCount: cache.getCookieDetails(tabId).length,
+      tabUrl: tab.url ?? "",
+      onDsgvoChecked: (result) => {
+        cache.setDsgvoResult(tabId, result);
+        // TODO: remove later
+        console.log(`DSGVO Checks:`, result);
+        notifySidePanel(tabId);
+      },
+      // TODO: remove later
+    });
+  })();
+  return true;
+}
 
   if (message.type === "RESET_CACHE" && message.tabId != null) {
     cache.clear(message.tabId);

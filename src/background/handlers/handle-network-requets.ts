@@ -1,13 +1,8 @@
 import { NETWORK_EXCLUSIONS } from "@/data/trackers/false-positive-list";
-import { TRACKER_MAP, type TrackerInfo } from "@/data/trackers/tracking-domains";
+import { TRACKER_MAP } from "@/data/trackers/tracking-domains";
 import { TRACKING_PARAMS, TRACKING_PATHS } from "@/data/trackers/tracking-heuristics";
 import { calculateTrackerRiskScore } from "@/utils/scoring/network-risk-score";
-import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence } from "@/utils/types/tracking-enums";
-
-export interface DetectedTracker {
-  tracker: TrackerInfo;
-  confidence: TrackerConfidence;
-}
+import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type DetectedTracker, type TrackerInfo } from "@/utils/types/tracking-enums";
 
 interface HandleNetworkRequests {
   details: chrome.webRequest.OnBeforeRequestDetails;

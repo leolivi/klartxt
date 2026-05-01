@@ -1,5 +1,5 @@
 import { calculateTrackerRiskScore } from "@/utils/scoring/network-risk-score";
-import {TrackerCategory, TrackerCategoryForUser, TrackerConfidence} from "../../utils/types/tracking-enums";
+import {TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type TrackerInfo} from "../../utils/types/tracking-enums";
 
 /* -----
   Networt Request Classification
@@ -17,15 +17,6 @@ interface CompressedTracker {
 
 interface TrackerFile {
     trackers: Record<string, CompressedTracker>;
-}
-
-export interface TrackerInfo {
-    domain: string;
-    owner: string | null;
-    userCategory: TrackerCategoryForUser;
-    detailedCategories: TrackerCategory[];
-    riskScore: number;
-    confidence: TrackerConfidence;
 }
 
 // map categories to match TrackerPurpose
