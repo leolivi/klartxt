@@ -1,9 +1,14 @@
-// TODO: finalize with dsgvo check
 export function calculateOverallRiskScore(
   trackerPageScore: number,
   cookieRiskScore: number,
+  dsgvoRiskScore: number,
 ): number {
-  const score = trackerPageScore * 0.6 + cookieRiskScore * 0.4;
+  /* 
+  Tracker haben direkten Datentransfer
+  Cookies sind persistent aber weniger direkt
+  DSGVO-Checks sind binaer und deshalb weniger granular
+  */
+  const score = trackerPageScore * 0.5 + cookieRiskScore * 0.3 + dsgvoRiskScore  * 0.2;
   const normalized = Math.min(Math.round(score), 100);
   
   // recalculate from 1-100 to 1-5

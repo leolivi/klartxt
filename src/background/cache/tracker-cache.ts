@@ -1,15 +1,18 @@
 /// <reference types="chrome" />
 
-import type { TrackerInfo } from "@/data/trackers/tracking-domains";
 import { calculateCookieRiskScore } from "@/utils/scoring/cookie-risk-score";
+import { calculateDsgvoRiskScore } from "@/utils/scoring/dsgvo-risk-score";
 import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
 import { calculateOverallRiskScore } from "@/utils/scoring/overall-risk-score";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
+import type { DsgvoResult } from "@/utils/types/dsgvo-types";
+import type { TrackerInfo } from "@/utils/types/tracking-enums";
 
 /* ---- CACHE MANAGER ---- */
 export class TrackerCache {
   private trackerDetails = new Map<number, Map<string, TrackerInfo>>();
   private cookieDetails = new Map<number, ClassifiedCookie[]>();
+  private dsgvoResults = new Map<number, DsgvoResult>();
   private overallRiskScore = new Map<number, number>();
   private timestamps = new Map<number, number>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
@@ -39,6 +42,15 @@ export class TrackerCache {
     return this.cookieDetails.get(tabId) ?? [];
   }
 
+  setDsgvoResult(tabId: number, result: DsgvoResult): void {
+    this.dsgvoResults.set(tabId, result);
+    this.debouncedPersist(tabId);
+  }
+
+  getDsgvoResult(tabId: number): DsgvoResult | null {
+    return this.dsgvoResults.get(tabId) ?? null;
+  }
+
   setOverallRiskScore(tabId: number, score: number): void {
     this.overallRiskScore.set(tabId, score);
   }
@@ -50,11 +62,11 @@ export class TrackerCache {
   recalculateOverallRiskScore(tabId: number): number {
     const trackerScore = calculateTrackerRiskPageScore(this.getTrackerDetails(tabId));
     const cookieScore = calculateCookieRiskScore(this.getCookieDetails(tabId));
-    const score = calculateOverallRiskScore(trackerScore, cookieScore);
+    const dsgvoScore = calculateDsgvoRiskScore(this.getDsgvoResult(tabId));
+    const score = calculateOverallRiskScore(trackerScore, cookieScore, dsgvoScore);
     this.overallRiskScore.set(tabId, score);
     return score;
   }
-
   getTimestamp(tabId: number): number | null {
     return this.timestamps.get(tabId) ?? null;
   }
@@ -71,6 +83,7 @@ export class TrackerCache {
         this.trackerDetails.get(tabId)?.values() ?? []
       ),
       [`cookieDetails_${tabId}`]: this.cookieDetails.get(tabId) ?? [],
+      [`dsgvoResults${tabId}`]: this.dsgvoResults.get(tabId) ?? [],
     };
     await chrome.storage.session.set(data);
   }
@@ -89,6 +102,7 @@ export class TrackerCache {
     const result = await chrome.storage.session.get([
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
+      `dsgvoResults_${tabId}`,
       `timestamp_${tabId}`,
     ]);
 
@@ -104,6 +118,11 @@ export class TrackerCache {
       this.cookieDetails.set(tabId, cookies as ClassifiedCookie[]);
     }
 
+    const dsgvoResults = result[`dsgvoResults_${tabId}`];
+    if (Array.isArray(dsgvoResults)) {
+      this.dsgvoResults.set(tabId, result as DsgvoResult);
+    }
+
     const ts = result[`timestamp_${tabId}`];
     if (typeof ts === "number") {
       this.timestamps.set(tabId, ts);
@@ -113,6 +132,7 @@ export class TrackerCache {
   reset(tabId: number): void {
     this.trackerDetails.delete(tabId);
     this.cookieDetails.delete(tabId);
+    this.dsgvoResults.delete(tabId);
     this.timestamps.delete(tabId);
   }
 
@@ -121,6 +141,7 @@ export class TrackerCache {
     chrome.storage.session.remove([
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
+      `dsgvoResults_${tabId}`,
       `timestamp_${tabId}`,
     ]);
   }

@@ -10,6 +10,20 @@ export enum TrackerConfidence {
   SUSPICIOUS = "suspicious", // only Heuristics
 }
 
+export interface TrackerInfo {
+    domain: string;
+    owner: string | null;
+    userCategory: TrackerCategoryForUser;
+    detailedCategories: TrackerCategory[];
+    riskScore: number;
+    confidence: TrackerConfidence;
+}
+
+export interface DetectedTracker {
+  tracker: TrackerInfo;
+  confidence: TrackerConfidence;
+}
+
 // Tracker Category for Users (simplyfied)
 export enum TrackerCategoryForUser {
   TRACKING = "tracking",
