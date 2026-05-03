@@ -1,0 +1,23 @@
+import { type DsgvoResult, type ContentScriptDsgvoResult, type ConsentTimingResult } from "@/utils/types/dsgvo-types";
+import { evaluateArt25, evaluateArt7, evaluateArt13_14 } from "@/data/dsgvo/evaluate";
+import type { TrackerInfo } from "@/utils/types/tracking-enums";
+
+interface HandleDsgvoParams {
+    contentResult: ContentScriptDsgvoResult;
+    trackers: TrackerInfo[];
+    cookieCount: number;
+    consentTiming: ConsentTimingResult | null;
+    tabUrl: string;
+    onDsgvoChecked: (result: DsgvoResult) => void;
+}
+
+export function handleDsgvo({ contentResult, trackers, cookieCount, consentTiming, tabUrl, onDsgvoChecked }: HandleDsgvoParams): void {
+    const result: DsgvoResult = {
+        art7: evaluateArt7(contentResult.art7, trackers, cookieCount, consentTiming),
+        art13_14: evaluateArt13_14(contentResult.art13_14.found, contentResult.art13_14.searchedLocations),
+        art25: evaluateArt25(tabUrl.startsWith("https://"), trackers),
+        checkedAt: Date.now(),
+    };
+
+    onDsgvoChecked(result);
+}
