@@ -27,6 +27,15 @@ function notifySidePanel(tabId: number): void {
   });
 }
 
+/* ---- UI UPDATE HANDLER ---- */
+function handleUIUpdate(tabId: number): void {
+  updateTabBadge(tabId);
+  notifySidePanel(tabId);
+}
+
+// Set the UI update callback once
+cache.setUIUpdateCallback(handleUIUpdate);
+
 /* ---- SIDE PANEL ---- */
 chrome.sidePanel
   .setPanelBehavior({openPanelOnActionClick: true})
@@ -50,11 +59,9 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
       tabUrl: tab.url,
       onCookiesDetected: (cookies) => {
         cache.setCookies(tabId, cookies);
-        const riskScore = cache.recalculateOverallRiskScore(tabId);
-        updateTabBadge(tabId);
-        notifySidePanel(tabId);
+        cache.scheduleUIUpdate(tabId);
         // TODO: remove later
-        console.log(`Cookies (${cookies.length} total):`, cookies, `Risk: ${riskScore}`);
+        console.log(`Cookies (${cookies.length} total):`, cookies, `Risk: ${cache.getOverallRiskScore(tabId)}`);
       },
     });
   }
@@ -73,19 +80,17 @@ chrome.webRequest.onBeforeRequest.addListener(
       details,
       onTrackerDetected: (result) => {
         cache.setTrackerDetail(tabId, result.tracker);
-        const trackers = cache.getTrackerDetails(tabId);
-        const riskScore = cache.recalculateOverallRiskScore(tabId);
-        updateTabBadge(tabId);
-        notifySidePanel(tabId);
+        cache.scheduleUIUpdate(tabId);
         // TODO: remove later
-         const elapsed = performance.now() - start;
-          console.log(
-            `Tracker (${trackers.length} total):`,
-            trackers,
-            `${elapsed.toFixed(3)}ms`,
-            `Risk: ${riskScore}`,
-            result.confidence,
-          );
+        const elapsed = performance.now() - start;
+        const trackers = cache.getTrackerDetails(tabId);
+        console.log(
+          `Tracker (${trackers.length} total):`,
+          trackers,
+          `${elapsed.toFixed(3)}ms`,
+          `Risk: ${cache.getOverallRiskScore(tabId)}`,
+          result.confidence,
+        );
       },
     });
     return undefined;
@@ -155,8 +160,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
             tabUrl: tab.url,
             onCookiesDetected: (cookies) => {
               cache.setCookies(message.tabId, cookies);
-              cache.recalculateOverallRiskScore(message.tabId);
-              updateTabBadge(message.tabId);
+              cache.scheduleUIUpdate(message.tabId);
             },
           });
         }
@@ -190,11 +194,9 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         tabUrl: tab.url ?? "",
         onDsgvoChecked: (result) => {
           cache.setDsgvoResult(tabId, result);
-          cache.recalculateOverallRiskScore(tabId);
-          updateTabBadge(tabId);
+          cache.scheduleUIUpdate(tabId);
           // TODO: remove later
           console.log(`DSGVO Checks:`, result);
-          notifySidePanel(tabId);
         },
       });
     })();
@@ -217,9 +219,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         tabUrl: tab.url,
         onCookiesDetected: (cookies) => {
           cache.setCookies(tabId, cookies);
-          cache.recalculateOverallRiskScore(tabId);
-          updateTabBadge(tabId);
-          notifySidePanel(tabId);
+          cache.scheduleUIUpdate(tabId);
           console.log(`Cookies after consent (${cookies.length} total):`, cookies);
         },
       });

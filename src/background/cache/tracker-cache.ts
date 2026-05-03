@@ -17,6 +17,8 @@ export class TrackerCache {
   private timestamps = new Map<number, number>();
   private consentTiming = new Map<number, ConsentTimingResult>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
+  private uiUpdateDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
+  private uiUpdateCallback: ((tabId: number) => void) | null = null;
 
   setTrackerDetail(tabId: number, tracker: TrackerInfo): void {
     if (!this.trackerDetails.has(tabId)) {
@@ -71,19 +73,21 @@ export class TrackerCache {
 
   setConsentTimingBannerShown(tabId: number): void {
     const existing = this.consentTiming.get(tabId);
-    if (existing?.bannerShownAt != null) return; 
+    if (existing?.bannerShownAt != null) return;
     this.consentTiming.set(tabId, {
       bannerShownAt: Date.now(),
       interactedAt: null,
       cookiesSetBeforeConsent: [],
       cookiesSetAfterConsent: [],
     });
+    this.debouncedPersist(tabId);
   }
 
   async setConsentTimingInteracted(tabId: number, onInteracted: () => Promise<void>): Promise<void> {
     const existing = this.consentTiming.get(tabId);
     if (existing == null) return;
     this.consentTiming.set(tabId, { ...existing, interactedAt: Date.now() });
+    this.debouncedPersist(tabId);
     await onInteracted();
   }
 
@@ -92,7 +96,7 @@ export class TrackerCache {
     if (existing == null) return;
 
     const isAfterConsent = existing.interactedAt != null;
-     if (isAfterConsent && !violation.domain.includes(tabDomain)) return;
+    if (isAfterConsent && !violation.domain.includes(tabDomain)) return;
 
     const list = existing.interactedAt == null
       ? existing.cookiesSetBeforeConsent
@@ -104,6 +108,7 @@ export class TrackerCache {
     if (alreadyTracked) return;
 
     list.push(violation);
+    this.debouncedPersist(tabId);
   }
 
   getConsentTiming(tabId: number): ConsentTimingResult | null {
@@ -125,7 +130,7 @@ export class TrackerCache {
       [`trackerDetails_${tabId}`]: Array.from(this.trackerDetails.get(tabId)?.values() ?? []),
       [`cookieDetails_${tabId}`]: this.cookieDetails.get(tabId) ?? [],
       [`dsgvoResult_${tabId}`]: this.dsgvoResults.get(tabId) ?? null,
-      [`overallRiskScore_${tabId}`]: this.overallRiskScore.get(tabId) ?? 0,
+      [`consentTiming_${tabId}`]: this.consentTiming.get(tabId) ?? null,
     };
     await chrome.storage.session.set(data);
   }
@@ -140,12 +145,27 @@ export class TrackerCache {
     this.persistDebounceTimers.set(tabId, timer);
   }
 
+  setUIUpdateCallback(callback: (tabId: number) => void): void {
+    this.uiUpdateCallback = callback;
+  }
+
+  scheduleUIUpdate(tabId: number): void {
+    const existing = this.uiUpdateDebounceTimers.get(tabId);
+    if (existing) clearTimeout(existing);
+    const timer = setTimeout(() => {
+      this.recalculateOverallRiskScore(tabId);
+      this.uiUpdateCallback?.(tabId);
+      this.uiUpdateDebounceTimers.delete(tabId);
+    }, 300);
+    this.uiUpdateDebounceTimers.set(tabId, timer);
+  }
+
   async restoreFromStorage(tabId: number): Promise<void> {
     const result = await chrome.storage.session.get([
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
       `dsgvoResults_${tabId}`,
-      `overallRiskScore_${tabId}`,
+      `consentTiming_${tabId}`,
       `timestamp_${tabId}`
     ]);
 
@@ -166,14 +186,19 @@ export class TrackerCache {
       this.dsgvoResults.set(tabId, dsgvoResult as DsgvoResult);
     }
 
-    const riskScore = result[`overallRiskScore_${tabId}`];
-    if (typeof riskScore === "number") {
-      this.overallRiskScore.set(tabId, riskScore);
+    const consentTiming = result[`consentTiming_${tabId}`];
+    if (consentTiming != null && typeof consentTiming === "object" && !Array.isArray(consentTiming)) {
+      this.consentTiming.set(tabId, consentTiming as ConsentTimingResult);
     }
 
     const ts = result[`timestamp_${tabId}`];
     if (typeof ts === "number") {
       this.timestamps.set(tabId, ts);
+    }
+
+    // Recalculate risk score from restored data (not persisted)
+    if (this.trackerDetails.has(tabId) || this.cookieDetails.has(tabId) || this.dsgvoResults.has(tabId)) {
+      this.recalculateOverallRiskScore(tabId);
     }
   }
 
@@ -182,6 +207,7 @@ export class TrackerCache {
     this.cookieDetails.delete(tabId);
     this.dsgvoResults.delete(tabId);
     this.consentTiming.delete(tabId);
+    this.overallRiskScore.delete(tabId);
     this.timestamps.delete(tabId);
   }
 
@@ -191,6 +217,7 @@ export class TrackerCache {
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
       `dsgvoResults_${tabId}`,
+      `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
     ]);
   }

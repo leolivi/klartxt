@@ -39,19 +39,19 @@ export const ART7_TEMPLATES: CheckTemplates = {
 export const ART13_14_TEMPLATES: CheckTemplates = {
   base: {
     article: Articles.ART1314,
-    title: "Datenschutzerklaerung vorhanden (Art. 13/14)",
+    title: "Datenschutzerklärung vorhanden (Art. 13/14)",
   },
   [CheckSeverity.FINE]: {
-    explanation: "Es wurde ein Link zur Datenschutzerklaerung gefunden. Die Webseite erfuellt die Informationspflicht nach Art. 13/14 DSGVO.",
-    recommendation: "Keine Massnahmen erforderlich. Die Datenschutzerklaerung ist zugänglich.",
+    explanation: "Es wurde ein Link zur Datenschutzerklärung gefunden. Die Webseite erfällt die Informationspflicht nach Art. 13/14 DSGVO.",
+    recommendation: "Keine Massnahmen erforderlich. Die Datenschutzerklärung ist zugänglich.",
   },
   [CheckSeverity.SUSPICIOUS]: {
-    explanation: "Es wurde ein möglicher Link zur Datenschutzerklaerung gefunden, aber die Platzierung oder Beschriftung ist unklar.",
-    recommendation: "Prüfe manuell, ob der gefundene Link tatsächlich zur Datenschutzerklaerung führt.",
+    explanation: "Es wurde ein möglicher Link zur Datenschutzerklärung gefunden, aber die Platzierung oder Beschriftung ist unklar.",
+    recommendation: "Prüfe manuell, ob der gefundene Link tatsächlich zur Datenschutzerklärung führt.",
   },
   [CheckSeverity.CONFIRMED]: {
-    explanation: "Es wurde kein Link zur Datenschutzerklaerung gefunden. Nach Art. 13/14 DSGVO sind Webseitenbetreiber verpflichtet, Nutzer über die Verarbeitung ihrer Daten zu informieren.",
-    recommendation: "Kritisch: Füge einen deutlich sichtbaren Link zur Datenschutzerklaerung hinzu, idealerweise im Footer oder in der Navigation.",
+    explanation: "Es wurde kein Link zur Datenschutzerklärung gefunden. Nach Art. 13/14 DSGVO sind Webseitenbetreiber verpflichtet, Nutzer über die Verarbeitung ihrer Daten zu informieren.",
+    recommendation: "Kritisch: Füge einen deutlich sichtbaren Link zur Datenschutzerklärung hinzu, idealerweise im Footer oder in der Navigation.",
   },
 };
 
