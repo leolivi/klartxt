@@ -65,8 +65,8 @@ export const ART25_TEMPLATES: CheckTemplates = {
     recommendation: "Keine Massnahmen erforderlich. Die Webseite implementiert angemessene technische Schutzmassnahmen.",
   },
   [CheckSeverity.SUSPICIOUS]: {
-    explanation: "Die Webseite verwendet HTTPS, aber es wurden Tracker erkannt, die möglicherweise problematisch sein könnten.",
-    recommendation: "Prüfe die eingesetzten Tracking-Tools und stelle sicher, dass für alle eine Einwilligung eingeholt wird.",
+    explanation: "Die Webseite verwendet HTTPS, aber es wurden Tracker oder Fingerprinting-Techniken erkannt, die möglicherweise problematisch sein könnten. Browser-Fingerprinting erlaubt die Wiedererkennung von Nutzern ohne Cookies und unterläuft das Prinzip der Datensparsamkeit nach Art. 25 DSGVO.",
+    recommendation: "Prüfe die eingesetzten Tracking- und Fingerprinting-Tools und stelle sicher, dass für alle eine Einwilligung eingeholt wird. Überprüfe insbesondere Canvas- und Audio-Fingerprinting-Skripte.",
   },
   [CheckSeverity.CONFIRMED]: {
     explanation: "Es wurden High-Risk Tracker erkannt oder die Verbindung ist nicht verschlüsselt (HTTP statt HTTPS). Dies verstösst gegen das Prinzip der Datensparsamkeit und Privacy by Design nach Art. 25 DSGVO.",

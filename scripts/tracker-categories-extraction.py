@@ -1,3 +1,12 @@
+# Tracker Category Analysis
+# ==========================
+# Sources:
+#   - DuckDuckGo Tracker Radar (https://github.com/duckduckgo/tracker-radar)
+#     -> https://spreadprivacy.com/duckduckgo-tracker-radar/
+#
+# Purpose: research/visualisation tool for inspecting category distribution
+
+
 import os
 import json
 from collections import defaultdict
@@ -6,51 +15,42 @@ import matplotlib.pyplot as plt
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def load_json(filename):
+def load_json(filename: str) -> dict:
     path = os.path.join(BASE_DIR, filename)
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def extract_categories(data_list):
-    categories = defaultdict(int)
-
+def extract_categories(data_list: list[dict]) -> dict[str, int]:
+    categories: dict[str, int] = defaultdict(int)
     for data in data_list:
-        trackers = data.get("trackers", {})
-
-        for info in trackers.values():
+        for info in data.get("trackers", {}).values():
             for c in info.get("c", []):
                 categories[c] += 1
-
     return categories
 
 
-def plot_categories(categories):
-    # sortieren (wichtig!)
+def plot_categories(categories: dict[str, int]) -> None:
     sorted_data = sorted(categories.items(), key=lambda x: x[1], reverse=True)
-
     names = [x[0] for x in sorted_data[:15]]
     values = [x[1] for x in sorted_data[:15]]
-
     plt.figure()
     plt.barh(names, values)
-
     plt.xlabel("Anzahl")
-    plt.title("Top Tracker-Kategorien")
-
+    plt.title("Top Tracker-Kategorien (DDG Tracker Radar)")
     plt.tight_layout()
     plt.show()
 
 
-def main():
-    data1 = load_json("../src/data/trackers/tracker-core.json")
-    data2 = load_json("../src/data/trackers/tracker-extended.json")
+def main() -> None:
+    core = load_json("../src/data/trackers/tracker-core.json")
+    extended = load_json("../src/data/trackers/tracker-extended.json")
 
-    categories = extract_categories([data1, data2])
+    categories = extract_categories([core, extended])
 
     print("Gefundene Kategorien:\n")
     for cat, count in sorted(categories.items(), key=lambda x: x[1], reverse=True):
-        print(f"{cat}: {count}")
+        print(f"  {cat}: {count}")
 
     plot_categories(categories)
 

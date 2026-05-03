@@ -15,7 +15,7 @@ export function handleDsgvo({ contentResult, trackers, cookieCount, consentTimin
     const result: DsgvoResult = {
         art7: evaluateArt7(contentResult.art7, trackers, cookieCount, consentTiming),
         art13_14: evaluateArt13_14(contentResult.art13_14.found, contentResult.art13_14.searchedLocations),
-        art25: evaluateArt25(tabUrl.startsWith("https://"), trackers),
+        art25: evaluateArt25(tabUrl.startsWith("https://"), trackers, contentResult.art25.fingerprintingDetected),
         checkedAt: Date.now(),
     };
 

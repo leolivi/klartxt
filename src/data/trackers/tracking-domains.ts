@@ -121,7 +121,8 @@ function ingest(data: TrackerFile, overwrite = false): void {
             userCategory: mapToUserCategory(categories),
             detailedCategories: categories,
             riskScore,
-            confidence: TrackerConfidence.CONFIRMED
+            confidence: TrackerConfidence.CONFIRMED,
+            fingerprintingScore: info.f ?? 0,
         });
     });
 }

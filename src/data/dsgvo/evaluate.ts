@@ -128,9 +128,14 @@ export function evaluateArt13_14(
 
 export function evaluateArt25(
   isHttps: boolean,
-  trackers: TrackerInfo[]
+  trackers: TrackerInfo[],
+  domFingerprintingDetected: boolean
 ): Art25Check {
   const highRisk = highRiskTrackers(trackers);
+  // Network-level fingerprinting: any confirmed tracker with DDG score >= 2
+  const networkFingerprintingTrackers = confirmedTrackers(trackers).filter(t => t.fingerprintingScore >= 2);
+  const fingerprintingDetected = domFingerprintingDetected || networkFingerprintingTrackers.length > 0;
+
   const evidence: string[] = [];
   let severity: CheckSeverity;
   let passed: boolean;
@@ -146,15 +151,26 @@ export function evaluateArt25(
     highRisk.forEach(tracker => {
       evidence.push(`- ${tracker.domain} (Risk Score: ${tracker.riskScore})`);
     });
-  } else if (confirmedTrackers(trackers).length > 0) {
+  } else if (confirmedTrackers(trackers).length > 0 || fingerprintingDetected) {
     severity = CheckSeverity.SUSPICIOUS;
     passed = true; // not a violation, but worth noting
-    evidence.push(`${confirmedTrackers(trackers).length} Tracker erkannt (kein High-Risk)`);
+    if (confirmedTrackers(trackers).length > 0) {
+      evidence.push(`${confirmedTrackers(trackers).length} Tracker erkannt (kein High-Risk)`);
+    }
+    if (networkFingerprintingTrackers.length > 0) {
+      evidence.push(`${networkFingerprintingTrackers.length} Fingerprinting-Domain(s) erkannt (DDG f≥2)`);
+      networkFingerprintingTrackers.forEach(t => {
+        evidence.push(`- ${t.domain} (DDG Fingerprinting-Score: ${t.fingerprintingScore})`);
+      });
+    }
+    if (domFingerprintingDetected) {
+      evidence.push("DOM-seitiges Fingerprinting erkannt (Canvas oder bekannte Script-Domain)");
+    }
   } else {
     severity = CheckSeverity.FINE;
     passed = true;
     evidence.push("HTTPS aktiv");
-    evidence.push("Keine High-Risk Tracker erkannt");
+    evidence.push("Keine High-Risk Tracker oder Fingerprinting erkannt");
   }
 
   const template = ART25_TEMPLATES[severity];
@@ -168,5 +184,6 @@ export function evaluateArt25(
     highRiskTrackerCount: highRisk.length,
     isHttps,
     highRiskTrackers: highRisk.map(t => t.domain),
+    fingerprintingDetected,
   };
 }
