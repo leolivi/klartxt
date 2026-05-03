@@ -1,14 +1,21 @@
-import type { DsgvoResult } from "../types/dsgvo-types";
+import { CheckSeverity, type DsgvoResult } from "../types/dsgvo-types";
 
-// the more checks faile, the higher the score
+// weight checks by severity: FINE = 0, SUSPICIOUS = 33, CONFIRMED = 100
+// average of all three checks determines overall risk score
 export function calculateDsgvoRiskScore(result: DsgvoResult | null): number {
-if (!result) return 0;
-  const failed = [
-    result.art7,
-    result.art13_14,
-    result.art25,
-  ].filter((check) => !check.passed).length;
+  if (!result) return 0;
 
-  // 0 failed = 0, 1 failed = 33, 2 failed = 66, 3 failed = 100
-  return Math.round((failed / 3) * 100);
+  const severityWeights: Record<CheckSeverity, number> = {
+    [CheckSeverity.FINE]: 0,
+    [CheckSeverity.SUSPICIOUS]: 33,
+    [CheckSeverity.CONFIRMED]: 100,
+  };
+
+  const scores = [
+    severityWeights[result.art7.severity],
+    severityWeights[result.art13_14.severity],
+    severityWeights[result.art25.severity],
+  ];
+
+  return Math.round(scores.reduce((sum, score) => sum + score, 0) / 3);
 }

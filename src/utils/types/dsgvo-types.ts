@@ -1,4 +1,4 @@
-// DSGVO Category 
+// DSGVO Category
 
 export enum Articles {
     ART7 = "Art. 7",
@@ -8,23 +8,47 @@ export enum Articles {
 
 export type DsgvoKey = "art7" | "art13_14" | "art25";
 
+export enum CheckSeverity {
+  FINE = "fine",
+  SUSPICIOUS = "suspicious",
+  CONFIRMED = "confirmed"
+}
+
 export interface DsgvoCheck {
   passed: boolean;
+  severity: CheckSeverity;
   article: Articles;
   title: string;
   explanation: string;
   recommendation: string;
+  evidence: string[];
 }
 
 export type Art7ContentResult = {
   bannerVisible: boolean;
 };
 
-export type DsgvoResult = Record<DsgvoKey, DsgvoCheck> & {
-  checkedAt: number;
-  highRiskTrackerCount: number;
+export interface Art7Check extends DsgvoCheck {
   consentViolations: CookieViolation[];
   cookiesAfterConsent: CookieViolation[];
+}
+
+export interface Art13_14Check extends DsgvoCheck {
+  privacyPolicyFound: boolean;
+  searchedLocations: string[];
+}
+
+export interface Art25Check extends DsgvoCheck {
+  highRiskTrackerCount: number;
+  isHttps: boolean;
+  highRiskTrackers: string[];
+}
+
+export type DsgvoResult = {
+  art7: Art7Check;
+  art13_14: Art13_14Check;
+  art25: Art25Check;
+  checkedAt: number;
 };
 
 export interface ContentScriptDsgvoResult {
@@ -32,7 +56,10 @@ export interface ContentScriptDsgvoResult {
     bannerVisible: boolean;
     cookieCount: number;
   };
-  art13_14: boolean;
+  art13_14: {
+    found: boolean;
+    searchedLocations: string[];
+  };
   art25: boolean;
 }
 

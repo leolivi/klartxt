@@ -5,10 +5,11 @@ import { handleNetworkRequests } from "./handlers/handle-network-requets";
 import { handleCookies } from "./handlers/handle-cookies";
 import { TrackerCache } from "./cache/tracker-cache";
 import { handleDsgvo } from "./handlers/handle-dsgvo";
+import { updateTabBadge } from "./handlers/update-badge";
 
 initTrackerData();
 
-const cache = new TrackerCache();
+export const cache = new TrackerCache();
 
 /* ---- NOTIFY SIDE PANEL ---- */
 function notifySidePanel(tabId: number): void {
@@ -36,6 +37,7 @@ chrome.sidePanel
 chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
   if (changeInfo.status === "loading" && changeInfo.url) {
     cache.reset(tabId);
+    updateTabBadge(tabId);
   }
 
   if (changeInfo.status !== "complete") return;
@@ -49,6 +51,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
       onCookiesDetected: (cookies) => {
         cache.setCookies(tabId, cookies);
         const riskScore = cache.recalculateOverallRiskScore(tabId);
+        updateTabBadge(tabId);
         notifySidePanel(tabId);
         // TODO: remove later
         console.log(`Cookies (${cookies.length} total):`, cookies, `Risk: ${riskScore}`);
@@ -72,6 +75,7 @@ chrome.webRequest.onBeforeRequest.addListener(
         cache.setTrackerDetail(tabId, result.tracker);
         const trackers = cache.getTrackerDetails(tabId);
         const riskScore = cache.recalculateOverallRiskScore(tabId);
+        updateTabBadge(tabId);
         notifySidePanel(tabId);
         // TODO: remove later
          const elapsed = performance.now() - start;
@@ -152,6 +156,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
             onCookiesDetected: (cookies) => {
               cache.setCookies(message.tabId, cookies);
               cache.recalculateOverallRiskScore(message.tabId);
+              updateTabBadge(message.tabId);
             },
           });
         }
@@ -181,10 +186,12 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         contentResult: message.result,
         trackers: cache.getTrackerDetails(tabId),
         cookieCount: cache.getCookieDetails(tabId).length,
-        consentTiming: cache.getConsentTiming(tabId), 
+        consentTiming: cache.getConsentTiming(tabId),
         tabUrl: tab.url ?? "",
         onDsgvoChecked: (result) => {
           cache.setDsgvoResult(tabId, result);
+          cache.recalculateOverallRiskScore(tabId);
+          updateTabBadge(tabId);
           // TODO: remove later
           console.log(`DSGVO Checks:`, result);
           notifySidePanel(tabId);
@@ -211,6 +218,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         onCookiesDetected: (cookies) => {
           cache.setCookies(tabId, cookies);
           cache.recalculateOverallRiskScore(tabId);
+          updateTabBadge(tabId);
           notifySidePanel(tabId);
           console.log(`Cookies after consent (${cookies.length} total):`, cookies);
         },
