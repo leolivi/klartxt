@@ -1,4 +1,5 @@
 import { sendResult } from "../content-script";
+import { attachInteractionListener, findBannerElement, reportBannerShown } from "./observe-consent";
 
 /* ---- DOM Observer ---- */
 export function observeDomChanges() {
@@ -9,6 +10,14 @@ export function observeDomChanges() {
 
         timeout = window.setTimeout(() => {
             sendResult();
+
+            // check banner on each DOM change
+            const banner = findBannerElement();
+            if (banner != null) {
+                reportBannerShown();
+                attachInteractionListener(banner);
+            }
+
             timeout = undefined;        
         }, 300);
     });

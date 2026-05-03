@@ -1,4 +1,4 @@
-import type { ContentScriptDsgvoResult } from "@/utils/types/dsgvo-types";
+import type { ConsentTimingResult, ContentScriptDsgvoResult } from "@/utils/types/dsgvo-types";
 import { TrackerConfidence, type TrackerInfo } from "@/utils/types/tracking-enums";
 import { INFRASTRUCTURE_DOMAINS } from "./dsgvo-detectors";
 
@@ -8,7 +8,7 @@ function isConsentTool(tracker: TrackerInfo): boolean {
     return INFRASTRUCTURE_DOMAINS.has(tracker.domain);
 }
 
-function confirmedTrackers(trackers: TrackerInfo[]): TrackerInfo[] {
+export function confirmedTrackers(trackers: TrackerInfo[]): TrackerInfo[] {
     return trackers.filter(
         (t) => t.confidence === TrackerConfidence.CONFIRMED && !isConsentTool(t)
     );
@@ -21,13 +21,24 @@ function highRiskTrackers(trackers: TrackerInfo[]): TrackerInfo[] {
 }
 
 export function evaluateArt7(
-    art7: ContentScriptDsgvoResult["art7"],
-    trackers: TrackerInfo[],
-    cookieCount: number
+  art7: ContentScriptDsgvoResult["art7"],
+  trackers: TrackerInfo[],
+  cookieCount: number,
+  consentTiming: ConsentTimingResult | null
 ): boolean {
-    const hasConfirmedTracking = confirmedTrackers(trackers).length > 0;
-    const cookiesAlreadySet = cookieCount > 0;
-    return !(art7.bannerVisible && (hasConfirmedTracking || cookiesAlreadySet));
+  // proof given? cookies are set before consent
+  if (
+    consentTiming != null &&
+    consentTiming.bannerShownAt != null &&
+    consentTiming.cookiesSetBeforeConsent.length > 0
+  ) {
+    return false;
+  }
+
+  // fallback
+  const hasConfirmedTracking = confirmedTrackers(trackers).length > 0;
+  const cookiesAlreadySet = cookieCount > 0;
+  return !(art7.bannerVisible && (hasConfirmedTracking || cookiesAlreadySet));
 }
 
 export function evaluateArt25(

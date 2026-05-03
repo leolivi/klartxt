@@ -1,12 +1,14 @@
 /// <reference types="chrome" />
 
 import { runDsgvoChecks } from "./run-dsgvo";
+import { observeConsent } from "./utils/observe-consent";
 import { observeDomChanges } from "./utils/observeDomChanges";
 
 /* ---- Initialisierung ---- */
 function init(): void {
   sendResult();
   observeDomChanges();
+  observeConsent();
 }
 
 // initialize if content is loaded

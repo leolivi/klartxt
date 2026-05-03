@@ -5,7 +5,7 @@ import { calculateDsgvoRiskScore } from "@/utils/scoring/dsgvo-risk-score";
 import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
 import { calculateOverallRiskScore } from "@/utils/scoring/overall-risk-score";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
-import type { DsgvoResult } from "@/utils/types/dsgvo-types";
+import type { ConsentTimingResult, CookieViolation, DsgvoResult } from "@/utils/types/dsgvo-types";
 import type { TrackerInfo } from "@/utils/types/tracking-enums";
 
 /* ---- CACHE MANAGER ---- */
@@ -15,6 +15,7 @@ export class TrackerCache {
   private dsgvoResults = new Map<number, DsgvoResult>();
   private overallRiskScore = new Map<number, number>();
   private timestamps = new Map<number, number>();
+  private consentTiming = new Map<number, ConsentTimingResult>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
   setTrackerDetail(tabId: number, tracker: TrackerInfo): void {
@@ -67,6 +68,48 @@ export class TrackerCache {
     this.overallRiskScore.set(tabId, score);
     return score;
   }
+
+  setConsentTimingBannerShown(tabId: number): void {
+    const existing = this.consentTiming.get(tabId);
+    if (existing?.bannerShownAt != null) return; 
+    this.consentTiming.set(tabId, {
+      bannerShownAt: Date.now(),
+      interactedAt: null,
+      cookiesSetBeforeConsent: [],
+      cookiesSetAfterConsent: [],
+    });
+  }
+
+  async setConsentTimingInteracted(tabId: number, onInteracted: () => Promise<void>): Promise<void> {
+    const existing = this.consentTiming.get(tabId);
+    if (existing == null) return;
+    this.consentTiming.set(tabId, { ...existing, interactedAt: Date.now() });
+    await onInteracted();
+  }
+
+  addCookieViolation(tabId: number, violation: CookieViolation, tabDomain: string): void {
+    const existing = this.consentTiming.get(tabId);
+    if (existing == null) return;
+
+    const isAfterConsent = existing.interactedAt != null;
+     if (isAfterConsent && !violation.domain.includes(tabDomain)) return;
+
+    const list = existing.interactedAt == null
+      ? existing.cookiesSetBeforeConsent
+      : existing.cookiesSetAfterConsent;
+
+    const alreadyTracked = list.some(
+      (v) => v.name === violation.name && v.domain === violation.domain
+    );
+    if (alreadyTracked) return;
+
+    list.push(violation);
+  }
+
+  getConsentTiming(tabId: number): ConsentTimingResult | null {
+    return this.consentTiming.get(tabId) ?? null;
+  }
+
   getTimestamp(tabId: number): number | null {
     return this.timestamps.get(tabId) ?? null;
   }
@@ -79,11 +122,10 @@ export class TrackerCache {
   private async persistTab(tabId: number): Promise<void> {
     const data: Record<string, unknown> = {
       [`timestamp_${tabId}`]: this.timestamps.get(tabId),
-      [`trackerDetails_${tabId}`]: Array.from(
-        this.trackerDetails.get(tabId)?.values() ?? []
-      ),
+      [`trackerDetails_${tabId}`]: Array.from(this.trackerDetails.get(tabId)?.values() ?? []),
       [`cookieDetails_${tabId}`]: this.cookieDetails.get(tabId) ?? [],
-      [`dsgvoResults${tabId}`]: this.dsgvoResults.get(tabId) ?? [],
+      [`dsgvoResult_${tabId}`]: this.dsgvoResults.get(tabId) ?? null,
+      [`overallRiskScore_${tabId}`]: this.overallRiskScore.get(tabId) ?? 0,
     };
     await chrome.storage.session.set(data);
   }
@@ -103,7 +145,8 @@ export class TrackerCache {
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
       `dsgvoResults_${tabId}`,
-      `timestamp_${tabId}`,
+      `overallRiskScore_${tabId}`,
+      `timestamp_${tabId}`
     ]);
 
     const trackers = result[`trackerDetails_${tabId}`];
@@ -118,9 +161,14 @@ export class TrackerCache {
       this.cookieDetails.set(tabId, cookies as ClassifiedCookie[]);
     }
 
-    const dsgvoResults = result[`dsgvoResults_${tabId}`];
-    if (Array.isArray(dsgvoResults)) {
-      this.dsgvoResults.set(tabId, result as DsgvoResult);
+    const dsgvoResult = result[`dsgvoResult_${tabId}`];
+    if (dsgvoResult != null && typeof dsgvoResult === "object" && !Array.isArray(dsgvoResult)) {
+      this.dsgvoResults.set(tabId, dsgvoResult as DsgvoResult);
+    }
+
+    const riskScore = result[`overallRiskScore_${tabId}`];
+    if (typeof riskScore === "number") {
+      this.overallRiskScore.set(tabId, riskScore);
     }
 
     const ts = result[`timestamp_${tabId}`];
@@ -133,6 +181,7 @@ export class TrackerCache {
     this.trackerDetails.delete(tabId);
     this.cookieDetails.delete(tabId);
     this.dsgvoResults.delete(tabId);
+    this.consentTiming.delete(tabId);
     this.timestamps.delete(tabId);
   }
 

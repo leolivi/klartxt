@@ -23,6 +23,8 @@ export type Art7ContentResult = {
 export type DsgvoResult = Record<DsgvoKey, DsgvoCheck> & {
   checkedAt: number;
   highRiskTrackerCount: number;
+  consentViolations: CookieViolation[];
+  cookiesAfterConsent: CookieViolation[];
 };
 
 export interface ContentScriptDsgvoResult {
@@ -32,4 +34,17 @@ export interface ContentScriptDsgvoResult {
   };
   art13_14: boolean;
   art25: boolean;
+}
+
+export interface ConsentTimingResult {
+  bannerShownAt: number | null;
+  interactedAt: number | null;
+  cookiesSetBeforeConsent: CookieViolation[];
+  cookiesSetAfterConsent: CookieViolation[];
+}
+
+export interface CookieViolation {
+  name: string;
+  domain: string;
+  setAt: number;
 }

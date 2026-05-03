@@ -1,6 +1,6 @@
-import { checkArt7 } from "./checks/art7";
 import { checkArt13_14 } from "./checks/art13_14";
 import { checkArt25 } from "./checks/art25";
+import { checkArt7 } from "./checks/art7";
 
 /* -----
   DSGVO Content Script Checks
