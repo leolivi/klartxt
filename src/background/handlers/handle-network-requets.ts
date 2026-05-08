@@ -1,25 +1,13 @@
+import { parse } from "tldts";
 import { NETWORK_EXCLUSIONS } from "@/data/trackers/false-positive-list";
 import { TRACKER_MAP } from "@/data/trackers/tracking-domains";
-import { TRACKING_PARAMS, TRACKING_PATHS } from "@/data/trackers/tracking-heuristics";
+import { TRACKING_PARAMS, TRACKING_PATHS, TRACKING_SUBDOMAINS, USER_ID_PATTERN } from "@/data/trackers/tracking-heuristics";
 import { calculateTrackerRiskScore } from "@/utils/scoring/network-risk-score";
 import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type DetectedTracker, type TrackerInfo } from "@/utils/types/tracking-enums";
 
 interface HandleNetworkRequests {
   details: chrome.webRequest.OnBeforeRequestDetails;
   onTrackerDetected: (tracker: DetectedTracker) => void;
-}
-
-const registrableDomainCache = new Map<string, string>();
-
-// detect subdomains (DDG)
-function extractRegistrableDomain(hostname: string): string {
-  if (registrableDomainCache.has(hostname)) {
-    return registrableDomainCache.get(hostname)!;
-  }
-  const parts = hostname.split(".");
-  const result = parts.length <= 2 ? hostname : parts.slice(-2).join(".");
-  registrableDomainCache.set(hostname, result);
-  return result;
 }
 
 // detect tracking params in query string (heuristics)
@@ -30,12 +18,31 @@ function hasTrackingParams(url: URL): boolean {
   return false;
 }
 
-// detect pixel request paths (heuristics)
+// detect pixel/beacon request paths (heuristics)
 function hasTrackingPath(url: URL): boolean {
   const path = url.pathname.toLowerCase();
   return TRACKING_PATHS.some((p) => path.includes(p));
 }
 
+// detect tracking subdomains using the eTLD+1-parsed subdomain label
+// e.g. track.example.co.uk → subdomain "track" → matches "track."
+function hasTrackingSubdomain(subdomain: string): boolean {
+  if (!subdomain) return false;
+  const firstLabel = subdomain.split(".")[0] + ".";
+  return TRACKING_SUBDOMAINS.includes(firstLabel);
+}
+
+// cookie-sync: two or more UUID/long-hex values in query string indicate ID exchange
+function hasCookieSyncPattern(url: URL): boolean {
+  let idCount = 0;
+  for (const value of url.searchParams.values()) {
+    if (USER_ID_PATTERN.test(value)) {
+      idCount++;
+      if (idCount >= 2) return true;
+    }
+  }
+  return false;
+}
 
 function buildSuspiciousTracker(domain: string): TrackerInfo {
   const categories = [TrackerCategory.UNKNOWN];
@@ -44,12 +51,12 @@ function buildSuspiciousTracker(domain: string): TrackerInfo {
     owner: null,
     userCategory: TrackerCategoryForUser.TRACKING,
     detailedCategories: categories,
-    riskScore: calculateTrackerRiskScore(categories, TrackerConfidence.CONFIRMED),
+    riskScore: calculateTrackerRiskScore(categories, TrackerConfidence.SUSPICIOUS),
     confidence: TrackerConfidence.SUSPICIOUS,
+    fingerprintingScore: 0,
   };
 }
 
-// function to handle network request tracking
 export function handleNetworkRequests({
   details,
   onTrackerDetected,
@@ -62,23 +69,25 @@ export function handleNetworkRequests({
     return;
   }
 
-  // check if request is a tracker
-  const domain = url.hostname.replace(/^www\./, "");
-  if (NETWORK_EXCLUSIONS.has(domain)) return;
+  const hostname = url.hostname.replace(/^www\./, "");
+  if (NETWORK_EXCLUSIONS.has(hostname)) return;
 
-  const registrable = extractRegistrableDomain(domain);
+  // PSL-based eTLD+1 parsing (Mozilla Public Suffix List via tldts)
+  // Fixes naive slice(-2) which incorrectly handles multi-part TLDs like .co.uk, .com.au
+  const parsed = parse(hostname);
+  const registrable = parsed.domain ?? hostname;
 
   // DDG Radar lookup
-  const radarMatch = TRACKER_MAP.get(domain) ?? (domain !== registrable ? TRACKER_MAP.get(registrable) : undefined);
+  const radarMatch = TRACKER_MAP.get(hostname) ?? (hostname !== registrable ? TRACKER_MAP.get(registrable) : undefined);
 
   // heuristics
   const heuristicMatch =
     hasTrackingParams(url) ||
-    hasTrackingPath(url)
+    hasTrackingPath(url) ||
+    hasTrackingSubdomain(parsed.subdomain ?? "") ||
+    hasCookieSyncPattern(url);
 
-  // conficence logic
-  if (radarMatch) { // includes heuristicMatch and radarMatch
-    // increment in memory counter of trackers
+  if (radarMatch) {
     return onTrackerDetected({
       tracker: radarMatch,
       confidence: TrackerConfidence.CONFIRMED,
@@ -87,9 +96,8 @@ export function handleNetworkRequests({
 
   if (!heuristicMatch) return;
 
-  //if no radar match only heuristics define as suspicious
   onTrackerDetected({
-    tracker: buildSuspiciousTracker(domain),
+    tracker: buildSuspiciousTracker(hostname),
     confidence: TrackerConfidence.SUSPICIOUS,
   });
 }

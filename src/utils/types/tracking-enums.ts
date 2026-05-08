@@ -17,6 +17,7 @@ export interface TrackerInfo {
     detailedCategories: TrackerCategory[];
     riskScore: number;
     confidence: TrackerConfidence;
+    fingerprintingScore: number; // DDG Tracker Radar fingerprinting score: 0=none 1=low 2=medium 3=high
 }
 
 export interface DetectedTracker {

@@ -42,6 +42,7 @@ export interface Art25Check extends DsgvoCheck {
   highRiskTrackerCount: number;
   isHttps: boolean;
   highRiskTrackers: string[];
+  fingerprintingDetected: boolean;
 }
 
 export type DsgvoResult = {
@@ -60,7 +61,10 @@ export interface ContentScriptDsgvoResult {
     found: boolean;
     searchedLocations: string[];
   };
-  art25: boolean;
+  art25: {
+    isHttps: boolean;
+    fingerprintingDetected: boolean;
+  };
 }
 
 export interface ConsentTimingResult {
