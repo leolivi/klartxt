@@ -27,9 +27,27 @@ function hasFingerprintScript(): boolean {
   });
 }
 
+// Detects screen property access in inline scripts (only covers inline scripts)
+function hasScreenFingerprintingSignal(): boolean {
+  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
+    /screen\.(width|height|colorDepth|pixelDepth|availWidth|availHeight)/.test(s.textContent ?? "")
+  );
+}
+
+// Detects timezone API access in inline scripts (Intl.DateTimeFormat, getTimezoneOffset).
+function hasTimezoneFingerprintingSignal(): boolean {
+  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
+    /Intl\.DateTimeFormat|getTimezoneOffset/.test(s.textContent ?? "")
+  );
+}
+
 export function checkArt25(): { isHttps: boolean; fingerprintingDetected: boolean } {
   return {
     isHttps: window.location.protocol === "https:",
-    fingerprintingDetected: hasTinyCanvasElement() || hasFingerprintScript(),
+    fingerprintingDetected:
+      hasTinyCanvasElement() ||
+      hasFingerprintScript() ||
+      hasScreenFingerprintingSignal() ||
+      hasTimezoneFingerprintingSignal(),
   };
 }

@@ -1,7 +1,7 @@
 # Tracker Category Analysis
 # ==========================
 # Sources:
-#   - DuckDuckGo Tracker Radar (https://github.com/duckduckgo/tracker-radar)
+#   - DuckDuckGo Tracker Radar (DuckDuckGo, Inc., 2025)
 #     -> https://spreadprivacy.com/duckduckgo-tracker-radar/
 #
 # Purpose: research/visualisation tool for inspecting category distribution

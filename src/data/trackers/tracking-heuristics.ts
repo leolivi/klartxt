@@ -48,12 +48,13 @@ export const TRACKING_PATHS = [
 
 // Tracking-relevant subdomain prefixes
 export const TRACKING_SUBDOMAINS = [
-  "pixel.",   
-  "track.",     
-  "beacon.",    
-  "analytics.", 
-  "sync.",      
-  "match.",     
+  "pixel.",
+  "track.",
+  "beacon.",
+  "analytics.",
+  "sync.",
+  "match.",
+  "cdn.", 
 ];
 
 // Cookie-Sync-Requests for cross-domain ID exchange

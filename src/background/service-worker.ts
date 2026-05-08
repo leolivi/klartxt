@@ -154,7 +154,13 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
       // if cache is empty, reload cookie
       if (cache.getCookieDetails(message.tabId).length === 0) {
-        const tab = await chrome.tabs.get(message.tabId);
+        let tab: chrome.tabs.Tab;
+        try {
+          tab = await chrome.tabs.get(message.tabId);
+        } catch {
+          sendResponse({ trackerCount: 0, cookieCount: 0, isPartialData: true, riskScore: 0 });
+          return;
+        }
         if (tab.url && !tab.url.startsWith("chrome://")) {
           await handleCookies({
             tabUrl: tab.url,
@@ -184,7 +190,12 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "DSGVO_CHECKS_RESULT" && _sender.tab?.id != null) {
     (async () => {
       const tabId = _sender.tab!.id!;
-      const tab = await chrome.tabs.get(tabId);
+      let tab: chrome.tabs.Tab;
+      try {
+        tab = await chrome.tabs.get(tabId);
+      } catch {
+        return;
+      }
 
       handleDsgvo({
         contentResult: message.result,
@@ -211,7 +222,12 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "CONSENT_BANNER_INTERACTED" && _sender.tab?.id != null) {
     const tabId = _sender.tab.id;
     cache.setConsentTimingInteracted(tabId, async () => {
-      const tab = await chrome.tabs.get(tabId);
+      let tab: chrome.tabs.Tab;
+      try {
+        tab = await chrome.tabs.get(tabId);
+      } catch {
+        return;
+      }
       if (tab.url == null || tab.url.startsWith("chrome://")) return;
 
       // cookie refresh after consent (only one time)
