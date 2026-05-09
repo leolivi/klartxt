@@ -2,15 +2,12 @@
   Cookie Name Heuristics
   Primärquelle: Munir u.a., 2023 (CookieGraph) — name-based classification als Fallback
 
-  Anmerkung: Diese Muster sind heuristische Näherungen; bei Testdurchläufen tauchen
-  wiederholt Cookies auf, die fälschlicherweise als UNKNOWN klassifiziert werden.
-
   Sources per pattern group:
 
   ANALYTICS_PATTERNS:
-  - _ga, _gid, _gat: Google Analytics 4 Cookies von Google, 2025a
-  - __utma, __utmb, __utmz: Google Universal Analytics (Legacy) von Google, 2025a
-  - _pk_, matomo: Matomo Analytics Cookie Reference von Matomo, 2025
+  - _ga, _gid, _gat: Google, 2025a
+  - __utma, __utmb, __utmz: Google, 2025a
+  - _pk_, matomo: Matomo, 2026
   - plausible: Plausible Analytics Privacy Policy von Plausible, 2025
   - _hjid: Hotjar Privacy von Hotjar, 2025
   - amplitude: Amplitude Cookie Policy von Amplitude, 2025
