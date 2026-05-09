@@ -6,14 +6,13 @@ import type {
   Art25Check
 } from "@/utils/types/dsgvo-types";
 import { CheckSeverity } from "@/utils/types/dsgvo-types";
-import { TrackerConfidence, type TrackerInfo } from "@/utils/types/tracking-enums";
-import { INFRASTRUCTURE_DOMAINS } from "./dsgvo-detectors";
+import { TrackerCategory, TrackerConfidence, type TrackerInfo } from "@/utils/types/tracking-enums";
 import { ART7_TEMPLATES, ART13_14_TEMPLATES, ART25_TEMPLATES } from "./dsgvo-check-templates";
 
 const HIGH_RISK_SCORE_BENCHMARK = 30;
 
 function isConsentTool(tracker: TrackerInfo): boolean {
-    return INFRASTRUCTURE_DOMAINS.has(tracker.domain);
+    return tracker.detailedCategories.includes(TrackerCategory.CONSENT);
 }
 
 export function confirmedTrackers(trackers: TrackerInfo[]): TrackerInfo[] {

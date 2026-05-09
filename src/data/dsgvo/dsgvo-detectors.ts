@@ -1,33 +1,13 @@
-export const CMP_SELECTORS = [
-    "#onetrust-banner-sdk",
-    "#cookiebanner",
-    "[id*='cookie-banner']",
-    "[id*='consent-banner']",
-    "[class*='cookie-banner']",
-    "[class*='consent-banner']",
-    "[class*='cmp-']",
-    "[class*='cmpbox']",      
-    "[class*='cmpstyle']",    
-    "[class*='cmpBox']", 
-    "#Cookiebot",
-    ".cc-window",
-    "[id*='cookie-consent']",
-    "[class*='cookie-consent']",
-];
+/* -----
+DSGVO Detectors
+
+Source:
+- CMP_SELECTORS: Generiert aus Consent-O-Matic CMP-Regeln (Nouwens und Nylandsted Klokmose, 2025)
+- PRIVACY_PATTERNS: privacy, datenschutz, cookie.policy: typische Linktexte / href-Muster gemäss Art. 13 Abs. 1 DSGVO (Europäische Union, 2016)
+----- */
+
+import cmpData from "./cmp-selectors.json";
+
+export const CMP_SELECTORS: string[] = cmpData.selectors;
 
 export const PRIVACY_PATTERNS = /privacy|datenschutz|legal|impressum|cookie.policy/i;
-
-export const INFRASTRUCTURE_DOMAINS = new Set([
-  // Consent Tools
-  "cookielaw.org",
-  "onetrust.com",
-  "consentmanager.net",
-  "cookiebot.com",
-  "usercentrics.eu",
-  // CDN / Infrastructure
-  "cloudinary.com",
-  "ctfassets.net",    // Contentful CDN
-  "fonts.net",        // Monotype Fonts
-  "fonts.googleapis.com",
-  "fonts.gstatic.com",
-]);

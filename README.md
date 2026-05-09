@@ -63,6 +63,7 @@ Chrome for Developers, 2025. Chrome Extensions Docs. [online] Chrome for Develop
 Davis, K.R., Peabody, B. und Leach, P., 2024. Universally Unique IDentifiers (UUIDs). [Request for Comments] Internet Engineering Task Force. https://doi.org/10.17487/RFC9562.
 
 DuckDuckGo, Inc., 2025. duckduckgo/tracker-radar. Verfügbar unter: https://github.com/duckduckgo/tracker-radar [Zugegriffen 13 November 2025].
+
 Englehardt, S. und Narayanan, A., 2016. Online Tracking: A 1-million-site Measurement and Analysis. In: Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security. [online] Vienna Austria: ACM. https://doi.org/10.1145/2976749.2978313.
 
 Google, 2026a. About session_attributes. [online] Google Ads Help. Verfügbar unter: https://support.google.com/google-ads/answer/16194756?hl=en&sjid=7359715324757461283-EU [Zugegriffen 8 Mai 2026].
