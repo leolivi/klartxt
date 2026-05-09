@@ -8,7 +8,17 @@
   - Primärquelle Klassifikationsansatz: Munir u.a., 2023 (CookieGraph)
 ----- */
 
-import cookieData from "./cookie-heuristics.json";
+import cookieDataRaw from "./cookie-heuristics.json";
+
+interface CookieHeuristics {
+  version: string;
+  necessary: string[];
+  session: string[];
+  analytics: string[];
+  advertising: string[];
+}
+
+const cookieData = cookieDataRaw as unknown as CookieHeuristics;
 
 const toLower = (patterns: string[]) => patterns.map((p) => p.toLowerCase());
 

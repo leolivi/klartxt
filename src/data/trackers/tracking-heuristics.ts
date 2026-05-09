@@ -2,13 +2,11 @@
   Network Request Heuristics
 
   Sources per parameter group:
-  - utm_*: Google Analytics URL Builders von Google, 2026b
-  - fbclid: Bekos u.a., 2023
-  - gclid, dclid, wbraid, gbraid, _gl: Session Attributes von Google, 2026a
-  - msclkid: Microsoft Advertising Click ID von Microsoft, 2026
-  - twclid: X Conversion Tracking Documentation von X Corp., 2026
-  - ttclid: TikTok Ads Pixel Dokumentation von TikTok For Business, 2025
-  - li_fat_id: LinkedIn, 2016
+  - TRACKING_PARAMS Basis: DuckDuckGo Tracker Radar (tracking_parameters.json),
+  - Ergänzungen (nicht in DDG erfasst):
+    twclid: X Conversion Tracking Documentation von X Corp., 2026
+    ttclid: TikTok Ads Pixel Dokumentation von TikTok For Business, 2025
+    li_fat_id: LinkedIn, 2016
 
   - /collect, /pixel, /ping, /beacon: Konzept von Englehardt und Narayanan, 2016
   - /sync, /match, /cm: Konzept von Papadopoulos, Kourtellis und Markatos, 2020
@@ -17,23 +15,10 @@
   - USER_ID_PATTERN (Long Hex): Papadopoulos, Kourtellis und Markatos (2019)
 ----- */
 
-// Tracking parameters in query strings
-export const TRACKING_PARAMS = new Set([
-  // Google Analytics URL Builders
-  "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-  // Google Ads / Privacy Sandbox
-  "gclid", "dclid", "wbraid", "gbraid", "_gl",
-  // Meta (Facebook) — Bekos et al. (2022)
-  "fbclid",
-  // Microsoft Advertising
-  "msclkid",
-  // X Ads
-  "twclid",
-  // TikTok Ads
-  "ttclid",
-  // LinkedIn Ads
-  "li_fat_id",
-]);
+import trackingParamsData from "./tracking-params.json";
+
+// DDG-measured params + platform-specific additions not captured by DDG
+export const TRACKING_PARAMS = new Set<string>(trackingParamsData.params);
 
 // Tracking-relevant request paths
 export const TRACKING_PATHS = [
