@@ -1,11 +1,5 @@
 {
-  "_meta": {
-    "source": "Consent-O-Matic",
-    "source_url": "https://github.com/cavi-au/Consent-O-Matic",
-    "generated_at": "placeholder — updated weekly by tracker-radar-pipeline",
-    "cmp_count": 0,
-    "selector_count": 0
-  },
+  "version": "",
   "cmps": [],
   "selectors": []
 }
