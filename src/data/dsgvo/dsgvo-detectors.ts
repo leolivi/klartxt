@@ -6,8 +6,16 @@ Source:
 - PRIVACY_PATTERNS: privacy, datenschutz, cookie.policy: typische Linktexte / href-Muster gemäss Art. 13 Abs. 1 DSGVO (Europäische Union, 2016)
 ----- */
 
-import cmpData from "./cmp-selectors.json";
+import cmpDataRaw from "./cmp-selectors.json";
 
-export const CMP_SELECTORS: string[] = cmpData.selectors;
+interface CmpData {
+  version: string;
+  cmps: Record<string, boolean>;
+  selectors: Record<string, boolean>;
+}
+
+const cmpData = cmpDataRaw as unknown as CmpData;
+
+export const CMP_SELECTORS: string[] = Object.keys(cmpData.selectors);
 
 export const PRIVACY_PATTERNS = /privacy|datenschutz|legal|impressum|cookie.policy/i;

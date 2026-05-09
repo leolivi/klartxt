@@ -10,17 +10,19 @@
 
 import cookieDataRaw from "./cookie-heuristics.json";
 
+type CookieSet = Record<string, boolean>;
+
 interface CookieHeuristics {
   version: string;
-  necessary: string[];
-  session: string[];
-  analytics: string[];
-  advertising: string[];
+  necessary: CookieSet;
+  session: CookieSet;
+  analytics: CookieSet;
+  advertising: CookieSet;
 }
 
 const cookieData = cookieDataRaw as unknown as CookieHeuristics;
 
-const toLower = (patterns: string[]) => patterns.map((p) => p.toLowerCase());
+const toLower = (set: CookieSet) => Object.keys(set).map((p) => p.toLowerCase());
 
 export const NECESSARY_PATTERNS_LOWER = toLower(cookieData.necessary);
 export const SESSION_PATTERNS_LOWER = toLower(cookieData.session);
