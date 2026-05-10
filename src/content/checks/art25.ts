@@ -4,7 +4,7 @@ import fingerprintData from "@/data/trackers/fingerprint-domains.json";
 
 // Generated from DuckDuckGo Tracker Radar (f >= 2, medium/high fingerprinting score).
 // Rebuilt weekly alongside tracker-core.json / tracker-extended.json.
-const FINGERPRINT_DOMAIN_SET = new Set<string>(fingerprintData.domains);
+const FINGERPRINT_DOMAIN_SET = new Set<string>(Object.keys(fingerprintData.domains));
 
 // Tiny canvases (width/height <= 2) are a strong DOM-side fingerprinting signal;
 // legitimate UI canvases are always larger.

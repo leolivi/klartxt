@@ -18,7 +18,7 @@
 import trackingParamsData from "./tracking-params.json";
 
 // DDG-measured params + platform-specific additions not captured by DDG
-export const TRACKING_PARAMS = new Set<string>(trackingParamsData.params);
+export const TRACKING_PARAMS = new Set<string>(Object.keys(trackingParamsData.params));
 
 // Tracking-relevant request paths
 export const TRACKING_PATHS = [

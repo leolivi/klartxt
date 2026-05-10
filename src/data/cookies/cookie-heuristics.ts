@@ -18,7 +18,7 @@ interface CookieHeuristics {
   advertising: CookieSet;
 }
 
-const cookieData = cookieDataRaw as unknown as CookieHeuristics;
+const cookieData = cookieDataRaw as CookieHeuristics;
 
 const toLower = (set: CookieSet) => Object.keys(set).map((p) => p.toLowerCase());
 

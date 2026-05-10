@@ -14,7 +14,7 @@ interface CmpData {
   selectors: Record<string, boolean>;
 }
 
-const cmpData = cmpDataRaw as unknown as CmpData;
+const cmpData = cmpDataRaw as CmpData;
 
 export const CMP_SELECTORS: string[] = Object.keys(cmpData.selectors);
 
