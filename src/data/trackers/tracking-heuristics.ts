@@ -12,7 +12,7 @@
   - /sync, /match, /cm: Konzept von Papadopoulos, Kourtellis und Markatos, 2020
 
   - USER_ID_PATTERN (UUID): RFC 9562 von Davis, Peabody und Leach, 2024
-  - USER_ID_PATTERN (Long Hex): Papadopoulos, Kourtellis und Markatos (2019)
+  - USER_ID_PATTERN (Long Hex): Papadopoulos, Kourtellis und Markatos, 2020
 ----- */
 
 import trackingParamsData from "./tracking-params.json";

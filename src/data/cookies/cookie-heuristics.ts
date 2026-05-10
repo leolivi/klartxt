@@ -2,9 +2,7 @@
   Cookie Name Heuristics
 
   Sources per pattern group:
-  - Generiert aus Open Cookie Database (Analytics / Marketing / Functional / Security):
-    https://github.com/jkwakman/Open-Cookie-Database
-    // TODO: add Open Cookie Database als quelle
+  - Generiert aus Open Cookie Database (Analytics / Marketing / Functional / Security): Kwakman, 2023
   - Primärquelle Klassifikationsansatz: Munir u.a., 2023 (CookieGraph)
 ----- */
 
