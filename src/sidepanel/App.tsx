@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles/App.css";
-import logoLight from "../../public/img/logo/Klartxt_logo_lm.svg";
-import logoDark from "../../public/img/logo/Klartxt_logo_dm.svg";
+const logoLight = "/img/logo/Klartxt_logo_lm.svg";
+const logoDark = "/img/logo/Klartxt_logo_dm.svg";
 
 interface TabData {
   trackerCount: number;

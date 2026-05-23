@@ -20,7 +20,7 @@ function notifySidePanel(tabId: number): void {
     tabId,
     trackerCount: trackers.length,
     cookieCount: cookies.length,
-    isPartialData: trackers.length === 0,
+    isPartialData: !cache.isScanCompleted(tabId),
     riskScore: cache.getOverallRiskScore(tabId),
   }).catch((error) => {
     console.debug("Could not send message to tab", tabId, error);
@@ -42,11 +42,60 @@ chrome.sidePanel
   .catch((error) => console.debug(error));
 
 
+/* ---- TAB ACTIVATED HANDLER ---- */
+let activatedDebounceTimer: ReturnType<typeof setTimeout> | undefined;
+
+chrome.tabs.onActivated.addListener(({ tabId }) => {
+  if (activatedDebounceTimer) clearTimeout(activatedDebounceTimer);
+  activatedDebounceTimer = setTimeout(async () => {
+    activatedDebounceTimer = undefined;
+
+    await cache.restoreFromStorage(tabId);
+    // show cached data immediately
+    handleUIUpdate(tabId); 
+
+    let tab: chrome.tabs.Tab;
+    try {
+      tab = await chrome.tabs.get(tabId);
+    } catch {
+      return;
+    }
+    if (!tab.url || tab.url.startsWith("chrome://")) return;
+
+    // fresh cookie scan
+    await handleCookies({
+      tabUrl: tab.url,
+      onCookiesDetected: (cookies) => {
+        cache.setCookies(tabId, cookies);
+        cache.scheduleUIUpdate(tabId);
+      },
+    });
+
+    // re-trigger DSGVO checks in content script
+    chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch(() => {});
+  }, 150);
+});
+
 /* ---- TAB UPDATE HANDLER ---- */
 chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
-  if (changeInfo.status === "loading" && changeInfo.url) {
+  // Reset on any navigation (full page load or SPA URL change via History API)
+  if (changeInfo.url) {
     cache.reset(tabId);
     updateTabBadge(tabId);
+  }
+
+  // SPA navigation: URL changed without a full reload (no status transition)
+  if (changeInfo.url && changeInfo.status == null) {
+    if (tab.url && !tab.url.startsWith("chrome://")) {
+      await handleCookies({
+        tabUrl: tab.url,
+        onCookiesDetected: (cookies) => {
+          cache.setCookies(tabId, cookies);
+          cache.scheduleUIUpdate(tabId);
+        },
+      });
+    }
+    return;
   }
 
   if (changeInfo.status !== "complete") return;
@@ -179,7 +228,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       sendResponse({
         trackerCount: trackers.length,
         cookieCount: cookies.length,
-        isPartialData: trackers.length === 0, // SW has been restarted
+        isPartialData: !cache.isScanCompleted(message.tabId),
         riskScore: riskScore
       });
     })();
