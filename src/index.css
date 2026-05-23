@@ -25,11 +25,15 @@
 /* ─── Design Tokens ──────────────────────────────────────── */
 :root {
   --color-primary: #2F3E7A;
-  --color-primary-50: #B2B9E6;
+  --color-primary-50: #F2F3FB;
   --color-primary-100: #E5E7F7;
   --color-primary-300: #B2B9E6;
 
   --color-bg: #F8F9FC;
+
+  --color-btn-bg:       var(--color-primary-100);
+  --color-btn-bg-hover: var(--color-primary-50);
+  --color-btn-border:   var(--color-primary-300);
 
   --color-text: #121620;
   --color-text-muted: rgba(18, 22, 32, 0.6);
@@ -54,6 +58,10 @@ html.dark {
   --color-primary-950: #304179;
 
   --color-bg:#121620;
+
+  --color-btn-bg:       var(--color-primary-100);
+  --color-btn-bg-hover: var(--color-text);
+  --color-btn-border:   var(--color-primary-800);
 
   --color-text: #F8F9FC;
   --color-text-muted:rgba(248, 249, 252, 0.7);

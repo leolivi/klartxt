@@ -30,6 +30,11 @@ export default {
           muted:   "var(--color-text-muted)",
         },
         border: "var(--color-border)",
+        btn: {
+          bg:         "var(--color-btn-bg)",
+          "bg-hover": "var(--color-btn-bg-hover)",
+          border:     "var(--color-btn-border)",
+        },
         risk: {
           high: {
             fill:   "var(--color-risk-high-fill)",
