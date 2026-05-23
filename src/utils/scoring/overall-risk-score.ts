@@ -5,6 +5,14 @@ Gewichtung priorisiert rechtliche Compliance:
 - Cookies: 25% (persistent, aber weniger direkt)
 */
 
+import { RISK_SCORE_DESCRIPTIONS, type RiskScoreDescription } from "./risk-score-descriptions";
+
+export type RiskScoreResult = {
+  score: number;
+  description: RiskScoreDescription;
+};
+
+// function to calculate overall risk score (cookies, dsgvo checks and network trackers)
 export function calculateOverallRiskScore(
   trackerPageScore: number,
   cookieRiskScore: number,
@@ -19,4 +27,9 @@ export function calculateOverallRiskScore(
   if (normalized <= 60) return 3;
   if (normalized <= 80) return 4;
   return 5;
+}
+
+// create object with risk score and their descriptions
+export function getOverallRiskScoreResult(score: number): RiskScoreResult {
+  return { score, description: RISK_SCORE_DESCRIPTIONS[score] };
 }
