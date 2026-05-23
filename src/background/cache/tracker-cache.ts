@@ -16,6 +16,7 @@ export class TrackerCache {
   private overallRiskScore = new Map<number, number>();
   private timestamps = new Map<number, number>();
   private consentTiming = new Map<number, ConsentTimingResult>();
+  private scanCompleted = new Map<number, boolean>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateCallback: ((tabId: number) => void) | null = null;
@@ -37,8 +38,13 @@ export class TrackerCache {
 
   setCookies(tabId: number, cookies: ClassifiedCookie[]): void {
     this.cookieDetails.set(tabId, cookies);
+    this.scanCompleted.set(tabId, true);
     this.updateTimestamp(tabId);
     this.debouncedPersist(tabId);
+  }
+
+  isScanCompleted(tabId: number): boolean {
+    return this.scanCompleted.get(tabId) ?? false;
   }
 
   getCookieDetails(tabId: number): ClassifiedCookie[] {
@@ -137,6 +143,7 @@ export class TrackerCache {
       [`dsgvoResult_${tabId}`]: this.dsgvoResults.get(tabId) ?? null,
       [`consentTiming_${tabId}`]: this.consentTiming.get(tabId) ?? null,
       [`overallRiskScore_${tabId}`]: this.overallRiskScore.get(tabId) ?? null,
+      [`scanCompleted_${tabId}`]: this.scanCompleted.get(tabId) ?? false,
     };
     await chrome.storage.session.set(data);
   }
@@ -174,6 +181,7 @@ export class TrackerCache {
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,
+      `scanCompleted_${tabId}`,
     ]);
 
     const trackers = result[`trackerDetails_${tabId}`];
@@ -209,6 +217,11 @@ export class TrackerCache {
       this.overallRiskScore.set(tabId, storedScore);
     }
 
+    const scanCompleted = result[`scanCompleted_${tabId}`];
+    if (typeof scanCompleted === "boolean") {
+      this.scanCompleted.set(tabId, scanCompleted);
+    }
+
     // Recalculate from sub-data if available — overrides stored score
     if (this.trackerDetails.has(tabId) || this.cookieDetails.has(tabId) || this.dsgvoResults.has(tabId)) {
       this.recalculateOverallRiskScore(tabId);
@@ -222,6 +235,7 @@ export class TrackerCache {
     this.consentTiming.delete(tabId);
     this.overallRiskScore.delete(tabId);
     this.timestamps.delete(tabId);
+    this.scanCompleted.delete(tabId);
   }
 
   clear(tabId: number): void {
@@ -233,6 +247,7 @@ export class TrackerCache {
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,
+      `scanCompleted_${tabId}`,
     ]);
   }
 }
