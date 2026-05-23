@@ -3,7 +3,7 @@
 import { calculateCookieRiskScore } from "@/utils/scoring/cookie-risk-score";
 import { calculateDsgvoRiskScore } from "@/utils/scoring/dsgvo-risk-score";
 import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
-import { calculateOverallRiskScore } from "@/utils/scoring/overall-risk-score";
+import { calculateOverallRiskScore, getOverallRiskScoreResult, type RiskScoreResult } from "@/utils/scoring/overall-risk-score";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 import type { ConsentTimingResult, CookieViolation, DsgvoResult } from "@/utils/types/dsgvo-types";
 import type { TrackerInfo } from "@/utils/types/tracking-enums";
@@ -62,12 +62,17 @@ export class TrackerCache {
     return this.overallRiskScore.get(tabId) ?? 0;
   }
 
+  getOverallRiskScoreResult(tabId: number): RiskScoreResult {
+    return getOverallRiskScoreResult(this.getOverallRiskScore(tabId));
+  }
+
   recalculateOverallRiskScore(tabId: number): number {
     const trackerScore = calculateTrackerRiskPageScore(this.getTrackerDetails(tabId));
     const cookieScore = calculateCookieRiskScore(this.getCookieDetails(tabId));
     const dsgvoScore = calculateDsgvoRiskScore(this.getDsgvoResult(tabId));
     const score = calculateOverallRiskScore(trackerScore, cookieScore, dsgvoScore);
     this.overallRiskScore.set(tabId, score);
+    this.debouncedPersist(tabId);
     return score;
   }
 
@@ -131,6 +136,7 @@ export class TrackerCache {
       [`cookieDetails_${tabId}`]: this.cookieDetails.get(tabId) ?? [],
       [`dsgvoResult_${tabId}`]: this.dsgvoResults.get(tabId) ?? null,
       [`consentTiming_${tabId}`]: this.consentTiming.get(tabId) ?? null,
+      [`overallRiskScore_${tabId}`]: this.overallRiskScore.get(tabId) ?? null,
     };
     await chrome.storage.session.set(data);
   }
@@ -166,7 +172,8 @@ export class TrackerCache {
       `cookieDetails_${tabId}`,
       `dsgvoResults_${tabId}`,
       `consentTiming_${tabId}`,
-      `timestamp_${tabId}`
+      `timestamp_${tabId}`,
+      `overallRiskScore_${tabId}`,
     ]);
 
     const trackers = result[`trackerDetails_${tabId}`];
@@ -196,7 +203,13 @@ export class TrackerCache {
       this.timestamps.set(tabId, ts);
     }
 
-    // Recalculate risk score from restored data (not persisted)
+    // Restore stored score as backup (map = primary, storage = fallback)
+    const storedScore = result[`overallRiskScore_${tabId}`];
+    if (typeof storedScore === "number") {
+      this.overallRiskScore.set(tabId, storedScore);
+    }
+
+    // Recalculate from sub-data if available — overrides stored score
     if (this.trackerDetails.has(tabId) || this.cookieDetails.has(tabId) || this.dsgvoResults.has(tabId)) {
       this.recalculateOverallRiskScore(tabId);
     }
@@ -219,6 +232,7 @@ export class TrackerCache {
       `dsgvoResults_${tabId}`,
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
+      `overallRiskScore_${tabId}`,
     ]);
   }
 }
