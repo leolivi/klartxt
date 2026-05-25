@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles/App.css";
 import { Header } from "./components/header/Header";
+import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
 
 interface TabData {
   trackerCount: number;
@@ -69,7 +70,7 @@ function App() {
 
   return (
     <div className="p-4">
-      <Header />
+        <Header />
       <div className="pt-20">
         {data.isPartialData && (
           <p>Tracker-Daten unvollständig. Seite neu laden für vollständigen Scan</p>
@@ -77,6 +78,9 @@ function App() {
         <p>Tracker: {data.trackerCount}</p>
         <p>Cookies: {data.cookieCount}</p>
         <p>RiskScore: {data.riskScore}</p>
+      </div>
+      <div className="pt-10">
+        <LanguageSwitcher /> {/* TODO: Move to Footer */}
       </div>
     </div>
   );
