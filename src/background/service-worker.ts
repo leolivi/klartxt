@@ -6,6 +6,7 @@ import { handleCookies } from "./handlers/handle-cookies";
 import { TrackerCache } from "./cache/tracker-cache";
 import { handleDsgvo } from "./handlers/handle-dsgvo";
 import { updateTabBadge } from "./handlers/update-badge";
+import { isSidePanelClosedError } from "./handlers/handle-errors";
 
 initTrackerData();
 
@@ -23,7 +24,7 @@ function notifySidePanel(tabId: number): void {
     isPartialData: !cache.isScanCompleted(tabId),
     riskScore: cache.getOverallRiskScore(tabId),
   }).catch((error) => {
-    console.debug("Could not send message to tab", tabId, error);
+    if (!isSidePanelClosedError(error)) console.warn("[notifySidePanel] sendMessage failed:", error);
   });
 }
 
@@ -39,7 +40,7 @@ cache.setUIUpdateCallback(handleUIUpdate);
 /* ---- SIDE PANEL ---- */
 chrome.sidePanel
   .setPanelBehavior({openPanelOnActionClick: true})
-  .catch((error) => console.debug(error));
+  .catch((error) => console.warn("[sidePanel] setPanelBehavior failed:", error));
 
 
 /* ---- TAB ACTIVATED HANDLER ---- */
@@ -72,7 +73,9 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
     });
 
     // re-trigger DSGVO checks in content script
-    chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch(() => {});
+    chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch((error) => {
+      if (!isSidePanelClosedError(error)) console.warn("[onActivated] RUN_DSGVO_CHECKS failed:", error);
+    });
   }, 150);
 });
 
@@ -229,7 +232,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         trackerCount: trackers.length,
         cookieCount: cookies.length,
         isPartialData: !cache.isScanCompleted(message.tabId),
-        riskScore: riskScore
+        riskScore: riskScore,
       });
     })();
     return true;

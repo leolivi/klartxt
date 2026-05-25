@@ -6,7 +6,7 @@ import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
 interface TabData {
   trackerCount: number;
   cookieCount: number;
-  isPartialData: boolean; 
+  isPartialData: boolean;
   riskScore: number;
 }
 
@@ -15,8 +15,17 @@ interface TabDataMessage extends TabData {
   tabId: number;
 }
 
+function extractDomain(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
 function App() {
-  const [data, setData] = useState<TabData>({ trackerCount: 0, cookieCount: 0, isPartialData: false, riskScore: 0});
+  const [data, setData] = useState<TabData>({ trackerCount: 0, cookieCount: 0, isPartialData: false, riskScore: 0 });
+  const [domain, setDomain] = useState("");
 
   const isChromeExtension = typeof chrome !== "undefined" && !!chrome.tabs;
 
@@ -25,6 +34,7 @@ function App() {
       if (!isChromeExtension) return;
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       if (!tab?.id) return;
+      setDomain(extractDomain(tab.url ?? ""));
       chrome.runtime.sendMessage(
         { type: "GET_TAB_DATA", tabId: tab.id },
         (response: TabData) => {
@@ -69,8 +79,10 @@ function App() {
   }, [isChromeExtension]);
 
   return (
-    <div className="p-4">
-        <Header />
+    <div>
+      <div>
+        <Header domain={domain} />
+      </div>
       <div className="pt-20">
         {data.isPartialData && (
           <p>Tracker-Daten unvollständig. Seite neu laden für vollständigen Scan</p>

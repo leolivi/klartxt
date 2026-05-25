@@ -102,9 +102,6 @@ html {
   .text-body-bold {
     @apply text-body font-semibold;
   }
-  .text-secondary {
-    @apply text-secondary;
-  }
   .text-small-bold {
     @apply text-small font-semibold;
   }
