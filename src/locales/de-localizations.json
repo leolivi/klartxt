@@ -4,6 +4,9 @@
   "headerScanStatusInProgress": "Scan läuft",
   "headerScanStatusPartial": "Scan veraltet",
 
+  "riskScoreDialogTitle": "Was bedeutet der Score?",
+  "riskScoreDialogDescription": "Der Score bewertet den Datenschutz dieser Seite von 1 (sehr gut) bis 5 (kritisch), basierend auf Tracker-Anzahl, Cookie-Verhalten und Datenschutz-Auffälligkeiten.",
+
   "riskScore1Label": "Sehr geringes Risiko",
   "riskScore1Explanation": "Diese Seite trackt dich nicht.",
   "riskScore1Recommendation": "Privacy-by-Design umgesetzt.",

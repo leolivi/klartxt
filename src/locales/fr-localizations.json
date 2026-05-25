@@ -4,6 +4,9 @@
   "headerScanStatusInProgress": "Scan en cours",
   "headerScanStatusPartial": "Scan obsolète",
 
+  "riskScoreDialogTitle": "Que signifie le score?",
+  "riskScoreDialogDescription": "Le score évalue la confidentialité de ce site de 1 (très bon) à 5 (critique), en fonction du nombre de trackers, du comportement des cookies et des violations de la vie privée.",
+
   "riskScore1Label": "Risque très faible",
   "riskScore1Explanation": "Ce site ne vous traque pas.",
   "riskScore1Recommendation": "Privacy-by-design respectée.",
