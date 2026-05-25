@@ -3,7 +3,7 @@
 import { calculateCookieRiskScore } from "@/utils/scoring/cookie-risk-score";
 import { calculateDsgvoRiskScore } from "@/utils/scoring/dsgvo-risk-score";
 import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
-import { calculateOverallRiskScore, getOverallRiskScoreResult, type RiskScoreResult } from "@/utils/scoring/overall-risk-score";
+import { calculateOverallRiskScore } from "@/utils/scoring/overall-risk-score";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 import type { ConsentTimingResult, CookieViolation, DsgvoResult } from "@/utils/types/dsgvo-types";
 import type { TrackerInfo } from "@/utils/types/tracking-enums";
@@ -20,6 +20,7 @@ export class TrackerCache {
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateCallback: ((tabId: number) => void) | null = null;
+  private readonly STALE_THRESHOLD_MS = 30 * 60 * 1000;
 
   setTrackerDetail(tabId: number, tracker: TrackerInfo): void {
     if (!this.trackerDetails.has(tabId)) {
@@ -47,6 +48,16 @@ export class TrackerCache {
     return this.scanCompleted.get(tabId) ?? false;
   }
 
+  isDataStale(tabId: number): boolean {
+    const ts = this.timestamps.get(tabId);
+    if (ts == null) return true;
+    return Date.now() - ts > this.STALE_THRESHOLD_MS;
+  }
+
+  invalidateScan(tabId: number): void {
+    this.scanCompleted.set(tabId, false);
+  }
+
   getCookieDetails(tabId: number): ClassifiedCookie[] {
     return this.cookieDetails.get(tabId) ?? [];
   }
@@ -66,10 +77,6 @@ export class TrackerCache {
 
   getOverallRiskScore(tabId: number): number {
     return this.overallRiskScore.get(tabId) ?? 0;
-  }
-
-  getOverallRiskScoreResult(tabId: number): RiskScoreResult {
-    return getOverallRiskScoreResult(this.getOverallRiskScore(tabId));
   }
 
   recalculateOverallRiskScore(tabId: number): number {
@@ -177,7 +184,7 @@ export class TrackerCache {
     const result = await chrome.storage.session.get([
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
-      `dsgvoResults_${tabId}`,
+      `dsgvoResult_${tabId}`,
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,
@@ -243,7 +250,7 @@ export class TrackerCache {
     chrome.storage.session.remove([
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
-      `dsgvoResults_${tabId}`,
+      `dsgvoResult_${tabId}`,
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,

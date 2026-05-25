@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./styles/App.css";
 import { Header } from "./components/header/Header";
 import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
+import { RiskScore } from "./components/riskScore/RiskScore";
 
 interface TabData {
   trackerCount: number;
@@ -26,6 +27,7 @@ function extractDomain(url: string): string {
 function App() {
   const [data, setData] = useState<TabData>({ trackerCount: 0, cookieCount: 0, isPartialData: false, riskScore: 0 });
   const [domain, setDomain] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const isChromeExtension = typeof chrome !== "undefined" && !!chrome.tabs;
 
@@ -34,11 +36,15 @@ function App() {
       if (!isChromeExtension) return;
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       if (!tab?.id) return;
+      setIsLoaded(false);
       setDomain(extractDomain(tab.url ?? ""));
       chrome.runtime.sendMessage(
         { type: "GET_TAB_DATA", tabId: tab.id },
         (response: TabData) => {
-          if (response) setData(response);
+          if (response) {
+            setData(response);
+            setIsLoaded(true);
+          }
         }
       );
     }
@@ -80,13 +86,9 @@ function App() {
 
   return (
     <div>
-      <div>
-        <Header domain={domain} />
-      </div>
+        <Header domain={domain} isPartialData={data.isPartialData} isLoaded={isLoaded} />
+        <RiskScore score={data.riskScore}/>
       <div className="pt-20">
-        {data.isPartialData && (
-          <p>Tracker-Daten unvollständig. Seite neu laden für vollständigen Scan</p>
-        )}
         <p>Tracker: {data.trackerCount}</p>
         <p>Cookies: {data.cookieCount}</p>
         <p>RiskScore: {data.riskScore}</p>

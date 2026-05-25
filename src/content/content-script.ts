@@ -22,10 +22,14 @@ if (document.readyState === "loading") {
 export function sendResult() {
   const result = runDsgvoChecks();
 
-  chrome.runtime.sendMessage({
-    type: "DSGVO_CHECKS_RESULT",
-    result,
-  }).catch(() => {});
+  try {
+    chrome.runtime.sendMessage({
+      type: "DSGVO_CHECKS_RESULT",
+      result,
+    }).catch(() => {});
+  } catch (error) {
+    console.debug("[content-script] sendResult failed:", error);
+  }
 }
 
 /* ---- Message Listener ---- */

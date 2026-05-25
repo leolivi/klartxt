@@ -1,4 +1,26 @@
 {
   "headerCurrentlyOn": "currently on",
-  "headerScanStatusDone": "Scan completed"
+  "headerScanStatusDone": "Scan completed",
+  "headerScanStatusInProgress": "Scan in progress",
+  "headerScanStatusPartial": "Scan outdated",
+
+  "riskScore1Label": "Very Low Risk",
+  "riskScore1Explanation": "This site doesn't track you.",
+  "riskScore1Recommendation": "Privacy by design, you're good.",
+
+  "riskScore2Label": "Low Risk",
+  "riskScore2Explanation": "This site uses barely any trackers.",
+  "riskScore2Recommendation": "Your data largely stays with you.",
+
+  "riskScore3Label": "Medium Risk",
+  "riskScore3Explanation": "This site sends your data to multiple third parties.",
+  "riskScore3Recommendation": "You can still browse, just be aware.",
+
+  "riskScore4Label": "High Risk",
+  "riskScore4Explanation": "This site monitors your browsing behaviour extensively.",
+  "riskScore4Recommendation": "Use an ad blocker and avoid sharing sensitive data.",
+
+  "riskScore5Label": "Critical Risk",
+  "riskScore5Explanation": "This site actively violates your privacy.",
+  "riskScore5Recommendation": "Avoid sensitive activities on this site."
 }

@@ -9,7 +9,7 @@ const logoDark = "/img/logo/Klartxt_logo_dm.svg";
 
 
 
-export function Header({ domain }: { domain?: string }) {
+export function Header({ domain, isPartialData, isLoaded }: { domain?: string; isPartialData?: boolean; isLoaded?: boolean }) {
   const isDark = useIsDark();
   const logo = isDark ? logoDark : logoLight;
   const { t } = useTranslation();
@@ -22,12 +22,17 @@ export function Header({ domain }: { domain?: string }) {
   return (
     <>
       <div className="flex gap-4 justify-between items-center p-4">
-        <div className="flex flex-col gap-2 items-start">
+        <div className="flex flex-col gap-2 items-start justify-start">
           <img src={logo} alt="Klartxt logo" width={65} />
-          <p className="text-secondary">{t('headerCurrentlyOn')} <span className="text-muted">{domain ? ` ${domain}` : " "}</span> </p>
+          <p className="text-secondary ">{t('headerCurrentlyOn')} <span className="text-muted">{domain ? ` ${domain}` : " "}</span> </p>
         </div>
         <div className="flex gap-4">
-          <Button variant={"defaultFocus"} interactive={false}>{t('headerScanStatusDone')}</Button> {/*TODO: only display if scan is completed*/}
+          <Button
+            variant={!isLoaded ? "secondaryGreen" : isPartialData ? "secondaryRed" : "defaultFocus"}
+            interactive={false}
+          >
+            {!isLoaded ? t('headerScanStatusInProgress') : isPartialData ? t('headerScanStatusPartial') : t('headerScanStatusDone')}
+          </Button>
           <Button variant={"defaultFocus"} onClick={handleRefresh}><RefreshCw size={12} /></Button>
         </div>
       </div>

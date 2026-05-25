@@ -13,17 +13,17 @@ const buttonVariants = cva(
         defaultFocus:
           "border border-btn-border bg-btn-bg text-primary dark:text-primary-950 hover:bg-btn-bg-hover",
         secondaryGreen:
-          "bg-risk-low-fill text-risk-low-text hover:bg-risk-low-fill/80",
+          "bg-risk-low-fill text-risk-low-text dark:text-risk-low-text hover:bg-risk-low-fill/80",
         secondaryGreenOutlined:
-          "bg-risk-low-fill text-risk-low-text border border-risk-low-border hover:bg-risk-low-fill/80",
-       secondaryOrange:
-          "bg-risk-medium-fill text-risk-medium-text hover:bg-risk-medium-fill/80",
+          "bg-risk-low-fill text-risk-low-text dark:text-risk-low-text border border-risk-low-border hover:bg-risk-low-fill/80",
+        secondaryOrange:
+          "bg-risk-medium-fill text-risk-medium-text dark:text-risk-medium-text hover:bg-risk-medium-fill/80",
         secondaryOrangeOutlined:
-          "bg-risk-medium-fill text-risk-medium-text border border-risk-medium-border hover:bg-risk-medium-fill/80",
+          "bg-risk-medium-fill text-risk-medium-text dark:text-risk-medium-text border border-risk-medium-border hover:bg-risk-medium-fill/80",
         secondaryRed:
-          "bg-risk-high-fill text-risk-high-text hover:bg-risk-high-fill/80",
+          "bg-risk-high-fill text-risk-high-text dark:text-risk-high-text hover:bg-risk-high-fill/80",
         secondaryRedOutlined:
-          "bg-risk-high-fill text-risk-high-text border border-risk-high-border hover:bg-risk-high-fill/80",
+          "bg-risk-high-fill text-risk-high-text dark:text-risk-high-text border border-risk-high-border hover:bg-risk-high-fill/80",
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",

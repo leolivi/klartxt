@@ -1,4 +1,26 @@
 {
   "headerCurrentlyOn": "aktuell auf",
-  "headerScanStatusDone": "Scan abgeschlossen"
+  "headerScanStatusDone": "Scan abgeschlossen",
+  "headerScanStatusInProgress": "Scan läuft",
+  "headerScanStatusPartial": "Scan veraltet",
+
+  "riskScore1Label": "Sehr geringes Risiko",
+  "riskScore1Explanation": "Diese Seite trackt dich nicht.",
+  "riskScore1Recommendation": "Privacy-by-Design umgesetzt.",
+
+  "riskScore2Label": "Geringes Risiko",
+  "riskScore2Explanation": "Diese Seite verwendet kaum Tracker.",
+  "riskScore2Recommendation": "Deine Daten bleiben weitgehend bei dir.",
+
+  "riskScore3Label": "Mittleres Risiko",
+  "riskScore3Explanation": "Diese Seite sendet deine Daten an mehrere Drittanbieter.",
+  "riskScore3Recommendation": "Du kannst trotzdem weitersurfen.",
+
+  "riskScore4Label": "Hohes Risiko",
+  "riskScore4Explanation": "Diese Seite überwacht dein Surfverhalten intensiv.",
+  "riskScore4Recommendation": "Nutze einen Werbeblocker und teile keine sensiblen Daten.",
+
+  "riskScore5Label": "Kritisches Risiko",
+  "riskScore5Explanation": "Diese Seite verstösst aktiv gegen deinen Datenschutz.",
+  "riskScore5Recommendation": "Vermeide sensible Aktivitäten auf dieser Seite."
 }

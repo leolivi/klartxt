@@ -1,4 +1,26 @@
 {
   "headerCurrentlyOn": "actuellement sur",
-  "headerScanStatusDone": "Scan terminé"
+  "headerScanStatusDone": "Scan terminé",
+  "headerScanStatusInProgress": "Scan en cours",
+  "headerScanStatusPartial": "Scan obsolète",
+
+  "riskScore1Label": "Risque très faible",
+  "riskScore1Explanation": "Ce site ne vous traque pas.",
+  "riskScore1Recommendation": "Privacy-by-design respectée.",
+
+  "riskScore2Label": "Faible risque",
+  "riskScore2Explanation": "Ce site utilise très peu de trackers.",
+  "riskScore2Recommendation": "Vos données restent largement chez vous.",
+
+  "riskScore3Label": "Risque moyen",
+  "riskScore3Explanation": "Ce site envoie vos données à plusieurs tiers.",
+  "riskScore3Recommendation": "Vous pouvez continuer à naviguer.",
+
+  "riskScore4Label": "Risque élevé",
+  "riskScore4Explanation": "Ce site surveille intensément votre comportement en ligne.",
+  "riskScore4Recommendation": "Utilisez un bloqueur de publicités et évitez les données sensibles.",
+
+  "riskScore5Label": "Risque critique",
+  "riskScore5Explanation": "Ce site viole activement votre vie privée.",
+  "riskScore5Recommendation": "Évitez les activités sensibles sur ce site."
 }
