@@ -1,4 +1,5 @@
 import { CircleCheck, CircleX } from "lucide-react";
+import { Label } from "../ui/label";
 import {
   Dialog,
   DialogContent,
@@ -7,8 +8,10 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Separator } from "../ui/separator";
 import type { DsgvoResult } from "@/utils/types/dsgvo-types";
+import type { TrackerInfo } from "@/utils/types/tracking-enums";
 import { TrackingType } from "./TrackingType";
 import { useTranslation } from "react-i18next";
+import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 
 const DSGVO_KEYS = ["art7", "art13_14", "art25"] as const;
 
@@ -41,13 +44,59 @@ function DsgvoTab({ dsgvoResult }: { dsgvoResult: DsgvoResult | null }) {
   );
 }
 
+function TrackerTab({ trackerList }: { trackerList: TrackerInfo[] }) {
+  const { t } = useTranslation();
+
+  if (trackerList.length === 0) return <p className="text-small text-muted py-4">{t("trackingResultsDialogError")}</p>;
+  return (
+    <>
+      {trackerList.map((tracker, i) => (
+        <div key={tracker.domain}>
+          <div className="flex items-center justify-between py-3">
+            <p className="text-body">{tracker.domain}</p>
+            {/* TODO: add color difference to categories */}
+            <Label>{t(`trackerCategory_${tracker.userCategory}`)}</Label>
+          </div>
+          {i < trackerList.length - 1 && <Separator />}
+        </div>
+      ))}
+    </>
+  );
+}
+
+// TODO: maybe sort them from tracking to necessary (worst to best)?
+function CookiesTab({ cookiesList }: { cookiesList: ClassifiedCookie[] }) {
+  const { t } = useTranslation();
+
+  if (cookiesList.length === 0) return <p className="text-small text-muted py-4">{t("trackingResultsDialogError")}</p>;
+  return (
+    <>
+      {cookiesList.map((cookie, i) => (
+        <div key={`${cookie.domain}__${cookie.name}`}>
+          <div className="flex items-center justify-between py-3">
+            <div>
+              <p className="text-body">{cookie.name}:</p>
+              <p className="text-small text-muted">{t(cookie.isThirdParty ? "cookieThirdParty" : "cookieFirstParty")} - {cookie.domain}</p>
+            </div>
+            {/* TODO: add color difference to categories */}
+            <Label>{t(`cookiesCategory_${cookie.userCategory}`)}</Label>
+          </div>
+          {i < cookiesList.length - 1 && <Separator />}
+        </div>
+      ))}
+    </>
+  );
+}
+
 interface TrackingResultsDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   activeTab: TrackingType;
   onTabChange: (tab: TrackingType) => void;
   tracker: number;
+  trackerList: TrackerInfo[];
   cookies: number;
+  cookiesList: ClassifiedCookie[];
   dsgvoResult: DsgvoResult | null;
 }
 
@@ -57,7 +106,9 @@ export function TrackingResultsDialog({
   activeTab,
   onTabChange,
   tracker,
+  trackerList,
   cookies,
+  cookiesList,
   dsgvoResult,
 }: TrackingResultsDialogProps) {
   return (
@@ -67,18 +118,20 @@ export function TrackingResultsDialog({
         <Tabs value={activeTab} onValueChange={(v) => onTabChange(v as TrackingType)}>
           <TabsList className="mt-4">
             <TabsTrigger value={TrackingType.DSGVO}>DSGVO</TabsTrigger>
-            <TabsTrigger value={TrackingType.TRACKER}>Tracker</TabsTrigger>
-            <TabsTrigger value={TrackingType.COOKIE}>Cookies</TabsTrigger>
+            <TabsTrigger value={TrackingType.TRACKER}>Tracker ({tracker})</TabsTrigger>
+            <TabsTrigger value={TrackingType.COOKIE}>Cookies ({cookies})</TabsTrigger>
           </TabsList>
-          <TabsContent value={TrackingType.DSGVO}>
-            <DsgvoTab dsgvoResult={dsgvoResult} />
-          </TabsContent>
-          <TabsContent value={TrackingType.TRACKER}>
-            <p className="text-h2 py-4">{tracker}</p>
-          </TabsContent>
-          <TabsContent value={TrackingType.COOKIE}>
-            <p className="text-h2 py-4">{cookies}</p>
-          </TabsContent>
+          <div className="-mx-6 no-scrollbar max-h-[50vh] overflow-y-auto px-6">
+            <TabsContent value={TrackingType.DSGVO}>
+              <DsgvoTab dsgvoResult={dsgvoResult} />
+            </TabsContent>
+            <TabsContent value={TrackingType.TRACKER}>
+              <TrackerTab trackerList={trackerList} />
+            </TabsContent>
+            <TabsContent value={TrackingType.COOKIE}>
+              <CookiesTab cookiesList={cookiesList} />
+            </TabsContent>
+          </div>
         </Tabs>
       </DialogContent>
     </Dialog>

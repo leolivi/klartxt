@@ -20,7 +20,9 @@ function notifySidePanel(tabId: number): void {
     type: "TAB_DATA_UPDATED",
     tabId,
     trackerCount: trackers.length,
+    trackerList: trackers,
     cookieCount: cookies.length,
+    cookiesList: cookies,
     isPartialData: !cache.isScanCompleted(tabId) || cache.isDataStale(tabId),
     riskScore: cache.getOverallRiskScore(tabId),
     dsgvoResult: cache.getDsgvoResult(tabId),
@@ -237,7 +239,9 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
       sendResponse({
         trackerCount: trackers.length,
+        trackerList: trackers,
         cookieCount: cookies.length,
+        cookiesList: cookies,
         isPartialData: !cache.isScanCompleted(message.tabId),
         riskScore,
         dsgvoResult: cache.getDsgvoResult(message.tabId),

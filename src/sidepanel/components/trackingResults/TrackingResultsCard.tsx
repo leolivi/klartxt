@@ -3,9 +3,11 @@ import { CircleCheck, CircleX } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Card } from "../ui/card";
 import type { DsgvoResult } from "@/utils/types/dsgvo-types";
+import type { TrackerInfo } from "@/utils/types/tracking-enums";
 import { TrackingType } from "./TrackingType";
 import { TrackingResultsDialog } from "./TrackingResultsDialog";
 import { useTranslation } from "react-i18next";
+import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 
 const DSGVO_KEYS = ["art7", "art13_14", "art25"] as const;
 
@@ -22,7 +24,7 @@ function dsgvoIcons(dsgvoResult: DsgvoResult | null) {
   );
 }
 
-export function TrackingResultsCard({ tracker, cookies, dsgvoResult }: { tracker: number; cookies: number; dsgvoResult: DsgvoResult | null }) {
+export function TrackingResultsCard({ tracker, trackerList, cookies, cookiesList, dsgvoResult }: { tracker: number; trackerList: TrackerInfo[]; cookies: number; cookiesList: ClassifiedCookie[], dsgvoResult: DsgvoResult | null }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TrackingType>(TrackingType.DSGVO);
@@ -45,7 +47,9 @@ export function TrackingResultsCard({ tracker, cookies, dsgvoResult }: { tracker
         activeTab={activeTab}
         onTabChange={setActiveTab}
         tracker={tracker}
+        trackerList={trackerList}
         cookies={cookies}
+        cookiesList={cookiesList}
         dsgvoResult={dsgvoResult}
       />
       <Separator />

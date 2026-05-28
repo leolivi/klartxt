@@ -28,7 +28,21 @@
   "riskScore5Recommendation": "Vermeide sensible Aktivitäten auf dieser Seite.",
 
   "TrackingResultsCardDSGVO": "Datenschutz",
-  "trackingResultsDialogError": "Kein Scan verfügbar.",
+  "trackingResultsDialogError": "Keine Daten verfügbar.",
+
+  "cookieFirstParty": "First-Party",
+  "cookieThirdParty": "Third-Party",
+
+  "cookiesCategory_necessary": "Notwendig",
+  "cookiesCategory_tracking": "Tracking",
+  "cookiesCategory_functional": "Funktional",
+  "cookiesCategory_unknown": "Unbekannt",
+
+  "trackerCategory_tracking": "Tracking",
+  "trackerCategory_ads": "Werbung",
+  "trackerCategory_functional": "Funktional",
+  "trackerCategory_content": "Inhalte",
+  "trackerCategory_security": "Sicherheit",
 
   "dsgvoArt7Title": "Art. 7 DSGVO: Einwilligung vor Datenerhebung erforderlich",
   "dsgvoArt7FineQuickTitle": "Einwilligung wird eingehalten",
