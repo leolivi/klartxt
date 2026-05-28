@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import "./styles/App.css";
 import { Header } from "./components/header/Header";
+import { TrackingResultsCard } from "./components/trackingResults/TrackingResultsCard";
 import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
 import { RiskScore } from "./components/riskScore/RiskScore";
+import type { DsgvoResult } from "@/utils/types/dsgvo-types";
 
 interface TabData {
   trackerCount: number;
   cookieCount: number;
   isPartialData: boolean;
   riskScore: number;
+  dsgvoResult: DsgvoResult | null;
 }
 
 interface TabDataMessage extends TabData {
@@ -25,7 +28,7 @@ function extractDomain(url: string): string {
 }
 
 function App() {
-  const [data, setData] = useState<TabData>({ trackerCount: 0, cookieCount: 0, isPartialData: false, riskScore: 0 });
+  const [data, setData] = useState<TabData>({ trackerCount: 0, cookieCount: 0, isPartialData: false, riskScore: 0, dsgvoResult: null });
   const [domain, setDomain] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -88,12 +91,8 @@ function App() {
     <div>
         <Header domain={domain} isPartialData={data.isPartialData} isLoaded={isLoaded} />
         <RiskScore score={data.riskScore}/>
-      <div className="pt-20">
-        <p>Tracker: {data.trackerCount}</p>
-        <p>Cookies: {data.cookieCount}</p>
-        <p>RiskScore: {data.riskScore}</p>
-      </div>
-      <div className="pt-10">
+        <TrackingResultsCard tracker={data.trackerCount} cookies={data.cookieCount} dsgvoResult={data.dsgvoResult} />
+      <div className="p-4">
         <LanguageSwitcher /> {/* TODO: Move to Footer */}
       </div>
     </div>

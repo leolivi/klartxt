@@ -25,5 +25,41 @@
 
   "riskScore5Label": "Critical Risk",
   "riskScore5Explanation": "This site actively violates your privacy.",
-  "riskScore5Recommendation": "Avoid sensitive activities on this site."
+  "riskScore5Recommendation": "Avoid sensitive activities on this site.",
+
+  "TrackingResultsCardDSGVO": "Privacy Policy",
+  "trackingResultsDialogError": "No Scan available.",
+
+  "dsgvoArt7Title": "Art. 7 GDPR: Consent Required Before Data Collection",
+  "dsgvoArt7FineQuickTitle": "Consent respected",
+  "dsgvoArt7FineExplanation": "No cookies were set before your consent. This site complies with Art. 7 GDPR.",
+  "dsgvoArt7FineRecommendation": "All good. Consent is correctly implemented.",
+  "dsgvoArt7SuspiciousQuickTitle": "Tracking might start too early",
+  "dsgvoArt7SuspiciousExplanation": "A cookie banner was detected, but cookies or trackers are already active. Consent may not be awaited.",
+  "dsgvoArt7SuspiciousRecommendation": "Check whether the active cookies are technically necessary or should only be set after consent.",
+  "dsgvoArt7ConfirmedQuickTitle": "Tracking starts without your permission",
+  "dsgvoArt7ConfirmedExplanation": "This site sets cookies and sends data to external services before you've confirmed anything. Your consent would be required first.",
+  "dsgvoArt7ConfirmedRecommendation": "All non-essential cookies must only be set after active consent. Review the cookie banner implementation.",
+
+  "dsgvoArt1314Title": "Art. 13/14 GDPR: Duty to Inform About Data Collection",
+  "dsgvoArt1314FineQuickTitle": "Privacy policy found",
+  "dsgvoArt1314FineExplanation": "A link to the privacy policy was found. This site fulfils the information obligation under Art. 13/14 GDPR.",
+  "dsgvoArt1314FineRecommendation": "All good. The privacy policy is accessible.",
+  "dsgvoArt1314SuspiciousQuickTitle": "Privacy policy hard to find",
+  "dsgvoArt1314SuspiciousExplanation": "A possible link to the privacy policy was found, but its placement or labelling is unclear.",
+  "dsgvoArt1314SuspiciousRecommendation": "Manually check whether the link actually leads to the privacy policy.",
+  "dsgvoArt1314ConfirmedQuickTitle": "No privacy policy found",
+  "dsgvoArt1314ConfirmedExplanation": "No link to a privacy policy was found. Under Art. 13/14 GDPR, website operators must inform users about data processing.",
+  "dsgvoArt1314ConfirmedRecommendation": "Add a clearly visible link to the privacy policy, e.g. in the footer or navigation.",
+
+  "dsgvoArt25Title": "Art. 25 GDPR: Privacy by Design",
+  "dsgvoArt25FineQuickTitle": "Privacy by design implemented",
+  "dsgvoArt25FineExplanation": "The site uses HTTPS and no high-risk trackers were detected. This aligns with the privacy by design principle.",
+  "dsgvoArt25FineRecommendation": "All good. Technical safeguards are appropriate.",
+  "dsgvoArt25SuspiciousQuickTitle": "Tracking may undermine privacy",
+  "dsgvoArt25SuspiciousExplanation": "The site uses HTTPS, but trackers or fingerprinting were detected. Browser fingerprinting enables user re-identification without cookies, undermining the data minimisation principle.",
+  "dsgvoArt25SuspiciousRecommendation": "Review the tracking tools in use and ensure consent is obtained for all of them.",
+  "dsgvoArt25ConfirmedQuickTitle": "High-risk trackers or insecure connection",
+  "dsgvoArt25ConfirmedExplanation": "High-risk trackers were detected or the connection is not encrypted. This violates the privacy by design principle under Art. 25 GDPR.",
+  "dsgvoArt25ConfirmedRecommendation": "Remove high-risk trackers, ensure HTTPS is used, and obtain consent correctly."
 }

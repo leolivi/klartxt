@@ -23,6 +23,7 @@ function notifySidePanel(tabId: number): void {
     cookieCount: cookies.length,
     isPartialData: !cache.isScanCompleted(tabId) || cache.isDataStale(tabId),
     riskScore: cache.getOverallRiskScore(tabId),
+    dsgvoResult: cache.getDsgvoResult(tabId),
   }).catch((error) => {
     if (!isSidePanelClosedError(error)) console.warn("[notifySidePanel] sendMessage failed:", error);
   });
@@ -239,6 +240,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         cookieCount: cookies.length,
         isPartialData: !cache.isScanCompleted(message.tabId),
         riskScore,
+        dsgvoResult: cache.getDsgvoResult(message.tabId),
       });
     })();
     return true;

@@ -25,5 +25,41 @@
 
   "riskScore5Label": "Risque critique",
   "riskScore5Explanation": "Ce site viole activement votre vie privée.",
-  "riskScore5Recommendation": "Évitez les activités sensibles sur ce site."
+  "riskScore5Recommendation": "Évitez les activités sensibles sur ce site.",
+
+  "TrackingResultsCardDSGVO": "Protection des données",
+  "trackingResultsDialogError": "Aucun scan disponible.",
+
+  "dsgvoArt7Title": "Art. 7 RGPD: Consentement requis avant la collecte de données",
+  "dsgvoArt7FineQuickTitle": "Consentement respecté",
+  "dsgvoArt7FineExplanation": "Aucun cookie n'a été défini avant votre consentement. Ce site respecte l'Art. 7 du RGPD.",
+  "dsgvoArt7FineRecommendation": "Tout est en ordre. Le consentement est correctement mis en œuvre.",
+  "dsgvoArt7SuspiciousQuickTitle": "Le suivi pourrait démarrer trop tôt",
+  "dsgvoArt7SuspiciousExplanation": "Une bannière de cookies a été détectée, mais des cookies ou trackers sont déjà actifs. Le consentement n'est peut-être pas attendu.",
+  "dsgvoArt7SuspiciousRecommendation": "Vérifiez si les cookies actifs sont techniquement nécessaires ou ne devraient être définis qu'après consentement.",
+  "dsgvoArt7ConfirmedQuickTitle": "Le suivi démarre sans votre permission",
+  "dsgvoArt7ConfirmedExplanation": "Ce site dépose des cookies et envoie des données à des services externes avant que vous n'ayez confirmé quoi que ce soit. Votre consentement serait requis en premier.",
+  "dsgvoArt7ConfirmedRecommendation": "Tous les cookies non essentiels ne doivent être définis qu'après consentement actif. Vérifiez l'implémentation de la bannière de cookies.",
+
+  "dsgvoArt1314Title": "Art. 13/14 RGPD: Obligation d'informer sur la collecte de données",
+  "dsgvoArt1314FineQuickTitle": "Politique de confidentialité trouvée",
+  "dsgvoArt1314FineExplanation": "Un lien vers la politique de confidentialité a été trouvé. Ce site remplit l'obligation d'information selon l'Art. 13/14 du RGPD.",
+  "dsgvoArt1314FineRecommendation": "Tout est en ordre. La politique de confidentialité est accessible.",
+  "dsgvoArt1314SuspiciousQuickTitle": "Politique de confidentialité difficile à trouver",
+  "dsgvoArt1314SuspiciousExplanation": "Un lien possible vers la politique de confidentialité a été trouvé, mais son emplacement ou son libellé est peu clair.",
+  "dsgvoArt1314SuspiciousRecommendation": "Vérifiez manuellement si le lien mène effectivement à la politique de confidentialité.",
+  "dsgvoArt1314ConfirmedQuickTitle": "Aucune politique de confidentialité trouvée",
+  "dsgvoArt1314ConfirmedExplanation": "Aucun lien vers une politique de confidentialité n'a été trouvé. Selon l'Art. 13/14 du RGPD, les exploitants de sites web doivent informer les utilisateurs sur le traitement des données.",
+  "dsgvoArt1314ConfirmedRecommendation": "Ajoutez un lien clairement visible vers la politique de confidentialité, par exemple dans le pied de page ou la navigation.",
+
+  "dsgvoArt25Title": "Art. 25 RGPD: Protection des données dès la conception",
+  "dsgvoArt25FineQuickTitle": "Protection des données mise en œuvre techniquement",
+  "dsgvoArt25FineExplanation": "Le site utilise HTTPS et aucun tracker à haut risque n'a été détecté. Cela correspond au principe de protection des données dès la conception.",
+  "dsgvoArt25FineRecommendation": "Tout est en ordre. Les mesures de protection techniques sont appropriées.",
+  "dsgvoArt25SuspiciousQuickTitle": "Le suivi pourrait compromettre la vie privée",
+  "dsgvoArt25SuspiciousExplanation": "Le site utilise HTTPS, mais des trackers ou du fingerprinting ont été détectés. Le fingerprinting de navigateur permet la réidentification sans cookies, contournant le principe de minimisation des données.",
+  "dsgvoArt25SuspiciousRecommendation": "Examinez les outils de suivi utilisés et assurez-vous que le consentement est obtenu pour chacun d'eux.",
+  "dsgvoArt25ConfirmedQuickTitle": "Trackers à haut risque ou connexion non sécurisée",
+  "dsgvoArt25ConfirmedExplanation": "Des trackers à haut risque ont été détectés ou la connexion n'est pas chiffrée. Cela va à l'encontre du principe de protection des données dès la conception selon l'Art. 25 du RGPD.",
+  "dsgvoArt25ConfirmedRecommendation": "Supprimez les trackers à haut risque, assurez-vous que HTTPS est utilisé, et obtenez le consentement correctement."
 }
