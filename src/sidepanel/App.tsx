@@ -97,11 +97,14 @@ function App() {
   return (
     <div>
         <Header domain={domain} isPartialData={data.isPartialData} isLoaded={isLoaded} />
+
         <RiskScore score={data.riskScore}/>
         <TrackingResultsCard tracker={data.trackerCount} trackerList={data.trackerList} cookies={data.cookieCount} cookiesList={data.cookiesList} dsgvoResult={data.dsgvoResult} />
-      <div className="p-4">
+        {/* TODO: Explination Section */}
+        {/* TODO: Recommendation Section */}
+
         <Footer scanDuration={data.scanDuration} />
-      </div>
+
     </div>
   );
 }

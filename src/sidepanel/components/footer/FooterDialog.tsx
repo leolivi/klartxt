@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
+import { ArrowUpRight } from "lucide-react";
 
 const CHECKED_ITEMS = ["tracker", "cookies", "privacyPolicy", "thirdParty"] as const;
 
@@ -29,14 +30,14 @@ export function FooterDialog() {
             <div key={item}>
               <div className="py-3">
                 {/* TODO: convert to links w arrow icon */}
-                <p className="text-body underline text-muted">{t(`footerDialog_${item}_title`)}</p>
+                <p className="text-body underline text-muted flex items-center">{t(`footerDialog_${item}_title`)}<ArrowUpRight size={12} /></p>
                 <p className="text-body">{t(`footerDialog_${item}_description`)}</p>
               </div>
-              {i < CHECKED_ITEMS.length - 1 && <Separator />}
+              {i < CHECKED_ITEMS.length && <Separator />}
             </div>
           ))}
         </div>
-        <DialogDescription className="text-small text-muted border-t pt-3">
+        <DialogDescription className="text-small text-muted">
           {t("footerDialogDisclaimer")}
         </DialogDescription>
       </DialogContent>

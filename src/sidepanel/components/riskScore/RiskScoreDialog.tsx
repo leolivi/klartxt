@@ -28,7 +28,7 @@ function RiskScoreDialogDescription() {
               <p className="text-small">{t(`riskScore${level}Recommendation`)}</p>
             </div>
           </div>
-          {i < LEVELS.length - 1 && <Separator />}
+          {i < LEVELS.length && <Separator />}
         </div>
       ))}
     </>
@@ -45,12 +45,11 @@ export function RiskScoreDialog() {
         <DialogContent>
             <DialogHeader>
             <DialogTitle>{t("riskScoreDialogTitle")}</DialogTitle>
+            </DialogHeader>
+            <RiskScoreDialogDescription />
             <DialogDescription className="text-small text-text-muted">
                 {t("riskScoreDialogDescription")}
             </DialogDescription>
-            </DialogHeader>
-            <RiskScoreDialogDescription />
-        
         </DialogContent>
         </Dialog>
     </>
