@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./styles/App.css";
 import { Header } from "./components/header/Header";
+import { Footer } from "./components/footer/Footer";
 import { TrackingResultsCard } from "./components/trackingResults/TrackingResultsCard";
-import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
 import { RiskScore } from "./components/riskScore/RiskScore";
 import type { DsgvoResult } from "@/utils/types/dsgvo-types";
 import type { TrackerInfo } from "@/utils/types/tracking-enums";
@@ -16,6 +16,7 @@ interface TabData {
   isPartialData: boolean;
   riskScore: number;
   dsgvoResult: DsgvoResult | null;
+  scanDuration: number | null;
 }
 
 interface TabDataMessage extends TabData {
@@ -34,7 +35,7 @@ function extractDomain(url: string): string {
 // TODO: outsource logic from ui
 
 function App() {
-  const [data, setData] = useState<TabData>({ trackerCount: 0, trackerList: [], cookieCount: 0, cookiesList: [], isPartialData: false, riskScore: 0, dsgvoResult: null });
+  const [data, setData] = useState<TabData>({ trackerCount: 0, trackerList: [], cookieCount: 0, cookiesList: [], isPartialData: false, riskScore: 0, dsgvoResult: null, scanDuration: null });
   const [domain, setDomain] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -99,7 +100,7 @@ function App() {
         <RiskScore score={data.riskScore}/>
         <TrackingResultsCard tracker={data.trackerCount} trackerList={data.trackerList} cookies={data.cookieCount} cookiesList={data.cookiesList} dsgvoResult={data.dsgvoResult} />
       <div className="p-4">
-        <LanguageSwitcher /> {/* TODO: Move to Footer */}
+        <Footer scanDuration={data.scanDuration} />
       </div>
     </div>
   );

@@ -1,4 +1,17 @@
 {
+  "footerScannedIn": "Scanned in {{seconds}}s",
+  "footerWhatWasChecked": "What was checked?",
+  "footerDialogTitle": "What was checked?",
+  "footerDialog_tracker_title": "Trackers",
+  "footerDialog_tracker_description": "All outgoing requests from the page, matched against the DuckDuckGo tracker database.",
+  "footerDialog_cookies_title": "Cookies",
+  "footerDialog_cookies_description": "Which cookies were set, by whom, and whether that happened before your consent.",
+  "footerDialog_privacyPolicy_title": "Privacy Policy",
+  "footerDialog_privacyPolicy_description": "Whether a findable privacy policy is present on the site.",
+  "footerDialog_thirdParty_title": "Third-Party Requests",
+  "footerDialog_thirdParty_description": "How many external services were contacted when loading the page.",
+  "footerDialogDisclaimer": "Klartxt analyses technically and does not assess legal compliance.",
+
   "headerCurrentlyOn": "currently on",
   "headerScanStatusDone": "Scan completed",
   "headerScanStatusInProgress": "Scan in progress",

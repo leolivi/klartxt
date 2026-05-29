@@ -26,7 +26,7 @@ const buttonVariants = cva(
           "bg-risk-high-fill text-risk-high-text dark:text-risk-high-text border border-risk-high-border hover:bg-risk-high-fill/80",
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "text-primary underline hover:underline",
       },
       interactive: {
         true: "",

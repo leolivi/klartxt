@@ -26,6 +26,7 @@ function notifySidePanel(tabId: number): void {
     isPartialData: !cache.isScanCompleted(tabId) || cache.isDataStale(tabId),
     riskScore: cache.getOverallRiskScore(tabId),
     dsgvoResult: cache.getDsgvoResult(tabId),
+    scanDuration: cache.getScanDuration(tabId),
   }).catch((error) => {
     if (!isSidePanelClosedError(error)) console.warn("[notifySidePanel] sendMessage failed:", error);
   });
@@ -94,6 +95,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
   // SPA navigation: URL changed without a full reload (no status transition)
   if (changeInfo.url && changeInfo.status == null) {
     if (tab.url && !tab.url.startsWith("chrome://")) {
+      cache.startScan(tabId);
       await handleCookies({
         tabUrl: tab.url,
         onCookiesDetected: (cookies) => {
@@ -108,6 +110,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
   if (changeInfo.status !== "complete") return;
 
   await cache.restoreFromStorage(tabId);
+  cache.startScan(tabId);
 
   /* ---- COOKIE HANDLER ---- */
   if (tab.url && !tab.url.startsWith("chrome://")) {
@@ -245,6 +248,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         isPartialData: !cache.isScanCompleted(message.tabId),
         riskScore,
         dsgvoResult: cache.getDsgvoResult(message.tabId),
+        scanDuration: cache.getScanDuration(message.tabId),
       });
     })();
     return true;
