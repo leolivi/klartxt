@@ -22,7 +22,7 @@ function dsgvoIcons(dsgvoResult: DsgvoResult | null) {
 }
 
 export function TrackingResultsSection() {
-  const { trackerCount: tracker, trackerList, cookieCount: cookies, cookiesList, dsgvoResult } = useTabDataContext();
+  const { trackerCount: tracker, cookieCount: cookies, dsgvoResult } = useTabDataContext();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TrackingType>(TrackingType.DSGVO);
@@ -44,11 +44,6 @@ export function TrackingResultsSection() {
         onOpenChange={setOpen}
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        tracker={tracker}
-        trackerList={trackerList}
-        cookies={cookies}
-        cookiesList={cookiesList}
-        dsgvoResult={dsgvoResult}
       />
       <Separator />
     </>

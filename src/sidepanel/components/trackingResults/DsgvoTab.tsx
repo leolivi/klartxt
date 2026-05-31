@@ -1,9 +1,11 @@
-import { DSGVO_KEYS, type DsgvoResult } from "@/utils/types/dsgvo-types";
+import { DSGVO_KEYS } from "@/utils/types/dsgvo-types";
 import { Separator } from "../ui/separator";
 import { CircleCheck, CircleX } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useTabDataContext } from "../../context/useTabDataContext";
 
-export function DsgvoTab({ dsgvoResult }: { dsgvoResult: DsgvoResult | null }) {
+export function DsgvoTab() {
+  const { dsgvoResult } = useTabDataContext();
   const { t } = useTranslation();
 
   if (!dsgvoResult) return <p className="text-small text-muted py-4">{t("trackingResultsDialogError")}</p>;
