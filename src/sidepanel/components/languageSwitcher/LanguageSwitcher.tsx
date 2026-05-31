@@ -6,12 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-
-const LANGUAGES = [
-  { code: "en", label: "English" },
-  { code: "de", label: "Deutsch" },
-  { code: "fr", label: "Français" },
-];
+import { LANGUAGES } from "@/utils/types/footer-types";
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();

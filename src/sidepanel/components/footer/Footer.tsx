@@ -1,12 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher';
 import { FooterDialog } from './FooterDialog';
+import { useTabDataContext } from '../../context/useTabDataContext';
 
-interface FooterProps {
-  scanDuration: number | null;
-}
-
-export function Footer({ scanDuration }: FooterProps) {
+export function Footer() {
+  const { scanDuration } = useTabDataContext();
   const { t } = useTranslation();
 
   return (

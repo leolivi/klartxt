@@ -3,21 +3,17 @@ import { useIsDark } from "../../hooks/useIsDark";
 import { Button } from '../ui/button';
 import { useTranslation } from 'react-i18next';
 import { Separator } from '../ui/separator';
+import { useTabDataContext } from '../../context/useTabDataContext';
+import { handleRefresh } from '@/utils/refresh';
 
 const logoLight = "/img/logo/Klartxt_logo_lm.svg";
 const logoDark = "/img/logo/Klartxt_logo_dm.svg";
 
-
-
-export function Header({ domain, isPartialData, isLoaded }: { domain?: string; isPartialData?: boolean; isLoaded?: boolean }) {
+export function Header() {
+  const { domain, isPartialData, isLoaded } = useTabDataContext();
+  const { t } = useTranslation();
   const isDark = useIsDark();
   const logo = isDark ? logoDark : logoLight;
-  const { t } = useTranslation();
-
-  async function handleRefresh() {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab?.id) chrome.tabs.reload(tab.id);
-  }
 
   return (
     <>

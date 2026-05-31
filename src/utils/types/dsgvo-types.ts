@@ -6,7 +6,8 @@ export enum Articles {
     ART25 = "Art. 25",
 }
 
-export type DsgvoKey = "art7" | "art13_14" | "art25";
+export const DSGVO_KEYS = ["art7", "art13_14", "art25"] as const;
+export type DsgvoKey = typeof DSGVO_KEYS[number];
 
 export enum CheckSeverity {
   FINE = "fine",

@@ -10,8 +10,7 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { ArrowUpRight } from "lucide-react";
-
-const CHECKED_ITEMS = ["tracker", "cookies", "privacyPolicy", "thirdParty"] as const;
+import { CHECKED_ITEMS } from "@/utils/types/footer-types";
 
 export function FooterDialog() {
   const { t } = useTranslation();
@@ -26,14 +25,20 @@ export function FooterDialog() {
           <DialogTitle>{t("footerDialogTitle")}</DialogTitle>
         </DialogHeader>
         <div>
-          {CHECKED_ITEMS.map((item, i) => (
-            <div key={item}>
+          {CHECKED_ITEMS.map(({ key }, i) => (
+            <div key={key}>
               <div className="py-3">
-                {/* TODO: convert to links w arrow icon */}
-                <p className="text-body underline text-muted flex items-center">{t(`footerDialog_${item}_title`)}<ArrowUpRight size={12} /></p>
-                <p className="text-body">{t(`footerDialog_${item}_description`)}</p>
+                <a
+                  href={t(`footerDialog_${key}_href`)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cursor-pointer flex items-center gap-1 text-body underline text-primary dark:text-primary-100"
+                >
+                  {t(`footerDialog_${key}_title`)} <ArrowUpRight size={12} />
+                </a>
+                <p className="text-body">{t(`footerDialog_${key}_description`)}</p>
               </div>
-              {i < CHECKED_ITEMS.length && <Separator />}
+              {i < CHECKED_ITEMS.length - 1 && <Separator />}
             </div>
           ))}
         </div>

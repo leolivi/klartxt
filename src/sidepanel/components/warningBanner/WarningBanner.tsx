@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle, X } from "lucide-react";
+import { useTabDataContext } from "../../context/useTabDataContext";
 
-interface WarningBannerProps {
-  riskScore: number;
-}
-
-export function WarningBanner({ riskScore }: WarningBannerProps) {
+export function WarningBanner() {
+  const { riskScore, isLoaded } = useTabDataContext();
   const { t } = useTranslation();
   const [dismissed, setDismissed] = useState(false);
 
-  if (riskScore < 4 || dismissed) return null;
+  if (!isLoaded || riskScore < 4 || dismissed) return null;
 
   return (
     <div className="flex items-start gap-3 px-4 py-3 bg-risk-high-fill text-risk-high-text">

@@ -73,6 +73,12 @@ function dsgvoInsight(dsgvoResult: DsgvoResult | null): Insight {
   return { type: "dsgvo", severity: "fine", textKey: "insightDsgvo_fine" };
 }
 
+export function maxSeverity(insights: Insight[]): InsightSeverity {
+  if (insights.some(i => i.severity === "confirmed")) return "confirmed";
+  if (insights.some(i => i.severity === "suspicious")) return "suspicious";
+  return "fine";
+}
+
 export function deriveInsights(
   trackerList: TrackerInfo[],
   cookiesList: ClassifiedCookie[],

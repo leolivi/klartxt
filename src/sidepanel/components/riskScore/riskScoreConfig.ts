@@ -1,3 +1,4 @@
+export const LEVELS = [1, 2, 3, 4, 5] as const;
 
 export const LEVEL_COLORS: Record<number, string> = {
   1: "bg-risk-low-fill text-risk-low-text",
