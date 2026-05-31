@@ -17,10 +17,13 @@ const resources = {
     },
 };
 
+const browserLang = (chrome.i18n?.getUILanguage?.() ?? navigator.language ?? 'en').split('-')[0].toLowerCase();
+const defaultLang = ['de', 'fr'].includes(browserLang) ? browserLang : 'en';
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en', 
-  keySeparator: false, 
+  lng: defaultLang,
+  keySeparator: false,
   interpolation: {
     escapeValue: false,
   },

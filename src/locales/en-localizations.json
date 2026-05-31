@@ -1,4 +1,8 @@
 {
+  "warningBannerTitle": "High privacy risk detected",
+  "warningBannerBody": "Klartxt automatically opened because risks were found. You can still use this site.",
+  "warningBannerDismiss": "Dismiss",
+
   "footerScannedIn": "Scanned in {{seconds}}s",
   "footerWhatWasChecked": "What was checked?",
   "footerDialogTitle": "What was checked?",
@@ -88,5 +92,39 @@
   "dsgvoArt25SuspiciousRecommendation": "Review the tracking tools in use and ensure consent is obtained for all of them.",
   "dsgvoArt25ConfirmedQuickTitle": "High-risk trackers or insecure connection",
   "dsgvoArt25ConfirmedExplanation": "High-risk trackers were detected or the connection is not encrypted. This violates the privacy by design principle under Art. 25 GDPR.",
-  "dsgvoArt25ConfirmedRecommendation": "Remove high-risk trackers, ensure HTTPS is used, and obtain consent correctly."
+  "dsgvoArt25ConfirmedRecommendation": "Remove high-risk trackers, ensure HTTPS is used, and obtain consent correctly.",
+
+  "insightSectionTitle": "What's happening here?",
+  "insightSectionBadge_zero": "No findings",
+  "insightSectionBadge_one": "1 finding",
+  "insightSectionBadge_other": "{{count}} findings",
+
+  "insightTracker_none": "No trackers detected. This site does not collect user data via external services.",
+  "insightTracker_ads": "This site shares your data with {{count}} ad networks.",
+  "insightTracker_ads_companies": "This site shares your data with {{count}} ad networks, including {{companies}}.",
+  "insightTracker_other": "This site contacts {{count}} external services when loading.",
+
+  "insightCookie_none": "No cookies detected.",
+  "insightCookie_tracking": "{{count}} tracking cookies are recording your browsing behaviour.",
+  "insightCookie_necessary": "Only technically necessary cookies detected.",
+
+  "insightDsgvo_fine": "No privacy issues found.",
+  "insightDsgvo_noData": "Privacy check could not be completed.",
+  "insightDsgvo_art7_violations": "Cookies were set on this site before the cookie banner appeared.",
+  "insightDsgvo_art7_suspicious": "Cookies may be set without your consent.",
+  "insightDsgvo_art25_fingerprinting": "This site uses fingerprinting to identify you without cookies.",
+  "insightDsgvo_art25_highRisk": "{{count}} high-risk trackers found on this site.",
+  "insightDsgvo_art1314": "No privacy policy found on this site.",
+
+  "recommendationSectionTitle": "What can you do?",
+  "recommendation_cookie_decline_banner": "Reject all non-essential cookies in the cookie banner.",
+  "recommendation_cookie_consent_suspicious": "Accept only technically necessary cookies in the cookie banner.",
+  "recommendation_cookie_tracking": "Accept only technically necessary cookies in the cookie banner.",
+  "recommendation_cookie_fine": "Cookie settings look good, no action needed.",
+  "recommendation_tracker_ads": "Use an ad blocker like uBlock Origin to reduce tracking.",
+  "recommendation_tracker_other": "A tracker blocker like uBlock Origin can improve your privacy.",
+  "recommendation_tracker_none": "No tracker blocker needed, this site doesn't use external tracking.",
+  "recommendation_general_high": "Think carefully before creating an account or staying logged in on this site.",
+  "recommendation_general_medium": "Avoid sharing sensitive data on this site and review your privacy settings.",
+  "recommendation_general_low": "This site appears privacy-friendly, you can trust it."
 }

@@ -77,7 +77,23 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
       },
     });
 
-    // re-trigger DSGVO checks in content script
+    // recompute DSGVO immediately with cached DOM result + fresh cookie/tracker data
+    const contentResult = cache.getContentResult(tabId);
+    if (contentResult != null) {
+      handleDsgvo({
+        contentResult,
+        trackers: cache.getTrackerDetails(tabId),
+        cookieCount: cache.getCookieDetails(tabId).length,
+        consentTiming: cache.getConsentTiming(tabId),
+        tabUrl: tab.url,
+        onDsgvoChecked: (result) => {
+          cache.setDsgvoResult(tabId, result);
+          cache.scheduleUIUpdate(tabId);
+        },
+      });
+    }
+
+    // also request fresh DOM analysis from content script (best effort)
     chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch((error) => {
       if (!isSidePanelClosedError(error)) console.warn("[onActivated] RUN_DSGVO_CHECKS failed:", error);
     });
@@ -265,6 +281,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         return;
       }
 
+      cache.setContentResult(tabId, message.result);
       handleDsgvo({
         contentResult: message.result,
         trackers: cache.getTrackerDetails(tabId),

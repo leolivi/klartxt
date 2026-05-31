@@ -1,4 +1,8 @@
 {
+  "warningBannerTitle": "Risque élevé pour la vie privée détecté",
+  "warningBannerBody": "Klartxt a ouvert automatiquement car des risques ont été détectés. Vous pouvez quand même utiliser ce site.",
+  "warningBannerDismiss": "Fermer",
+
   "footerScannedIn": "Scanné en {{seconds}}s",
   "footerWhatWasChecked": "Qu'est-ce qui a été vérifié?",
   "footerDialogTitle": "Qu'est-ce qui a été vérifié?",
@@ -88,5 +92,39 @@
   "dsgvoArt25SuspiciousRecommendation": "Examinez les outils de suivi utilisés et assurez-vous que le consentement est obtenu pour chacun d'eux.",
   "dsgvoArt25ConfirmedQuickTitle": "Trackers à haut risque ou connexion non sécurisée",
   "dsgvoArt25ConfirmedExplanation": "Des trackers à haut risque ont été détectés ou la connexion n'est pas chiffrée. Cela va à l'encontre du principe de protection des données dès la conception selon l'Art. 25 du RGPD.",
-  "dsgvoArt25ConfirmedRecommendation": "Supprimez les trackers à haut risque, assurez-vous que HTTPS est utilisé, et obtenez le consentement correctement."
+  "dsgvoArt25ConfirmedRecommendation": "Supprimez les trackers à haut risque, assurez-vous que HTTPS est utilisé, et obtenez le consentement correctement.",
+
+  "insightSectionTitle": "Que se passe-t-il ici?",
+  "insightSectionBadge_zero": "Aucun constat",
+  "insightSectionBadge_one": "1 constat",
+  "insightSectionBadge_other": "{{count}} constats",
+
+  "insightTracker_none": "Aucun tracker détecté. Ce site ne collecte pas de données via des services externes.",
+  "insightTracker_ads": "Ce site partage vos données avec {{count}} réseaux publicitaires.",
+  "insightTracker_ads_companies": "Ce site partage vos données avec {{count}} réseaux publicitaires, dont {{companies}}.",
+  "insightTracker_other": "Ce site contacte {{count}} services externes lors du chargement.",
+
+  "insightCookie_none": "Aucun cookie détecté.",
+  "insightCookie_tracking": "{{count}} cookies de suivi enregistrent votre comportement de navigation.",
+  "insightCookie_necessary": "Seuls les cookies techniquement nécessaires ont été détectés.",
+
+  "insightDsgvo_fine": "Aucun problème de confidentialité trouvé.",
+  "insightDsgvo_noData": "La vérification de confidentialité n'a pas pu être effectuée.",
+  "insightDsgvo_art7_violations": "Des cookies ont été déposés sur ce site avant l'apparition de la bannière.",
+  "insightDsgvo_art7_suspicious": "Des cookies pourraient être déposés sans votre consentement.",
+  "insightDsgvo_art25_fingerprinting": "Ce site utilise le fingerprinting pour vous identifier sans cookies.",
+  "insightDsgvo_art25_highRisk": "{{count}} trackers à haut risque trouvés sur ce site.",
+  "insightDsgvo_art1314": "Aucune politique de confidentialité trouvée sur ce site.",
+
+  "recommendationSectionTitle": "Que pouvez-vous faire?",
+  "recommendation_cookie_decline_banner": "Refusez tous les cookies non essentiels dans la bannière de cookies.",
+  "recommendation_cookie_consent_suspicious": "N'acceptez que les cookies techniquement nécessaires dans la bannière.",
+  "recommendation_cookie_tracking": "N'acceptez que les cookies techniquement nécessaires dans la bannière.",
+  "recommendation_cookie_fine": "Les paramètres de cookies semblent bons, aucune action nécessaire.",
+  "recommendation_tracker_ads": "Utilisez un bloqueur de publicités comme uBlock Origin pour réduire le suivi.",
+  "recommendation_tracker_other": "Un bloqueur de trackers comme uBlock Origin peut améliorer votre confidentialité.",
+  "recommendation_tracker_none": "Aucun bloqueur de trackers nécessaire, ce site n'utilise pas de suivi externe.",
+  "recommendation_general_high": "Réfléchissez avant de créer un compte ou de rester connecté sur ce site.",
+  "recommendation_general_medium": "Évitez de partager des données sensibles sur ce site et vérifiez vos paramètres de confidentialité.",
+  "recommendation_general_low": "Ce site semble respectueux de la vie privée, vous pouvez lui faire confiance."
 }
