@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { Separator } from "../ui/separator";
 import { RiskScoreDialog } from "./RiskScoreDialog";
-import { LEVEL_COLORS } from "./LEVEL_COLORS";
+import { LEVEL_COLORS } from "./riskScoreConfig";
+import { useTabDataContext } from "../../context/useTabDataContext";
 
-export const LEVELS = [1, 2, 3, 4, 5] as const;
-
-export function RiskScore({ score }: { score: number }) {
+export function RiskScoreSection() {
+  const { riskScore: score } = useTabDataContext();
   const { t } = useTranslation();
   const level = Math.min(Math.max(score, 1), 5);
   const colors = LEVEL_COLORS[level];
@@ -15,7 +15,6 @@ export function RiskScore({ score }: { score: number }) {
       <div className="flex gap-8 items-center p-4">
         <div className={`rounded-full relative size-24 shrink-0 flex justify-center items-center ${colors}`}>
           <p className="text-h1">{score}<span className="text-body">/5</span></p>
-
           <RiskScoreDialog/>
         </div>
         <div className="text-left">

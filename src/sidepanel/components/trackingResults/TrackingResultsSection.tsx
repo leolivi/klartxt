@@ -2,14 +2,11 @@ import { useState } from "react";
 import { CircleCheck, CircleX } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Card } from "../ui/card";
-import type { DsgvoResult } from "@/utils/types/dsgvo-types";
-import type { TrackerInfo } from "@/utils/types/tracking-enums";
-import { TrackingType } from "./TrackingType";
+import { DSGVO_KEYS, type DsgvoResult } from "@/utils/types/dsgvo-types";
+import { TrackingType } from "@/utils/types/tracking-type";
 import { TrackingResultsDialog } from "./TrackingResultsDialog";
 import { useTranslation } from "react-i18next";
-import type { ClassifiedCookie } from "@/utils/types/cookie-types";
-
-const DSGVO_KEYS = ["art7", "art13_14", "art25"] as const;
+import { useTabDataContext } from "../../context/useTabDataContext";
 
 function dsgvoIcons(dsgvoResult: DsgvoResult | null) {
   if (!dsgvoResult) return <span className="text-small text-muted">–</span>;
@@ -24,7 +21,8 @@ function dsgvoIcons(dsgvoResult: DsgvoResult | null) {
   );
 }
 
-export function TrackingResultsCard({ tracker, trackerList, cookies, cookiesList, dsgvoResult }: { tracker: number; trackerList: TrackerInfo[]; cookies: number; cookiesList: ClassifiedCookie[], dsgvoResult: DsgvoResult | null }) {
+export function TrackingResultsSection() {
+  const { trackerCount: tracker, trackerList, cookieCount: cookies, cookiesList, dsgvoResult } = useTabDataContext();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TrackingType>(TrackingType.DSGVO);

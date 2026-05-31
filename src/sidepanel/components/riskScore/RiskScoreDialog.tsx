@@ -9,8 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { LEVELS } from "./RiskScore";
-import { LEVEL_COLORS } from "./LEVEL_COLORS";
+import { LEVELS, LEVEL_COLORS } from "./riskScoreConfig";
 
 function RiskScoreDialogDescription() {
   const { t } = useTranslation();

@@ -1,16 +1,11 @@
-import { Cookie, Info, Shield } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Separator } from "../ui/separator";
-import type { Recommendation } from "@/utils/recommendations";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { useTabDataContext } from "../../context/useTabDataContext";
+import { RecommendationItem } from "./RecommendationItem";
 
-const TYPE_ICON = {
-  cookie:  Cookie,
-  tracker: Shield,
-  general: Info,
-};
-
-export function RecommendationSection({ recommendations }: { recommendations: Recommendation[] }) {
+export function RecommendationSection() {
+  const { recommendations } = useTabDataContext();
   const { t } = useTranslation();
 
   return (
@@ -23,15 +18,7 @@ export function RecommendationSection({ recommendations }: { recommendations: Re
             </AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col gap-4">
-                {recommendations.map(rec => {
-                  const Icon = TYPE_ICON[rec.type];
-                  return (
-                    <div key={rec.type} className="flex items-start gap-2">
-                      <Icon size={16} className="mt-0.5 shrink-0 text-primary" />
-                      <p className="text-body text-start">{t(rec.textKey)}</p>
-                    </div>
-                  );
-                })}
+                {recommendations.map(rec => <RecommendationItem key={rec.type} recommendation={rec} />)}
               </div>
             </AccordionContent>
           </AccordionItem>
