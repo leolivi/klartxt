@@ -1,4 +1,8 @@
 {
+  "warningBannerTitle": "Hohes Datenschutzrisiko erkannt",
+  "warningBannerBody": "Klartxt hat diese Seite automatisch geöffnet. Du kannst sie trotzdem nutzen.",
+  "warningBannerDismiss": "Schliessen",
+
   "footerScannedIn": "Gescannt in {{seconds}}s",
   "footerWhatWasChecked": "Was wurde geprüft?",
   "footerDialogTitle": "Was wurde geprüft?",

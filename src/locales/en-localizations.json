@@ -1,4 +1,8 @@
 {
+  "warningBannerTitle": "High privacy risk detected",
+  "warningBannerBody": "Klartxt automatically opened because risks were found. You can still use this site.",
+  "warningBannerDismiss": "Dismiss",
+
   "footerScannedIn": "Scanned in {{seconds}}s",
   "footerWhatWasChecked": "What was checked?",
   "footerDialogTitle": "What was checked?",

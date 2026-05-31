@@ -1,4 +1,8 @@
 {
+  "warningBannerTitle": "Risque élevé pour la vie privée détecté",
+  "warningBannerBody": "Klartxt a ouvert automatiquement car des risques ont été détectés. Vous pouvez quand même utiliser ce site.",
+  "warningBannerDismiss": "Fermer",
+
   "footerScannedIn": "Scanné en {{seconds}}s",
   "footerWhatWasChecked": "Qu'est-ce qui a été vérifié?",
   "footerDialogTitle": "Qu'est-ce qui a été vérifié?",

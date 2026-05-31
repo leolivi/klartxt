@@ -11,6 +11,7 @@ import type { TrackerInfo } from "@/utils/types/tracking-enums";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 import { deriveInsights } from "@/utils/insights";
 import { deriveRecommendations } from "@/utils/recommendations";
+import { WarningBanner } from "./components/ui/WarningBanner";
 
 interface TabData {
   trackerCount: number;
@@ -101,6 +102,7 @@ function App() {
   return (
     <div>
         <Header domain={domain} isPartialData={data.isPartialData} isLoaded={isLoaded} />
+        {isLoaded && <WarningBanner riskScore={data.riskScore} />}
 
         <RiskScore score={data.riskScore}/>
         <TrackingResultsCard tracker={data.trackerCount} trackerList={data.trackerList} cookies={data.cookieCount} cookiesList={data.cookiesList} dsgvoResult={data.dsgvoResult} />
