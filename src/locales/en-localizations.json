@@ -1,0 +1,92 @@
+{
+  "footerScannedIn": "Scanned in {{seconds}}s",
+  "footerWhatWasChecked": "What was checked?",
+  "footerDialogTitle": "What was checked?",
+  "footerDialog_tracker_title": "Trackers",
+  "footerDialog_tracker_description": "All outgoing requests from the page, matched against the DuckDuckGo tracker database.",
+  "footerDialog_cookies_title": "Cookies",
+  "footerDialog_cookies_description": "Which cookies were set, by whom, and whether that happened before your consent.",
+  "footerDialog_privacyPolicy_title": "Privacy Policy",
+  "footerDialog_privacyPolicy_description": "Whether a findable privacy policy is present on the site.",
+  "footerDialog_thirdParty_title": "Third-Party Requests",
+  "footerDialog_thirdParty_description": "How many external services were contacted when loading the page.",
+  "footerDialogDisclaimer": "Klartxt analyses technically and does not assess legal compliance.",
+
+  "headerCurrentlyOn": "currently on",
+  "headerScanStatusDone": "Scan completed",
+  "headerScanStatusInProgress": "Scan in progress",
+  "headerScanStatusPartial": "Scan outdated",
+
+  "riskScoreDialogTitle": "What does the score mean?",
+  "riskScoreDialogDescription": "The score rates this site's privacy from 1 (very good) to 5 (critical), based on tracker count, cookie behaviour, and privacy violations.",
+
+  "riskScore1Label": "Very Low Risk",
+  "riskScore1Explanation": "This site doesn't track you.",
+  "riskScore1Recommendation": "Privacy by design, you're good.",
+
+  "riskScore2Label": "Low Risk",
+  "riskScore2Explanation": "This site uses barely any trackers.",
+  "riskScore2Recommendation": "Your data largely stays with you.",
+
+  "riskScore3Label": "Medium Risk",
+  "riskScore3Explanation": "This site sends your data to multiple third parties.",
+  "riskScore3Recommendation": "You can still browse, just be aware.",
+
+  "riskScore4Label": "High Risk",
+  "riskScore4Explanation": "This site monitors your browsing behaviour extensively.",
+  "riskScore4Recommendation": "Use an ad blocker and avoid sharing sensitive data.",
+
+  "riskScore5Label": "Critical Risk",
+  "riskScore5Explanation": "This site actively violates your privacy.",
+  "riskScore5Recommendation": "Avoid sensitive activities on this site.",
+
+  "TrackingResultsCardDSGVO": "Privacy Policy",
+  "trackingResultsDialogError": "No data available.",
+
+  "cookieFirstParty": "First-Party",
+  "cookieThirdParty": "Third-Party",
+
+  "cookiesCategory_necessary": "Necessary",
+  "cookiesCategory_tracking": "Tracking",
+  "cookiesCategory_functional": "Functional",
+  "cookiesCategory_unknown": "Unknown",
+
+  "trackerCategory_tracking": "Tracking",
+  "trackerCategory_ads": "Advertising",
+  "trackerCategory_functional": "Functional",
+  "trackerCategory_content": "Content",
+  "trackerCategory_security": "Security",
+
+  "dsgvoArt7Title": "Art. 7 GDPR: Consent Required Before Data Collection",
+  "dsgvoArt7FineQuickTitle": "Consent respected",
+  "dsgvoArt7FineExplanation": "No cookies were set before your consent. This site complies with Art. 7 GDPR.",
+  "dsgvoArt7FineRecommendation": "All good. Consent is correctly implemented.",
+  "dsgvoArt7SuspiciousQuickTitle": "Tracking might start too early",
+  "dsgvoArt7SuspiciousExplanation": "A cookie banner was detected, but cookies or trackers are already active. Consent may not be awaited.",
+  "dsgvoArt7SuspiciousRecommendation": "Check whether the active cookies are technically necessary or should only be set after consent.",
+  "dsgvoArt7ConfirmedQuickTitle": "Tracking starts without your permission",
+  "dsgvoArt7ConfirmedExplanation": "This site sets cookies and sends data to external services before you've confirmed anything. Your consent would be required first.",
+  "dsgvoArt7ConfirmedRecommendation": "All non-essential cookies must only be set after active consent. Review the cookie banner implementation.",
+
+  "dsgvoArt1314Title": "Art. 13/14 GDPR: Duty to Inform About Data Collection",
+  "dsgvoArt1314FineQuickTitle": "Privacy policy found",
+  "dsgvoArt1314FineExplanation": "A link to the privacy policy was found. This site fulfils the information obligation under Art. 13/14 GDPR.",
+  "dsgvoArt1314FineRecommendation": "All good. The privacy policy is accessible.",
+  "dsgvoArt1314SuspiciousQuickTitle": "Privacy policy hard to find",
+  "dsgvoArt1314SuspiciousExplanation": "A possible link to the privacy policy was found, but its placement or labelling is unclear.",
+  "dsgvoArt1314SuspiciousRecommendation": "Manually check whether the link actually leads to the privacy policy.",
+  "dsgvoArt1314ConfirmedQuickTitle": "No privacy policy found",
+  "dsgvoArt1314ConfirmedExplanation": "No link to a privacy policy was found. Under Art. 13/14 GDPR, website operators must inform users about data processing.",
+  "dsgvoArt1314ConfirmedRecommendation": "Add a clearly visible link to the privacy policy, e.g. in the footer or navigation.",
+
+  "dsgvoArt25Title": "Art. 25 GDPR: Privacy by Design",
+  "dsgvoArt25FineQuickTitle": "Privacy by design implemented",
+  "dsgvoArt25FineExplanation": "The site uses HTTPS and no high-risk trackers were detected. This aligns with the privacy by design principle.",
+  "dsgvoArt25FineRecommendation": "All good. Technical safeguards are appropriate.",
+  "dsgvoArt25SuspiciousQuickTitle": "Tracking may undermine privacy",
+  "dsgvoArt25SuspiciousExplanation": "The site uses HTTPS, but trackers or fingerprinting were detected. Browser fingerprinting enables user re-identification without cookies, undermining the data minimisation principle.",
+  "dsgvoArt25SuspiciousRecommendation": "Review the tracking tools in use and ensure consent is obtained for all of them.",
+  "dsgvoArt25ConfirmedQuickTitle": "High-risk trackers or insecure connection",
+  "dsgvoArt25ConfirmedExplanation": "High-risk trackers were detected or the connection is not encrypted. This violates the privacy by design principle under Art. 25 GDPR.",
+  "dsgvoArt25ConfirmedRecommendation": "Remove high-risk trackers, ensure HTTPS is used, and obtain consent correctly."
+}

@@ -19,6 +19,7 @@ export interface DsgvoCheck {
   severity: CheckSeverity;
   article: Articles;
   title: string;
+  quickTitle: string;
   explanation: string;
   recommendation: string;
   evidence: string[];

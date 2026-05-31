@@ -3,7 +3,7 @@
 import { calculateCookieRiskScore } from "@/utils/scoring/cookie-risk-score";
 import { calculateDsgvoRiskScore } from "@/utils/scoring/dsgvo-risk-score";
 import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
-import { calculateOverallRiskScore, getOverallRiskScoreResult, type RiskScoreResult } from "@/utils/scoring/overall-risk-score";
+import { calculateOverallRiskScore } from "@/utils/scoring/overall-risk-score";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 import type { ConsentTimingResult, CookieViolation, DsgvoResult } from "@/utils/types/dsgvo-types";
 import type { TrackerInfo } from "@/utils/types/tracking-enums";
@@ -17,9 +17,12 @@ export class TrackerCache {
   private timestamps = new Map<number, number>();
   private consentTiming = new Map<number, ConsentTimingResult>();
   private scanCompleted = new Map<number, boolean>();
+  private scanStartedAt = new Map<number, number>();
+  private scanDuration = new Map<number, number>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateCallback: ((tabId: number) => void) | null = null;
+  private readonly STALE_THRESHOLD_MS = 30 * 60 * 1000;
 
   setTrackerDetail(tabId: number, tracker: TrackerInfo): void {
     if (!this.trackerDetails.has(tabId)) {
@@ -43,8 +46,27 @@ export class TrackerCache {
     this.debouncedPersist(tabId);
   }
 
+  getScanDuration(tabId: number): number | null {
+    return this.scanDuration.get(tabId) ?? null;
+  }
+
   isScanCompleted(tabId: number): boolean {
     return this.scanCompleted.get(tabId) ?? false;
+  }
+
+  isDataStale(tabId: number): boolean {
+    const ts = this.timestamps.get(tabId);
+    if (ts == null) return true;
+    return Date.now() - ts > this.STALE_THRESHOLD_MS;
+  }
+
+  invalidateScan(tabId: number): void {
+    this.scanCompleted.set(tabId, false);
+  }
+
+  startScan(tabId: number): void {
+    this.scanStartedAt.set(tabId, Date.now());
+    this.scanDuration.delete(tabId);
   }
 
   getCookieDetails(tabId: number): ClassifiedCookie[] {
@@ -66,10 +88,6 @@ export class TrackerCache {
 
   getOverallRiskScore(tabId: number): number {
     return this.overallRiskScore.get(tabId) ?? 0;
-  }
-
-  getOverallRiskScoreResult(tabId: number): RiskScoreResult {
-    return getOverallRiskScoreResult(this.getOverallRiskScore(tabId));
   }
 
   recalculateOverallRiskScore(tabId: number): number {
@@ -166,6 +184,15 @@ export class TrackerCache {
     const existing = this.uiUpdateDebounceTimers.get(tabId);
     if (existing) clearTimeout(existing);
     const timer = setTimeout(() => {
+      const start = this.scanStartedAt.get(tabId);
+      // TODO: remove later
+      console.log(`[ScanDuration] debounce fired tabId=${tabId}, start=${start}, hasDuration=${this.scanDuration.has(tabId)}`);
+      if (start != null && !this.scanDuration.has(tabId)) {
+        const duration = Math.round((Date.now() - start) / 100) / 10;
+        this.scanDuration.set(tabId, duration);
+        // TODO: remove later
+        console.log(`[ScanDuration] tabId=${tabId} duration=${duration}s`);
+      }
       this.recalculateOverallRiskScore(tabId);
       this.uiUpdateCallback?.(tabId);
       this.uiUpdateDebounceTimers.delete(tabId);
@@ -177,7 +204,7 @@ export class TrackerCache {
     const result = await chrome.storage.session.get([
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
-      `dsgvoResults_${tabId}`,
+      `dsgvoResult_${tabId}`,
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,
@@ -236,6 +263,8 @@ export class TrackerCache {
     this.overallRiskScore.delete(tabId);
     this.timestamps.delete(tabId);
     this.scanCompleted.delete(tabId);
+    this.scanStartedAt.delete(tabId);
+    this.scanDuration.delete(tabId);
   }
 
   clear(tabId: number): void {
@@ -243,7 +272,7 @@ export class TrackerCache {
     chrome.storage.session.remove([
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
-      `dsgvoResults_${tabId}`,
+      `dsgvoResult_${tabId}`,
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,

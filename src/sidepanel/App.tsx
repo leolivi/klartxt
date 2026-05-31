@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 import "./styles/App.css";
-const logoLight = "/img/logo/Klartxt_logo_lm.svg";
-const logoDark = "/img/logo/Klartxt_logo_dm.svg";
+import { Header } from "./components/header/Header";
+import { Footer } from "./components/footer/Footer";
+import { TrackingResultsCard } from "./components/trackingResults/TrackingResultsCard";
+import { RiskScore } from "./components/riskScore/RiskScore";
+import type { DsgvoResult } from "@/utils/types/dsgvo-types";
+import type { TrackerInfo } from "@/utils/types/tracking-enums";
+import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 
 interface TabData {
   trackerCount: number;
+  trackerList: TrackerInfo[];
   cookieCount: number;
-  isPartialData: boolean; 
+  cookiesList: ClassifiedCookie[];
+  isPartialData: boolean;
   riskScore: number;
+  dsgvoResult: DsgvoResult | null;
+  scanDuration: number | null;
 }
 
 interface TabDataMessage extends TabData {
@@ -15,73 +24,88 @@ interface TabDataMessage extends TabData {
   tabId: number;
 }
 
-function App() {
-  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const logo = isDark ? logoDark : logoLight;
-  const [data, setData] = useState<TabData>({ trackerCount: 0, cookieCount: 0, isPartialData: false, riskScore: 0});
-
-  async function fetchData() {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (!tab?.id) return;
-    chrome.runtime.sendMessage(
-      { type: "GET_TAB_DATA", tabId: tab.id },
-      (response: TabData) => {
-        if (response) setData(response);
-      }
-    );
+function extractDomain(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
   }
+}
+
+// TODO: outsource logic from ui
+
+function App() {
+  const [data, setData] = useState<TabData>({ trackerCount: 0, trackerList: [], cookieCount: 0, cookiesList: [], isPartialData: false, riskScore: 0, dsgvoResult: null, scanDuration: null });
+  const [domain, setDomain] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const isChromeExtension = typeof chrome !== "undefined" && !!chrome.tabs;
 
   useEffect(() => {
-  fetchData();
-
-  const handleActivated = () => fetchData();
-  const handleUpdated = (_tabId: number, changeInfo: { status?: string }) => {
-    if (changeInfo.status === "complete") fetchData();
-  };
-  const handleMessage = (message: TabDataMessage) => {
-    if (message.type === "TAB_DATA_UPDATED") {
-      chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-        if (tab?.id === message.tabId) {
-          setData(message);
+    async function fetchData() {
+      if (!isChromeExtension) return;
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      if (!tab?.id) return;
+      setIsLoaded(false);
+      setDomain(extractDomain(tab.url ?? ""));
+      chrome.runtime.sendMessage(
+        { type: "GET_TAB_DATA", tabId: tab.id },
+        (response: TabData) => {
+          if (response) {
+            setData(response);
+            setIsLoaded(true);
+          }
         }
-      });
+      );
     }
-  };
 
-  const handleVisibility = () => {
-    if (document.visibilityState === "visible") fetchData();
-  };
+    fetchData();
 
-  chrome.tabs.onActivated.addListener(handleActivated);
-  chrome.tabs.onUpdated.addListener(handleUpdated);
-  chrome.runtime.onMessage.addListener(handleMessage);
-  document.addEventListener("visibilitychange", handleVisibility);
+    if (!isChromeExtension) return;
 
-  return () => {
-    chrome.tabs.onActivated.removeListener(handleActivated);
-    chrome.tabs.onUpdated.removeListener(handleUpdated);
-    chrome.runtime.onMessage.removeListener(handleMessage);
-    document.removeEventListener("visibilitychange", handleVisibility);
-  };
-}, []);
+    const handleActivated = () => fetchData();
+    const handleUpdated = (_tabId: number, changeInfo: { status?: string }) => {
+      if (changeInfo.status === "complete") fetchData();
+    };
+    const handleMessage = (message: TabDataMessage) => {
+      if (message.type === "TAB_DATA_UPDATED") {
+        chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+          if (tab?.id === message.tabId) {
+            setData(message);
+          }
+        });
+      }
+    };
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") fetchData();
+    };
+
+    chrome.tabs.onActivated.addListener(handleActivated);
+    chrome.tabs.onUpdated.addListener(handleUpdated);
+    chrome.runtime.onMessage.addListener(handleMessage);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      chrome.tabs.onActivated.removeListener(handleActivated);
+      chrome.tabs.onUpdated.removeListener(handleUpdated);
+      chrome.runtime.onMessage.removeListener(handleMessage);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [isChromeExtension]);
 
   return (
-    <>
-      <div className="flex justify-between items-center">
-        <div className="flex gap-4 items-center">
-          <h1>Klartxt</h1>
-          <img src={logo} alt="Klartxt logo" />
-        </div>
-      </div>
-      <div>
-        {data.isPartialData && (
-          <p>Tracker-Daten unvollständig. Seite neu laden für vollständigen Scan</p>
-        )}
-        <p>Tracker: {data.trackerCount}</p>
-        <p>Cookies: {data.cookieCount}</p>
-        <p>RiskScore: {data.riskScore}</p>
-      </div>
-    </>
+    <div>
+        <Header domain={domain} isPartialData={data.isPartialData} isLoaded={isLoaded} />
+
+        <RiskScore score={data.riskScore}/>
+        <TrackingResultsCard tracker={data.trackerCount} trackerList={data.trackerList} cookies={data.cookieCount} cookiesList={data.cookiesList} dsgvoResult={data.dsgvoResult} />
+        {/* TODO: Explination Section */}
+        {/* TODO: Recommendation Section */}
+
+        <Footer scanDuration={data.scanDuration} />
+
+    </div>
   );
 }
 

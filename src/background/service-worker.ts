@@ -6,6 +6,7 @@ import { handleCookies } from "./handlers/handle-cookies";
 import { TrackerCache } from "./cache/tracker-cache";
 import { handleDsgvo } from "./handlers/handle-dsgvo";
 import { updateTabBadge } from "./handlers/update-badge";
+import { isSidePanelClosedError } from "./handlers/handle-errors";
 
 initTrackerData();
 
@@ -19,11 +20,15 @@ function notifySidePanel(tabId: number): void {
     type: "TAB_DATA_UPDATED",
     tabId,
     trackerCount: trackers.length,
+    trackerList: trackers,
     cookieCount: cookies.length,
-    isPartialData: !cache.isScanCompleted(tabId),
+    cookiesList: cookies,
+    isPartialData: !cache.isScanCompleted(tabId) || cache.isDataStale(tabId),
     riskScore: cache.getOverallRiskScore(tabId),
+    dsgvoResult: cache.getDsgvoResult(tabId),
+    scanDuration: cache.getScanDuration(tabId),
   }).catch((error) => {
-    console.debug("Could not send message to tab", tabId, error);
+    if (!isSidePanelClosedError(error)) console.warn("[notifySidePanel] sendMessage failed:", error);
   });
 }
 
@@ -39,7 +44,7 @@ cache.setUIUpdateCallback(handleUIUpdate);
 /* ---- SIDE PANEL ---- */
 chrome.sidePanel
   .setPanelBehavior({openPanelOnActionClick: true})
-  .catch((error) => console.debug(error));
+  .catch((error) => console.warn("[sidePanel] setPanelBehavior failed:", error));
 
 
 /* ---- TAB ACTIVATED HANDLER ---- */
@@ -51,8 +56,9 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
     activatedDebounceTimer = undefined;
 
     await cache.restoreFromStorage(tabId);
+    if (cache.isDataStale(tabId)) cache.invalidateScan(tabId);
     // show cached data immediately
-    handleUIUpdate(tabId); 
+    handleUIUpdate(tabId);
 
     let tab: chrome.tabs.Tab;
     try {
@@ -72,7 +78,9 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
     });
 
     // re-trigger DSGVO checks in content script
-    chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch(() => {});
+    chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch((error) => {
+      if (!isSidePanelClosedError(error)) console.warn("[onActivated] RUN_DSGVO_CHECKS failed:", error);
+    });
   }, 150);
 });
 
@@ -87,6 +95,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
   // SPA navigation: URL changed without a full reload (no status transition)
   if (changeInfo.url && changeInfo.status == null) {
     if (tab.url && !tab.url.startsWith("chrome://")) {
+      cache.startScan(tabId);
       await handleCookies({
         tabUrl: tab.url,
         onCookiesDetected: (cookies) => {
@@ -101,6 +110,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
   if (changeInfo.status !== "complete") return;
 
   await cache.restoreFromStorage(tabId);
+  cache.startScan(tabId);
 
   /* ---- COOKIE HANDLER ---- */
   if (tab.url && !tab.url.startsWith("chrome://")) {
@@ -201,8 +211,10 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     (async () => {
       await cache.restoreFromStorage(message.tabId);
 
-      // if cache is empty, reload cookie
-      if (cache.getCookieDetails(message.tabId).length === 0) {
+      const isStale = cache.isDataStale(message.tabId);
+      if (isStale) cache.invalidateScan(message.tabId);
+
+      if (isStale || cache.getCookieDetails(message.tabId).length === 0) {
         let tab: chrome.tabs.Tab;
         try {
           tab = await chrome.tabs.get(message.tabId);
@@ -218,18 +230,25 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
               cache.scheduleUIUpdate(message.tabId);
             },
           });
+          chrome.tabs.sendMessage(message.tabId, { type: "RUN_DSGVO_CHECKS" }).catch((error) => {
+            if (!isSidePanelClosedError(error)) console.warn("[GET_TAB_DATA] RUN_DSGVO_CHECKS failed:", error);
+          });
         }
       }
 
       const trackers = cache.getTrackerDetails(message.tabId);
       const cookies = cache.getCookieDetails(message.tabId);
-      const riskScore = cache.getOverallRiskScore(message.tabId)
+      const riskScore = cache.getOverallRiskScore(message.tabId);
 
       sendResponse({
         trackerCount: trackers.length,
+        trackerList: trackers,
         cookieCount: cookies.length,
+        cookiesList: cookies,
         isPartialData: !cache.isScanCompleted(message.tabId),
-        riskScore: riskScore
+        riskScore,
+        dsgvoResult: cache.getDsgvoResult(message.tabId),
+        scanDuration: cache.getScanDuration(message.tabId),
       });
     })();
     return true;

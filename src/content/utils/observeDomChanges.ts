@@ -6,6 +6,11 @@ export function observeDomChanges() {
     let timeout: number | undefined;
 
     const observer = new MutationObserver(() => {
+        if (!chrome.runtime?.id) {
+            observer.disconnect();
+            return;
+        }
+
         if (timeout) clearTimeout(timeout);
 
         timeout = window.setTimeout(() => {

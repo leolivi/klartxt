@@ -7,13 +7,21 @@ let interactionReported = false;
 export function reportBannerShown(): void {
   if (bannerShownReported) return;
   bannerShownReported = true;
-  chrome.runtime.sendMessage({ type: "CONSENT_BANNER_SHOWN" }).catch(() => {});
+  try {
+    chrome.runtime.sendMessage({ type: "CONSENT_BANNER_SHOWN" }).catch(() => {});
+  } catch (error) {
+    console.debug("[observe-consent] reportBannerShown failed:", error);
+  }
 }
 
 export function reportInteraction(): void {
   if (interactionReported) return;
   interactionReported = true;
-  chrome.runtime.sendMessage({ type: "CONSENT_BANNER_INTERACTED" }).catch(() => {});
+  try {
+    chrome.runtime.sendMessage({ type: "CONSENT_BANNER_INTERACTED" }).catch(() => {});
+  } catch (error) {
+    console.debug("[observe-consent] reportInteraction failed:", error);
+  }
 }
 
 export function findBannerElement(): HTMLElement | null {

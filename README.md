@@ -25,6 +25,22 @@ Make sure you have [Node.js](https://nodejs.org/) (version 18+ or 20+) installed
    npm install
    ```
 
+## 🚀 Development
+
+To start the dev server with hot module replacement:
+
+```sh
+npm run dev
+```
+
+This serves the UI at `http://localhost:5173` with live reload. To also test the extension in Chrome with HMR:
+
+1. Run `npm run dev`
+2. Open `chrome://extensions/`, enable "Developer mode", and load the `build` directory as an unpacked extension
+3. After loading, changes to the source code will hot reload in the extension sidepanel automatically
+
+> **Note:** `localhost:5173` is useful for fast UI iteration. Chrome-specific APIs (tracker data, cookies) are only available when running inside the extension.
+
 ## 📦 Build
 
 To create a production build:

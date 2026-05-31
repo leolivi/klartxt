@@ -1,0 +1,92 @@
+{
+  "footerScannedIn": "Gescannt in {{seconds}}s",
+  "footerWhatWasChecked": "Was wurde geprüft?",
+  "footerDialogTitle": "Was wurde geprüft?",
+  "footerDialog_tracker_title": "Tracker",
+  "footerDialog_tracker_description": "Alle ausgehenden Anfragen der Seite, abgeglichen mit der DuckDuckGo Tracker-Datenbank.",
+  "footerDialog_cookies_title": "Cookies",
+  "footerDialog_cookies_description": "Welche Cookies gesetzt wurden, von wem und ob das vor deiner Zustimmung passierte.",
+  "footerDialog_privacyPolicy_title": "Datenschutzerklärung",
+  "footerDialog_privacyPolicy_description": "Ob eine auffindbare Datenschutzerklärung auf der Seite vorhanden ist.",
+  "footerDialog_thirdParty_title": "Drittanbieter-Anfragen",
+  "footerDialog_thirdParty_description": "Wie viele externe Dienste beim Laden der Seite kontaktiert wurden.",
+  "footerDialogDisclaimer": "Klartxt analysiert technisch und bewertet keine rechtliche Konformität.",
+
+  "headerCurrentlyOn": "aktuell auf",
+  "headerScanStatusDone": "Scan abgeschlossen",
+  "headerScanStatusInProgress": "Scan läuft",
+  "headerScanStatusPartial": "Scan veraltet",
+
+  "riskScoreDialogTitle": "Was bedeutet der Score?",
+  "riskScoreDialogDescription": "Der Score bewertet den Datenschutz dieser Seite von 1 (sehr gut) bis 5 (kritisch), basierend auf Tracker-Anzahl, Cookie-Verhalten und Datenschutz-Auffälligkeiten.",
+
+  "riskScore1Label": "Sehr geringes Risiko",
+  "riskScore1Explanation": "Diese Seite trackt dich nicht.",
+  "riskScore1Recommendation": "Privacy-by-Design umgesetzt.",
+
+  "riskScore2Label": "Geringes Risiko",
+  "riskScore2Explanation": "Diese Seite verwendet kaum Tracker.",
+  "riskScore2Recommendation": "Deine Daten bleiben weitgehend bei dir.",
+
+  "riskScore3Label": "Mittleres Risiko",
+  "riskScore3Explanation": "Diese Seite sendet deine Daten an mehrere Drittanbieter.",
+  "riskScore3Recommendation": "Du kannst trotzdem weitersurfen.",
+
+  "riskScore4Label": "Hohes Risiko",
+  "riskScore4Explanation": "Diese Seite überwacht dein Surfverhalten intensiv.",
+  "riskScore4Recommendation": "Nutze einen Werbeblocker und teile keine sensiblen Daten.",
+
+  "riskScore5Label": "Kritisches Risiko",
+  "riskScore5Explanation": "Diese Seite verstösst aktiv gegen deinen Datenschutz.",
+  "riskScore5Recommendation": "Vermeide sensible Aktivitäten auf dieser Seite.",
+
+  "TrackingResultsCardDSGVO": "Datenschutz",
+  "trackingResultsDialogError": "Keine Daten verfügbar.",
+
+  "cookieFirstParty": "First-Party",
+  "cookieThirdParty": "Third-Party",
+
+  "cookiesCategory_necessary": "Notwendig",
+  "cookiesCategory_tracking": "Tracking",
+  "cookiesCategory_functional": "Funktional",
+  "cookiesCategory_unknown": "Unbekannt",
+
+  "trackerCategory_tracking": "Tracking",
+  "trackerCategory_ads": "Werbung",
+  "trackerCategory_functional": "Funktional",
+  "trackerCategory_content": "Inhalte",
+  "trackerCategory_security": "Sicherheit",
+
+  "dsgvoArt7Title": "Art. 7 DSGVO: Einwilligung vor Datenerhebung erforderlich",
+  "dsgvoArt7FineQuickTitle": "Einwilligung wird eingehalten",
+  "dsgvoArt7FineExplanation": "Keine Cookies wurden vor deiner Einwilligung gesetzt. Diese Seite hält sich an die Vorgaben von Art. 7 DSGVO.",
+  "dsgvoArt7FineRecommendation": "Alles in Ordnung. Einwilligung korrekt umgesetzt.",
+  "dsgvoArt7SuspiciousQuickTitle": "Tracking könnte zu früh starten",
+  "dsgvoArt7SuspiciousExplanation": "Ein Cookie-Banner wurde erkannt, aber es sind bereits Cookies oder Tracker aktiv. Möglicherweise wird die Einwilligung nicht abgewartet.",
+  "dsgvoArt7SuspiciousRecommendation": "Prüfe, ob die aktiven Cookies technisch notwendig sind oder erst nach Einwilligung gesetzt werden sollten.",
+  "dsgvoArt7ConfirmedQuickTitle": "Tracking startet ohne deine Erlaubnis",
+  "dsgvoArt7ConfirmedExplanation": "Diese Seite setzt Cookies und sendet Daten an externe Dienste, bevor du irgendetwas bestätigt hast. Deine Zustimmung wäre zuerst nötig.",
+  "dsgvoArt7ConfirmedRecommendation": "Alle nicht notwendigen Cookies dürfen erst nach aktiver Einwilligung gesetzt werden. Implementierung des Cookie-Banners überprüfen.",
+
+  "dsgvoArt1314Title": "Art. 13/14 DSGVO: Informationspflicht bei Datenerhebung",
+  "dsgvoArt1314FineQuickTitle": "Datenschutzerklärung gefunden",
+  "dsgvoArt1314FineExplanation": "Ein Link zur Datenschutzerklärung wurde gefunden. Die Seite erfüllt die Informationspflicht nach Art. 13/14 DSGVO.",
+  "dsgvoArt1314FineRecommendation": "Alles in Ordnung. Datenschutzerklärung ist zugänglich.",
+  "dsgvoArt1314SuspiciousQuickTitle": "Datenschutzerklärung schwer zu finden",
+  "dsgvoArt1314SuspiciousExplanation": "Ein möglicher Link zur Datenschutzerklärung wurde gefunden, aber Platzierung oder Beschriftung sind unklar.",
+  "dsgvoArt1314SuspiciousRecommendation": "Prüfe manuell, ob der Link tatsächlich zur Datenschutzerklärung führt.",
+  "dsgvoArt1314ConfirmedQuickTitle": "Keine Datenschutzerklärung gefunden",
+  "dsgvoArt1314ConfirmedExplanation": "Es wurde kein Link zur Datenschutzerklärung gefunden. Nach Art. 13/14 DSGVO sind Webseitenbetreiber verpflichtet, Nutzer über die Datenverarbeitung zu informieren.",
+  "dsgvoArt1314ConfirmedRecommendation": "Füge einen deutlich sichtbaren Link zur Datenschutzerklärung hinzu, z.B. im Footer oder in der Navigation.",
+
+  "dsgvoArt25Title": "Art. 25 DSGVO: Datenschutz durch Technikgestaltung",
+  "dsgvoArt25FineQuickTitle": "Datenschutz technisch umgesetzt",
+  "dsgvoArt25FineExplanation": "Die Seite nutzt HTTPS und es wurden keine Hochrisiko-Tracker erkannt. Das entspricht dem Prinzip Privacy by Design.",
+  "dsgvoArt25FineRecommendation": "Alles in Ordnung. Technische Schutzmaßnahmen sind angemessen.",
+  "dsgvoArt25SuspiciousQuickTitle": "Tracking könnte Datenschutz unterlaufen",
+  "dsgvoArt25SuspiciousExplanation": "Die Seite nutzt HTTPS, aber es wurden Tracker oder Fingerprinting erkannt. Browser-Fingerprinting ermöglicht die Wiedererkennung ohne Cookies und umgeht das Prinzip der Datensparsamkeit.",
+  "dsgvoArt25SuspiciousRecommendation": "Prüfe die eingesetzten Tracking-Tools und stelle sicher, dass für alle eine Einwilligung eingeholt wird.",
+  "dsgvoArt25ConfirmedQuickTitle": "Hochrisiko-Tracker oder unsichere Verbindung",
+  "dsgvoArt25ConfirmedExplanation": "Es wurden Hochrisiko-Tracker erkannt oder die Verbindung ist nicht verschlüsselt. Das verstößt gegen das Prinzip Privacy by Design nach Art. 25 DSGVO.",
+  "dsgvoArt25ConfirmedRecommendation": "Entferne Hochrisiko-Tracker, stelle sicher dass HTTPS genutzt wird, und hol die Einwilligung korrekt ein."
+}

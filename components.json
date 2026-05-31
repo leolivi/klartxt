@@ -12,10 +12,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@/components",
+    "components": "@/sidepanel/components",
     "utils": "@/utils/cn.js",
-    "ui": "@/components/ui",
-    "hooks": "@/hooks"
+    "ui": "@/sidepanel/components",
+    "hooks": "@/sidepanel/hooks"
   },
   "registries": {}
 }
