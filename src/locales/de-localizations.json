@@ -88,5 +88,39 @@
   "dsgvoArt25SuspiciousRecommendation": "Prüfe die eingesetzten Tracking-Tools und stelle sicher, dass für alle eine Einwilligung eingeholt wird.",
   "dsgvoArt25ConfirmedQuickTitle": "Hochrisiko-Tracker oder unsichere Verbindung",
   "dsgvoArt25ConfirmedExplanation": "Es wurden Hochrisiko-Tracker erkannt oder die Verbindung ist nicht verschlüsselt. Das verstößt gegen das Prinzip Privacy by Design nach Art. 25 DSGVO.",
-  "dsgvoArt25ConfirmedRecommendation": "Entferne Hochrisiko-Tracker, stelle sicher dass HTTPS genutzt wird, und hol die Einwilligung korrekt ein."
+  "dsgvoArt25ConfirmedRecommendation": "Entferne Hochrisiko-Tracker, stelle sicher dass HTTPS genutzt wird, und hol die Einwilligung korrekt ein.",
+
+  "insightSectionTitle": "Was passiert hier?",
+  "insightSectionBadge_zero": "Keine Auffälligkeiten",
+  "insightSectionBadge_one": "1 Auffälligkeit",
+  "insightSectionBadge_other": "{{count}} Auffälligkeiten",
+
+  "insightTracker_none": "Keine Tracker erkannt. Diese Seite sammelt keine Nutzerdaten über externe Dienste.",
+  "insightTracker_ads": "Diese Seite gibt deine Daten an {{count}} Werbenetzwerke weiter.",
+  "insightTracker_ads_companies": "Diese Seite gibt deine Daten an {{count}} Werbenetzwerke weiter, darunter {{companies}}.",
+  "insightTracker_other": "Diese Seite kontaktiert {{count}} externe Dienste beim Laden der Seite.",
+
+  "insightCookie_none": "Keine Cookies erkannt.",
+  "insightCookie_tracking": "{{count}} Tracking-Cookies erfassen dein Surfverhalten.",
+  "insightCookie_necessary": "Nur technisch notwendige Cookies erkannt.",
+
+  "insightDsgvo_fine": "Keine Datenschutz-Auffälligkeiten gefunden.",
+  "insightDsgvo_noData": "Datenschutz-Prüfung konnte nicht durchgeführt werden.",
+  "insightDsgvo_art7_violations": "Auf dieser Seite wurden Cookies gesetzt, bevor der Cookie-Banner erschienen ist.",
+  "insightDsgvo_art7_suspicious": "Cookies könnten ohne deine Einwilligung gesetzt werden.",
+  "insightDsgvo_art25_fingerprinting": "Diese Seite nutzt Fingerprinting, um dich ohne Cookies zu identifizieren.",
+  "insightDsgvo_art25_highRisk": "{{count}} Hochrisiko-Tracker auf dieser Seite gefunden.",
+  "insightDsgvo_art1314": "Keine Datenschutzerklärung auf dieser Seite gefunden.",
+
+  "recommendationSectionTitle": "Was kannst du tun?",
+  "recommendation_cookie_decline_banner": "Lehne im Cookie-Banner alle nicht notwendigen Cookies ab.",
+  "recommendation_cookie_consent_suspicious": "Akzeptiere im Cookie-Banner nur technisch notwendige Cookies.",
+  "recommendation_cookie_tracking": "Akzeptiere im Cookie-Banner nur technisch notwendige Cookies.",
+  "recommendation_cookie_fine": "Cookie-Einstellungen sehen gut aus, keine Aktion nötig.",
+  "recommendation_tracker_ads": "Nutze einen Werbeblocker wie uBlock Origin, um Tracking zu reduzieren.",
+  "recommendation_tracker_other": "Ein Tracker-Blocker wie uBlock Origin kann deine Privatsphäre verbessern.",
+  "recommendation_tracker_none": "Kein Tracker-Blocker nötig, diese Seite verzichtet auf externes Tracking.",
+  "recommendation_general_high": "Überlege genau, ob du auf dieser Seite ein Konto erstellst oder eingeloggt bleibst.",
+  "recommendation_general_medium": "Teile keine sensiblen Daten auf dieser Seite und überprüfe die Datenschutzeinstellungen.",
+  "recommendation_general_low": "Diese Seite wirkt datenschutzfreundlich, du kannst ihr vertrauen."
 }

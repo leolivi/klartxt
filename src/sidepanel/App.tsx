@@ -4,9 +4,13 @@ import { Header } from "./components/header/Header";
 import { Footer } from "./components/footer/Footer";
 import { TrackingResultsCard } from "./components/trackingResults/TrackingResultsCard";
 import { RiskScore } from "./components/riskScore/RiskScore";
+import { InsightSection } from "./components/insights/InsightSection";
+import { RecommendationSection } from "./components/recommendations/RecommendationSection";
 import type { DsgvoResult } from "@/utils/types/dsgvo-types";
 import type { TrackerInfo } from "@/utils/types/tracking-enums";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
+import { deriveInsights } from "@/utils/insights";
+import { deriveRecommendations } from "@/utils/recommendations";
 
 interface TabData {
   trackerCount: number;
@@ -100,8 +104,8 @@ function App() {
 
         <RiskScore score={data.riskScore}/>
         <TrackingResultsCard tracker={data.trackerCount} trackerList={data.trackerList} cookies={data.cookieCount} cookiesList={data.cookiesList} dsgvoResult={data.dsgvoResult} />
-        {/* TODO: Explination Section */}
-        {/* TODO: Recommendation Section */}
+        <InsightSection insights={deriveInsights(data.trackerList, data.cookiesList, data.dsgvoResult)} />
+        <RecommendationSection recommendations={deriveRecommendations(data.trackerList, data.cookiesList, data.dsgvoResult, data.riskScore)} />
 
         <Footer scanDuration={data.scanDuration} />
 

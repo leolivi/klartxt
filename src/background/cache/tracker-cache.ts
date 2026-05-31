@@ -5,7 +5,7 @@ import { calculateDsgvoRiskScore } from "@/utils/scoring/dsgvo-risk-score";
 import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
 import { calculateOverallRiskScore } from "@/utils/scoring/overall-risk-score";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
-import type { ConsentTimingResult, CookieViolation, DsgvoResult } from "@/utils/types/dsgvo-types";
+import type { ConsentTimingResult, ContentScriptDsgvoResult, CookieViolation, DsgvoResult } from "@/utils/types/dsgvo-types";
 import type { TrackerInfo } from "@/utils/types/tracking-enums";
 
 /* ---- CACHE MANAGER ---- */
@@ -13,6 +13,7 @@ export class TrackerCache {
   private trackerDetails = new Map<number, Map<string, TrackerInfo>>();
   private cookieDetails = new Map<number, ClassifiedCookie[]>();
   private dsgvoResults = new Map<number, DsgvoResult>();
+  private contentResults = new Map<number, ContentScriptDsgvoResult>();
   private overallRiskScore = new Map<number, number>();
   private timestamps = new Map<number, number>();
   private consentTiming = new Map<number, ConsentTimingResult>();
@@ -80,6 +81,15 @@ export class TrackerCache {
 
   getDsgvoResult(tabId: number): DsgvoResult | null {
     return this.dsgvoResults.get(tabId) ?? null;
+  }
+
+  setContentResult(tabId: number, result: ContentScriptDsgvoResult): void {
+    this.contentResults.set(tabId, result);
+    this.debouncedPersist(tabId);
+  }
+
+  getContentResult(tabId: number): ContentScriptDsgvoResult | null {
+    return this.contentResults.get(tabId) ?? null;
   }
 
   setOverallRiskScore(tabId: number, score: number): void {
@@ -159,6 +169,7 @@ export class TrackerCache {
       [`trackerDetails_${tabId}`]: Array.from(this.trackerDetails.get(tabId)?.values() ?? []),
       [`cookieDetails_${tabId}`]: this.cookieDetails.get(tabId) ?? [],
       [`dsgvoResult_${tabId}`]: this.dsgvoResults.get(tabId) ?? null,
+      [`contentResult_${tabId}`]: this.contentResults.get(tabId) ?? null,
       [`consentTiming_${tabId}`]: this.consentTiming.get(tabId) ?? null,
       [`overallRiskScore_${tabId}`]: this.overallRiskScore.get(tabId) ?? null,
       [`scanCompleted_${tabId}`]: this.scanCompleted.get(tabId) ?? false,
@@ -205,6 +216,7 @@ export class TrackerCache {
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
       `dsgvoResult_${tabId}`,
+      `contentResult_${tabId}`,
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,
@@ -226,6 +238,11 @@ export class TrackerCache {
     const dsgvoResult = result[`dsgvoResult_${tabId}`];
     if (dsgvoResult != null && typeof dsgvoResult === "object" && !Array.isArray(dsgvoResult)) {
       this.dsgvoResults.set(tabId, dsgvoResult as DsgvoResult);
+    }
+
+    const contentResult = result[`contentResult_${tabId}`];
+    if (contentResult != null && typeof contentResult === "object" && !Array.isArray(contentResult)) {
+      this.contentResults.set(tabId, contentResult as ContentScriptDsgvoResult);
     }
 
     const consentTiming = result[`consentTiming_${tabId}`];
@@ -259,6 +276,7 @@ export class TrackerCache {
     this.trackerDetails.delete(tabId);
     this.cookieDetails.delete(tabId);
     this.dsgvoResults.delete(tabId);
+    this.contentResults.delete(tabId);
     this.consentTiming.delete(tabId);
     this.overallRiskScore.delete(tabId);
     this.timestamps.delete(tabId);
@@ -273,6 +291,7 @@ export class TrackerCache {
       `trackerDetails_${tabId}`,
       `cookieDetails_${tabId}`,
       `dsgvoResult_${tabId}`,
+      `contentResult_${tabId}`,
       `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,

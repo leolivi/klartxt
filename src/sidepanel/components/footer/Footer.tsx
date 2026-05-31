@@ -10,7 +10,7 @@ export function Footer({ scanDuration }: FooterProps) {
   const { t } = useTranslation();
 
   return (
-    <div className='flex justify-between items-center gap-4 p-4'>
+    <div className='flex justify-between items-center gap-4 p-4 fixed left-0 bottom-0 w-full bg-bg'>
       <p className='text-small'>
         {scanDuration != null ? t('footerScannedIn', { seconds: scanDuration }) : '—'}
       </p>
