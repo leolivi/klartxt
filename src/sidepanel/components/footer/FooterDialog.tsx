@@ -25,11 +25,11 @@ export function FooterDialog() {
           <DialogTitle>{t("footerDialogTitle")}</DialogTitle>
         </DialogHeader>
         <div>
-          {CHECKED_ITEMS.map(({ key }, i) => (
+          {CHECKED_ITEMS.map(({ key, href }, i) => (
             <div key={key}>
               <div className="py-3">
                 <a
-                  href={t(`footerDialog_${key}_href`)}
+                  href={href}
                   target="_blank"
                   rel="noreferrer"
                   className="cursor-pointer flex items-center gap-1 text-body underline text-primary dark:text-primary-100"
