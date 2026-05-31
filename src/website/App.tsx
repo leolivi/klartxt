@@ -5,6 +5,7 @@ import { CHECKED_ITEMS, type CheckedItemKey } from "@/utils/types/footer-types";
 import { TopicPage } from "./pages/TopicPage";
 import { Footer } from "./components/footer/Footer";
 import { Header } from "./components/header/Header";
+import { Separator } from "@/sidepanel/components/ui/separator";
 
 const ROUTES: Record<CheckedItemKey, string> = {
   tracker:       "/trackers",
@@ -26,7 +27,10 @@ function Layout() {
   return (
     <div className="min-h-screen bg-bg text-text font-sans">
      <Header/>
+     <Separator/>
 
+{/* TODO: maybe add "home section"? */}
+{/* TODO: maybe add dark mode? */}
       <main className="max-w-2xl mx-auto px-6 py-12">
         {/* Hero */}
         <div className="mb-10">
@@ -58,6 +62,7 @@ function Layout() {
         </Routes>
       </main>
 
+      <Separator/>
       <Footer/>
     </div>
   );
