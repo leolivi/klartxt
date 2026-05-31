@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:website": "vite --config vite.website.config.ts",
+    "build:website": "vite build --config vite.website.config.ts"
   },
   "dependencies": {
     "@crxjs/vite-plugin": "^2.4.0",
@@ -23,6 +25,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-i18next": "^17.0.8",
+    "react-router-dom": "^7.16.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.2.2",
     "tldts": "^7.0.30",

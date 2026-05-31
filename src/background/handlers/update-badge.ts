@@ -1,6 +1,6 @@
 import { cache } from "../service-worker";
+import { RISK_COLORS } from "@/utils/tokens";
 
-// function to set the extension badge
 function setBadge(tabId: number, riskLevel: number) {
   const ignoreTabGone = () => {};
 
@@ -11,11 +11,9 @@ function setBadge(tabId: number, riskLevel: number) {
 
   chrome.action.setBadgeText({ text: riskLevel.toString(), tabId }).catch(ignoreTabGone);
 
-  // color based on risk level (1-5)
-  // TODO: update colors
-  let color = "#3E7F4A"; // green (low risk)
-  if (riskLevel >= 4) color = "#8F2F2F"; // red (high risk)
-  else if (riskLevel === 3) color = "#9A5A1E"; // orange (medium risk)
+  let color: string = RISK_COLORS.low.text;
+  if (riskLevel >= 4) color = RISK_COLORS.high.text;
+  else if (riskLevel === 3) color = RISK_COLORS.medium.text;
 
   chrome.action.setBadgeBackgroundColor({ color, tabId }).catch(ignoreTabGone);
 

@@ -43,13 +43,31 @@ This serves the UI at `http://localhost:5173` with live reload. To also test the
 
 ## 📦 Build
 
-To create a production build:
+To create a production build of the extension:
 
 ```sh
 npm run build
 ```
 
 This will generate the build files in the `build` directory.
+
+### Website Build
+
+The repository also includes an informational website (`klartxt.com`) with explanations of what the extension checks, as well as the privacy policy and imprint. It shares the same components, locales, and design tokens as the extension.
+
+To start the website dev server:
+
+```sh
+npm run dev:website
+```
+
+To build the website for production:
+
+```sh
+npm run build:website
+```
+
+This will generate the output in the `website-build` directory.
 
 ## 📂 Load Extension in Chrome
 
@@ -61,14 +79,24 @@ Your React app should now be loaded as a Chrome extension!
 
 ## 🗂️ Project Structure
 
-- `public/`: Contains static files and the `manifest.json`.
-- `src/`: Contains the React app source code.
-- `build/`: Automatically generated folder to upload in Chrome.
-- `vite.config.ts`: Vite configuration file.
-- `tsconfig.json`: TypeScript configuration file.
-- `package.json`: Contains the project dependencies and scripts.
+- `public/`: Static assets (fonts, icons, `manifest.json`).
+- `src/`: Shared source code.
+  - `sidepanel/`: Extension UI (React components, context, hooks).
+  - `website/`: Informational website (`klartxt.com`) which shares components, locales, and design tokens with the extension.
+  - `background/`: Extension service worker and background handlers.
+  - `content/`: Content scripts injected into web pages.
+  - `locales/`: Shared i18n translation files (EN, DE, FR).
+  - `utils/`: Shared utilities and TypeScript types.
+- `build/`: Production build of the extension (auto-generated).
+- `website-build/`: Production build of the website (auto-generated).
+- `vite.config.ts`: Vite config for the extension.
+- `vite.website.config.ts`: Vite config for the website.
+- `tsconfig.json`: Root TypeScript configuration.
+- `package.json`: Project dependencies and scripts.
 
-// TODO: add data information (DDG Tracker radar)
+<!-- TODO:  
+ - add data information (DDG Tracker radar)
+-->
 
 ## Source
 Chrome for Developers, 2025. Chrome Extensions Docs. [online] Chrome for Developers. Verfügbar unter: <https://developer.chrome.com/docs/extensions?hl=de> [Zugegriffen 13 November 2025].
