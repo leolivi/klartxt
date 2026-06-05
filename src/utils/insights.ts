@@ -100,7 +100,7 @@ export function maxSeverity(insights: Insight[]): InsightSeverity {
   return "fine";
 }
 
-export function deriveInsights(
+export function inferInsights(
   trackerList: TrackerInfo[],
   cookiesList: ClassifiedCookie[],
   dsgvoResult: DsgvoResult | null,

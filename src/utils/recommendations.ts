@@ -36,7 +36,7 @@ function generalRecommendation(riskScore: number): Recommendation {
   return { type: "general", textKey: "recommendation_general_low" };
 }
 
-export function deriveRecommendations(
+export function inferRecommendations(
   trackerList: TrackerInfo[],
   cookiesList: ClassifiedCookie[],
   dsgvoResult: DsgvoResult | null,

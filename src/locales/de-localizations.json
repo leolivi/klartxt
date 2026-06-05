@@ -70,7 +70,7 @@
   "dsgvoArt7SuspiciousExplanation": "Cookie-Banner erkannt, aber Cookies oder Tracker sind bereits aktiv. Möglicherweise wird die Einwilligung nicht abgewartet.",
   "dsgvoArt7SuspiciousRecommendation": "Prüfe, ob die aktiven Cookies technisch notwendig sind oder erst nach Einwilligung gesetzt werden sollten.",
   "dsgvoArt7ConfirmedQuickTitle": "Tracking startet ohne deine Erlaubnis",
-  "dsgvoArt7ConfirmedExplanation": "Cookies gesetzt, bevor eine Consent-Interaktion erkannt wurde — dieser technische Befund könnte auf Nicht-Konformität hinweisen.",
+  "dsgvoArt7ConfirmedExplanation": "Cookies gesetzt, bevor eine Consent-Interaktion erkannt wurde, dieser technische Befund könnte auf Nicht-Konformität hinweisen.",
   "dsgvoArt7ConfirmedRecommendation": "Technischer Befund: Cookies wurden vor einer erkennbaren Consent-Interaktion gesetzt. Consent-Management-Implementierung prüfen.",
 
   "dsgvoArt1314Title": "Datenschutzerklärung (Ref. Art. 13/14 DSGVO)",
@@ -110,8 +110,8 @@
   "insightCookie_necessary": "Nur als notwendig klassifizierte Cookies erkannt.",
 
   "insightProfiling_none": "Keine technischen Hinweise auf Profilbildung erkannt.",
-  "insightProfiling_sessionReplay": "Session-Replay-Tracker erkannt. Diese Technologie zeichnet Mausbewegungen und Klicks auf — technischer Hinweis auf mögliche Profilbildung.",
-  "insightProfiling_crossContext": "Kombination aus Werbe-, Analyse- und/oder Social-Media-Trackern erkannt — technischer Hinweis auf mögliche webseitenübergreifende Profilbildung.",
+  "insightProfiling_sessionReplay": "Session-Replay-Tracker erkannt. Diese Technologie zeichnet Mausbewegungen und Klicks auf, technischer Hinweis auf mögliche Profilbildung.",
+  "insightProfiling_crossContext": "Kombination aus Werbe-, Analyse- und/oder Social-Media-Trackern erkannt, technischer Hinweis auf mögliche webseitenübergreifende Profilbildung.",
 
   "insightDsgvo_fine": "Keine Datenschutz-Auffälligkeiten gefunden.",
   "insightDsgvo_noData": "Datenschutz-Prüfung konnte nicht durchgeführt werden.",
