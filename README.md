@@ -71,11 +71,41 @@ This will generate the output in the `website-build` directory.
 
 ## 🧪 Testing
 
-To run the unit-tests:
+### Unit Tests
+
+Unit tests cover scoring logic, insights, recommendations, DSGVO evaluation, heuristics, cache management, network request detection, and DOM-based content checks.
 
 ```sh
-npm test
+npm test          # run once
+npm run test:watch  # watch mode
 ```
+
+### E2E Tests (Playwright)
+
+E2E tests run the built extension in a real Chromium instance and verify behaviour across a list of real websites defined in [`e2e/sites.json`](e2e/sites.json). To add or replace sites, edit that file and all test suites pick them up automatically.
+
+**Prerequisites:** a production build must exist before running E2E tests.
+
+```sh
+npm run build            # build the extension first
+npm run test:e2e         # run all 27 tests (headful Chromium)
+npm run test:e2e:report  # open the HTML report in the browser
+```
+
+**Test suites:**
+
+| Suite | Tests | What it checks |
+|---|---|---|
+| `score-reproducibility` | 5 | 3 consecutive runs on the same page yield identical scores |
+| `performance` | 5 | Full scan completes in under 2 seconds |
+| `console-clean` | 5 | No unhandled JS exceptions on page or in service worker |
+| `request-capture` | 5 | Scan completes, tracker entries have valid structure, no duplicates |
+| `cookie-capture` | 5 | All cookie fields present and valid (incl. `httpOnly`, `isThirdParty`) |
+| `cold-start` | 2 | Score and data survive a service worker restart (storage restoration) |
+
+Each test attaches a JSON result and for reproducibility tests a sidepanel screenshot to the HTML report. These attachments are the basis for manual false-positive analysis.
+
+> **Note:** Chrome extensions require headful mode (`headless: false`). For CI, a virtual display (Xvfb) is needed — see the GitHub Actions workflow in [`.github/workflows/e2e.yml`](.github/workflows/e2e.yml).
 
 ## 📂 Load Extension in Chrome
 

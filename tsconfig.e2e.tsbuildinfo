@@ -1,0 +1,1 @@
+{"root":["./e2e/fixtures/extension.ts","./e2e/helpers/extension-id.ts","./e2e/tests/basic.spec.ts","./e2e/tests/score-reproducibility.spec.ts","./playwright.config.ts"],"version":"5.9.3"}

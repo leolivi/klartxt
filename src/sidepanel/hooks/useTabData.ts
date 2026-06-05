@@ -21,9 +21,17 @@ export function useTabData() {
   const isChromeExtension = typeof chrome !== "undefined" && !!chrome.tabs;
 
   useEffect(() => {
+    // ?tabId lets E2E tests pin the sidepanel to a specific tab so screenshots
+    // show the real scan data instead of the sidepanel tab's own (empty) data.
+    const params     = new URLSearchParams(window.location.search);
+    const forcedId   = Number(params.get("tabId"))  || null;
+    const forcedUrl  = params.get("tabUrl")          ?? "";
+
     async function fetchData() {
       if (!isChromeExtension) return;
-      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      const [tab] = forcedId
+        ? [{ id: forcedId, url: forcedUrl } as chrome.tabs.Tab]
+        : await chrome.tabs.query({ active: true, currentWindow: true });
       if (!tab?.id) return;
       setIsLoaded(false);
       setDomain(extractDomain(tab.url ?? ""));
@@ -48,9 +56,15 @@ export function useTabData() {
     };
     const handleMessage = (message: TabDataMessage) => {
       if (message.type === "TAB_DATA_UPDATED") {
-        chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-          if (tab?.id === message.tabId) setData(message);
-        });
+        if (forcedId) {
+          // When pinned via ?tabId, only accept updates for that exact tab —
+          // the sidepanel's own scan would otherwise overwrite the pinned data.
+          if (message.tabId === forcedId) setData(message);
+        } else {
+          chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+            if (tab?.id === message.tabId) setData(message);
+          });
+        }
       }
     };
     const handleVisibility = () => {

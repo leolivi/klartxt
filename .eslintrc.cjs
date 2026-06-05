@@ -15,4 +15,12 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  overrides: [
+    {
+      // Playwright requires {} destructuring syntax for the fixtures argument —
+      // no-empty-pattern would otherwise flag every test that uses no built-in fixtures.
+      files: ['e2e/**/*.spec.ts', 'e2e/**/*.ts'],
+      rules: { 'no-empty-pattern': 'off' },
+    },
+  ],
 }

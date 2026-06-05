@@ -11,7 +11,9 @@
     "dev:website": "vite --config vite.website.config.ts",
     "build:website": "vite build --config vite.website.config.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:report": "playwright show-report e2e/report"
   },
   "dependencies": {
     "@crxjs/vite-plugin": "^2.4.0",
@@ -38,6 +40,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@playwright/test": "^1.60.0",
     "@types/chrome": "^0.1.40",
     "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",
