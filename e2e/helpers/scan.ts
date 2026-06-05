@@ -3,7 +3,7 @@ import type { BrowserContext, Worker } from "@playwright/test";
 type SessionStorage = Record<string, unknown>;
 type ChromeLike     = { storage: { session: { get(keys: string[]): Promise<SessionStorage> } } };
 type TabsLike       = { query(q: { url: string }): Promise<Array<{ id?: number }>> };
-type CacheLike      = { getRequestsSeen(tabId: number): number; getCookieDetails(tabId: number): CookieEntry[]; isScanCompleted(tabId: number): boolean };
+type CacheLike      = { getRequestsSeen(tabId: number): number; getCookieDetails(tabId: number): CookieEntry[]; isScanCompleted(tabId: number): boolean; getScanDuration(tabId: number): number | null };
 
 export type TrackerEntry = { domain: string };
 export type CookieEntry  = { name: string; domain: string; category: string; userCategory: string; isThirdParty: boolean; httpOnly: boolean; secure: boolean };
@@ -14,9 +14,10 @@ export type ScanResult = {
   trackerDetails:     TrackerEntry[];
   cookieDetails:      CookieEntry[];
   scanCompleted:      boolean;
-  seenHostnames:      Set<string>; // unique HTTP/HTTPS hostnames Playwright observed
-  playwrightRequests: number;      // total request count Playwright observed
-  extensionRequests:  number;      // total requests the extension's webRequest saw
+  scanDuration:       number | null; // ms from status:complete to last tracker+300ms debounce
+  seenHostnames:      Set<string>;   // unique HTTP/HTTPS hostnames Playwright observed
+  playwrightRequests: number;        // total request count Playwright observed
+  extensionRequests:  number;        // total requests the extension's webRequest saw
 };
 
 /**
@@ -80,12 +81,13 @@ export async function scanSite(
 
   // Read requestsSeen, cookieDetails, and scanCompleted directly from the in-memory cache.
   // __rescanCookies calls setCookies → isScanCompleted is true regardless of storage timing.
-  const { extensionRequests, cookieDetails, scanCompleted } = await sw.evaluate((id: number) => {
+  const { extensionRequests, cookieDetails, scanCompleted, scanDuration } = await sw.evaluate((id: number) => {
     const c = (globalThis as unknown as { __klartxtCache: CacheLike }).__klartxtCache;
     return {
-      extensionRequests: c?.getRequestsSeen(id)  ?? 0,
-      cookieDetails:     c?.getCookieDetails(id)  ?? [],
-      scanCompleted:     c?.isScanCompleted(id)   ?? false,
+      extensionRequests: c?.getRequestsSeen(id)   ?? 0,
+      cookieDetails:     c?.getCookieDetails(id)   ?? [],
+      scanCompleted:     c?.isScanCompleted(id)    ?? false,
+      scanDuration:      c?.getScanDuration(id)    ?? null,
     };
   }, tabId);
 
@@ -97,6 +99,7 @@ export async function scanSite(
     trackerDetails: (storage[`trackerDetails_${tabId}`]   as TrackerEntry[] | undefined) ?? [],
     cookieDetails,
     scanCompleted,
+    scanDuration,
     seenHostnames,
     playwrightRequests,
     extensionRequests,

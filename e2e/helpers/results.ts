@@ -17,10 +17,11 @@ export type RunData = {
   score:              number;
   trackerDetails:     Array<{ domain: string }>;
   cookieDetails:      CookieEntry[];
-  seenHostnames:      string[]; 
-  playwrightRequests: number;   
-  extensionRequests:  number;   
+  seenHostnames:      string[];
+  playwrightRequests: number;
+  extensionRequests:  number;
   scanCompleted:      boolean;
+  scanDuration:       number | null;
 };
 
 export type SiteData = {

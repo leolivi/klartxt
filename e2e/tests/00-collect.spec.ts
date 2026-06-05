@@ -23,7 +23,7 @@ test("collect scan data for all sites", async () => {
 
     const runs = [];
     for (let i = 0; i < 2; i++) {
-      const { score, trackerDetails, cookieDetails, seenHostnames, scanCompleted, playwrightRequests, extensionRequests } =
+      const { score, trackerDetails, cookieDetails, seenHostnames, scanCompleted, scanDuration, playwrightRequests, extensionRequests } =
         await scanSite(context, sw, site.url);
       runs.push({
         score,
@@ -31,6 +31,7 @@ test("collect scan data for all sites", async () => {
         cookieDetails,
         seenHostnames: [...seenHostnames],
         scanCompleted,
+        scanDuration,
         playwrightRequests,
         extensionRequests,
       });
