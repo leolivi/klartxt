@@ -70,7 +70,7 @@
   "dsgvoArt7SuspiciousExplanation": "Cookie banner detected, but cookies or trackers are already active. Consent may not have been awaited.",
   "dsgvoArt7SuspiciousRecommendation": "Check whether the active cookies are technically necessary or should only be set after consent.",
   "dsgvoArt7ConfirmedQuickTitle": "Tracking starts without your permission",
-  "dsgvoArt7ConfirmedExplanation": "Cookies set before any consent interaction was detected — this technical finding may indicate non-compliance.",
+  "dsgvoArt7ConfirmedExplanation": "Cookies set before any consent interaction was detected, this technical finding may indicate non-compliance.",
   "dsgvoArt7ConfirmedRecommendation": "Technical finding: cookies were set before a recognisable consent interaction. Review consent management implementation.",
 
   "dsgvoArt1314Title": "Privacy Policy (Ref. Art. 13/14 GDPR)",
@@ -110,8 +110,8 @@
   "insightCookie_necessary": "Only cookies classified as necessary were detected.",
 
   "insightProfiling_none": "No technical indicators of profiling detected.",
-  "insightProfiling_sessionReplay": "Session replay tracker detected. This technology records mouse movements and clicks — a technical indicator of possible user profiling.",
-  "insightProfiling_crossContext": "Combination of advertising, analytics and/or social media trackers detected — a technical indicator of possible cross-context profiling.",
+  "insightProfiling_sessionReplay": "Session replay tracker detected. This technology records mouse movements and clicks, a technical indicator of possible user profiling.",
+  "insightProfiling_crossContext": "Combination of advertising, analytics and/or social media trackers detected, a technical indicator of possible cross-context profiling.",
 
   "insightDsgvo_fine": "No privacy issues found.",
   "insightDsgvo_noData": "Privacy check could not be completed.",
@@ -128,7 +128,7 @@
   "recommendation_cookie_fine": "Cookie settings look good, no action needed.",
   "recommendation_tracker_ads": "Use an ad blocker like uBlock Origin to reduce tracking.",
   "recommendation_tracker_other": "A tracker blocker like uBlock Origin can improve your privacy.",
-  "recommendation_tracker_none": "No tracker blocker needed — no known trackers were detected.",
+  "recommendation_tracker_none": "No tracker blocker needed, no known trackers were detected.",
   "recommendation_general_high": "Think carefully before creating an account or staying logged in on this site.",
   "recommendation_general_medium": "Avoid sharing sensitive data on this site and review your privacy settings.",
   "recommendation_general_low": "This site shows no technical privacy indicators of concern.",
@@ -139,20 +139,20 @@
   "website_tracker_title": "Trackers",
   "website_tracker_subtitle": "Scripts that monitor your behavior across the web",
   "website_tracker_s1_heading": "What is a tracker?",
-  "website_tracker_s1_body": "Trackers are small scripts or invisible pixels embedded in websites. They silently record which pages you visit, how long you stay, what you click, and even your approximate location — often without you ever noticing.",
+  "website_tracker_s1_body": "Trackers are small scripts or invisible pixels embedded in websites. They silently record which pages you visit, how long you stay, what you click, and even your approximate location, often without you ever noticing.",
   "website_tracker_s2_heading": "How Klartxt detects them",
-  "website_tracker_s2_body": "Klartxt intercepts all outgoing network requests made by your browser when loading a page. Each request is checked against the DuckDuckGo Tracker Radar database — one of the most comprehensive and regularly updated tracker lists available.",
+  "website_tracker_s2_body": "Klartxt intercepts all outgoing network requests made by your browser when loading a page. Each request is checked against the DuckDuckGo Tracker Radar database, one of the most comprehensive and regularly updated tracker lists available.",
   "website_tracker_s3_heading": "Why it matters",
   "website_tracker_s3_body": "Trackers from advertising networks build detailed profiles about you over time. This data is bought and sold between companies, used to target you with ads, and can be accessed by governments in some jurisdictions.",
 
   "website_cookies_title": "Cookies",
   "website_cookies_subtitle": "Small files that websites store in your browser",
   "website_cookies_s1_heading": "What are cookies?",
-  "website_cookies_s1_body": "Cookies are tiny text files that a website saves to your browser. They can be useful — for example, keeping you logged in or remembering your shopping cart. But they are also frequently used for tracking.",
+  "website_cookies_s1_body": "Cookies are tiny text files that a website saves to your browser. They can be useful, for example, keeping you logged in or remembering your shopping cart. But they are also frequently used for tracking.",
   "website_cookies_s2_heading": "First-party vs. third-party",
   "website_cookies_s2_body": "First-party cookies are set by the website you are visiting. Third-party cookies are set by external services embedded on the page. They are the primary tool for cross-site tracking.",
   "website_cookies_s3_heading": "How Klartxt detects them",
-  "website_cookies_s3_body": "Klartxt logs all cookies set during your visit, identifies their origin, and checks whether any were set before you gave consent — a technical finding that may indicate a potential violation of GDPR Article 7.",
+  "website_cookies_s3_body": "Klartxt logs all cookies set during your visit, identifies their origin, and checks whether any were set before you gave consent, a technical finding that may indicate a potential violation of GDPR Article 7.",
 
   "website_privacyPolicy_title": "Privacy Policy",
   "website_privacyPolicy_subtitle": "The legal document that explains how your data is used",
@@ -166,9 +166,9 @@
   "website_thirdParty_title": "Third-Party Requests",
   "website_thirdParty_subtitle": "External services contacted when a page loads",
   "website_thirdParty_s1_heading": "What are third-party requests?",
-  "website_thirdParty_s1_body": "Every time you load a page, your browser may contact dozens of external servers — for fonts, analytics, ads, social media buttons, or payment providers. Each of these is a third-party request.",
+  "website_thirdParty_s1_body": "Every time you load a page, your browser may contact dozens of external servers, for fonts, analytics, ads, social media buttons, or payment providers. Each of these is a third-party request.",
   "website_thirdParty_s2_heading": "Why they matter",
   "website_thirdParty_s2_body": "Each third-party request reveals your IP address, browser details, and the page you are visiting to an external company. Even if you never interact with an element, the request has already been sent.",
   "website_thirdParty_s3_heading": "How Klartxt measures this",
-  "website_thirdParty_s3_body": "Klartxt counts all network requests that go to a domain different from the site you are visiting. A high number means a larger surface area for data exposure — regardless of whether those services are classified as trackers."
+  "website_thirdParty_s3_body": "Klartxt counts all network requests that go to a domain different from the site you are visiting. A high number means a larger surface area for data exposure, regardless of whether those services are classified as trackers."
 }

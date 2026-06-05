@@ -70,7 +70,7 @@
   "dsgvoArt7SuspiciousExplanation": "Bannière de cookies détectée, mais des cookies ou trackers sont déjà actifs. Le consentement n'a peut-être pas été attendu.",
   "dsgvoArt7SuspiciousRecommendation": "Vérifiez si les cookies actifs sont techniquement nécessaires ou ne devraient être définis qu'après consentement.",
   "dsgvoArt7ConfirmedQuickTitle": "Le suivi démarre sans votre permission",
-  "dsgvoArt7ConfirmedExplanation": "Cookies déposés avant qu'une interaction de consentement soit détectée — ce constat technique pourrait indiquer une non-conformité.",
+  "dsgvoArt7ConfirmedExplanation": "Cookies déposés avant qu'une interaction de consentement soit détectée, ce constat technique pourrait indiquer une non-conformité.",
   "dsgvoArt7ConfirmedRecommendation": "Constat technique : des cookies ont été déposés avant une interaction de consentement reconnaissable. Vérifiez l'implémentation de la gestion du consentement.",
 
   "dsgvoArt1314Title": "Politique de confidentialité (Réf. Art. 13/14 RGPD)",
@@ -110,8 +110,8 @@
   "insightCookie_necessary": "Seuls les cookies classifiés comme nécessaires ont été détectés.",
 
   "insightProfiling_none": "Aucun indicateur technique de profilage détecté.",
-  "insightProfiling_sessionReplay": "Tracker de replay de session détecté. Cette technologie enregistre les mouvements de souris et les clics — un indicateur technique de possible profilage.",
-  "insightProfiling_crossContext": "Combinaison de trackers publicitaires, analytiques et/ou de réseaux sociaux détectée — un indicateur technique de possible profilage intersites.",
+  "insightProfiling_sessionReplay": "Tracker de replay de session détecté. Cette technologie enregistre les mouvements de souris et les clics, un indicateur technique de possible profilage.",
+  "insightProfiling_crossContext": "Combinaison de trackers publicitaires, analytiques et/ou de réseaux sociaux détectée, un indicateur technique de possible profilage intersites.",
 
   "insightDsgvo_fine": "Aucun problème de confidentialité trouvé.",
   "insightDsgvo_noData": "La vérification de confidentialité n'a pas pu être effectuée.",
@@ -128,7 +128,7 @@
   "recommendation_cookie_fine": "Les paramètres de cookies semblent bons, aucune action nécessaire.",
   "recommendation_tracker_ads": "Utilisez un bloqueur de publicités comme uBlock Origin pour réduire le suivi.",
   "recommendation_tracker_other": "Un bloqueur de trackers comme uBlock Origin peut améliorer votre confidentialité.",
-  "recommendation_tracker_none": "Aucun bloqueur de trackers nécessaire — aucun tracker connu n'a été détecté.",
+  "recommendation_tracker_none": "Aucun bloqueur de trackers nécessaire, aucun tracker connu n'a été détecté.",
   "recommendation_general_high": "Réfléchissez avant de créer un compte ou de rester connecté sur ce site.",
   "recommendation_general_medium": "Évitez de partager des données sensibles sur ce site et vérifiez vos paramètres de confidentialité.",
   "recommendation_general_low": "Ce site ne présente aucun indicateur technique de problème de confidentialité.",
@@ -139,20 +139,20 @@
   "website_tracker_title": "Trackers",
   "website_tracker_subtitle": "Scripts qui surveillent votre comportement sur le web",
   "website_tracker_s1_heading": "Qu'est-ce qu'un tracker?",
-  "website_tracker_s1_body": "Les trackers sont de petits scripts ou des pixels invisibles intégrés dans les sites web. Ils enregistrent silencieusement les pages que vous visitez, combien de temps vous y restez, ce sur quoi vous cliquez et même votre emplacement approximatif — souvent sans que vous le remarquiez.",
+  "website_tracker_s1_body": "Les trackers sont de petits scripts ou des pixels invisibles intégrés dans les sites web. Ils enregistrent silencieusement les pages que vous visitez, combien de temps vous y restez, ce sur quoi vous cliquez et même votre emplacement approximatif, souvent sans que vous le remarquiez.",
   "website_tracker_s2_heading": "Comment Klartxt les détecte",
-  "website_tracker_s2_body": "Klartxt intercepte toutes les requêtes réseau sortantes effectuées par votre navigateur lors du chargement d'une page. Chaque requête est vérifiée par rapport à la base de données DuckDuckGo Tracker Radar — l'une des listes de trackers les plus complètes disponibles.",
+  "website_tracker_s2_body": "Klartxt intercepte toutes les requêtes réseau sortantes effectuées par votre navigateur lors du chargement d'une page. Chaque requête est vérifiée par rapport à la base de données DuckDuckGo Tracker Radar, l'une des listes de trackers les plus complètes disponibles.",
   "website_tracker_s3_heading": "Pourquoi c'est important",
   "website_tracker_s3_body": "Les trackers des réseaux publicitaires construisent des profils détaillés sur vous au fil du temps. Ces données sont achetées et vendues entre entreprises, utilisées pour vous cibler avec des publicités et peuvent être accessibles par les gouvernements dans certaines juridictions.",
 
   "website_cookies_title": "Cookies",
   "website_cookies_subtitle": "Petits fichiers que les sites web stockent dans votre navigateur",
   "website_cookies_s1_heading": "Que sont les cookies?",
-  "website_cookies_s1_body": "Les cookies sont de petits fichiers texte qu'un site web enregistre dans votre navigateur. Ils peuvent être utiles — pour vous garder connecté ou mémoriser votre panier. Mais ils sont aussi fréquemment utilisés pour le suivi.",
+  "website_cookies_s1_body": "Les cookies sont de petits fichiers texte qu'un site web enregistre dans votre navigateur. Ils peuvent être utiles, pour vous garder connecté ou mémoriser votre panier. Mais ils sont aussi fréquemment utilisés pour le suivi.",
   "website_cookies_s2_heading": "Première partie vs. tierce partie",
   "website_cookies_s2_body": "Les cookies de première partie sont définis par le site que vous visitez. Les cookies tiers sont définis par des services externes intégrés sur la page. Ils constituent le principal outil de suivi intersites.",
   "website_cookies_s3_heading": "Comment Klartxt les détecte",
-  "website_cookies_s3_body": "Klartxt enregistre tous les cookies définis lors de votre visite, identifie leur origine et vérifie si certains ont été définis avant votre consentement — un constat technique qui peut indiquer une éventuelle violation de l'article 7 du RGPD.",
+  "website_cookies_s3_body": "Klartxt enregistre tous les cookies définis lors de votre visite, identifie leur origine et vérifie si certains ont été définis avant votre consentement, un constat technique qui peut indiquer une éventuelle violation de l'article 7 du RGPD.",
 
   "website_privacyPolicy_title": "Politique de confidentialité",
   "website_privacyPolicy_subtitle": "Le document légal qui explique comment vos données sont utilisées",
@@ -166,9 +166,9 @@
   "website_thirdParty_title": "Requêtes tierces",
   "website_thirdParty_subtitle": "Services externes contactés lors du chargement d'une page",
   "website_thirdParty_s1_heading": "Que sont les requêtes tierces?",
-  "website_thirdParty_s1_body": "Chaque fois que vous chargez une page, votre navigateur peut contacter des dizaines de serveurs externes — pour des polices, des analyses, des publicités, des boutons de médias sociaux ou des prestataires de paiement. Chacune de ces requêtes est une requête tierce.",
+  "website_thirdParty_s1_body": "Chaque fois que vous chargez une page, votre navigateur peut contacter des dizaines de serveurs externes, pour des polices, des analyses, des publicités, des boutons de médias sociaux ou des prestataires de paiement. Chacune de ces requêtes est une requête tierce.",
   "website_thirdParty_s2_heading": "Pourquoi elles sont importantes",
   "website_thirdParty_s2_body": "Chaque requête tierce révèle votre adresse IP, les détails de votre navigateur et la page visitée à une entreprise externe. Même si vous n'interagissez jamais avec un élément, la requête a déjà été envoyée.",
   "website_thirdParty_s3_heading": "Comment Klartxt mesure cela",
-  "website_thirdParty_s3_body": "Klartxt comptabilise toutes les requêtes réseau allant vers un domaine différent du site visité. Un nombre élevé signifie une surface d'exposition des données plus importante — indépendamment du fait que ces services soient classifiés comme trackers."
+  "website_thirdParty_s3_body": "Klartxt comptabilise toutes les requêtes réseau allant vers un domaine différent du site visité. Un nombre élevé signifie une surface d'exposition des données plus importante, indépendamment du fait que ces services soient classifiés comme trackers."
 }

@@ -69,6 +69,14 @@ npm run build:website
 
 This will generate the output in the `website-build` directory.
 
+## 🧪 Testing
+
+To run the unit-tests:
+
+```sh
+npm test
+```
+
 ## 📂 Load Extension in Chrome
 
 1. Open Chrome and navigate to `chrome://extensions/`.

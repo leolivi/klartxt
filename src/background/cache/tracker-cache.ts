@@ -266,7 +266,7 @@ export class TrackerCache {
       this.scanCompleted.set(tabId, scanCompleted);
     }
 
-    // Recalculate from sub-data if available — overrides stored score
+    // Recalculate from sub-data if available, overrides stored score
     if (this.trackerDetails.has(tabId) || this.cookieDetails.has(tabId) || this.dsgvoResults.has(tabId)) {
       this.recalculateOverallRiskScore(tabId);
     }
