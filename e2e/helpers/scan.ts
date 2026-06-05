@@ -2,14 +2,16 @@ import type { BrowserContext, Worker } from "@playwright/test";
 
 type SessionStorage = Record<string, unknown>;
 type ChromeLike     = { storage: { session: { get(keys: string[]): Promise<SessionStorage> } } };
-type CacheLike      = { getRequestsSeen(tabId: number): number };
+type CacheLike      = { getRequestsSeen(tabId: number): number; getCookieDetails(tabId: number): CookieEntry[]; isScanCompleted(tabId: number): boolean };
 
 export type TrackerEntry = { domain: string };
+export type CookieEntry  = { name: string; domain: string; category: string; userCategory: string; isThirdParty: boolean; httpOnly: boolean; secure: boolean };
 
 export type ScanResult = {
   tabId:              number;
   score:              number;
   trackerDetails:     TrackerEntry[];
+  cookieDetails:      CookieEntry[];
   scanCompleted:      boolean;
   seenHostnames:      Set<string>; // unique HTTP/HTTPS hostnames Playwright observed
   playwrightRequests: number;      // total request count Playwright observed
@@ -58,17 +60,28 @@ export async function scanSite(
   const storage = await sw.evaluate((id: number) => {
     const chrome = (globalThis as unknown as { chrome: ChromeLike }).chrome;
     return chrome.storage.session.get([
-      `scanCompleted_${id}`,
       `overallRiskScore_${id}`,
       `trackerDetails_${id}`,
     ]);
   }, tabId);
 
-  // Read requestsSeen directly from the in-memory cache to avoid timing issues
-  // with debouncedPersist (storage may not reflect the final count yet).
-  const extensionRequests = await sw.evaluate((id: number) => {
+  // Trigger a fresh cookie scan so JS-set tracker cookies (set after status:complete)
+  // are included. __rescanCookies is only available in e2e builds.
+  await sw.evaluate(async (id: number) => {
+    const rescan = (globalThis as unknown as { __rescanCookies?: (tabId: number) => Promise<void> }).__rescanCookies;
+    await rescan?.(id);
+  }, tabId);
+
+  // Read requestsSeen, cookieDetails, and scanCompleted directly from the in-memory cache.
+  // __rescanCookies above calls setCookies → isScanCompleted returns true even when
+  // status:"complete" fires after the 3s storage-read window (e.g. heavy sites like NZZ).
+  const { extensionRequests, cookieDetails, scanCompleted } = await sw.evaluate((id: number) => {
     const c = (globalThis as unknown as { __klartxtCache: CacheLike }).__klartxtCache;
-    return c?.getRequestsSeen(id) ?? 0;
+    return {
+      extensionRequests: c?.getRequestsSeen(id)   ?? 0,
+      cookieDetails:     c?.getCookieDetails(id)   ?? [],
+      scanCompleted:     c?.isScanCompleted(id)    ?? false,
+    };
   }, tabId);
 
   await page.close();
@@ -77,7 +90,8 @@ export async function scanSite(
     tabId,
     score:          (storage[`overallRiskScore_${tabId}`] as number         | undefined) ?? 0,
     trackerDetails: (storage[`trackerDetails_${tabId}`]   as TrackerEntry[] | undefined) ?? [],
-    scanCompleted:  (storage[`scanCompleted_${tabId}`]    as boolean        | undefined) ?? false,
+    cookieDetails,
+    scanCompleted,
     seenHostnames,
     playwrightRequests,
     extensionRequests,

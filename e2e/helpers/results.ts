@@ -3,12 +3,23 @@ import path from "path";
 
 export const RESULTS_PATH = path.join("e2e", "test-results-data.json");
 
+export type CookieEntry = {
+  name:         string;
+  domain:       string;
+  category:     string;
+  userCategory: string;
+  isThirdParty: boolean;
+  httpOnly:     boolean;
+  secure:       boolean;
+};
+
 export type RunData = {
   score:              number;
   trackerDetails:     Array<{ domain: string }>;
-  seenHostnames:      string[]; // unique hostnames Playwright observed
-  playwrightRequests: number;   // total request count Playwright observed
-  extensionRequests:  number;   // total requests the extension's webRequest saw
+  cookieDetails:      CookieEntry[];
+  seenHostnames:      string[]; 
+  playwrightRequests: number;   
+  extensionRequests:  number;   
   scanCompleted:      boolean;
 };
 

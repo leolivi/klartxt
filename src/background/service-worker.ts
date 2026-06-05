@@ -13,8 +13,22 @@ initTrackerData();
 export const cache = new TrackerCache();
 
 declare const __PLAYWRIGHT_TEST__: boolean;
-declare global { var __klartxtCache: TrackerCache; }
-if (__PLAYWRIGHT_TEST__) globalThis.__klartxtCache = cache;
+declare global {
+  var __klartxtCache: TrackerCache;
+  var __rescanCookies: (tabId: number) => Promise<void>;
+}
+if (__PLAYWRIGHT_TEST__) {
+  globalThis.__klartxtCache = cache;
+  // Allows e2e tests to trigger a fresh cookie scan after tracker JS has run.
+  globalThis.__rescanCookies = async (tabId: number) => {
+    const tab = await chrome.tabs.get(tabId).catch(() => null);
+    if (!tab?.url) return;
+    await handleCookies({
+      tabUrl: tab.url,
+      onCookiesDetected: (cookies) => cache.setCookies(tabId, cookies),
+    });
+  };
+}
 
 /* ---- NOTIFY SIDE PANEL ---- */
 function notifySidePanel(tabId: number): void {

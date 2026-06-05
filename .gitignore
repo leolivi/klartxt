@@ -22,6 +22,9 @@ website-build
 # Claude
 .claude
 
+# TypeScript build cache
+*.tsbuildinfo
+
 # Playwright
 test-results/
 e2e/report/

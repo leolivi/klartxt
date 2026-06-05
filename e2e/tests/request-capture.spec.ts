@@ -6,7 +6,7 @@ import { readResults } from "../helpers/results";
 // Asserts: every tracker domain the extension recorded actually appeared in
 // Playwright's request list (no phantom requests) and scans completed.
 
-test("100 % request capture across all sites", async ({}, testInfo) => {
+test("100 % network request capture across all sites", async ({}, testInfo) => {
   const { sites } = readResults();
 
   const report = sites.map(site => {
