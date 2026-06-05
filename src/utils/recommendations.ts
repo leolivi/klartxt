@@ -5,7 +5,7 @@ import type { ClassifiedCookie } from "./types/cookie-types";
 import { CookieCategoryForUser } from "./types/cookie-types";
 
 export interface Recommendation {
-  type: "cookie" | "tracker" | "general";
+  type: "cookie" | "tracker" | "general" | "legal";
   textKey: string;
 }
 
@@ -46,5 +46,6 @@ export function deriveRecommendations(
     generalRecommendation(riskScore),
     trackerRecommendation(trackerList),
     cookieRecommendation(dsgvoResult, cookiesList),
+    { type: "legal", textKey: "recommendation_legal" },
   ];
 }

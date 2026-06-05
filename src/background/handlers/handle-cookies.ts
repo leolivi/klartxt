@@ -33,12 +33,19 @@ export async function handleCookies({
     );
   });
 
-  const classified: ClassifiedCookie[] = pageCookies.map((cookie) => {
+  const seen = new Set<string>();
+  const classified: ClassifiedCookie[] = [];
+
+  for (const cookie of pageCookies) {
+    const key = `${cookie.name}||${cookie.domain.replace(/^\./, "")}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+
     const cookieRootDomain = extractRootDomain(cookie.domain.replace(/^\./, ""));
     const isThirdParty = cookieRootDomain !== tabRootDomain;
     const category = classifyCookieCategory(cookie.name, cookieRootDomain, cookie);
 
-    return {
+    classified.push({
       name: cookie.name,
       domain: cookie.domain,
       category,
@@ -46,8 +53,8 @@ export async function handleCookies({
       isThirdParty,
       httpOnly: cookie.httpOnly,
       secure: cookie.secure,
-    };
-  });
+    });
+  }
 
   onCookiesDetected(classified);
 }

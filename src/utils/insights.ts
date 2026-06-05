@@ -1,13 +1,13 @@
 import type { DsgvoResult } from "./types/dsgvo-types";
 import type { TrackerInfo } from "./types/tracking-enums";
-import { TrackerCategoryForUser } from "./types/tracking-enums";
+import { TrackerCategory, TrackerCategoryForUser } from "./types/tracking-enums";
 import type { ClassifiedCookie } from "./types/cookie-types";
 import { CookieCategoryForUser } from "./types/cookie-types";
 
 export type InsightSeverity = "fine" | "suspicious" | "confirmed";
 
 export interface Insight {
-  type: "tracker" | "cookie" | "dsgvo";
+  type: "tracker" | "cookie" | "dsgvo" | "profiling";
   severity: InsightSeverity;
   textKey: string;
   vars?: Record<string, string | number>;
@@ -73,6 +73,27 @@ function dsgvoInsight(dsgvoResult: DsgvoResult | null): Insight {
   return { type: "dsgvo", severity: "fine", textKey: "insightDsgvo_fine" };
 }
 
+function profilingInsight(trackerList: TrackerInfo[]): Insight {
+  const hasSessionReplay = trackerList.some(t =>
+    t.detailedCategories.includes(TrackerCategory.SESSION)
+  );
+  const hasAdsOrAnalytics = trackerList.some(t =>
+    t.detailedCategories.includes(TrackerCategory.AD) ||
+    t.detailedCategories.includes(TrackerCategory.ANALYTICS)
+  );
+  const hasSocial = trackerList.some(t =>
+    t.detailedCategories.includes(TrackerCategory.SOCIAL)
+  );
+
+  if (hasSessionReplay) {
+    return { type: "profiling", severity: "confirmed", textKey: "insightProfiling_sessionReplay" };
+  }
+  if (hasAdsOrAnalytics && hasSocial) {
+    return { type: "profiling", severity: "suspicious", textKey: "insightProfiling_crossContext" };
+  }
+  return { type: "profiling", severity: "fine", textKey: "insightProfiling_none" };
+}
+
 export function maxSeverity(insights: Insight[]): InsightSeverity {
   if (insights.some(i => i.severity === "confirmed")) return "confirmed";
   if (insights.some(i => i.severity === "suspicious")) return "suspicious";
@@ -88,5 +109,6 @@ export function deriveInsights(
     dsgvoInsight(dsgvoResult),
     trackerInsight(trackerList),
     cookieInsight(cookiesList),
+    profilingInsight(trackerList),
   ];
 }

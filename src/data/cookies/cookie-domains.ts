@@ -34,10 +34,17 @@ export function mapToUserCategory(category: CookieCategory): CookieCategoryForUs
 // CookieGraph: Cookie-Name Pattern
 export function mapNameToCategory(name: string): CookieCategory {
   const lower = name.toLowerCase();
-  if (NECESSARY_PATTERNS_LOWER.some((p) => lower.includes(p))) return CookieCategory.NECESSARY;
-  if (SESSION_PATTERNS_LOWER.some((p) => lower.includes(p))) return CookieCategory.SESSION;
-  if (ANALYTICS_PATTERNS_LOWER.some((p) => lower.includes(p))) return CookieCategory.ANALYTICS;
-  if (ADVERTISING_PATTERNS_LOWER.some((p) => lower.includes(p))) return CookieCategory.ADVERTISING;
+
+  // Explicit overrides before heuristic pattern matching
+  if (lower.includes("csrf") || lower.includes("xsrf")) return CookieCategory.SECURITY;
+  if (lower === "jsessionid" || lower === "phpsessid" || lower === "asp.net_sessionid") return CookieCategory.NECESSARY;
+
+  // Minimum pattern length of 3 to filter single/2-char patterns ('c', 's', 'P_') that cause false positives
+  const minLen = (p: string) => p.length >= 3;
+  if (NECESSARY_PATTERNS_LOWER.filter(minLen).some((p) => lower.includes(p))) return CookieCategory.NECESSARY;
+  if (SESSION_PATTERNS_LOWER.filter(minLen).some((p) => lower.includes(p))) return CookieCategory.SESSION;
+  if (ANALYTICS_PATTERNS_LOWER.filter(minLen).some((p) => lower.includes(p))) return CookieCategory.ANALYTICS;
+  if (ADVERTISING_PATTERNS_LOWER.filter(minLen).some((p) => lower.includes(p))) return CookieCategory.ADVERTISING;
   return CookieCategory.UNKNOWN;
 }
 

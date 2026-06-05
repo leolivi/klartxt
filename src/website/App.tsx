@@ -30,6 +30,7 @@ function Layout() {
      <Separator/>
 
 {/* TODO: maybe add "home section"? */}
+{/* TODO: add source page? */}
 {/* TODO: maybe add dark mode? */}
       <main className="max-w-2xl mx-auto px-6 py-12">
         {/* Hero */}
