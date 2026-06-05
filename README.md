@@ -94,14 +94,14 @@ npm run test:e2e:report  # open the HTML report in the browser
 
 **Test suites:**
 
-| Suite | Tests | What it checks |
-|---|---|---|
-| `score-reproducibility` | 5 | 3 consecutive runs on the same page yield identical scores |
-| `performance` | 5 | Full scan completes in under 2 seconds |
-| `console-clean` | 5 | No unhandled JS exceptions on page or in service worker |
-| `request-capture` | 5 | Scan completes, tracker entries have valid structure, no duplicates |
-| `cookie-capture` | 5 | All cookie fields present and valid (incl. `httpOnly`, `isThirdParty`) |
-| `cold-start` | 2 | Score and data survive a service worker restart (storage restoration) |
+| Suite | What it checks |
+|---|---|
+| `score-reproducibility` | 3 consecutive runs on the same page yield identical scores |
+| `performance` | Full scan completes in under 2 seconds |
+| `console-clean` | No unhandled JS exceptions on page or in service worker |
+| `request-capture` | Scan completes, tracker entries have valid structure, no duplicates |
+| `cookie-capture` | All cookie fields present and valid (incl. `httpOnly`, `isThirdParty`) |
+| `cold-start` | Score and data survive a service worker restart (storage restoration) |
 
 Each test attaches a JSON result and for reproducibility tests a sidepanel screenshot to the HTML report. These attachments are the basis for manual false-positive analysis.
 

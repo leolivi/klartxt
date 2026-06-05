@@ -18,12 +18,21 @@ export class TrackerCache {
   private timestamps = new Map<number, number>();
   private consentTiming = new Map<number, ConsentTimingResult>();
   private scanCompleted = new Map<number, boolean>();
+  private requestsSeen  = new Map<number, number>();
   private scanStartedAt = new Map<number, number>();
   private scanDuration = new Map<number, number>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateCallback: ((tabId: number) => void) | null = null;
   private readonly STALE_THRESHOLD_MS = 30 * 60 * 1000;
+
+  incrementRequestsSeen(tabId: number): void {
+    this.requestsSeen.set(tabId, (this.requestsSeen.get(tabId) ?? 0) + 1);
+  }
+
+  getRequestsSeen(tabId: number): number {
+    return this.requestsSeen.get(tabId) ?? 0;
+  }
 
   setTrackerDetail(tabId: number, tracker: TrackerInfo): void {
     if (!this.trackerDetails.has(tabId)) {
@@ -172,7 +181,8 @@ export class TrackerCache {
       [`contentResult_${tabId}`]: this.contentResults.get(tabId) ?? null,
       [`consentTiming_${tabId}`]: this.consentTiming.get(tabId) ?? null,
       [`overallRiskScore_${tabId}`]: this.overallRiskScore.get(tabId) ?? null,
-      [`scanCompleted_${tabId}`]: this.scanCompleted.get(tabId) ?? false,
+      [`scanCompleted_${tabId}`]:   this.scanCompleted.get(tabId) ?? false,
+      [`requestsSeen_${tabId}`]:    this.requestsSeen.get(tabId) ?? 0,
     };
     await chrome.storage.session.set(data);
   }

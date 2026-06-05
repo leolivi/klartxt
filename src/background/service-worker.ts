@@ -12,6 +12,10 @@ initTrackerData();
 
 export const cache = new TrackerCache();
 
+declare const __PLAYWRIGHT_TEST__: boolean;
+declare global { var __klartxtCache: TrackerCache; }
+if (__PLAYWRIGHT_TEST__) globalThis.__klartxtCache = cache;
+
 /* ---- NOTIFY SIDE PANEL ---- */
 function notifySidePanel(tabId: number): void {
   const trackers = cache.getTrackerDetails(tabId);
@@ -147,6 +151,9 @@ chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
     const tabId = details.tabId;
     if (tabId < 0) return undefined;
+
+    // Count every request the webRequest listener sees (not just trackers)
+    cache.incrementRequestsSeen(tabId);
 
     // TODO: remove later
     const start = performance.now();

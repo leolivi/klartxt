@@ -26,6 +26,7 @@ website-build
 test-results/
 e2e/report/
 playwright-report/
+e2e/test-results-data.json
 
 # Editor directories and files
 .vscode/*

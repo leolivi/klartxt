@@ -17,9 +17,18 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
+    // Runs first: scans all sites and writes test-results-data.json.
+    // If this fails, all tests in "tests" are automatically skipped.
     {
-      name: "chromium",
-      use: { browserName: "chromium" },
+      name:      "setup",
+      testMatch: "**/00-collect.spec.ts",
+    },
+    // All assertion tests — depend on setup having written the results file.
+    {
+      name:       "tests",
+      use:        { browserName: "chromium" },
+      dependencies: ["setup"],
+      testIgnore: "**/00-collect.spec.ts",
     },
   ],
 });
