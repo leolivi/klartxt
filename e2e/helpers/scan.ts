@@ -2,6 +2,7 @@ import type { BrowserContext, Worker } from "@playwright/test";
 
 type SessionStorage = Record<string, unknown>;
 type ChromeLike     = { storage: { session: { get(keys: string[]): Promise<SessionStorage> } } };
+type TabsLike       = { query(q: { url: string }): Promise<Array<{ id?: number }>> };
 type CacheLike      = { getRequestsSeen(tabId: number): number; getCookieDetails(tabId: number): CookieEntry[]; isScanCompleted(tabId: number): boolean };
 
 export type TrackerEntry = { domain: string };
@@ -19,19 +20,19 @@ export type ScanResult = {
 };
 
 /**
- * Opens a fresh page, navigates to `url`, waits for the extension's
- * [ScanDuration] signal, lets storage settle, then returns the scan result.
+ * Opens a fresh page, navigates to `url`, waits for full page load,
+ * then returns the extension's scan result.
  *
- * A new page is created each call so the browser cache never hides requests
- * from the extension's webRequest interceptor on repeated scans of the same URL.
+ * Uses chrome.tabs.query to resolve the tabId — no console-message dependency,
+ * so sites with slow service-worker installs (e.g. Wikipedia) don't time out.
  */
 export async function scanSite(
   context: BrowserContext,
   sw: Worker,
   url: string,
 ): Promise<ScanResult> {
-  const page          = await context.newPage();
-  const seenHostnames     = new Set<string>();
+  const page               = await context.newPage();
+  const seenHostnames      = new Set<string>();
   let   playwrightRequests = 0;
 
   page.on("request", req => {
@@ -44,21 +45,22 @@ export async function scanSite(
     } catch { /* ignore unparseable URLs */ }
   });
 
-  const tabIdPromise = new Promise<number>((resolve, reject) => {
-    const timer = setTimeout(
-      () => reject(new Error(`[ScanDuration] signal not received within 90s for ${url}`)),
-      90_000,
-    );
-    sw.on("console", msg => {
-      const m = msg.text().match(/\[ScanDuration\] tabId=(\d+) duration=/);
-      if (m) { clearTimeout(timer); resolve(Number(m[1])); }
-    });
-  });
-
   await page.goto(url, { waitUntil: "domcontentloaded" });
-  const tabId = await tabIdPromise;
 
-  // Wait for DSGVO checks and debouncedPersist to fully settle
+  // Resolve the Chrome tabId from the service worker using the final URL.
+  // domcontentloaded ensures redirects have settled and page.url() is stable.
+  const tabId = await sw.evaluate(async (finalUrl: string) => {
+    const origin = new URL(finalUrl).origin;
+    const tabs   = (globalThis as unknown as { chrome: { tabs: TabsLike } }).chrome.tabs;
+    const found  = await tabs.query({ url: `${origin}/*` });
+    return found[0]?.id ?? -1;
+  }, page.url());
+
+  if (tabId === -1) throw new Error(`Could not find Chrome tab for ${url}`);
+
+  // Wait for full page load, then let debouncedPersist (500 ms) settle.
+  // .catch() keeps the scan alive if a heavy page (e.g. Wikipedia SW pre-cache) times out.
+  await page.waitForLoadState("load", { timeout: 60_000 }).catch(() => {});
   await page.waitForTimeout(3_000);
 
   const storage = await sw.evaluate((id: number) => {
@@ -77,14 +79,13 @@ export async function scanSite(
   }, tabId);
 
   // Read requestsSeen, cookieDetails, and scanCompleted directly from the in-memory cache.
-  // __rescanCookies above calls setCookies → isScanCompleted returns true even when
-  // status:"complete" fires after the 3s storage-read window (e.g. heavy sites like NZZ).
+  // __rescanCookies calls setCookies → isScanCompleted is true regardless of storage timing.
   const { extensionRequests, cookieDetails, scanCompleted } = await sw.evaluate((id: number) => {
     const c = (globalThis as unknown as { __klartxtCache: CacheLike }).__klartxtCache;
     return {
-      extensionRequests: c?.getRequestsSeen(id)   ?? 0,
-      cookieDetails:     c?.getCookieDetails(id)   ?? [],
-      scanCompleted:     c?.isScanCompleted(id)    ?? false,
+      extensionRequests: c?.getRequestsSeen(id)  ?? 0,
+      cookieDetails:     c?.getCookieDetails(id)  ?? [],
+      scanCompleted:     c?.isScanCompleted(id)   ?? false,
     };
   }, tabId);
 
