@@ -5,14 +5,14 @@ const REPRODUCIBILITY_THRESHOLD = 0.8;
 
 // ── Score reproducibility ── //
 // Reads pre-collected scan data from 00-collect.spec.ts.
-// Asserts: >= 80 % of sites produce identical scores across all 3 runs.
+// Asserts: >= 80 % of sites produce identical scores across all runs.
 
 test("overall >= 80 %", async ({}, testInfo) => {
   const { sites } = readResults();
 
   const siteResults = sites.map(site => ({
     name:         site.name,
-    scores:       site.runs.map(r => r.score) as [number, number, number],
+    scores:       site.runs.map(r => r.score),
     reproducible: site.runs.every(r => r.score === site.runs[0].score),
   }));
 

@@ -44,10 +44,14 @@ export async function scanSite(
     } catch { /* ignore unparseable URLs */ }
   });
 
-  const tabIdPromise = new Promise<number>(resolve => {
+  const tabIdPromise = new Promise<number>((resolve, reject) => {
+    const timer = setTimeout(
+      () => reject(new Error(`[ScanDuration] signal not received within 90s for ${url}`)),
+      90_000,
+    );
     sw.on("console", msg => {
       const m = msg.text().match(/\[ScanDuration\] tabId=(\d+) duration=/);
-      if (m) resolve(Number(m[1]));
+      if (m) { clearTimeout(timer); resolve(Number(m[1])); }
     });
   });
 

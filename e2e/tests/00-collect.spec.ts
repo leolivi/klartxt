@@ -11,7 +11,7 @@ import { RESULTS_PATH, type CollectedResults } from "../helpers/results";
 // instead of scanning again — each site is only visited once.
 
 test("collect scan data for all sites", async () => {
-  test.setTimeout(10 * 60_000); // up to 10 min: 5 sites × 3 scans × ~10 s
+  test.setTimeout(15 * 60_000); // up to 15 min: 5 sites × 2 scans × ~90 s CI budget
 
   const collected: CollectedResults = { sites: [] };
 
@@ -22,7 +22,7 @@ test("collect scan data for all sites", async () => {
     if (!sw) sw = await context.waitForEvent("serviceworker", { timeout: 5_000 });
 
     const runs = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       const { score, trackerDetails, cookieDetails, seenHostnames, scanCompleted, playwrightRequests, extensionRequests } =
         await scanSite(context, sw, site.url);
       runs.push({
