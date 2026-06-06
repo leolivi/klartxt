@@ -21,14 +21,14 @@ export default defineConfig({
     // If this fails, all tests in "tests" are automatically skipped.
     {
       name:      "setup",
-      testMatch: "**/00-collect.spec.ts",
+      testMatch: "**/collect.spec.ts",
     },
     // All assertion tests — depend on setup having written the results file.
     {
       name:       "tests",
       use:        { browserName: "chromium" },
       dependencies: ["setup"],
-      testIgnore: "**/00-collect.spec.ts",
+      testIgnore: "**/collect.spec.ts",
     },
   ],
 });

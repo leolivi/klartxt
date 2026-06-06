@@ -96,12 +96,14 @@ npm run test:e2e:report  # open the HTML report in the browser
 
 | Suite | What it checks |
 |---|---|
-| `score-reproducibility` | 3 consecutive runs on the same page yield identical scores |
-| `performance` | Full scan completes in under 2 seconds |
-| `console-clean` | No unhandled JS exceptions on page or in service worker |
-| `request-capture` | Scan completes, tracker entries have valid structure, no duplicates |
-| `cookie-capture` | All cookie fields present and valid (incl. `httpOnly`, `isThirdParty`) |
-| `cold-start` | Score and data survive a service worker restart (storage restoration) |
+| `basic` | Extension loads, side panel opens, scan completes on a real page |
+| `cold-start` | Cache state is fully restored from session storage after a service worker restart |
+| `collect` | *(setup)* Scans all sites and writes `test-results-data.json` for the suites below |
+| `console-errors` | No unhandled JS exceptions thrown on page or in the extension service worker |
+| `cookie-capture` | Cookies are detected and classified with correct first/third-party status |
+| `performance` | Full scan completes within 2 seconds |
+| `request-capture` | Extension captures ≥ 100 % of network requests (local only —> skipped in CI) |
+| `score-reproducibility` | Identical scores are reproduced in ≥ 80 % of repeated runs |
 
 Each test attaches a JSON result and for reproducibility tests a sidepanel screenshot to the HTML report. These attachments are the basis for manual false-positive analysis.
 

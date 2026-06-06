@@ -22,6 +22,8 @@ export type RunData = {
   extensionRequests:  number;
   scanCompleted:      boolean;
   scanDuration:       number | null;
+  pageErrors:         string[];
+  swErrors:           string[];
 };
 
 export type SiteData = {

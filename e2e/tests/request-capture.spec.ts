@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { readResults } from "../helpers/results";
 
 // ── Request-Erfassung ── //
-// Reads pre-collected scan data from 00-collect.spec.ts.
+// Reads pre-collected scan data from collect.spec.ts.
 // Asserts: every tracker domain the extension recorded actually appeared in
 // Playwright's request list (no phantom requests) and scans completed.
 //
@@ -10,7 +10,7 @@ import { readResults } from "../helpers/results";
 // intercept SW-to-SW fetches (platform limitation) —> sites with an active
 // service worker (e.g. GitHub) produce a structural gap that can't be closed.
 
-test("100 % network request capture across all sites", async ({}, testInfo) => {
+test("detects 100 % network request across all sites", async ({}, testInfo) => {
   test.skip(!!process.env.CI, "SW-to-SW fetches are uninterceptable by webRequest — local-only test");
 
   const { sites } = readResults();

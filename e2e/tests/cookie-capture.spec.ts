@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { readResults } from "../helpers/results";
 
 // ── Cookie-Erfassung ── //
-// Reads pre-collected scan data from 00-collect.spec.ts.
+// Reads pre-collected scan data from collect.spec.ts.
 // Asserts: cookies are detected and every cookie has a first/third-party status
 
 // Sites expected to set cookies at all
@@ -11,7 +11,7 @@ const COOKIE_SITES = new Set(["google", "spiegel", "nzz"]);
 // Content sites that embed third-party trackers → must have third-party cookies
 const THIRD_PARTY_COOKIE_SITES = new Set(["spiegel", "nzz"]);
 
-test("cookie capture incl. first/third-party status across all sites", async ({}, testInfo) => {
+test("detects and classifies cookies with first/third-party status", async ({}, testInfo) => {
   const { sites } = readResults();
 
   const report = sites.map(site => {

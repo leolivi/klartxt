@@ -7,10 +7,9 @@ import { RESULTS_PATH, type CollectedResults } from "../helpers/results";
 
 // ── Data collection ── //
 // Runs 3 scans per site and writes test-results-data.json.
-// score-reproducibility.spec.ts and request-capture.spec.ts read that file
-// instead of scanning again — each site is only visited once.
+// further tests read that file instead of scanning again.
 
-test("collect scan data for all sites", async () => {
+test("collects scan data for all sites", async () => {
   test.setTimeout(15 * 60_000); // up to 15 min: 5 sites × 2 scans × ~90 s CI budget
 
   const collected: CollectedResults = { sites: [] };
@@ -23,7 +22,7 @@ test("collect scan data for all sites", async () => {
 
     const runs = [];
     for (let i = 0; i < 2; i++) {
-      const { score, trackerDetails, cookieDetails, seenHostnames, scanCompleted, scanDuration, playwrightRequests, extensionRequests } =
+      const { score, trackerDetails, cookieDetails, seenHostnames, scanCompleted, scanDuration, playwrightRequests, extensionRequests, pageErrors, swErrors } =
         await scanSite(context, sw, site.url);
       runs.push({
         score,
@@ -34,6 +33,8 @@ test("collect scan data for all sites", async () => {
         scanDuration,
         playwrightRequests,
         extensionRequests,
+        pageErrors,
+        swErrors,
       });
     }
 

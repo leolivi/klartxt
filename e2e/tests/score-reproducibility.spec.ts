@@ -4,10 +4,10 @@ import { readResults } from "../helpers/results";
 const REPRODUCIBILITY_THRESHOLD = 0.8;
 
 // ── Score reproducibility ── //
-// Reads pre-collected scan data from 00-collect.spec.ts.
+// Reads pre-collected scan data from collect.spec.ts.
 // Asserts: >= 80 % of sites produce identical scores across all runs.
 
-test("overall >= 80 %", async ({}, testInfo) => {
+test("reproduces identical scores in >= 80 % of runs", async ({}, testInfo) => {
   const { sites } = readResults();
 
   const siteResults = sites.map(site => ({

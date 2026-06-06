@@ -1,4 +1,4 @@
-import type { BrowserContext, Worker } from "@playwright/test";
+import type { BrowserContext, ConsoleMessage, Worker } from "@playwright/test";
 
 type SessionStorage = Record<string, unknown>;
 type ChromeLike     = { storage: { session: { get(keys: string[]): Promise<SessionStorage> } } };
@@ -18,6 +18,8 @@ export type ScanResult = {
   seenHostnames:      Set<string>;   // unique HTTP/HTTPS hostnames Playwright observed
   playwrightRequests: number;        // total request count Playwright observed
   extensionRequests:  number;        // total requests the extension's webRequest saw
+  pageErrors:         string[];      // unhandled JS exceptions on the page
+  swErrors:           string[];      // console.error messages from the extension service worker
 };
 
 /**
@@ -35,6 +37,8 @@ export async function scanSite(
   const page               = await context.newPage();
   const seenHostnames      = new Set<string>();
   let   playwrightRequests = 0;
+  const pageErrors:        string[] = [];
+  const swErrors:          string[] = [];
 
   page.on("request", req => {
     try {
@@ -45,6 +49,16 @@ export async function scanSite(
       }
     } catch { /* ignore unparseable URLs */ }
   });
+
+  // Unhandled JS exceptions thrown on the page
+  page.on("pageerror", err => pageErrors.push(err.message));
+
+  // console.error from the extension service worker.
+  // sw is reused across runs — remove the listener after the scan to avoid accumulation.
+  const swErrorHandler = (msg: ConsoleMessage) => {
+    if (msg.type() === "error") swErrors.push(msg.text());
+  };
+  sw.on("console", swErrorHandler);
 
   await page.goto(url, { waitUntil: "domcontentloaded" });
 
@@ -91,6 +105,7 @@ export async function scanSite(
     };
   }, tabId);
 
+  sw.off("console", swErrorHandler);
   await page.close();
 
   return {
@@ -103,5 +118,7 @@ export async function scanSite(
     seenHostnames,
     playwrightRequests,
     extensionRequests,
+    pageErrors,
+    swErrors,
   };
 }

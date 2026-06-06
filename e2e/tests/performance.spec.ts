@@ -2,13 +2,13 @@ import { test, expect } from "@playwright/test";
 import { readResults } from "../helpers/results";
 
 // ── Scan-Performance ── //
-// Reads pre-collected scan data from 00-collect.spec.ts.
+// Reads pre-collected scan data from collect.spec.ts.
 // scanDuration = Time between status:"complete" to the last initial tracker measurement + 300 ms Debounce.
 // Goal: Performance under 2 Sekunden.
 
 const THRESHOLD_MS = 2_000;
 
-test("scan duration under 2 s for all sites", async ({}, testInfo) => {
+test("completes scan within 2 s for all sites", async ({}, testInfo) => {
   const { sites } = readResults();
 
   const report = sites.map(site => {

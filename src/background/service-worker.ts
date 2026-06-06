@@ -25,7 +25,11 @@ if (__PLAYWRIGHT_TEST__) {
     if (!tab?.url) return;
     await handleCookies({
       tabUrl: tab.url,
-      onCookiesDetected: (cookies) => cache.setCookies(tabId, cookies),
+      onCookiesDetected: (cookies) => {
+        cache.setCookies(tabId, cookies);
+        // Trigger score recalculation so getOverallRiskScore() is fresh after the rescan.
+        cache.scheduleUIUpdate(tabId);
+      },
     });
   };
 }
