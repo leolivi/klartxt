@@ -9,6 +9,7 @@ export default defineConfig({
   reporter: [
     ["html",  { outputFolder: "e2e/report", open: "never" }],
     ["list"],
+    ["./e2e/reporters/csv-reporter.ts"],
   ],
   use: {
     // Chrome extensions require headful mode (headless: false)

@@ -67,13 +67,12 @@ test("restores cache state from session storage after cold start", async () => {
       };
     }, tabId);
 
-    // Simulate cold start: wipe in-memory state 
-    await sw.evaluate((id: number) => {
-      (globalThis as unknown as { __klartxtCache: CacheForTest }).__klartxtCache.reset(id);
-    }, tabId);
-
+    // Simulate cold start: wipe in-memory state and immediately read back
+    // (single evaluate = atomic w.r.t. the JS event loop — no webRequest
+    // event can fire setTrackerDetail between reset() and the length reads)
     const afterReset = await sw.evaluate((id: number) => {
       const c = (globalThis as unknown as { __klartxtCache: CacheForTest }).__klartxtCache;
+      c.reset(id);
       return {
         trackerCount:  c.getTrackerDetails(id).length,
         cookieCount:   c.getCookieDetails(id).length,

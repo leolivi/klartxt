@@ -28,7 +28,7 @@ test("extension loads and sidepanel opens", async () => {
 
 const github = sitesData.sites.find(s => s.name === "github")!;
 
-test(`scan completes and loads data from ${github.name}`, async ({}, testInfo) => {
+test(`scan completes and loads data from a testpage`, async ({}, testInfo) => {
   const context     = await launchWithExtension();
   const extensionId = await getExtensionId(context);
   const page        = await context.newPage();
