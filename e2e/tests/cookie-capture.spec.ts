@@ -11,7 +11,7 @@ const COOKIE_SITES = new Set(["google", "spiegel", "nzz"]);
 // Content sites that embed third-party trackers → must have third-party cookies
 const THIRD_PARTY_COOKIE_SITES = new Set(["spiegel", "nzz"]);
 
-test("detects and classifies cookies with first/third-party status", async ({}, testInfo) => {
+test("captures and classifies cookies with first/third-party status", async ({}, testInfo) => {
   const { sites } = readResults();
 
   const report = sites.map(site => {
