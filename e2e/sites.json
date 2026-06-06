@@ -1,0 +1,34 @@
+{
+  "sites": [
+    {
+      "name":     "google",
+      "url":      "https://www.google.com",
+      "category": "search",
+      "notes":    "Heavy analytics, GTM, expected score >= 3"
+    },
+    {
+      "name":     "spiegel",
+      "url":      "https://www.spiegel.de",
+      "category": "news",
+      "notes":    "Many ad-tech trackers, expected score >= 4"
+    },
+    {
+      "name":     "github",
+      "url":      "https://github.com",
+      "category": "dev",
+      "notes":    "Minimal tracking, expected score <= 2"
+    },
+    {
+      "name":     "nzz",
+      "url":      "https://www.nzz.ch",
+      "category": "shop",
+      "notes":    "High cookie count, advertising trackers"
+    },
+    {
+      "name":     "wikipedia",
+      "url":      "https://www.wikipedia.org",
+      "category": "reference",
+      "notes":    "Near-zero tracking, expected score = 1"
+    }
+  ]
+}

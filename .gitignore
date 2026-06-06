@@ -15,8 +15,21 @@ dist-ssr
 build
 website-build
 
+.playwright-mcp/
+.mcp.json
+.playwright.mcp.json
+
 # Claude
 .claude
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Playwright
+test-results/
+e2e/report/
+playwright-report/
+e2e/test-results-data.json
 
 # Editor directories and files
 .vscode/*

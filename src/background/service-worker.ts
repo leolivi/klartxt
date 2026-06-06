@@ -12,6 +12,28 @@ initTrackerData();
 
 export const cache = new TrackerCache();
 
+declare const __PLAYWRIGHT_TEST__: boolean;
+declare global {
+  var __klartxtCache: TrackerCache;
+  var __rescanCookies: (tabId: number) => Promise<void>;
+}
+if (__PLAYWRIGHT_TEST__) {
+  globalThis.__klartxtCache = cache;
+  // Allows e2e tests to trigger a fresh cookie scan after tracker JS has run.
+  globalThis.__rescanCookies = async (tabId: number) => {
+    const tab = await chrome.tabs.get(tabId).catch(() => null);
+    if (!tab?.url) return;
+    await handleCookies({
+      tabUrl: tab.url,
+      onCookiesDetected: (cookies) => {
+        cache.setCookies(tabId, cookies);
+        // Trigger score recalculation so getOverallRiskScore() is fresh after the rescan.
+        cache.scheduleUIUpdate(tabId);
+      },
+    });
+  };
+}
+
 /* ---- NOTIFY SIDE PANEL ---- */
 function notifySidePanel(tabId: number): void {
   const trackers = cache.getTrackerDetails(tabId);
@@ -147,6 +169,9 @@ chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
     const tabId = details.tabId;
     if (tabId < 0) return undefined;
+
+    // Count every request the webRequest listener sees (not just trackers)
+    cache.incrementRequestsSeen(tabId);
 
     // TODO: remove later
     const start = performance.now();

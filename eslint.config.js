@@ -21,4 +21,10 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // Playwright requires {} destructuring for the fixtures argument in test().
+    // no-empty-pattern would flag every test that uses no built-in fixtures.
+    files: ['e2e/**/*.{ts,spec.ts}'],
+    rules: { 'no-empty-pattern': 'off' },
+  },
 ])

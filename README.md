@@ -71,11 +71,43 @@ This will generate the output in the `website-build` directory.
 
 ## 🧪 Testing
 
-To run the unit-tests:
+### Unit Tests
+
+Unit tests cover scoring logic, insights, recommendations, DSGVO evaluation, heuristics, cache management, network request detection, and DOM-based content checks.
 
 ```sh
-npm test
+npm test          # run once
+npm run test:watch  # watch mode
 ```
+
+### E2E Tests (Playwright)
+
+E2E tests run the built extension in a real Chromium instance and verify behaviour across a list of real websites defined in [`e2e/sites.json`](e2e/sites.json). To add or replace sites, edit that file and all test suites pick them up automatically.
+
+**Prerequisites:** a production build must exist before running E2E tests.
+
+```sh
+npm run build            # build the extension first
+npm run test:e2e         # run all 27 tests (headful Chromium)
+npm run test:e2e:report  # open the HTML report in the browser
+```
+
+**Test suites:**
+
+| Suite | What it checks |
+|---|---|
+| `basic` | Extension loads, side panel opens, scan completes on a real page |
+| `cold-start` | Cache state is fully restored from session storage after a service worker restart |
+| `collect` | *(setup)* Scans all sites and writes `test-results-data.json` for the suites below |
+| `console-errors` | No unhandled JS exceptions thrown on page or in the extension service worker |
+| `cookie-capture` | Cookies are detected and classified with correct first/third-party status |
+| `performance` | Full scan completes within 2 seconds |
+| `request-capture` | Extension captures ≥ 100 % of network requests (local only —> skipped in CI) |
+| `score-reproducibility` | Identical scores are reproduced in ≥ 80 % of repeated runs |
+
+Each test attaches a JSON result and for reproducibility tests a sidepanel screenshot to the HTML report. These attachments are the basis for manual false-positive analysis.
+
+> **Note:** Chrome extensions require headful mode (`headless: false`). For CI, a virtual display (Xvfb) is needed — see the GitHub Actions workflow in [`.github/workflows/e2e.yml`](.github/workflows/e2e.yml).
 
 ## 📂 Load Extension in Chrome
 

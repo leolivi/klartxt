@@ -4,12 +4,15 @@ import {crx} from "@crxjs/vite-plugin";
 import manifest from "./public/manifest.json";
 import path from "path";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react(), crx({manifest})],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
+  },
+  define: {
+    __PLAYWRIGHT_TEST__: mode === "e2e",
   },
   build: {
     outDir: "build",
@@ -17,4 +20,4 @@ export default defineConfig({
   css: {
     postcss: "./postcss.config.js",
   },
-});
+}));
