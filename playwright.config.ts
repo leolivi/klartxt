@@ -4,7 +4,7 @@ export default defineConfig({
   testDir:  "./e2e/tests",
   timeout:  30_000,
   retries:  0,
-  // Serial: extension shares one Chrome instance — parallel runs would interfere
+  // Serial: extension shares one Chrome instance because parallel runs would interfere and cause errors
   workers: 1,
   reporter: [
     ["html",  { outputFolder: "e2e/report", open: "never" }],

@@ -17,9 +17,8 @@ export async function launchWithExtension(): Promise<BrowserContext> {
     );
   }
 
-  // Each test gets its own isolated user data directory
-  const userDataDir = path.join(os.tmpdir(), `pw-klartxt-${Date.now()}`);
-  fs.mkdirSync(userDataDir, { recursive: true });
+  // mkdtempSync is atomic — guarantees a unique dir even across parallel workers
+  const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), "pw-klartxt-"));
 
   return chromium.launchPersistentContext(userDataDir, {
     headless: false,
