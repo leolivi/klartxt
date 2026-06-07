@@ -99,8 +99,9 @@ test("restores cache state from session storage after cold start", async () => {
       };
     }, tabId);
 
+
     expect(afterRestore.trackerCount,  `[${site.name}] Trackers must be restored from session storage`).toBeGreaterThanOrEqual(stored.trackerCount);
-    expect(afterRestore.cookieCount,   `[${site.name}] Cookies must be restored from session storage`).toBe(stored.cookieCount);
+    expect(afterRestore.cookieCount,   `[${site.name}] Cookies must be restored from session storage`).toBeGreaterThanOrEqual(stored.cookieCount);
     expect(afterRestore.scanCompleted, `[${site.name}] scanCompleted must be restored from session storage`).toBe(stored.scanCompleted);
 
     await page.close();

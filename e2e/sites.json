@@ -4,31 +4,151 @@
       "name":     "google",
       "url":      "https://www.google.com",
       "category": "search",
-      "notes":    "Heavy analytics, GTM, expected score >= 3"
+      "notes":    "Tranco WVV59 (07.06.2026) rank #1 — heavy Analytics, GTM"
     },
     {
-      "name":     "spiegel",
-      "url":      "https://www.spiegel.de",
-      "category": "news",
-      "notes":    "Many ad-tech trackers, expected score >= 4"
+      "name":     "facebook",
+      "url":      "https://www.facebook.com",
+      "category": "social",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #5 — Meta Pixel, heavy ad-tech"
     },
     {
-      "name":     "github",
-      "url":      "https://github.com",
-      "category": "dev",
-      "notes":    "Minimal tracking, expected score <= 2"
+      "name":     "microsoft",
+      "url":      "https://www.microsoft.com",
+      "category": "tech",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #6 — moderate tracking"
     },
     {
-      "name":     "nzz",
-      "url":      "https://www.nzz.ch",
-      "category": "shop",
-      "notes":    "High cookie count, advertising trackers"
+      "name":     "youtube",
+      "url":      "https://www.youtube.com",
+      "category": "media",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #8 — Google Analytics, ad-tech"
+    },
+    {
+      "name":     "apple",
+      "url":      "https://www.apple.com",
+      "category": "tech",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #10 — moderate tracking"
+    },
+    {
+      "name":     "instagram",
+      "url":      "https://www.instagram.com",
+      "category": "social",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #11 — Meta Pixel, heavy ad-tech"
+    },
+    {
+      "name":     "linkedin",
+      "url":      "https://www.linkedin.com",
+      "category": "social",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #18 — heavy ad-tech, Microsoft Insights"
+    },
+    {
+      "name":     "amazon",
+      "url":      "https://www.amazon.com",
+      "category": "ecommerce",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #25 — heavy ad-tech, proprietary tracking"
     },
     {
       "name":     "wikipedia",
       "url":      "https://www.wikipedia.org",
       "category": "reference",
-      "notes":    "Near-zero tracking, expected score = 1"
+      "notes":    "Tranco WVV59 (07.06.2026) rank #27 — near-zero tracking, control group"
+    },
+    {
+      "name":     "github",
+      "url":      "https://github.com",
+      "category": "dev",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #28 — minimal tracking, control group"
+    },
+    {
+      "name":     "bing",
+      "url":      "https://www.bing.com",
+      "category": "search",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #31 — Microsoft Clarity, ad-tech"
+    },
+    {
+      "name":     "netflix",
+      "url":      "https://www.netflix.com",
+      "category": "media",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #40 — moderate tracking"
+    },
+    {
+      "name":     "pinterest",
+      "url":      "https://www.pinterest.com",
+      "category": "social",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #49 — heavy ad-tech"
+    },
+    {
+      "name":     "x",
+      "url":      "https://x.com",
+      "category": "social",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #54 — moderate tracking"
+    },
+    {
+      "name":     "yahoo",
+      "url":      "https://www.yahoo.com",
+      "category": "search",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #56 — heavy ad-tech, many third-party trackers"
+    },
+    {
+      "name":     "msn",
+      "url":      "https://www.msn.com",
+      "category": "news",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #61 — Microsoft news portal, moderate tracking"
+    },
+    {
+      "name":     "opera",
+      "url":      "https://www.opera.com",
+      "category": "tech",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #91 — browser company, light tracking; replaces spotify.com (#62) which blocks automated browser access (ERR_TIMED_OUT)"
+    },
+    {
+      "name":     "adobe",
+      "url":      "https://www.adobe.com",
+      "category": "tech",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #64 — moderate tracking"
+    },
+    {
+      "name":     "vimeo",
+      "url":      "https://vimeo.com",
+      "category": "media",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #69 — moderate tracking"
+    },
+    {
+      "name":     "chatgpt",
+      "url":      "https://chatgpt.com",
+      "category": "ai",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #70 — moderate tracking"
+    },
+    {
+      "name":     "roblox",
+      "url":      "https://www.roblox.com",
+      "category": "media",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #73 — moderate tracking"
+    },
+    {
+      "name":     "zoom",
+      "url":      "https://zoom.us",
+      "category": "tech",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #77 — moderate tracking"
+    },
+    {
+      "name":     "mozilla",
+      "url":      "https://www.mozilla.org",
+      "category": "reference",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #89 — minimal tracking, control group"
+    },
+    {
+      "name":     "samsung",
+      "url":      "https://www.samsung.com",
+      "category": "tech",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #94 — moderate tracking"
+    },
+    {
+      "name":     "wordpress",
+      "url":      "https://wordpress.com",
+      "category": "blog",
+      "notes":    "Tranco WVV59 (07.06.2026) rank #100 — moderate tracking"
     }
   ]
 }
