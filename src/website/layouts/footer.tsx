@@ -12,6 +12,8 @@ export function Footer() {
             <a href="https://klartxt.app" className="underline text-primary">klartxt.app</a>
           </p>
           <Link to="/privacy" className="underline text-primary text-small">{t("privacyPage_footerLink")}</Link>
+          {" · "}
+          <Link to="/imprint" className="underline text-primary text-small">{t("imprintPage_footerLink")}</Link>
         </div>
       </footer>
   );

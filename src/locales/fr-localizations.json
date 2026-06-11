@@ -194,5 +194,17 @@
   "privacyPage_noThirdParty_ads": "Klartxt ne contient pas de publicités",
   "privacyPage_changes_title": "Modifications",
   "privacyPage_changes_body": "Si cette politique de confidentialité change, les mises à jour seront publiées dans ce dépôt.",
-  "privacyPage_footerLink": "Politique de confidentialité"
+  "privacyPage_footerLink": "Politique de confidentialité",
+
+  "imprintPage_title": "Mentions légales",
+  "imprintPage_subtitle": "Informations légales conformément à la loi applicable.",
+  "imprintPage_responsible_title": "Personne responsable",
+  "imprintPage_responsible_body": "Leonie Liviero",
+  "imprintPage_contact_title": "Contact",
+  "imprintPage_contact_body": "E-mail : leolivi@me.com",
+  "imprintPage_disclaimer_title": "Clause de non-responsabilité",
+  "imprintPage_disclaimer_body": "Klartxt est une extension de navigateur développée dans le cadre d'un projet académique. Elle est fournie sans aucune garantie. Les résultats d'analyse sont basés sur une détection technique et ne constituent pas un avis juridique.",
+  "imprintPage_project_title": "À propos de ce projet",
+  "imprintPage_project_body": "Klartxt a été développé comme Bachelor Major Project à l'Institut SAE Suisse. L'extension est open source et destinée à des fins éducatives et de recherche.",
+  "imprintPage_footerLink": "Mentions légales"
 }
