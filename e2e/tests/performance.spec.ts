@@ -44,7 +44,7 @@ test("completes scan within 2 s for all sites", async ({}, testInfo) => {
 
     expect(
       result.avg_ms,
-      `Avg scan duration on ${result.site} is ${result.avg_ms} ms — exceeds ${THRESHOLD_MS} ms target`,
+      `Avg scan duration on ${result.site} is ${result.avg_ms} ms -> exceeds ${THRESHOLD_MS} ms target`,
     ).toBeLessThan(THRESHOLD_MS);
   }
 });

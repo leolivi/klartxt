@@ -54,8 +54,8 @@ describe("TRACKING_PATHS", () => {
 });
 
 describe("TRACKING_SUBDOMAINS", () => {
-  it("is an array", () => {
-    expect(Array.isArray(TRACKING_SUBDOMAINS)).toBe(true);
+  it("is an Set", () => {
+    expect(TRACKING_SUBDOMAINS).toBeInstanceOf(Set);
   });
 
   it("contains analytics.", () => {

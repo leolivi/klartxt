@@ -27,7 +27,7 @@ jobs:
       - name: Build extension (e2e mode)
         run: npm run build:e2e
 
-      # Chrome extensions require a display — Xvfb provides a virtual one
+      # Chrome extensions require a display, Xvfb provides a virtual one
       - name: Install Xvfb
         run: sudo apt-get install -y xvfb
 

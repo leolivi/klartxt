@@ -5,7 +5,7 @@ import { ADVERTISING_PATTERNS_LOWER, ANALYTICS_PATTERNS_LOWER, NECESSARY_PATTERN
 /* -----
   Cookie Classification
   Sources:
-  - DDG Tracker Radar: domain-based classifications (primary)
+  - DDG Tracker Radar (DuckDuckGo, Inc., 2025): domain-based classifications (primary)
   - Englehardt & Narayanan (2016): First/Third-Party via root domain comparison
   - CookieGraph (Munir et al. 2023): name-based heuristics as fallback
     - Cookie-Name Pattern
@@ -13,6 +13,11 @@ import { ADVERTISING_PATTERNS_LOWER, ANALYTICS_PATTERNS_LOWER, NECESSARY_PATTERN
 ----- */
 
 const rootDomainCache = new Map<string, string>();
+
+const NECESSARY_MIN3 = NECESSARY_PATTERNS_LOWER.filter(p => p.length >= 3);
+const SESSION_MIN3 = SESSION_PATTERNS_LOWER.filter(p => p.length >= 3);
+const ANALYTICS_MIN3 = ANALYTICS_PATTERNS_LOWER.filter(p => p.length >= 3);
+const ADVERTISING_MIN3 = ADVERTISING_PATTERNS_LOWER.filter(p => p.length >= 3);
 
 export function mapToUserCategory(category: CookieCategory): CookieCategoryForUser {
   switch (category) {
@@ -39,12 +44,10 @@ export function mapNameToCategory(name: string): CookieCategory {
   if (lower.includes("csrf") || lower.includes("xsrf")) return CookieCategory.SECURITY;
   if (lower === "jsessionid" || lower === "phpsessid" || lower === "asp.net_sessionid") return CookieCategory.NECESSARY;
 
-  // Minimum pattern length of 3 to filter single/2-char patterns ('c', 's', 'P_') that cause false positives
-  const minLen = (p: string) => p.length >= 3;
-  if (NECESSARY_PATTERNS_LOWER.filter(minLen).some((p) => lower.includes(p))) return CookieCategory.NECESSARY;
-  if (SESSION_PATTERNS_LOWER.filter(minLen).some((p) => lower.includes(p))) return CookieCategory.SESSION;
-  if (ANALYTICS_PATTERNS_LOWER.filter(minLen).some((p) => lower.includes(p))) return CookieCategory.ANALYTICS;
-  if (ADVERTISING_PATTERNS_LOWER.filter(minLen).some((p) => lower.includes(p))) return CookieCategory.ADVERTISING;
+  if (NECESSARY_MIN3.some((p) => lower.includes(p))) return CookieCategory.NECESSARY;
+  if (SESSION_MIN3.some((p) => lower.includes(p))) return CookieCategory.SESSION;
+  if (ANALYTICS_MIN3.some((p) => lower.includes(p))) return CookieCategory.ANALYTICS;
+  if (ADVERTISING_MIN3.some((p) => lower.includes(p))) return CookieCategory.ADVERTISING;
   return CookieCategory.UNKNOWN;
 }
 
@@ -79,11 +82,11 @@ export function classifyCookieCategory(
 
   const nameCategory = mapNameToCategory(cookieName);
 
-  // 2. CookieGraph: lange Lebensdauer + name pattern
+  // 2. CookieGraph: longevity + name pattern
   if (isLongLivedCookie(cookie) && nameCategory !== CookieCategory.UNKNOWN) {
     return nameCategory;
   }
-  // 3. Name-Pattern Fallback
+  // 3. name pattern fallback
   return nameCategory;
 }
 

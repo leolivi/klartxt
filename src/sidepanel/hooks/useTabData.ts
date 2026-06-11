@@ -21,8 +21,7 @@ export function useTabData() {
   const isChromeExtension = typeof chrome !== "undefined" && !!chrome.tabs;
 
   useEffect(() => {
-    // ?tabId lets E2E tests pin the sidepanel to a specific tab so screenshots
-    // show the real scan data instead of the sidepanel tab's own (empty) data.
+    // ?tabId lets E2E tests pin the sidepanel to a specific tab so screenshots show the real scan data instead of the sidepanel tab's own (empty) data.
     const params     = new URLSearchParams(window.location.search);
     const forcedId   = Number(params.get("tabId"))  || null;
     const forcedUrl  = params.get("tabUrl")          ?? "";
@@ -57,7 +56,7 @@ export function useTabData() {
     const handleMessage = (message: TabDataMessage) => {
       if (message.type === "TAB_DATA_UPDATED") {
         if (forcedId) {
-          // When pinned via ?tabId, only accept updates for that exact tab —
+          // when pinned via ?tabId, only accept updates for that exact tab
           // the sidepanel's own scan would otherwise overwrite the pinned data.
           if (message.tabId === forcedId) setData(message);
         } else {

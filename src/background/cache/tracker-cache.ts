@@ -206,13 +206,11 @@ export class TrackerCache {
     if (existing) clearTimeout(existing);
     const timer = setTimeout(() => {
       const start = this.scanStartedAt.get(tabId);
-      // TODO: remove later
-      console.log(`[ScanDuration] debounce fired tabId=${tabId}, start=${start}, hasDuration=${this.scanDuration.has(tabId)}`);
+      console.debug(`[ScanDuration] debounce fired tabId=${tabId}, start=${start}, hasDuration=${this.scanDuration.has(tabId)}`);
       if (start != null && !this.scanDuration.has(tabId)) {
         const duration = Math.round((Date.now() - start) / 100) / 10;
         this.scanDuration.set(tabId, duration);
-        // TODO: remove later
-        console.log(`[ScanDuration] tabId=${tabId} duration=${duration}s`);
+        console.debug(`[ScanDuration] tabId=${tabId} duration=${duration}s`);
       }
       this.recalculateOverallRiskScore(tabId);
       this.uiUpdateCallback?.(tabId);
@@ -283,7 +281,7 @@ export class TrackerCache {
   }
 
   reset(tabId: number): void {
-    // Cancel pending timers — without this, a debounced write fires after reset
+    // cancel pending timers -> without this, a debounced write fires after reset
     // and overwrites storage with empty data, corrupting the cold-start restore.
     const pt = this.persistDebounceTimers.get(tabId);
     if (pt) { clearTimeout(pt); this.persistDebounceTimers.delete(tabId); }
@@ -313,6 +311,7 @@ export class TrackerCache {
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,
       `scanCompleted_${tabId}`,
+      `requestsSeen_${tabId}`,
     ]);
   }
 }

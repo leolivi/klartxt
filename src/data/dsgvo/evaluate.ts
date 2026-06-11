@@ -9,6 +9,7 @@ import { CheckSeverity } from "@/utils/types/dsgvo-types";
 import { TrackerCategory, TrackerConfidence, type TrackerInfo } from "@/utils/types/tracking-enums";
 import { ART7_TEMPLATES, ART13_14_TEMPLATES, ART25_TEMPLATES } from "./dsgvo-check-templates";
 
+// TODO: find source or explain why 30 in a different way
 const HIGH_RISK_SCORE_BENCHMARK = 30;
 
 function isConsentTool(tracker: TrackerInfo): boolean {
@@ -18,12 +19,6 @@ function isConsentTool(tracker: TrackerInfo): boolean {
 export function confirmedTrackers(trackers: TrackerInfo[]): TrackerInfo[] {
     return trackers.filter(
         (t) => t.confidence === TrackerConfidence.CONFIRMED && !isConsentTool(t)
-    );
-}
-
-function highRiskTrackers(trackers: TrackerInfo[]): TrackerInfo[] {
-    return confirmedTrackers(trackers).filter(
-        (t) => t.riskScore > HIGH_RISK_SCORE_BENCHMARK
     );
 }
 
@@ -38,6 +33,7 @@ export function evaluateArt7(
   const evidence: string[] = [];
   let severity: CheckSeverity;
   let passed: boolean;
+  const confirmed = confirmedTrackers(trackers);
 
   // CONFIRMED violation: cookies were set before consent
   if (
@@ -53,12 +49,12 @@ export function evaluateArt7(
     });
   }
   // SUSPICIOUS: banner visible and tracking/cookies detected
-  else if (art7.bannerVisible && (confirmedTrackers(trackers).length > 0 || cookieCount > 0)) {
+  else if (art7.bannerVisible && (confirmed.length > 0 || cookieCount > 0)) {
     severity = CheckSeverity.SUSPICIOUS;
     passed = false;
     evidence.push("Cookie-Banner erkannt");
-    if (confirmedTrackers(trackers).length > 0) {
-      evidence.push(`${confirmedTrackers(trackers).length} Tracker aktiv`);
+    if (confirmed.length > 0) {
+      evidence.push(`${confirmed.length} Tracker aktiv`);
     }
     if (cookieCount > 0) {
       evidence.push(`${cookieCount} Cookie(s) vorhanden`);
@@ -130,9 +126,10 @@ export function evaluateArt25(
   trackers: TrackerInfo[],
   domFingerprintingDetected: boolean
 ): Art25Check {
-  const highRisk = highRiskTrackers(trackers);
-  // Network-level fingerprinting: any confirmed tracker with DDG score >= 2
-  const networkFingerprintingTrackers = confirmedTrackers(trackers).filter(t => t.fingerprintingScore >= 2);
+  const confirmed = confirmedTrackers(trackers);
+  const highRisk = confirmed.filter(t => t.riskScore > HIGH_RISK_SCORE_BENCHMARK);
+  // Network-level fingerprinting: any confirmed tracker with DDG (DuckDuckGo, Inc., 2025) score >= 2
+  const networkFingerprintingTrackers = confirmed.filter(t => t.fingerprintingScore >= 2);
   const fingerprintingDetected = domFingerprintingDetected || networkFingerprintingTrackers.length > 0;
 
   const evidence: string[] = [];
@@ -150,11 +147,12 @@ export function evaluateArt25(
     highRisk.forEach(tracker => {
       evidence.push(`- ${tracker.domain} (Risk Score: ${tracker.riskScore})`);
     });
-  } else if (confirmedTrackers(trackers).length > 0 || fingerprintingDetected) {
+  } else if (confirmed.length > 0 || fingerprintingDetected) {
     severity = CheckSeverity.SUSPICIOUS;
-    passed = true; // not a violation, but worth noting
-    if (confirmedTrackers(trackers).length > 0) {
-      evidence.push(`${confirmedTrackers(trackers).length} Tracker erkannt (kein High-Risk)`);
+    // not a violation, but worth noting
+    passed = true; 
+    if (confirmed.length > 0) {
+      evidence.push(`${confirmed.length} Tracker erkannt (kein High-Risk)`);
     }
     if (networkFingerprintingTrackers.length > 0) {
       evidence.push(`${networkFingerprintingTrackers.length} Fingerprinting-Domain(s) erkannt (DDG f≥2)`);

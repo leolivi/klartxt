@@ -4,7 +4,7 @@ import { runDsgvoChecks } from "./run-dsgvo";
 import { observeConsent } from "./utils/observe-consent";
 import { observeDomChanges } from "./utils/observeDomChanges";
 
-/* ---- Initialisierung ---- */
+/* ---- Initialize ---- */
 function init(): void {
   sendResult();
   observeDomChanges();
@@ -32,7 +32,7 @@ export function sendResult() {
   }
 }
 
-/* ---- Message Listener ---- */
+/* ---- MESSAGE LISTENER ---- */
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (!chrome.runtime?.id) return false;
 

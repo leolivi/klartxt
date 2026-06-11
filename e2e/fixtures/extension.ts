@@ -6,7 +6,7 @@ import fs from "fs";
 
 /**
  * Launches a persistent Chromium context with the built extension loaded.
- * Requires a production build to exist in ./build — run `npm run build` first.
+ * Requires a production build to exist in ./build, run `npm run build` first.
  */
 export async function launchWithExtension(): Promise<BrowserContext> {
   const pathToExtension = path.resolve("./build");
@@ -17,7 +17,7 @@ export async function launchWithExtension(): Promise<BrowserContext> {
     );
   }
 
-  // mkdtempSync is atomic — guarantees a unique dir even across parallel workers
+  // mkdtempSync is atomic guarantees a unique dir even across parallel workers
   const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), "pw-klartxt-"));
 
   return chromium.launchPersistentContext(userDataDir, {

@@ -1,7 +1,7 @@
 // Network Tracking Category
 /* 
 Categories are based on categories extraction file @tracker-categories-ectraction.py
-This file evaluates the categories from the Duck Duck Go Tracker Radar Json Files.
+This file evaluates the categories from the Duck Duck Go Tracker Radar Json Files (DuckDuckGo, Inc., 2025).
 */
 
 // Conficence Level of Tracking detection

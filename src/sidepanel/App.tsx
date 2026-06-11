@@ -1,4 +1,3 @@
-import "./styles/App.css";
 import { Header } from "./components/header/Header";
 import { Footer } from "./components/footer/Footer";
 import { TrackingResultsSection } from "./components/trackingResults/TrackingResultsSection";

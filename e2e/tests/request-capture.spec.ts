@@ -64,7 +64,7 @@ test("captures network requests and reports no phantom domains", async ({}, test
 
     expect(
       result.extension_total,
-      `Extension saw 0 requests on ${result.site} — webRequest listener may not be active`
+      `Extension saw 0 requests on ${result.site} -> webRequest listener may not be active`
     ).toBeGreaterThan(0);
   }
 });

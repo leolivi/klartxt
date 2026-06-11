@@ -17,7 +17,7 @@ You are a Playwright test generator for the **Klartxt Chrome Extension**.
 - The extension loads via `launchWithExtension()` from `e2e/fixtures/extension.ts`.
 - The background service worker logs `[ScanDuration] tabId=X duration=Y.Zs` when a scan completes.
 - Scan results are stored in `chrome.storage.session` under keys like `trackerDetails_<tabId>`, `cookieDetails_<tabId>`, `overallRiskScore_<tabId>`, `scanCompleted_<tabId>`.
-- The sidepanel UI is at `chrome-extension://<extensionId>/index.html` — use `getExtensionId()` + `sidepanelUrl()` from `e2e/helpers/extension-id.ts`.
+- The sidepanel UI is at `chrome-extension://<extensionId>/index.html` -> use `getExtensionId()` + `sidepanelUrl()` from `e2e/helpers/extension-id.ts`.
 - Test files go in `e2e/tests/` and use `.spec.ts` suffix.
 
 ## Test structure template

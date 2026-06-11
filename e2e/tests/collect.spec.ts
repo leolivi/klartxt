@@ -19,8 +19,7 @@ test("collects scan data for all sites", async () => {
 
     for (let i = 0; i < 3; i++) {
       // Fresh context per run: cookies, localStorage, sessionStorage and SW cache
-      // are all reset. This ensures each scan represents an independent first visit —
-      // the correct baseline for a reproducibility measurement.
+      // are all reset. This ensures each scan represents an independent first visit
       const context = await launchWithExtension();
 
       let sw = context.serviceWorkers()[0];

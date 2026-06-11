@@ -2,7 +2,7 @@
   Network Request Heuristics
 
   Sources per parameter group:
-  - TRACKING_PARAMS Basis: DuckDuckGo Tracker Radar (tracking_parameters.json),
+  - TRACKING_PARAMS Basis: DuckDuckGo Tracker Radar (tracking_parameters.json) (DuckDuckGo, Inc., 2025),
   - Ergänzungen (nicht in DDG erfasst):
     twclid: X Conversion Tracking Documentation von X Corp., 2026
     ttclid: TikTok Ads Pixel Dokumentation von TikTok For Business, 2025
@@ -32,15 +32,15 @@ export const TRACKING_PATHS = [
 ];
 
 // Tracking-relevant subdomain prefixes
-export const TRACKING_SUBDOMAINS = [
+export const TRACKING_SUBDOMAINS = new Set([
   "pixel.",
   "track.",
   "beacon.",
   "analytics.",
   "sync.",
   "match.",
-  "cdn.", 
-];
+  "cdn.",
+]);
 
 // Cookie-Sync-Requests for cross-domain ID exchange
 export const USER_ID_PATTERN = /^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|[0-9a-f]{16,})$/i;

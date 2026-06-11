@@ -1,4 +1,3 @@
-# Logs
 logs
 *.log
 npm-debug.log*
@@ -11,21 +10,17 @@ node_modules
 dist
 dist-ssr
 *.local
-
+.claude
 build
 website-build
-
-.playwright-mcp/
-.mcp.json
-.playwright.mcp.json
-
-# Claude
-.claude
 
 # TypeScript build cache
 *.tsbuildinfo
 
 # Playwright
+.playwright-mcp/
+.mcp.json
+.playwright.mcp.json
 test-results/
 e2e/report/
 playwright-report/

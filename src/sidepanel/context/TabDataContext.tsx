@@ -11,8 +11,10 @@ export function TabDataProvider({ children }: { children: ReactNode }) {
   const recommendations = inferRecommendations(data.trackerList, data.cookiesList, data.dsgvoResult, data.riskScore);
 
   return (
-    <TabDataContext.Provider value={{ ...data, domain, isLoaded, insights, recommendations }}>
-      {children}
-    </TabDataContext.Provider>
+    <div className="sidepanel">
+      <TabDataContext.Provider value={{ ...data, domain, isLoaded, insights, recommendations }}>
+        {children}
+      </TabDataContext.Provider>
+    </div>
   );
 }
