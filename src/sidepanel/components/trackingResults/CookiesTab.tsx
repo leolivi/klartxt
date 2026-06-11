@@ -4,19 +4,28 @@ import { Separator } from "../ui/separator";
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
 
+const CATEGORY_ORDER: Record<string, number> = {
+  tracking:  0,
+  functional: 1,
+  necessary:  2,
+  unknown:    3,
+};
+
 function cookieKey(cookie: ClassifiedCookie) {
   return `${cookie.domain}__${cookie.name}`;
 }
 
-// TODO: maybe sort them from tracking to necessary (worst to best)?
 export function CookiesTab() {
   const { cookiesList } = useTabDataContext();
+  const sorted = [...cookiesList].sort(
+    (a, b) => (CATEGORY_ORDER[a.userCategory] ?? 3) - (CATEGORY_ORDER[b.userCategory] ?? 3)
+  );
   const { t } = useTranslation();
 
   if (cookiesList.length === 0) return <p className="text-small text-muted py-4">{t("trackingResultsDialogError")}</p>;
   return (
     <>
-      {cookiesList.map((cookie, i) => (
+      {sorted.map((cookie, i) => (
         <div key={cookieKey(cookie)}>
           <div className="flex items-center justify-between py-3">
             <div>
@@ -25,7 +34,7 @@ export function CookiesTab() {
             </div>
             <Label>{t(`cookiesCategory_${cookie.userCategory}`)}</Label>
           </div>
-          {i < cookiesList.length - 1 && <Separator />}
+          {i < sorted.length - 1 && <Separator />}
         </div>
       ))}
     </>

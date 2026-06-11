@@ -34,7 +34,7 @@ test("captures and classifies cookies with first/third-party status", async ({},
     // or any Playwright-seen hostname is a subdomain / exact match of it
     const phantomCookies = cookies.filter(c => {
       const cookieRoot = rootDomain(c.domain.replace(/^\./, ""));
-      if (cookieRoot === siteRootDomain) return false; // first-party — always real
+      if (cookieRoot === siteRootDomain) return false;
       return !run.seenHostnames.some(h => h === cookieRoot || h.endsWith(`.${cookieRoot}`));
     });
 

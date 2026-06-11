@@ -4,7 +4,7 @@ import { checkArt7 } from "./checks/art7";
 
 /* -----
   DSGVO Content Script Checks
-  Sources:
+  Source: Europäische Union, 2016
   - Art. 7 DSGVO: Consent vor Cookie-Setzung
   - Art. 13/14 DSGVO: Informationspflicht / Datenschutzerklärung
   - Art. 25 DSGVO: Privacy by Design

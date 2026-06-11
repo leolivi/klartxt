@@ -9,6 +9,7 @@ import { CheckSeverity } from "@/utils/types/dsgvo-types";
 import { TrackerCategory, TrackerConfidence, type TrackerInfo } from "@/utils/types/tracking-enums";
 import { ART7_TEMPLATES, ART13_14_TEMPLATES, ART25_TEMPLATES } from "./dsgvo-check-templates";
 
+// TODO: find source or explain why 30 in a different way
 const HIGH_RISK_SCORE_BENCHMARK = 30;
 
 function isConsentTool(tracker: TrackerInfo): boolean {
@@ -127,7 +128,7 @@ export function evaluateArt25(
 ): Art25Check {
   const confirmed = confirmedTrackers(trackers);
   const highRisk = confirmed.filter(t => t.riskScore > HIGH_RISK_SCORE_BENCHMARK);
-  // Network-level fingerprinting: any confirmed tracker with DDG score >= 2
+  // Network-level fingerprinting: any confirmed tracker with DDG (DuckDuckGo, Inc., 2025) score >= 2
   const networkFingerprintingTrackers = confirmed.filter(t => t.fingerprintingScore >= 2);
   const fingerprintingDetected = domFingerprintingDetected || networkFingerprintingTrackers.length > 0;
 
@@ -148,7 +149,8 @@ export function evaluateArt25(
     });
   } else if (confirmed.length > 0 || fingerprintingDetected) {
     severity = CheckSeverity.SUSPICIOUS;
-    passed = true; // not a violation, but worth noting
+    // not a violation, but worth noting
+    passed = true; 
     if (confirmed.length > 0) {
       evidence.push(`${confirmed.length} Tracker erkannt (kein High-Risk)`);
     }

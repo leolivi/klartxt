@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Tabs, TabsList, TabsTrigger } from "@/sidepanel/components/ui/tabs";
 import { CHECKED_ITEMS, type CheckedItemKey } from "@/utils/types/footer-types";
 import { TopicPage } from "./pages/TopicPage";
+import { PrivacyPage } from "./pages/PrivacyPage";
 import { Footer } from "./components/footer/Footer";
 import { Header } from "./components/header/Header";
 import { Separator } from "@/sidepanel/components/ui/separator";
@@ -72,7 +73,10 @@ function Layout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Layout />
+      <Routes>
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/*" element={<Layout />} />
+      </Routes>
     </BrowserRouter>
   );
 }

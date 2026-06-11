@@ -25,7 +25,7 @@ function hasTrackingPath(url: URL): boolean {
 }
 
 // detect tracking subdomains using the eTLD+1-parsed subdomain label
-// e.g. track.example.co.uk → subdomain "track" → matches "track."
+// e.g. track.example.co.uk -> subdomain "track" -> matches "track."
 function hasTrackingSubdomain(subdomain: string): boolean {
   if (!subdomain) return false;
   const firstLabel = subdomain.split(".")[0] + ".";
@@ -72,8 +72,7 @@ export function handleNetworkRequests({
   const hostname = url.hostname.replace(/^www\./, "");
   if (NETWORK_EXCLUSIONS.has(hostname)) return;
 
-  // PSL-based eTLD+1 parsing (Mozilla Public Suffix List via tldts)
-  // Fixes naive slice(-2) which incorrectly handles multi-part TLDs like .co.uk, .com.au
+  // fixes naive slice(-2) which incorrectly handles multi-part TLDs like .co.uk, .com.au
   const parsed = parse(hostname);
   const registrable = parsed.domain ?? hostname;
 

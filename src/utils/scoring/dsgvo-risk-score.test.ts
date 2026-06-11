@@ -70,13 +70,13 @@ describe("calculateDsgvoRiskScore", () => {
   });
 
   it("averages mixed severities correctly", () => {
-    // (0 + 33 + 100) / 3 = 44.33 → rounds to 44
+    // (0 + 33 + 100) / 3 = 44.33 -> rounds to 44
     const result = makeResult(CheckSeverity.FINE, CheckSeverity.SUSPICIOUS, CheckSeverity.CONFIRMED);
     expect(calculateDsgvoRiskScore(result)).toBe(44);
   });
 
   it("rounds a single CONFIRMED check correctly", () => {
-    // (100 + 0 + 0) / 3 = 33.33 → rounds to 33
+    // (100 + 0 + 0) / 3 = 33.33 -> rounds to 33
     const result = makeResult(CheckSeverity.CONFIRMED, CheckSeverity.FINE, CheckSeverity.FINE);
     expect(calculateDsgvoRiskScore(result)).toBe(33);
   });

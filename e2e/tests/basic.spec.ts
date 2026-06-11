@@ -8,7 +8,7 @@ import { getExtensionId, sidepanelUrl } from "../helpers/extension-id";
 test("extension loads and sidepanel opens", async () => {
   const context = await launchWithExtension();
 
-  // Service worker must register —> proves the extension loaded successfully
+  // Service worker must register -> proves the extension loaded successfully
   let sw = context.serviceWorkers()[0];
   if (!sw) sw = await context.waitForEvent("serviceworker", { timeout: 5_000 });
   expect(sw.url()).toContain("chrome-extension://");
@@ -58,7 +58,7 @@ test(`scan completes and loads data from a testpage`, async ({}, testInfo) => {
   }, tabId);
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
-  // Open sidepanel pinned to the scanned tab —> screenshot shows real scan data
+  // Open sidepanel pinned to the scanned tab -> screenshot shows real scan data
   const sidepanel = await context.newPage();
   await sidepanel.goto(sidepanelUrl(extensionId, tabId, github.url));
   await expect(sidepanel.getByText("Scan completed")).toBeVisible();

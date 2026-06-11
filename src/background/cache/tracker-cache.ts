@@ -281,7 +281,7 @@ export class TrackerCache {
   }
 
   reset(tabId: number): void {
-    // Cancel pending timers — without this, a debounced write fires after reset
+    // cancel pending timers -> without this, a debounced write fires after reset
     // and overwrites storage with empty data, corrupting the cold-start restore.
     const pt = this.persistDebounceTimers.get(tabId);
     if (pt) { clearTimeout(pt); this.persistDebounceTimers.delete(tabId); }

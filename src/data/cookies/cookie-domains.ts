@@ -5,7 +5,7 @@ import { ADVERTISING_PATTERNS_LOWER, ANALYTICS_PATTERNS_LOWER, NECESSARY_PATTERN
 /* -----
   Cookie Classification
   Sources:
-  - DDG Tracker Radar: domain-based classifications (primary)
+  - DDG Tracker Radar (DuckDuckGo, Inc., 2025): domain-based classifications (primary)
   - Englehardt & Narayanan (2016): First/Third-Party via root domain comparison
   - CookieGraph (Munir et al. 2023): name-based heuristics as fallback
     - Cookie-Name Pattern
@@ -82,11 +82,11 @@ export function classifyCookieCategory(
 
   const nameCategory = mapNameToCategory(cookieName);
 
-  // 2. CookieGraph: lange Lebensdauer + name pattern
+  // 2. CookieGraph: longevity + name pattern
   if (isLongLivedCookie(cookie) && nameCategory !== CookieCategory.UNKNOWN) {
     return nameCategory;
   }
-  // 3. Name-Pattern Fallback
+  // 3. name pattern fallback
   return nameCategory;
 }
 

@@ -46,7 +46,7 @@ class CsvReporter implements Reporter {
     );
     const out = path.join("e2e", "report/test-outcomes.csv");
     fs.writeFileSync(out, [header, ...rows].join("\n") + "\n", "utf8");
-    console.log(`\n  CSV → ${out}`);
+    console.log(`\n  CSV -> ${out}`);
   }
 
   private writeSiteMeasurements(): void {
@@ -88,7 +88,7 @@ class CsvReporter implements Reporter {
 
     const out = path.join("e2e", "report/site-measurements.csv");
     fs.writeFileSync(out, [header, ...rows].join("\n") + "\n", "utf8");
-    console.log(`  CSV → ${out}`);
+    console.log(`  CSV -> ${out}`);
   }
 }
 

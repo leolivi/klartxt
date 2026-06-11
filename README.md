@@ -53,7 +53,7 @@ This will generate the build files in the `build` directory.
 
 ### Website Build
 
-The repository also includes an informational website (`klartxt.com`) with explanations of what the extension checks, as well as the privacy policy and imprint. It shares the same components, locales, and design tokens as the extension.
+The repository also includes an informational website (`klartxt.app`) with explanations of what the extension checks, as well as the privacy policy and imprint. It shares the same components, locales, and design tokens as the extension.
 
 To start the website dev server:
 
@@ -102,12 +102,12 @@ npm run test:e2e:report  # open the HTML report in the browser
 | `console-errors` | No unhandled JS exceptions thrown on page or in the extension service worker |
 | `cookie-capture` | Cookies are detected and classified with correct first/third-party status |
 | `performance` | Full scan completes within 2 seconds |
-| `request-capture` | Extension captures ≥ 100 % of network requests (local only —> skipped in CI) |
+| `request-capture` | Extension captures ≥ 100 % of network requests (local only -> skipped in CI) |
 | `score-reproducibility` | Identical scores are reproduced in ≥ 80 % of repeated runs |
 
 Each test attaches a JSON result and for reproducibility tests a sidepanel screenshot to the HTML report. These attachments are the basis for manual false-positive analysis.
 
-> **Note:** Chrome extensions require headful mode (`headless: false`). For CI, a virtual display (Xvfb) is needed — see the GitHub Actions workflow in [`.github/workflows/e2e.yml`](.github/workflows/e2e.yml).
+> **Note:** Chrome extensions require headful mode (`headless: false`). For CI, a virtual display (Xvfb) is needed -> see the GitHub Actions workflow in [`.github/workflows/e2e.yml`](.github/workflows/e2e.yml).
 
 ## 📂 Load Extension in Chrome
 
@@ -122,7 +122,7 @@ Your React app should now be loaded as a Chrome extension!
 - `public/`: Static assets (fonts, icons, `manifest.json`).
 - `src/`: Shared source code.
   - `sidepanel/`: Extension UI (React components, context, hooks).
-  - `website/`: Informational website (`klartxt.com`) which shares components, locales, and design tokens with the extension.
+  - `website/`: Informational website (`klartxt.app`) which shares components, locales, and design tokens with the extension.
   - `background/`: Extension service worker and background handlers.
   - `content/`: Content scripts injected into web pages.
   - `locales/`: Shared i18n translation files (EN, DE, FR).
@@ -133,10 +133,6 @@ Your React app should now be loaded as a Chrome extension!
 - `vite.website.config.ts`: Vite config for the website.
 - `tsconfig.json`: Root TypeScript configuration.
 - `package.json`: Project dependencies and scripts.
-
-<!-- TODO:  
- - add data information (DDG Tracker radar)
--->
 
 ## Source
 Chrome for Developers, 2025. Chrome Extensions Docs. [online] Chrome for Developers. Verfügbar unter: <https://developer.chrome.com/docs/extensions?hl=de> [Zugegriffen 13 November 2025].

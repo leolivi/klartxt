@@ -30,7 +30,7 @@ test("throws no unhandled exceptions across all sites", async ({}, testInfo) => 
   });
 
   for (const result of report) {
-    // SW errors are directly our extension code → strict zero.
+    // SW errors are directly our extension code -> strict zero.
     expect(
       result.sw_errors.map(e => e.msg),
       `Extension service worker threw errors on ${result.site}`,

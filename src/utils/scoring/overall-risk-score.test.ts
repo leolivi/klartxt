@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { calculateOverallRiskScore } from "./overall-risk-score";
 
 // formula: score = tracker*0.4 + cookie*0.3 + dsgvo*0.3, normalized = min(round(score), 100)
-// <= 20 → 1, <= 40 → 2, <= 55 → 3, <= 72 → 4, > 72 → 5
+// <= 20 -> 1, <= 40 -> 2, <= 55 -> 3, <= 72 -> 4, > 72 -> 5
 
 describe("calculateOverallRiskScore", () => {
   it("returns 1 when all inputs are 0", () => {
@@ -15,7 +15,7 @@ describe("calculateOverallRiskScore", () => {
   });
 
   it("returns 2 just above boundary (normalized 21)", () => {
-    // 53 * 0.4 = 21.2 → rounds to 21
+    // 53 * 0.4 = 21.2 -> rounds to 21
     expect(calculateOverallRiskScore(53, 0, 0)).toBe(2);
   });
 
@@ -30,7 +30,7 @@ describe("calculateOverallRiskScore", () => {
   });
 
   it("returns 4 at boundary normalized score of 72", () => {
-    // 100 * 0.4 + 100 * 0.3 + 7 * 0.3 = 72.1 → rounds to 72
+    // 100 * 0.4 + 100 * 0.3 + 7 * 0.3 = 72.1 -> rounds to 72
     expect(calculateOverallRiskScore(100, 100, 7)).toBe(4);
   });
 

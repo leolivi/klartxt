@@ -10,7 +10,8 @@ function hasPrivacyPolicyLink(containers: Element[]): boolean {
   );
 }
 
-/* ---- Art. 13/14: Datenschutzerklärung vorhanden ---- */
+/* ---- Art. 13/14: Data Policy available ---- */
+// Limitation: can only detect direct links based on defined patterns. Hidden policies cannot be detected that way
 export function checkArt13_14(): { found: boolean; searchedLocations: string[] } {
   const footerSelectors = ["footer", "[role='contentinfo']", "#footer", ".footer"];
   const navSelectors = ["nav", "[role='navigation']", "header"];
@@ -18,7 +19,7 @@ export function checkArt13_14(): { found: boolean; searchedLocations: string[] }
   const searchAreas = [
     { name: "Footer", containers: footerSelectors.flatMap(sel => Array.from(document.querySelectorAll(sel))) },
     { name: "Navigation", containers: navSelectors.flatMap(sel => Array.from(document.querySelectorAll(sel))) },
-    { name: "gesamtes Dokument", containers: [document.body] },
+    { name: "whole document", containers: [document.body] },
   ];
 
   const searchedLocations: string[] = [];

@@ -1,4 +1,3 @@
-// @vitest-environment jsdom
 import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 import { checkArt25 } from "./art25";
 

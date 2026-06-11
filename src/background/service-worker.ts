@@ -19,7 +19,7 @@ declare global {
 }
 if (__PLAYWRIGHT_TEST__) {
   globalThis.__klartxtCache = cache;
-  // Allows e2e tests to trigger a fresh cookie scan after tracker JS has run.
+  // Allows e2e tests to trigger a fresh cookie scan after tracker JS has run
   globalThis.__rescanCookies = async (tabId: number) => {
     const tab = await chrome.tabs.get(tabId).catch(() => null);
     if (!tab?.url) return;
@@ -27,7 +27,7 @@ if (__PLAYWRIGHT_TEST__) {
       tabUrl: tab.url,
       onCookiesDetected: (cookies) => {
         cache.setCookies(tabId, cookies);
-        // Trigger score recalculation so getOverallRiskScore() is fresh after the rescan.
+        // Trigger score recalculation so getOverallRiskScore() is fresh after the rescan
         cache.scheduleUIUpdate(tabId);
       },
     });

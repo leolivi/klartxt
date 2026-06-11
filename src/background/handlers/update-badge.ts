@@ -1,6 +1,7 @@
 import { cache } from "../service-worker";
 import { RISK_COLORS } from "@/utils/tokens";
 
+// set badge color and text based on the current risk score
 function setBadge(tabId: number, riskLevel: number) {
   const ignoreTabGone = () => {};
 

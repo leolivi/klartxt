@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Separator } from '../ui/separator';
 import { useTabDataContext } from '../../context/useTabDataContext';
 import { handleRefresh } from '@/utils/refresh';
+import { useState } from 'react';
 
 const logoLight = "/img/logo/Klartxt_logo_lm.svg";
 const logoDark = "/img/logo/Klartxt_logo_dm.svg";
@@ -14,6 +15,14 @@ export function Header() {
   const { t } = useTranslation();
   const isDark = useIsDark();
   const logo = isDark ? logoDark : logoLight;
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  function onRefresh() {
+    if (isRefreshing) return;
+    setIsRefreshing(true);
+    handleRefresh();
+    setTimeout(() => setIsRefreshing(false), 1000);
+  }
 
   return (
     <>
@@ -24,12 +33,14 @@ export function Header() {
         </div>
         <div className="flex gap-4">
           <Button
-            variant={!isLoaded ? "secondaryGreen" : isPartialData ? "secondaryRed" : "defaultFocus"}
+            variant={isRefreshing || !isLoaded ? "secondaryGreen" : isPartialData ? "secondaryRed" : "defaultFocus"}
             interactive={false}
           >
-            {!isLoaded ? t('headerScanStatusInProgress') : isPartialData ? t('headerScanStatusPartial') : t('headerScanStatusDone')}
+            {isRefreshing || !isLoaded ? t('headerScanStatusInProgress') : isPartialData ? t('headerScanStatusPartial') : t('headerScanStatusDone')}
           </Button>
-          <Button variant={"defaultFocus"} onClick={handleRefresh}><RefreshCw size={12} /></Button>
+          <Button variant={"defaultFocus"} onClick={onRefresh}>
+            <RefreshCw size={12} className={isRefreshing ? "animate-spin" : ""} />
+          </Button>
         </div>
       </header>
       <Separator/>

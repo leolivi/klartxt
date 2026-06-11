@@ -1,6 +1,5 @@
 import type { ClassifiedCookie } from "../types/cookie-types";
 
-
 export function calculateCookieRiskScore(cookies: ClassifiedCookie[]): number {
   if (cookies.length === 0) return 0;
 

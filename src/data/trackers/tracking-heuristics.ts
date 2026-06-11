@@ -2,7 +2,7 @@
   Network Request Heuristics
 
   Sources per parameter group:
-  - TRACKING_PARAMS Basis: DuckDuckGo Tracker Radar (tracking_parameters.json),
+  - TRACKING_PARAMS Basis: DuckDuckGo Tracker Radar (tracking_parameters.json) (DuckDuckGo, Inc., 2025),
   - Ergänzungen (nicht in DDG erfasst):
     twclid: X Conversion Tracking Documentation von X Corp., 2026
     ttclid: TikTok Ads Pixel Dokumentation von TikTok For Business, 2025

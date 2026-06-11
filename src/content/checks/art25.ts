@@ -2,11 +2,11 @@ import fingerprintData from "@/data/trackers/fingerprint-domains.json";
 
 /* ---- Art. 25: Privacy by Design ---- */
 
-// Generated from DuckDuckGo Tracker Radar (f >= 2, medium/high fingerprinting score).
-// Rebuilt weekly alongside tracker-core.json / tracker-extended.json.
+// Generated from DuckDuckGo Tracker Radar (f >= 2, medium/high fingerprinting score)
+// rebuilt weekly alongside tracker-core.json / tracker-extended.json
 const FINGERPRINT_DOMAIN_SET = new Set<string>(Object.keys(fingerprintData.domains));
 
-// Tiny canvases (width/height <= 2) are a strong DOM-side fingerprinting signal;
+// Tiny canvases (width/height <= 2) are a strong DOM-side fingerprinting signal
 // legitimate UI canvases are always larger.
 function hasTinyCanvasElement(): boolean {
   return Array.from(document.querySelectorAll("canvas")).some(
@@ -14,7 +14,7 @@ function hasTinyCanvasElement(): boolean {
   );
 }
 
-// Checks whether any <script src> on the page loads from a known fingerprinting domain.
+// checks whether any <script src> on the page loads from a known fingerprinting domain
 function hasFingerprintScript(): boolean {
   return Array.from(document.querySelectorAll("script[src]")).some(s => {
     try {
@@ -27,14 +27,14 @@ function hasFingerprintScript(): boolean {
   });
 }
 
-// Detects screen property access in inline scripts (only covers inline scripts)
+// detects screen property access in inline scripts (only covers inline scripts)
 function hasScreenFingerprintingSignal(): boolean {
   return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
     /screen\.(width|height|colorDepth|pixelDepth|availWidth|availHeight)/.test(s.textContent ?? "")
   );
 }
 
-// Detects timezone API access in inline scripts (Intl.DateTimeFormat, getTimezoneOffset).
+// detects timezone API access in inline scripts (Intl.DateTimeFormat, getTimezoneOffset).
 function hasTimezoneFingerprintingSignal(): boolean {
   return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
     /Intl\.DateTimeFormat|getTimezoneOffset/.test(s.textContent ?? "")

@@ -26,7 +26,7 @@ export type ScanResult = {
  * Opens a fresh page, navigates to `url`, waits for full page load,
  * then returns the extension's scan result.
  *
- * Uses chrome.tabs.query to resolve the tabId — no console-message dependency,
+ * Uses chrome.tabs.query to resolve the tabId, no console-message dependency,
  * so sites with slow service-worker installs (e.g. Wikipedia) don't time out.
  */
 export async function scanSite(
@@ -54,7 +54,7 @@ export async function scanSite(
   page.on("pageerror", err => pageErrors.push(err.message));
 
   // console.error from the extension service worker.
-  // sw is reused across runs — remove the listener after the scan to avoid accumulation.
+  // sw is reused across runs, remove the listener after the scan to avoid accumulation.
   const swErrorHandler = (msg: ConsoleMessage) => {
     if (msg.type() === "error") swErrors.push(msg.text());
   };
@@ -94,7 +94,7 @@ export async function scanSite(
   }, tabId);
 
   // Read requestsSeen, cookieDetails, and scanCompleted directly from the in-memory cache.
-  // __rescanCookies calls setCookies → isScanCompleted is true regardless of storage timing.
+  // __rescanCookies calls setCookies -> isScanCompleted is true regardless of storage timing.
   const { extensionRequests, cookieDetails, scanCompleted, scanDuration } = await sw.evaluate((id: number) => {
     const c = (globalThis as unknown as { __klartxtCache: CacheLike }).__klartxtCache;
     return {

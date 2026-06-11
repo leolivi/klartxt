@@ -6,9 +6,9 @@ import { launchWithExtension } from "../fixtures/extension";
 // Service workers can be terminated by the browser after ~30 s of inactivity.
 // On restart the extension must rebuild its in-memory state from session storage.
 // This test simulates that cycle for every site:
-//   1. Scan a page → data lands in memory + session storage
-//   2. cache.reset() → wipes memory (session storage intact, no debouncedPersist)
-//   3. cache.restoreFromStorage() → rebuilds memory from storage
+//   1. Scan a page -> data lands in memory + session storage
+//   2. cache.reset() -> wipes memory (session storage intact, no debouncedPersist)
+//   3. cache.restoreFromStorage() -> rebuilds memory from storage
 //   4. Assert restored data matches what was in session storage
 
 type CacheForTest = {
@@ -68,7 +68,6 @@ test("restores cache state from session storage after cold start", async () => {
     }, tabId);
 
     // Simulate cold start: wipe in-memory state and immediately read back
-    // (single evaluate = atomic w.r.t. the JS event loop — no webRequest
     // event can fire setTrackerDetail between reset() and the length reads)
     const afterReset = await sw.evaluate((id: number) => {
       const c = (globalThis as unknown as { __klartxtCache: CacheForTest }).__klartxtCache;

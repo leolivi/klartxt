@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { TrackerConfidence } from "@/utils/types/tracking-enums";
 
-// TRACKER_MAP is populated via chrome.runtime.getURL + fetch at extension runtime.
-// In tests that environment is unavailable, so we provide a minimal mock.
+// TRACKER_MAP is fetched via chrome.runtime.getURL at extension runtime
+// in unit tests that environment is unavailable, therefore a mock is provided
 vi.mock("@/data/trackers/tracking-domains", () => ({
   TRACKER_MAP: new Map([
     [
@@ -23,7 +23,7 @@ vi.mock("@/data/trackers/tracking-domains", () => ({
 import { handleNetworkRequests } from "./handle-network-requests";
 
 // handleNetworkRequests uses the chrome.webRequest type annotation but does not
-// call any Chrome API at runtime, it only reads details.url.
+// call any Chrome API at runtime, it only reads details.url
 function makeDetails(url: string): chrome.webRequest.OnBeforeRequestDetails {
   return { url } as chrome.webRequest.OnBeforeRequestDetails;
 }

@@ -4,8 +4,7 @@ import {TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type Tracker
 /* -----
   Networt Request Classification
   Sources:
-  - DDG Tracker Radar: domain-based Classifications
-    https://github.com/duckduckgo/tracker-radar
+  - DDG Tracker Radar: DuckDuckGo, Inc., 2025
 ----- */
 
 interface CompressedTracker {
@@ -129,7 +128,7 @@ function ingest(data: TrackerFile, overwrite = false): void {
 
 // known tracker domains and their types detectetd in network requests
 export async function initTrackerData(): Promise<void> {
-// load core data (first badge)
+    // load core data (first badge)
     const coreUrl = chrome.runtime.getURL("src/data/trackers/tracker-core.json");
     const core = await loadFromUrl(coreUrl);
     ingest(core);

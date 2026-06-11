@@ -5,7 +5,7 @@ import { CookieCategory, CookieCategoryForUser, type ClassifiedCookie } from "@/
 import { Articles, CheckSeverity, type DsgvoResult } from "@/utils/types/dsgvo-types";
 
 // TrackerCache uses chrome.storage inside debounced setTimeout calls.
-// Stubbing prevents errors if timers fire after the test ends.
+// stubbing prevents errors if timers fire after the test ends.
 vi.stubGlobal("chrome", {
   storage: {
     session: {
@@ -252,7 +252,7 @@ describe("consent timing", () => {
   it("ignores afterConsent violation from unrelated third-party domain", async () => {
     cache.setConsentTimingBannerShown(TAB);
     await cache.setConsentTimingInteracted(TAB, async () => {});
-    // "google.com" does not include "example.com" → filtered out
+    // "google.com" does not include "example.com" -> filtered out
     cache.addCookieViolation(TAB, { name: "_ga", domain: "google.com", setAt: 2000 }, "example.com");
     expect(cache.getConsentTiming(TAB)!.cookiesSetAfterConsent).toHaveLength(0);
   });

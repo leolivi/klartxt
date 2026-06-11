@@ -15,7 +15,7 @@ const CATEGORY_SCORE: Record<TrackerCategory, number> = {
     [TrackerCategory.UNKNOWN]: 25,
 };
 
-// Conficence multiplicator: suspicious trackers have a reduced score
+// conficence multiplicator
 const CONFIDENCE_MULTIPLIER: Record<TrackerConfidence, number> = {
     [TrackerConfidence.CONFIRMED]: 1.0,
     [TrackerConfidence.SUSPICIOUS]: 0.5,
