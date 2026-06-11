@@ -29,7 +29,7 @@ function hasTrackingPath(url: URL): boolean {
 function hasTrackingSubdomain(subdomain: string): boolean {
   if (!subdomain) return false;
   const firstLabel = subdomain.split(".")[0] + ".";
-  return TRACKING_SUBDOMAINS.includes(firstLabel);
+  return TRACKING_SUBDOMAINS.has(firstLabel);
 }
 
 // cookie-sync: two or more UUID/long-hex values in query string indicate ID exchange

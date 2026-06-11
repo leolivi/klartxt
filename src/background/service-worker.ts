@@ -1,7 +1,7 @@
 /// <reference types="chrome" />
 
 import { initTrackerData } from "@/data/trackers/tracking-domains";
-import { handleNetworkRequests } from "./handlers/handle-network-requets";
+import { handleNetworkRequests } from "./handlers/handle-network-requests";
 import { handleCookies } from "./handlers/handle-cookies";
 import { TrackerCache } from "./cache/tracker-cache";
 import { handleDsgvo } from "./handlers/handle-dsgvo";
@@ -157,8 +157,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
       onCookiesDetected: (cookies) => {
         cache.setCookies(tabId, cookies);
         cache.scheduleUIUpdate(tabId);
-        // TODO: remove later
-        console.log(`Cookies (${cookies.length} total):`, cookies, `Risk: ${cache.getOverallRiskScore(tabId)}`);
+        console.debug(`Cookies (${cookies.length} total):`, cookies, `Risk: ${cache.getOverallRiskScore(tabId)}`);
       },
     });
   }
@@ -173,21 +172,15 @@ chrome.webRequest.onBeforeRequest.addListener(
     // Count every request the webRequest listener sees (not just trackers)
     cache.incrementRequestsSeen(tabId);
 
-    // TODO: remove later
-    const start = performance.now();
-
     handleNetworkRequests({
       details,
       onTrackerDetected: (result) => {
         cache.setTrackerDetail(tabId, result.tracker);
         cache.scheduleUIUpdate(tabId);
-        // TODO: remove later
-        const elapsed = performance.now() - start;
         const trackers = cache.getTrackerDetails(tabId);
-        console.log(
+        console.debug(
           `Tracker (${trackers.length} total):`,
           trackers,
-          `${elapsed.toFixed(3)}ms`,
           `Risk: ${cache.getOverallRiskScore(tabId)}`,
           result.confidence,
         );
@@ -226,9 +219,8 @@ chrome.cookies.onChanged.addListener((changeInfo) => {
         setAt: Date.now(),
       }, tabDomain);
 
-      // TODO: remove later
       const updated = cache.getConsentTiming(tabId);
-      console.log(
+      console.debug(
         `[ConsentTiming] ${timing.interactedAt == null ? "BEFORE" : "AFTER"} consent |`,
         changeInfo.cookie.name,
         `| before: ${updated?.cookiesSetBeforeConsent.length}`,
@@ -316,8 +308,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         onDsgvoChecked: (result) => {
           cache.setDsgvoResult(tabId, result);
           cache.scheduleUIUpdate(tabId);
-          // TODO: remove later
-          console.log(`DSGVO Checks:`, result);
+          console.debug(`DSGVO Checks:`, result);
         },
       });
     })();
@@ -346,7 +337,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         onCookiesDetected: (cookies) => {
           cache.setCookies(tabId, cookies);
           cache.scheduleUIUpdate(tabId);
-          console.log(`Cookies after consent (${cookies.length} total):`, cookies);
+          console.debug(`Cookies after consent (${cookies.length} total):`, cookies);
         },
       });
     });

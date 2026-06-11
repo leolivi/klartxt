@@ -20,7 +20,7 @@ vi.mock("@/data/trackers/tracking-domains", () => ({
   ]),
 }));
 
-import { handleNetworkRequests } from "./handle-network-requets";
+import { handleNetworkRequests } from "./handle-network-requests";
 
 // handleNetworkRequests uses the chrome.webRequest type annotation but does not
 // call any Chrome API at runtime, it only reads details.url.

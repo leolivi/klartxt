@@ -32,15 +32,15 @@ export const TRACKING_PATHS = [
 ];
 
 // Tracking-relevant subdomain prefixes
-export const TRACKING_SUBDOMAINS = [
+export const TRACKING_SUBDOMAINS = new Set([
   "pixel.",
   "track.",
   "beacon.",
   "analytics.",
   "sync.",
   "match.",
-  "cdn.", 
-];
+  "cdn.",
+]);
 
 // Cookie-Sync-Requests for cross-domain ID exchange
 export const USER_ID_PATTERN = /^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|[0-9a-f]{16,})$/i;
