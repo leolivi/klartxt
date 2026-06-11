@@ -1,7 +1,7 @@
 
 import { Separator } from "@/sidepanel/components/ui/separator";
-import { Header } from "../layouts/Header";
-import { Footer } from "../layouts/Footer";
+import { Header } from "../layouts/header";
+import { Footer } from "../layouts/footer";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
