@@ -5,7 +5,7 @@ export function Footer() {
   const { t } = useTranslation();
 
   return (
-      <footer className="mt-16 px-6 py-6 text-center">
+      <footer className="px-6 py-6 text-center">
         <div>
           <p className="text-small text-muted">
             {t("footerDialogDisclaimer")}{" "}

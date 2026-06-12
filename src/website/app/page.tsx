@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Tabs, TabsList, TabsTrigger } from "@/sidepanel/components/ui/tabs";
 import { CHECKED_ITEMS, type CheckedItemKey } from "@/utils/types/footer-types";
@@ -42,12 +42,7 @@ export function HomePage() {
         </TabsList>
       </Tabs>
 
-      <Routes>
-        <Route path="/" element={<Navigate to={ROUTES[CHECKED_ITEMS[0].key]} replace />} />
-        {CHECKED_ITEMS.map(({ key }) => (
-          <Route key={key} path={ROUTES[key]} element={<TopicPage topicKey={key} />} />
-        ))}
-      </Routes>
+      <TopicPage topicKey={activeKey} />
     </main>
   );
 }
