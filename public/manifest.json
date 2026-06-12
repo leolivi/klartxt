@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Klartxt",
   "version": "1.0.0",
-  "description": "This Chrome extension analyzes website tracking mechanisms (network requests and cookies) in real time, visualizes them clearly, evaluates compliance with European data protection regulations, and provides actionable, technically grounded recommendations.",
+  "description": "Analyzes website trackers, cookies and privacy indicators in real time, and provides actionable privacy recommendations.",
   "action": {
     "default_icon": "img/logo/Klartxt_lm_64.png"
   },

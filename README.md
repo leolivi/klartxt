@@ -1,8 +1,37 @@
-
+![Klartxt Logo](/public/img/logo/Klartxt_logo_lm.svg)
 # Klartxt Extension
 
-This is the source code for the Klartxt Chrome extension. The extension analyzes 
-specific tracking mechanisms (network requests and cookies) on a website in real time and visualizes them in a structured way. It checks for compliance with the european data protection regulations, identifies data flows, and provides well-founded recommendations for action based on technical analysis.
+This is the source code for the Klartxt Chrome extension. The extension analyzes website tracking mechanisms (network requests and cookies) in real time, visualizes them in a structured way, and provides actionable privacy recommendations based on technical findings.
+
+## Features
+
+- **Risk Score**: Rates the privacy behaviour of the current site from 1 (very low) to 5 (critical), based on tracker count, cookie behaviour, and privacy indicators
+- **Tracker detection**: Intercepts outgoing network requests and matches them against the [DuckDuckGo Tracker Radar](https://github.com/duckduckgo/tracker-radar) (DuckDuckGo, Inc., 2025) database
+- **Cookie analysis**: Logs all cookies set during a visit, classifies them (necessary / functional / tracking / unknown), and detects first- vs. third-party origin
+- **Privacy checks**: Detects whether cookies were set before a consent interaction, whether a privacy policy is findable, and whether high-risk trackers or fingerprinting signals are present
+- **Insights**: Summarises findings in plain language
+- **Recommendations**: Provides concrete actions the user can take based on what was found
+- **Export**: Exports all scan results (at a point in time) as CSV
+- **Multilingual**: UI currently available in English, German, French, and Italian
+- **Companion website** ([klartxt.app](https://klartxt.app)): Explains what each check means and why it matters and includes the privacy policy and imprint
+
+## Usage
+
+1. Install the extension from the Chrome Web Store or load it unpacked (see below)
+2. Visit any website
+3. Open the Klartxt side panel via the extension icon
+4. The panel shows:
+   - A **risk score** (1–5) with a short explanation
+   - Three cards for **Privacy checks**, **Trackers**, and **Cookies** — click any card to see the full list
+   - An **Insights** section summarising what was detected
+   - A **Recommendations** section with suggested next steps
+5. Use the **reload button** in the header to re-run the scan on the current page
+6. Use the **download button** in the footer to export results as CSV
+
+> All analysis runs locally in your browser. No data is sent to external servers!
+
+## Architecture
+![Software architecture diagram](/public/img/software-architecture-diagram.svg)
 
 ## Getting Started
 
@@ -12,20 +41,19 @@ Make sure you have [Node.js](https://nodejs.org/) (version 18+ or 20+) installed
 
 ### Setup
 
-1. Clone or fork the repository :
+1. Clone or fork the repository:
 
-   ```sh
-   # To clone
+   ```
    git clone https://github.com/leolivi/klartxt
    ```
 
 2. Install the dependencies:
 
-   ```sh
+   ```
    npm install
    ```
 
-## 🚀 Development
+## Development
 
 To start the dev server with hot module replacement:
 
@@ -33,15 +61,17 @@ To start the dev server with hot module replacement:
 npm run dev
 ```
 
-This serves the UI at `http://localhost:5173` with live reload. To also test the extension in Chrome with HMR:
+This serves the UI at `http://localhost:5173` with live reload. 
+
+To also test the extension in Chrome with Hot Module Replacement:
 
 1. Run `npm run dev`
 2. Open `chrome://extensions/`, enable "Developer mode", and load the `build` directory as an unpacked extension
 3. After loading, changes to the source code will hot reload in the extension sidepanel automatically
 
-> **Note:** `localhost:5173` is useful for fast UI iteration. Chrome-specific APIs (tracker data, cookies) are only available when running inside the extension.
+> `localhost:5173` is useful for fast UI iteration. Chrome-specific APIs (tracker data, cookies) are only available when running inside the extension.
 
-## 📦 Build
+## Build
 
 To create a production build of the extension:
 
@@ -69,7 +99,7 @@ npm run build:website
 
 This will generate the output in the `website-build` directory.
 
-## 🧪 Testing
+## Testing
 
 ### Unit Tests
 
@@ -107,34 +137,51 @@ npm run test:e2e:report  # open the HTML report in the browser
 
 Each test attaches a JSON result and for reproducibility tests a sidepanel screenshot to the HTML report. These attachments are the basis for manual false-positive analysis.
 
-> **Note:** Chrome extensions require headful mode (`headless: false`). For CI, a virtual display (Xvfb) is needed -> see the GitHub Actions workflow in [`.github/workflows/e2e.yml`](.github/workflows/e2e.yml).
+> Chrome extensions require headful mode (`headless: false`). For CI, a virtual display (Xvfb) is needed -> see the GitHub Actions workflow in [`.github/workflows/e2e.yml`](.github/workflows/e2e.yml).
 
-## 📂 Load Extension in Chrome
+## Load Extension in Chrome
 
-1. Open Chrome and navigate to `chrome://extensions/`.
-2. Enable "Developer mode" using the toggle switch in the top right corner.
-3. Click "Load unpacked" and select the `build` directory.
+1. Open Chrome and navigate to `chrome://extensions/`
+2. Enable "Developer mode" using the toggle in the top right corner
+3. Click "Load unpacked" and select the `build` directory
 
-Your React app should now be loaded as a Chrome extension!
+## CI / CD
 
-## 🗂️ Project Structure
+Two GitHub Actions workflows are included:
 
-- `public/`: Static assets (fonts, icons, `manifest.json`).
-- `src/`: Shared source code.
-  - `sidepanel/`: Extension UI (React components, context, hooks).
-  - `website/`: Informational website (`klartxt.app`) which shares components, locales, and design tokens with the extension.
-  - `background/`: Extension service worker and background handlers.
-  - `content/`: Content scripts injected into web pages.
-  - `locales/`: Shared i18n translation files (EN, DE, FR).
-  - `utils/`: Shared utilities and TypeScript types.
-- `build/`: Production build of the extension (auto-generated).
-- `website-build/`: Production build of the website (auto-generated).
-- `vite.config.ts`: Vite config for the extension.
-- `vite.website.config.ts`: Vite config for the website.
-- `tsconfig.json`: Root TypeScript configuration.
-- `package.json`: Project dependencies and scripts.
+| Workflow | Trigger | What it does |
+|---|---|---|
+| [`e2e.yml`](.github/workflows/e2e.yml) | Push / pull request | Runs unit tests and E2E tests in CI using Xvfb |
+| [`chrome-deployment.yml`](.github/workflows/chrome-deployment.yml) | Manual (`workflow_dispatch`) | Bumps the version in `manifest.json` based on conventional commits (`feat` → minor, everything else → patch), builds the extension, zips it, and uploads it to the Chrome Web Store |
 
-## Source
+**Required secrets for deployment:**
+
+| Secret | Description |
+|---|---|
+| `CHROME_EXTENSION_ID` | The extension ID from the Chrome Web Store dashboard |
+| `CHROME_CLIENT_ID` | OAuth client ID from Google Cloud Console |
+| `CHROME_CLIENT_SECRET` | OAuth client secret |
+| `CHROME_REFRESH_TOKEN` | Refresh token for the Chrome Web Store API |
+
+## Project Structure
+
+- `public/`: Static assets (fonts, icons, `manifest.json`)
+- `src/`: Shared source code
+  - `sidepanel/`: Extension UI (React components, context, hooks)
+  - `website/`: Informational website (`klartxt.app`) which shares components, locales, and design tokens with the extension
+  - `background/`: Extension service worker and background handlers
+  - `content/`: Content scripts injected into web pages
+  - `locales/`: Shared i18n translation files (EN, DE, FR, IT)
+  - `utils/`: Shared utilities and TypeScript types
+- `build/`: Production build of the extension (auto-generated)
+- `website-build/`: Production build of the website (auto-generated)
+- `vite.config.ts`: Vite config for the extension
+- `vite.website.config.ts`: Vite config for the website
+- `tsconfig.json`: Root TypeScript configuration
+- `package.json`: Project dependencies and scripts
+
+## Sources
+
 Chrome for Developers, 2025. Chrome Extensions Docs. [online] Chrome for Developers. Verfügbar unter: <https://developer.chrome.com/docs/extensions?hl=de> [Zugegriffen 13 November 2025].
 
 Davis, K.R., Peabody, B. und Leach, P., 2024. Universally Unique IDentifiers (UUIDs). [Request for Comments] Internet Engineering Task Force. https://doi.org/10.17487/RFC9562.
@@ -164,7 +211,3 @@ Papadopoulos, P., Kourtellis, N. und Markatos, E.P., 2020. Cookie Synchronizatio
 TikTok For Business, 2025. About TikTok Click ID. [online] TikTok Business Help Center. Verfügbar unter: <https://ads.tiktok.com/help/article/tiktok-click-id?lang=en> [Zugegriffen 8 Mai 2026].
 
 X Corp., 2026. Conversion tracking for websites. [online] X Business. Verfügbar unter: <https://business.x.com/en/help/campaign-measurement-and-analytics/conversion-tracking-for-websites> [Zugegriffen 8 Mai 2026].
-
-
-
-
