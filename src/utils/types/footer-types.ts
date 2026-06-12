@@ -11,4 +11,5 @@ export const LANGUAGES = [
   { code: "en", label: "English" },
   { code: "de", label: "Deutsch" },
   { code: "fr", label: "Français" },
+  { code: "it", label: "Italiano" },
 ];
