@@ -3,6 +3,7 @@
   "warningBannerDismiss": "Chiudi",
 
   "footerScannedIn": "Scansionato in {{seconds}}s",
+  "footerExportCsv": "Esporta come CSV",
   "footerWhatWasChecked": "Cosa è stato controllato?",
   "footerDialogTitle": "Cosa è stato controllato?",
   "footerDialog_tracker_title": "Tracker",
@@ -19,6 +20,7 @@
   "headerScanStatusDone": "Scansione completata",
   "headerScanStatusInProgress": "Scansione in corso",
   "headerScanStatusPartial": "Scansione obsoleta",
+  "headerScanButton": "aggiorna",
 
   "riskScoreDialogTitle": "Cosa significa il punteggio?",
   "riskScoreDialogDescription": "Il punteggio valuta la privacy di questo sito da 1 (molto buono) a 5 (critico), in base al numero di tracker, al comportamento dei cookie e agli indicatori di privacy.",

@@ -89,11 +89,6 @@ html, body, #root {
   font-weight: 400;
 }
 
-.sidepanel {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
 html {
   @apply text-text bg-bg;
 }

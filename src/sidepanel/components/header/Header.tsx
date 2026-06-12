@@ -6,6 +6,7 @@ import { Separator } from '../ui/separator';
 import { useTabDataContext } from '../../context/useTabDataContext';
 import { handleRefresh } from '@/utils/refresh';
 import { useState } from 'react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 const logoLight = "/img/logo/Klartxt_logo_lm.svg";
 const logoDark = "/img/logo/Klartxt_logo_dm.svg";
@@ -38,9 +39,16 @@ export function Header() {
           >
             {isRefreshing || !isLoaded ? t('headerScanStatusInProgress') : isPartialData ? t('headerScanStatusPartial') : t('headerScanStatusDone')}
           </Button>
-          <Button variant={"defaultFocus"} onClick={onRefresh}>
-            <RefreshCw size={12} className={isRefreshing ? "animate-spin" : ""} />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant={"defaultFocus"} onClick={onRefresh}>
+                <RefreshCw size={12} className={isRefreshing ? "animate-spin" : ""} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side='top'>
+              {t('headerScanButton')}
+            </TooltipContent>
+          </Tooltip>
         </div>
       </header>
       <Separator/>
