@@ -2,6 +2,11 @@
   "warningBannerTitle": "High privacy risk detected",
   "warningBannerDismiss": "Dismiss",
 
+  "riskScoreDialogOpenLabel": "Open risk score explanation",
+  "languageSwitcherLabel": "Select language",
+  "dsgvoCheckPassed": "Passed",
+  "dsgvoCheckFailed": "Failed",
+
   "footerScannedIn": "Scanned in {{seconds}}s",
   "footerExportCsv": "Export as CSV",
   "footerWhatWasChecked": "What was checked?",

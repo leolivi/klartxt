@@ -40,7 +40,7 @@ export function RiskScoreDialog() {
   return (
     <>
         <Dialog>
-        <DialogTrigger><Info className="absolute top-[0.2rem] -right-[0.2rem] stroke-primary bg-white rounded-full" size={25} /></DialogTrigger>
+        <DialogTrigger aria-label={t("riskScoreDialogOpenLabel")}><Info aria-hidden="true" className="absolute top-[0.2rem] -right-[0.2rem] stroke-primary bg-white rounded-full" size={25} /></DialogTrigger>
         <DialogContent>
             <DialogHeader>
             <DialogTitle>{t("riskScoreDialogTitle")}</DialogTitle>

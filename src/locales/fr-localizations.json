@@ -2,6 +2,11 @@
   "warningBannerTitle": "Risque élevé pour la vie privée détecté",
   "warningBannerDismiss": "Fermer",
 
+  "riskScoreDialogOpenLabel": "Ouvrir l'explication du score de risque",
+  "languageSwitcherLabel": "Choisir la langue",
+  "dsgvoCheckPassed": "Réussi",
+  "dsgvoCheckFailed": "Échoué",
+
   "footerScannedIn": "Scanné en {{seconds}}s",
   "footerExportCsv": "Exporter en CSV",
   "footerWhatWasChecked": "Qu'est-ce qui a été vérifié?",

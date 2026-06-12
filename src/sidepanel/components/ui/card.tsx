@@ -9,13 +9,26 @@ type CardProps = React.ComponentProps<"div"> & {
   href?: string
 }
 
-function Card({ className, count, icon, label, href, children, ...props }: CardProps) {
+function Card({ className, count, icon, label, href, children, onClick, onKeyDown, ...props }: CardProps) {
   const hasBlueprint = count != null || icon != null
+  const isInteractive = !!onClick
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (isInteractive && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      onClick?.(e as unknown as React.MouseEvent<HTMLDivElement>);
+    }
+    onKeyDown?.(e);
+  }
 
   return (
     <div
       data-slot="card"
       className={cn("bg-primary-100 dark:bg-primary-950 rounded-[15px]", className)}
+      role={isInteractive ? "button" : undefined}
+      tabIndex={isInteractive ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
       {...props}
     >
       {hasBlueprint ? (

@@ -8,14 +8,22 @@ import { TrackingResultsDialog } from "./TrackingResultsDialog";
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
 
-function dsgvoIcons(dsgvoResult: DsgvoResult | null) {
+function dsgvoIcons(dsgvoResult: DsgvoResult | null, t: (key: string) => string) {
   if (!dsgvoResult) return <span className="text-small text-muted">–</span>;
   return (
     <div className="flex gap-1 pb-1">
       {DSGVO_KEYS.map((key) =>
-        dsgvoResult[key].passed
-          ? <CircleCheck key={key} size={20} className="bg-risk-low-fill text-risk-low-text rounded-full" />
-          : <CircleX key={key} size={20} className="bg-risk-high-fill text-risk-high-text rounded-full" />
+        dsgvoResult[key].passed ? (
+          <span key={key} className="inline-flex">
+            <CircleCheck aria-hidden="true" size={20} className="bg-risk-low-fill text-risk-low-text rounded-full" />
+            <span className="sr-only">{t("dsgvoCheckPassed")}</span>
+          </span>
+        ) : (
+          <span key={key} className="inline-flex">
+            <CircleX aria-hidden="true" size={20} className="bg-risk-high-fill text-risk-high-text rounded-full" />
+            <span className="sr-only">{t("dsgvoCheckFailed")}</span>
+          </span>
+        )
       )}
     </div>
   );
@@ -35,7 +43,7 @@ export function TrackingResultsSection() {
   return (
     <>
       <div className="flex gap-4 p-4">
-        <Card className="flex-1 cursor-pointer" onClick={() => openTab(TrackingType.DSGVO)} icon={dsgvoIcons(dsgvoResult)} label={t("TrackingResultsCardDSGVO")} />
+        <Card className="flex-1 cursor-pointer" onClick={() => openTab(TrackingType.DSGVO)} icon={dsgvoIcons(dsgvoResult, t)} label={t("TrackingResultsCardDSGVO")} />
         <Card className="flex-1 cursor-pointer" onClick={() => openTab(TrackingType.TRACKER)} count={tracker} label="Tracker" />
         <Card className="flex-1 cursor-pointer" onClick={() => openTab(TrackingType.COOKIE)} count={cookies} label="Cookies" />
       </div>

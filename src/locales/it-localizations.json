@@ -2,6 +2,11 @@
   "warningBannerTitle": "Rilevato alto rischio per la privacy",
   "warningBannerDismiss": "Chiudi",
 
+  "riskScoreDialogOpenLabel": "Apri la spiegazione del punteggio di rischio",
+  "languageSwitcherLabel": "Seleziona la lingua",
+  "dsgvoCheckPassed": "Superato",
+  "dsgvoCheckFailed": "Non superato",
+
   "footerScannedIn": "Scansionato in {{seconds}}s",
   "footerExportCsv": "Esporta come CSV",
   "footerWhatWasChecked": "Cosa è stato controllato?",

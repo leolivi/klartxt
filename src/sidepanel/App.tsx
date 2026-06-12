@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Header } from "./components/header/Header";
 import { Footer } from "./components/footer/Footer";
 import { TrackingResultsSection } from "./components/trackingResults/TrackingResultsSection";
@@ -9,6 +11,12 @@ import { TabDataProvider } from "./context/TabDataContext";
 import { TooltipProvider } from "./components/ui/tooltip";
 
 function App() {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
+
   return (
     <TooltipProvider>
       <TabDataProvider>

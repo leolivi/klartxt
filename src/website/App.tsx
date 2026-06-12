@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HomePage } from "./app/page";
 import { PrivacyPage } from "./app/privacy/page";
@@ -6,6 +8,12 @@ import { NotFoundPage } from "./app/not-found/page";
 import { Layout } from "./app/layout";
 
 export default function App() {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
+
   return (
     <BrowserRouter>
       <Layout>

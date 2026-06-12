@@ -18,9 +18,10 @@ export function Footer() {
           <Button
             variant='defaultFocus'
             size='icon-sm'
+            aria-label={t('footerExportCsv')}
             onClick={() => exportTabDataAsCsv(context)}
           >
-            <Download />
+            <Download aria-hidden="true" />
           </Button>
         </TooltipTrigger>
         <TooltipContent side='top'>

@@ -2,6 +2,11 @@
   "warningBannerTitle": "Hohes Datenschutzrisiko erkannt",
   "warningBannerDismiss": "Schliessen",
 
+  "riskScoreDialogOpenLabel": "Erklärung des Risiko-Scores öffnen",
+  "languageSwitcherLabel": "Sprache wählen",
+  "dsgvoCheckPassed": "Bestanden",
+  "dsgvoCheckFailed": "Nicht bestanden",
+
   "footerScannedIn": "Gescannt in {{seconds}}s",
   "footerExportCsv": "Als CSV exportieren",
   "footerWhatWasChecked": "Was wurde geprüft?",

@@ -9,11 +9,11 @@ import {
 import { LANGUAGES } from "@/utils/types/footer-types";
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   return (
     <Select value={i18n.language} onValueChange={(lng) => i18n.changeLanguage(lng)}>
-      <SelectTrigger size="sm">
+      <SelectTrigger size="sm" aria-label={t("languageSwitcherLabel")}>
         <SelectValue/>
       </SelectTrigger>
       <SelectContent>
