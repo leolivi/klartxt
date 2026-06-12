@@ -5,10 +5,10 @@ import { Footer } from "../layouts/footer";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-bg text-text font-sans">
+    <div className="min-h-screen flex flex-col bg-bg text-text font-sans">
       <Header />
       <Separator />
-      {children}
+      <div className="flex-1 flex flex-col">{children}</div>
       <Separator />
       <Footer />
     </div>

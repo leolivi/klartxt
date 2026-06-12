@@ -197,7 +197,6 @@
   "privacyPage_footerLink": "Datenschutzerklärung",
 
   "imprintPage_title": "Impressum",
-  "imprintPage_subtitle": "Angaben gemäss gesetzlicher Pflicht.",
   "imprintPage_responsible_title": "Verantwortliche Person",
   "imprintPage_responsible_body": "Leonie Liviero",
   "imprintPage_contact_title": "Kontakt",
@@ -206,5 +205,9 @@
   "imprintPage_disclaimer_body": "Klartxt ist eine Browser-Erweiterung, die im Rahmen eines akademischen Projekts entwickelt wurde. Sie wird ohne jegliche Gewährleistung bereitgestellt. Die Analyseergebnisse basieren auf technischer Erkennung und stellen keine Rechtsberatung dar.",
   "imprintPage_project_title": "Über dieses Projekt",
   "imprintPage_project_body": "Klartxt wurde als Bachelor Major Project am SAE Institute Schweiz entwickelt. Die Erweiterung ist Open Source und für Bildungs- und Forschungszwecke gedacht.",
-  "imprintPage_footerLink": "Impressum"
+  "imprintPage_footerLink": "Impressum",
+
+  "notFoundPage_title": "Seite nicht gefunden",
+  "notFoundPage_body": "Die gesuchte Seite existiert nicht.",
+  "notFoundPage_backHome": "Zurück zur Startseite"
 }

@@ -5,8 +5,7 @@ export function ImprintPage() {
 
   return (
     <main className="max-w-2xl mx-auto px-6 py-12">
-      <h1 className="text-h1 mb-2">{t("imprintPage_title")}</h1>
-      <p className="text-small text-muted mb-10">{t("imprintPage_subtitle")}</p>
+      <h1 className="text-h1 mb-8">{t("imprintPage_title")}</h1>
 
       <section className="mb-8">
         <h2 className="text-h2 mb-3">{t("imprintPage_responsible_title")}{" & "}{t("imprintPage_contact_title")}</h2>
