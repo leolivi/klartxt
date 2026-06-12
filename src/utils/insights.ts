@@ -47,6 +47,11 @@ function cookieInsight(cookiesList: ClassifiedCookie[]): Insight {
   return { type: "cookie", severity: "fine", textKey: "insightCookie_necessary" };
 }
 
+// Priority chain: 
+// 1. art7 (consent timing) is the most critical signal and is checked first
+// 2. art25 (technical safeguards) follows
+// 3. art13_14 (privacy policy) is last because its absence is less immediately harmful than active consent violations
+
 function dsgvoInsight(dsgvoResult: DsgvoResult | null): Insight {
   if (!dsgvoResult) {
     return { type: "dsgvo", severity: "fine", textKey: "insightDsgvo_noData" };
@@ -73,6 +78,8 @@ function dsgvoInsight(dsgvoResult: DsgvoResult | null): Insight {
   return { type: "dsgvo", severity: "fine", textKey: "insightDsgvo_fine" };
 }
 
+// - Session replay is treated as the most severe profiling signal because it records individual interactions
+// - Cross-context profiling (ads/analytics + social) is flagged as suspicious because the combination enables cross-site identity linking
 function profilingInsight(trackerList: TrackerInfo[]): Insight {
   const hasSessionReplay = trackerList.some(t =>
     t.detailedCategories.includes(TrackerCategory.SESSION)

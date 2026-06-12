@@ -2,7 +2,7 @@ import fingerprintData from "@/data/trackers/fingerprint-domains.json";
 
 /* ---- Art. 25: Privacy by Design ---- */
 
-// Generated from DuckDuckGo Tracker Radar (f >= 2, medium/high fingerprinting score)
+// Generated from DuckDuckGo Tracker Radar (DuckDuckGo, Inc., 2025) (f >= 2, medium/high fingerprinting score)
 // rebuilt weekly alongside tracker-core.json / tracker-extended.json
 const FINGERPRINT_DOMAIN_SET = new Set<string>(Object.keys(fingerprintData.domains));
 

@@ -18,7 +18,9 @@ interface TrackerFile {
     trackers: Record<string, CompressedTracker>;
 }
 
-// map categories to match TrackerPurpose
+// Maps raw DDG Tracker Radar (DuckDuckGo, Inc., 2025) category strings to internal TrackerCategory enums
+// Multiple DDG categories can map to the same enum (e.g. "Advertising" and "Ad Motivated" both -> AD)
+// UNKNOWN is the fallback when no category matches
 function mapToCategories(categories: string[]): TrackerCategory[] {
     const result = new Set<TrackerCategory>();
     const has = (str: string) => categories.some(c => c.toLowerCase().includes(str.toLowerCase()));
@@ -66,7 +68,9 @@ function mapToCategories(categories: string[]): TrackerCategory[] {
     return Array.from(result);
 }
 
-// simplified category matching for users
+// Collapses internal categories into a user-facing label. Priority order matters:
+// MALWARE/SECURITY before ADS before TRACKING before FUNCTIONAL before CONTENT
+// a tracker can have multiple detailed categories, only the highest-priority user-facing label is surfaced to avoid overwhelming the UI.
 function mapToUserCategory(categories: TrackerCategory[]): TrackerCategoryForUser {
     if (categories.includes(TrackerCategory.MALWARE)) {
         return TrackerCategoryForUser.SECURITY;

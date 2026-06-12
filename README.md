@@ -152,7 +152,7 @@ Two GitHub Actions workflows are included:
 | Workflow | Trigger | What it does |
 |---|---|---|
 | [`e2e.yml`](.github/workflows/e2e.yml) | Push / pull request | Runs unit tests and E2E tests in CI using Xvfb |
-| [`chrome-deployment.yml`](.github/workflows/chrome-deployment.yml) | Manual (`workflow_dispatch`) | Bumps the version in `manifest.json` based on conventional commits (`feat` → minor, everything else → patch), builds the extension, zips it, and uploads it to the Chrome Web Store |
+| [`chrome-deployment.yml`](.github/workflows/chrome-deployment.yml) | Manual (`workflow_dispatch`) | Bumps the version in `manifest.json` based on conventional commits (`feat` -> minor, everything else -> patch), builds the extension, zips it, and uploads it to the Chrome Web Store |
 
 **Required secrets for deployment:**
 

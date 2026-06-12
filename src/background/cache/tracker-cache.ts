@@ -139,6 +139,9 @@ export class TrackerCache {
     await onInteracted();
   }
 
+  // After consent, only track first-party domain cookies as "after consent".
+  // Third-party cookies set after consent are skipped because they cannot be
+  // reliably attributed to the user's interaction with the current page
   addCookieViolation(tabId: number, violation: CookieViolation, tabDomain: string): void {
     const existing = this.consentTiming.get(tabId);
     if (existing == null) return;
@@ -219,6 +222,9 @@ export class TrackerCache {
     this.uiUpdateDebounceTimers.set(tabId, timer);
   }
 
+  // Restores in-memory state from chrome.storage.session after a service worker cold start. 
+  // The overall risk score is recalculated from sub-data at the end so the stored snapshot is only used as
+  // a fallback when no sub-data is available
   async restoreFromStorage(tabId: number): Promise<void> {
     const result = await chrome.storage.session.get([
       `trackerDetails_${tabId}`,

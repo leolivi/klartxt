@@ -57,6 +57,8 @@ function buildSuspiciousTracker(domain: string): TrackerInfo {
   };
 }
 
+// 1. DDG Tracker Radar (DuckDuckGo, Inc., 2025) is the primary source (CONFIRMED confidence).
+// 2. Heuristics (tracking params, paths, subdomains, cookie-sync patterns) are the fallback for domains not in the Radar database (SUSPICIOUS confidence).
 export function handleNetworkRequests({
   details,
   onTrackerDetected,

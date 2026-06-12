@@ -22,6 +22,10 @@ export function confirmedTrackers(trackers: TrackerInfo[]): TrackerInfo[] {
     );
 }
 
+// CONFIRMED if cookies were set before any consent interaction
+// SUSPICIOUS if a banner is visible alongside active trackers/cookies
+// FINE otherwise
+// Priority: CONFIRMED > SUSPICIOUS > FINE.
 export function evaluateArt7(
   art7: ContentScriptDsgvoResult["art7"],
   trackers: TrackerInfo[],
@@ -121,6 +125,10 @@ export function evaluateArt13_14(
   };
 }
 
+// Priority order: no HTTPS -> CONFIRMED, high-risk trackers (DDG risk > 30) -> CONFIRMED,
+// other trackers or fingerprinting -> SUSPICIOUS (passed:true, not a hard violation),
+// nothing detected -> FINE.
+// SUSPICIOUS still passes because trackers alone without high-risk classification are not a technical safeguard failure
 export function evaluateArt25(
   isHttps: boolean,
   trackers: TrackerInfo[],
