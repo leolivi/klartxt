@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HomePage } from "./app/page";
 import { PrivacyPage } from "./app/privacy/page";
 import { ImprintPage } from "./app/imprint/page";
+import { SourcesPage } from "./app/sources/page";
 import { NotFoundPage } from "./app/not-found/page";
 import { Layout } from "./app/layout";
 
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/third-party" element={<HomePage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/imprint" element={<ImprintPage />} />
+          <Route path="/sources" element={<SourcesPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>

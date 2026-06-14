@@ -1,4 +1,4 @@
-![Klartxt Logo](/public/img/logo/Klartxt_logo_lm.svg)
+![Klartxt Logo](/public/assets/logo/Klartxt_logo_lm.svg)
 # Klartxt Extension
 
 This is the source code for the Klartxt Chrome extension. The extension analyzes website tracking mechanisms (network requests and cookies) in real time, visualizes them in a structured way, and provides actionable privacy recommendations based on technical findings.
@@ -31,7 +31,7 @@ This is the source code for the Klartxt Chrome extension. The extension analyzes
 > All analysis runs locally in your browser. No data is sent to external servers!
 
 ## Architecture
-![Software architecture diagram](/public/img/software-architecture-diagram.svg)
+![Software architecture diagram](/public/assets/img/software-architecture-diagram.svg)
 
 ## Getting Started
 
@@ -182,6 +182,19 @@ Two GitHub Actions workflows are included:
 
 ## Sources
 
+### Tools
+NotebookLM Video Overview (Gemini), Google LLC: https://notebooklm.google.com/
+Erklärvideo Klartxt_Privacy_Explained generiert am 14. Juni 2026.
+Verwendeter Prompt: "Create a short, engaging video explanation (2–3 minutes) aimed at everyday internet users with no technical background. Topic: What are web trackers and cookies, and what do the different categories mean? Cover these tracker categories in plain language: Advertising, Tracking & Analytics, Content, Security, Functional. Cover these cookie categories: Tracking, Functional, Necessary. Tone: conversational, neutral, not alarmist. Avoid legal jargon. Use concrete everyday analogies where helpful. Do not mention specific companies or products. Keep it factual — explain what these things are, not whether they are good or bad. End with one sentence summarising why it matters to know the difference."
+
+DeepL Translate, DeepL SE: https://www.deepl.com/de/translator
+Übersetzung von Textpassagen
+
+Claude, Version Sonnet 4.6, Anthropic: https://claude.ai
+Hilfe bei der Erstellung von Textstruktur, Code, Code Review und Lokalisierungen der Website und Erweiterung
+
+
+### Literature
 Chrome for Developers, 2025. Chrome Extensions Docs. [online] Chrome for Developers. Verfügbar unter: <https://developer.chrome.com/docs/extensions?hl=de> [Zugegriffen 13 November 2025].
 
 Davis, K.R., Peabody, B. und Leach, P., 2024. Universally Unique IDentifiers (UUIDs). [Request for Comments] Internet Engineering Task Force. https://doi.org/10.17487/RFC9562.

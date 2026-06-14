@@ -41,7 +41,7 @@ function cookieInsight(cookiesList: ClassifiedCookie[]): Insight {
   }
 
   if (trackingCookies.length > 0) {
-    return { type: "cookie", severity: "confirmed", textKey: "insightCookie_tracking", vars: { count: trackingCookies.length } };
+    return { type: "cookie", severity: "confirmed", textKey: "insightCookie_tracking", vars: { count: trackingCookies.length, total: cookiesList.length } };
   }
 
   return { type: "cookie", severity: "fine", textKey: "insightCookie_necessary" };

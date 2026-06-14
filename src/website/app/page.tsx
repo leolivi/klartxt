@@ -4,7 +4,9 @@ import { Tabs, TabsList, TabsTrigger } from "@/sidepanel/components/ui/tabs";
 import { CHECKED_ITEMS, type CheckedItemKey } from "@/utils/types/footer-types";
 import { TopicPage } from "./topic/page";
 import { useEffect, useState } from "react";
-import hero from '../../../public/img/hero.svg'
+import hero from '../../../public/assets/img/hero.svg'
+
+const VIDEO_SRC = "/assets/video/Klartxt_Privacy_Explained.mp4";
 
 const ROUTES: Record<CheckedItemKey, string> = {
   tracker:       "/trackers",
@@ -39,10 +41,21 @@ export function HomePage() {
       <div className="py-12 hidden md:block">
         <img src={hero} alt={t("websiteHeroImageAlt")} />
       </div>
+
+
       <div className="max-w-2xl mx-auto px-6 py-12">
         <div className="mb-10">
           <h1 className="text-h1 mb-2">{t("websiteHeroTitle")}</h1>
           <p className="text-body text-muted">{t("websiteHeroSubtitle")}</p>
+          <video
+            src={VIDEO_SRC}
+            controls
+            className="w-full rounded-lg mt-5"
+          />
+          <p className="text-xs text-muted mt-1">
+            Video: Klartxt Privacy Explained, generiert mit NotebookLM (Gemini), Google LLC, 14. Juni 2026.
+            {/* TODO: add to localizations */}
+          </p>
         </div>
         <Tabs
           value={activeKey}
