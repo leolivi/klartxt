@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import SOURCES from '../../reference.json';
+import SOURCES from '../../utils/reference.json';
 
 const AI_TOOLS = [
   {
