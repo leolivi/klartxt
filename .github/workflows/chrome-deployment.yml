@@ -24,24 +24,15 @@ jobs:
       - name: Bump version based on conventional commits
         run: |
           node -e "
-            const { execSync } = require('child_process');
             const fs = require('fs');
 
             const manifest = JSON.parse(fs.readFileSync('public/manifest.json', 'utf8'));
             const [major, minor, patch] = manifest.version.split('.').map(Number);
 
-            const lastBumpHash = execSync('git log --format=%H -- public/manifest.json').toString().trim().split('\n')[0];
-            const range = lastBumpHash ? \`\${lastBumpHash}..HEAD\` : 'HEAD';
-            const commits = execSync(\`git log --format=%s \${range}\`).toString();
-
-            const hasFeat = /^feat(\\(.+\\))?:/m.test(commits);
-            const newVersion = hasFeat
-              ? \`\${major}.\${minor + 1}.0\`
-              : \`\${major}.\${minor}.\${patch + 1}\`;
+            const newVersion = \`\${major}.\${minor}.\${patch + 1}\`;
 
             manifest.version = newVersion;
             fs.writeFileSync('public/manifest.json', JSON.stringify(manifest, null, 2) + '\n');
-            console.log('Bump:', hasFeat ? 'minor' : 'patch');
             console.log('Version:', newVersion);
           "
 
