@@ -42,7 +42,6 @@ export function HomePage() {
         <img src={hero} alt={t("websiteHeroImageAlt")} />
       </div>
 
-
       <div className="max-w-2xl mx-auto px-6 py-12">
         <div className="mb-10">
           <h1 className="text-h1 mb-2">{t("websiteHeroTitle")}</h1>
@@ -52,15 +51,12 @@ export function HomePage() {
             controls
             className="w-full rounded-lg mt-5"
           />
-          <p className="text-xs text-muted mt-1">
-            Video: Klartxt Privacy Explained, generiert mit NotebookLM (Gemini), Google LLC, 14. Juni 2026.
-            {/* TODO: add to localizations */}
-          </p>
+          <p className="text-xs text-muted mt-2">{t("websiteVideoCaption")}</p>
         </div>
         <Tabs
           value={activeKey}
           onValueChange={(key) => navigate(ROUTES[key as CheckedItemKey])}
-          className="mb-8"
+          className="mb-4"
           orientation={isDesktop ? "horizontal" : "vertical"}
         >
           <TabsList>
@@ -72,6 +68,7 @@ export function HomePage() {
           </TabsList>
         </Tabs>
         <TopicPage topicKey={activeKey} />
+
       </div>
     </main>
   );
