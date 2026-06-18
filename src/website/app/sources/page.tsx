@@ -30,9 +30,6 @@ export function SourcesPage() {
 
   return (
     <main className="max-w-2xl mx-auto px-6 py-12">
-      <h1 className="text-h1 mb-4">{t("sourcesPage_title")}</h1>
-      <p className="text-body text-muted mb-12">{t("sourcesPage_intro")}</p>
-
       <section className="mb-12">
         <h2 className="text-h2 mb-6">{t("sourcesPage_tools_heading")}</h2>
         <ul className="flex flex-col gap-4 list-disc list-outside pl-5">
@@ -61,7 +58,8 @@ export function SourcesPage() {
       </section>
 
       <section>
-        <h2 className="text-h2 mb-6">{t("sourcesPage_literature_heading")}</h2>
+        <h2 className="text-h2 mb-6">{t("sourcesPage_title")}</h2>
+         <p className="text-body text-muted mb-6">{t("sourcesPage_intro")}</p>
         <ul className="flex flex-col gap-6 list-disc list-outside pl-5">
           {SOURCES.map((s, i) => (
             <li key={i} className="text-body text-muted">
