@@ -77,7 +77,7 @@ describe("checkArt13_14, search area priority", () => {
     document.body.innerHTML = `<main><p><a href="/privacy">Privacy</a></p></main>`;
     const result = checkArt13_14();
     expect(result.found).toBe(true);
-    expect(result.searchedLocations).toContain("gesamtes Dokument");
+    expect(result.searchedLocations).toContain("whole document");
   });
 
   it("includes searched areas in result even when not found", () => {
@@ -86,6 +86,6 @@ describe("checkArt13_14, search area priority", () => {
     expect(result.found).toBe(false);
     // footer and gesamtes Dokument were checked (nav is empty here)
     expect(result.searchedLocations).toContain("Footer");
-    expect(result.searchedLocations).toContain("gesamtes Dokument");
+    expect(result.searchedLocations).toContain("whole document");
   });
 });

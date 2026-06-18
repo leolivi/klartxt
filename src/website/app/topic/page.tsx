@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import type { CheckedItemKey } from "@/utils/types/footer-types";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/sidepanel/components/ui/accordion";
+import { Separator } from "@/sidepanel/components/ui/separator";
 
 const SECTIONS = ["s1", "s2", "s3"] as const;
 
@@ -27,9 +28,11 @@ export function TopicPage({ topicKey }: { topicKey: CheckedItemKey }) {
         ))}
 
         {categories && (
+          <>
           <Accordion type="single" collapsible>
+          <Separator/>
             <AccordionItem value="categories">
-              <AccordionTrigger className="hover:no-underline pt-0">
+              <AccordionTrigger className="hover:no-underline">
                 <h3 className="text-h3 text-text">{t(`website_${topicKey}_categories_heading`)}</h3>
               </AccordionTrigger>
               <AccordionContent >
@@ -42,8 +45,10 @@ export function TopicPage({ topicKey }: { topicKey: CheckedItemKey }) {
                   ))}
                 </div>
               </AccordionContent>
+          <Separator/>
             </AccordionItem>
           </Accordion>
+          </>
         )}
       </div>
     </div>
