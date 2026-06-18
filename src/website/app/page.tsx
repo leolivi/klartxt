@@ -37,38 +37,44 @@ export function HomePage() {
   }, []);
 
   return (
-    <main className="flex">
-      <div className="py-12 hidden md:block">
-        <img src={hero} alt={t("websiteHeroImageAlt")} />
+    <main >
+      <div className="flex">
+        <div className="py-12 hidden md:block">
+          <img src={hero} alt={t("websiteHeroImageAlt")} />
+        </div>
+
+        <div className="max-w-2xl mx-auto px-6 py-12">
+          <div className="mb-10">
+            <h1 className="text-h1 mb-2">{t("websiteHeroTitle")}</h1>
+            <p className="text-body text-muted">{t("websiteHeroSubtitle")}</p>
+          </div>
+          <Tabs
+            value={activeKey}
+            onValueChange={(key) => navigate(ROUTES[key as CheckedItemKey])}
+            className="mb-4"
+            orientation={isDesktop ? "horizontal" : "vertical"}
+          >
+            <TabsList>
+              {CHECKED_ITEMS.map(({ key }) => (
+                <TabsTrigger key={key} value={key}>
+                  {t(`website_${key}_title`)}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+          <TopicPage topicKey={activeKey} />
+
+        </div>
+
       </div>
 
-      <div className="max-w-2xl mx-auto px-6 py-12">
-        <div className="mb-10">
-          <h1 className="text-h1 mb-2">{t("websiteHeroTitle")}</h1>
-          <p className="text-body text-muted">{t("websiteHeroSubtitle")}</p>
-          <video
+      <div className="max-w-2xl mx-auto px-6">
+        <video
             src={VIDEO_SRC}
             controls
             className="w-full rounded-lg mt-5"
           />
           <p className="text-xs text-muted mt-2">{t("websiteVideoCaption")}</p>
-        </div>
-        <Tabs
-          value={activeKey}
-          onValueChange={(key) => navigate(ROUTES[key as CheckedItemKey])}
-          className="mb-4"
-          orientation={isDesktop ? "horizontal" : "vertical"}
-        >
-          <TabsList>
-            {CHECKED_ITEMS.map(({ key }) => (
-              <TabsTrigger key={key} value={key}>
-                {t(`website_${key}_title`)}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
-        <TopicPage topicKey={activeKey} />
-
       </div>
     </main>
   );

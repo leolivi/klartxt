@@ -11,7 +11,7 @@ export function RecommendationSection() {
   return (
     <>
       <div className="px-4">
-        <Accordion type="single" collapsible defaultValue="recommendations">
+        <Accordion type="single" collapsible>
           <AccordionItem value="recommendations">
             <AccordionTrigger className="hover:no-underline">
               <h3 className="text-h3 text-text">{t("recommendationSectionTitle")}</h3>

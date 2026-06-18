@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import type { CheckedItemKey } from "@/utils/types/footer-types";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/sidepanel/components/ui/accordion";
 
 const SECTIONS = ["s1", "s2", "s3"] as const;
 
@@ -26,19 +27,23 @@ export function TopicPage({ topicKey }: { topicKey: CheckedItemKey }) {
         ))}
 
         {categories && (
-          <div>
-            <h3 className="text-h3 mb-1">{t(`website_${topicKey}_categories_heading`)}</h3>
-            <div className="flex flex-col gap-3">
-              {categories.map((cat) => (
-                <ul key={cat}>
-                  <li className="list-outside text-body font-medium">
-                    <span>{t(`website_${topicKey}_cat_${cat}_name`)}: </span>
-                    <span className="text-body text-muted">{t(`website_${topicKey}_cat_${cat}_desc`)}</span>
-                  </li>
-                </ul>
-              ))}
-            </div>
-          </div>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="categories">
+              <AccordionTrigger className="hover:no-underline pt-0">
+                <h3 className="text-h3 text-text">{t(`website_${topicKey}_categories_heading`)}</h3>
+              </AccordionTrigger>
+              <AccordionContent >
+                <div className="flex flex-col gap-3">
+                  {categories.map((cat) => (
+                    <div key={cat}>
+                      <span className="text-body font-medium">{t(`website_${topicKey}_cat_${cat}_name`)}: </span>
+                      <span className="text-body text-muted">{t(`website_${topicKey}_cat_${cat}_desc`)}</span>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         )}
       </div>
     </div>
