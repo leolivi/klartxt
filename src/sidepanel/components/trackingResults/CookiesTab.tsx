@@ -1,14 +1,15 @@
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
+import { CookieCategoryForUser } from "@/utils/types/cookie-types";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
 
-const CATEGORY_ORDER: Record<string, number> = {
-  tracking:  0,
-  functional: 1,
-  necessary:  2,
-  unknown:    3,
+const CATEGORY_ORDER: Record<CookieCategoryForUser, number> = {
+  [CookieCategoryForUser.TRACKING]:   0,
+  [CookieCategoryForUser.FUNCTIONAL]: 1,
+  [CookieCategoryForUser.NECESSARY]:  2,
+  [CookieCategoryForUser.UNKNOWN]:    3,
 };
 
 function cookieKey(cookie: ClassifiedCookie) {

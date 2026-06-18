@@ -8,8 +8,8 @@ import { handleRefresh } from '@/utils/refresh';
 import { useState } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
-const logoLight = "/img/logo/Klartxt_logo_lm.svg";
-const logoDark = "/img/logo/Klartxt_logo_dm.svg";
+const logoLight = "/assets/logo/Klartxt_logo_lm.svg";
+const logoDark = "/assets/logo/Klartxt_logo_dm.svg";
 
 export function Header() {
   const { domain, isPartialData, isLoaded } = useTabDataContext();
