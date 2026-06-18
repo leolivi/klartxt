@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Klartxt",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Analyzes website trackers, cookies and privacy indicators in real time, and provides actionable privacy recommendations.",
   "action": {
     "default_icon": "assets/logo/Klartxt_lm_64.png"
@@ -13,24 +13,44 @@
     "32": "assets/logo/Klartxt_lm_32.png",
     "64": "assets/logo/Klartxt_lm_64.png"
   },
-  "permissions": ["webRequest", "cookies", "tabs", "storage", "sidePanel"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": [
+    "webRequest",
+    "cookies",
+    "tabs",
+    "storage",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "background": {
     "service_worker": "src/background/service-worker.ts",
     "type": "module"
   },
   "content_scripts": [
     {
-      "matches": ["https://*/*", "http://*/*"],
-      "js": ["src/content/content-script.ts"],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
+      "js": [
+        "src/content/content-script.ts"
+      ],
       "run_at": "document_idle",
       "all_frames": false
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["assets/*.png", "fonts/*.ttf", "src/data/trackers/tracker-core.json", "src/data/trackers/tracker-extended.json"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "assets/*.png",
+        "fonts/*.ttf",
+        "src/data/trackers/tracker-core.json",
+        "src/data/trackers/tracker-extended.json"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }
