@@ -55,6 +55,15 @@ export default {
           },
         },
       },
+      keyframes: {
+        "appear-zoom": {
+          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+      },
+      animation: {
+        "appear-zoom": "appear-zoom 0.5s ease-out forwards",
+      },
     },
   },
   plugins: [tailwindcssAnimate],

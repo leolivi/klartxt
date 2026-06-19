@@ -4,14 +4,14 @@
   "version": "1.0.2",
   "description": "Analyzes website trackers, cookies and privacy indicators in real time, and provides actionable privacy recommendations.",
   "action": {
-    "default_icon": "assets/logo/Klartxt_lm_64.png"
+    "default_icon": "assets/logo/Klartxt_brandmark_lm_64.png"
   },
   "side_panel": {
     "default_path": "index.html"
   },
   "icons": {
-    "32": "assets/logo/Klartxt_lm_32.png",
-    "64": "assets/logo/Klartxt_lm_64.png"
+    "32": "assets/logo/Klartxt_brandmark_lm_32.png",
+    "64": "assets/logo/Klartxt_brandmark_lm_64.png"
   },
   "permissions": [
     "webRequest",

@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/trackers" element={<HomePage />} />
           <Route path="/cookies" element={<HomePage />} />
           <Route path="/privacy-policy" element={<HomePage />} />
-          <Route path="/third-party" element={<HomePage />} />
+          <Route path="/video" element={<HomePage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/imprint" element={<ImprintPage />} />
           <Route path="/sources" element={<SourcesPage />} />

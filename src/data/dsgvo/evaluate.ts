@@ -9,7 +9,9 @@ import { CheckSeverity } from "@/utils/types/dsgvo-types";
 import { TrackerCategory, TrackerConfidence, type TrackerInfo } from "@/utils/types/tracking-enums";
 import { ART7_TEMPLATES, ART13_14_TEMPLATES, ART25_TEMPLATES } from "./dsgvo-check-templates";
 
-// TODO: find source or explain why 30 in a different way
+// Threshold derived from the defined CATEGORY_SCORE table (network-risk-score.ts):
+// EMBEDDED = 30 is the highest score considered borderline (third-party content, not necessarily tracking).
+// Scores > 30 cover Social (40), Analytics (50), Tag Manager (60), Advertising (70), Session Replay (80), Malware (100).
 const HIGH_RISK_SCORE_BENCHMARK = 30;
 
 function isConsentTool(tracker: TrackerInfo): boolean {
