@@ -118,6 +118,7 @@
 
   "insightProfiling_none": "Keine technischen Hinweise auf Profilbildung erkannt.",
   "insightProfiling_sessionReplay": "Session-Replay-Tracker erkannt. Diese Technologie zeichnet Mausbewegungen und Klicks auf, technischer Hinweis auf mögliche Profilbildung.",
+  "insightProfiling_fingerprinting": "Fingerprinting-Signale erkannt. Dein Browser könnte ohne Cookies geräteübergreifend identifiziert werden.",
   "insightProfiling_crossContext": "Kombination aus Werbe-, Analyse- und/oder Social-Media-Trackern erkannt, technischer Hinweis auf mögliche webseitenübergreifende Profilbildung.",
 
   "insightDsgvo_fine": "Keine Datenschutz-Auffälligkeiten gefunden.",

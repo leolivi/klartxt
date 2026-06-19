@@ -118,6 +118,7 @@
 
   "insightProfiling_none": "Nessun indicatore tecnico di profilazione rilevato.",
   "insightProfiling_sessionReplay": "Rilevato tracker di session replay. Questa tecnologia registra movimenti del mouse e clic, un indicatore tecnico di possibile profilazione dell'utente.",
+  "insightProfiling_fingerprinting": "Segnali di fingerprinting rilevati. Il tuo browser potrebbe essere identificato tra i siti senza cookie.",
   "insightProfiling_crossContext": "Rilevata combinazione di tracker pubblicitari, analitici e/o social media, un indicatore tecnico di possibile profilazione cross-contesto.",
 
   "insightDsgvo_fine": "Nessun problema di privacy trovato.",

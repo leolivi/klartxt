@@ -89,6 +89,65 @@ describe("checkArt25, inline script fingerprinting", () => {
   });
 });
 
+describe("checkArt25, audio fingerprinting", () => {
+  it("detects AudioContext in inline script", () => {
+    const script = document.createElement("script");
+    script.type = "text/plain";
+    script.textContent = "const ctx = new AudioContext();";
+    document.head.appendChild(script);
+    expect(checkArt25().fingerprintingDetected).toBe(true);
+  });
+
+  it("detects OfflineAudioContext in inline script", () => {
+    const script = document.createElement("script");
+    script.type = "text/plain";
+    script.textContent = "const ctx = new OfflineAudioContext(1, 44100, 44100);";
+    document.head.appendChild(script);
+    expect(checkArt25().fingerprintingDetected).toBe(true);
+  });
+});
+
+describe("checkArt25, WebGL fingerprinting", () => {
+  it("detects WEBGL_debug_renderer_info in inline script", () => {
+    const script = document.createElement("script");
+    script.type = "text/plain";
+    script.textContent = "gl.getExtension('WEBGL_debug_renderer_info');";
+    document.head.appendChild(script);
+    expect(checkArt25().fingerprintingDetected).toBe(true);
+  });
+
+  it("detects getContext webgl in inline script", () => {
+    const script = document.createElement("script");
+    script.type = "text/plain";
+    script.textContent = "canvas.getContext('webgl');";
+    document.head.appendChild(script);
+    expect(checkArt25().fingerprintingDetected).toBe(true);
+  });
+});
+
+describe("checkArt25, navigator hardware fingerprinting", () => {
+  it("detects navigator.hardwareConcurrency in inline script", () => {
+    const script = document.createElement("script");
+    script.textContent = "const cores = navigator.hardwareConcurrency;";
+    document.head.appendChild(script);
+    expect(checkArt25().fingerprintingDetected).toBe(true);
+  });
+
+  it("detects navigator.deviceMemory in inline script", () => {
+    const script = document.createElement("script");
+    script.textContent = "const mem = navigator.deviceMemory;";
+    document.head.appendChild(script);
+    expect(checkArt25().fingerprintingDetected).toBe(true);
+  });
+
+  it("does not flag harmless navigator access", () => {
+    const script = document.createElement("script");
+    script.textContent = "const lang = navigator.language;";
+    document.head.appendChild(script);
+    expect(checkArt25().fingerprintingDetected).toBe(false);
+  });
+});
+
 describe("checkArt25, external fingerprinting script domain", () => {
   it("detects a script loaded from a known fingerprinting domain", () => {
     // "googletagmanager.com" is in fingerprint-domains.json (f >= 2)

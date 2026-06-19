@@ -21,10 +21,19 @@ export class TrackerCache {
   private requestsSeen  = new Map<number, number>();
   private scanStartedAt = new Map<number, number>();
   private scanDuration = new Map<number, number>();
+  private clientHintsDetected = new Map<number, boolean>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateCallback: ((tabId: number) => void) | null = null;
   private readonly STALE_THRESHOLD_MS = 30 * 60 * 1000;
+
+  setClientHintsDetected(tabId: number): void {
+    this.clientHintsDetected.set(tabId, true);
+  }
+
+  getClientHintsDetected(tabId: number): boolean {
+    return this.clientHintsDetected.get(tabId) ?? false;
+  }
 
   incrementRequestsSeen(tabId: number): void {
     this.requestsSeen.set(tabId, (this.requestsSeen.get(tabId) ?? 0) + 1);
@@ -304,6 +313,7 @@ export class TrackerCache {
     this.scanCompleted.delete(tabId);
     this.scanStartedAt.delete(tabId);
     this.scanDuration.delete(tabId);
+    this.clientHintsDetected.delete(tabId);
   }
 
   clear(tabId: number): void {

@@ -41,6 +41,27 @@ function hasTimezoneFingerprintingSignal(): boolean {
   );
 }
 
+// detects AudioContext fingerprinting in inline scripts, used to extract unique audio processing characteristics.
+function hasAudioFingerprintingSignal(): boolean {
+  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
+    /new\s+(Offline)?AudioContext/.test(s.textContent ?? "")
+  );
+}
+
+// detects WebGL renderer info extraction in inline scripts, exposes GPU model and driver.
+function hasWebGLFingerprintingSignal(): boolean {
+  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
+    /WEBGL_debug_renderer_info|getContext\(["']webgl/.test(s.textContent ?? "")
+  );
+}
+
+// detects navigator hardware property access in inline scripts (CPU cores, memory, plugins).
+function hasNavigatorFingerprintingSignal(): boolean {
+  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
+    /navigator\.(hardwareConcurrency|deviceMemory|plugins|mimeTypes)/.test(s.textContent ?? "")
+  );
+}
+
 export function checkArt25(): { isHttps: boolean; fingerprintingDetected: boolean } {
   return {
     isHttps: window.location.protocol === "https:",
@@ -48,6 +69,9 @@ export function checkArt25(): { isHttps: boolean; fingerprintingDetected: boolea
       hasTinyCanvasElement() ||
       hasFingerprintScript() ||
       hasScreenFingerprintingSignal() ||
-      hasTimezoneFingerprintingSignal(),
+      hasTimezoneFingerprintingSignal() ||
+      hasAudioFingerprintingSignal() ||
+      hasWebGLFingerprintingSignal() ||
+      hasNavigatorFingerprintingSignal(),
   };
 }

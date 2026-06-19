@@ -221,6 +221,18 @@ describe("inferInsights, profiling", () => {
     expect(profiling.textKey).toBe("insightProfiling_crossContext");
   });
 
+  it("returns suspicious insight when fingerprintingDetected is true", () => {
+    const [, , , profiling] = inferInsights([], [], makeDsgvoResult({ art25Fingerprinting: true, art25Passed: false, art25Severity: CheckSeverity.SUSPICIOUS }));
+    expect(profiling.severity).toBe("suspicious");
+    expect(profiling.textKey).toBe("insightProfiling_fingerprinting");
+  });
+
+  it("session replay takes priority over fingerprinting", () => {
+    const trackers = [makeTracker({ detailedCategories: [TrackerCategory.SESSION] })];
+    const [, , , profiling] = inferInsights(trackers, [], makeDsgvoResult({ art25Fingerprinting: true, art25Passed: false, art25Severity: CheckSeverity.SUSPICIOUS }));
+    expect(profiling.textKey).toBe("insightProfiling_sessionReplay");
+  });
+
   it("returns fine insight when no profiling signals are present", () => {
     const [, , , profiling] = inferInsights([], [], null);
     expect(profiling.severity).toBe("fine");
