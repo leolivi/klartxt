@@ -27,38 +27,14 @@ function hasFingerprintScript(): boolean {
   });
 }
 
-// detects screen property access in inline scripts (only covers inline scripts)
-function hasScreenFingerprintingSignal(): boolean {
-  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
-    /screen\.(width|height|colorDepth|pixelDepth|availWidth|availHeight)/.test(s.textContent ?? "")
-  );
-}
+// Combined regex for all inline script fingerprinting signals
+// Covers: screen dimensions, timezone, AudioContext, WebGL renderer info, navigator hardware properties.
+const INLINE_FINGERPRINTING_PATTERN =
+  /screen\.(width|height|colorDepth|pixelDepth|availWidth|availHeight)|Intl\.DateTimeFormat|getTimezoneOffset|new\s+(Offline)?AudioContext|WEBGL_debug_renderer_info|getContext\(["']webgl|navigator\.(hardwareConcurrency|deviceMemory|plugins|mimeTypes)/;
 
-// detects timezone API access in inline scripts (Intl.DateTimeFormat, getTimezoneOffset).
-function hasTimezoneFingerprintingSignal(): boolean {
+function hasInlineScriptFingerprintingSignal(): boolean {
   return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
-    /Intl\.DateTimeFormat|getTimezoneOffset/.test(s.textContent ?? "")
-  );
-}
-
-// detects AudioContext fingerprinting in inline scripts, used to extract unique audio processing characteristics.
-function hasAudioFingerprintingSignal(): boolean {
-  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
-    /new\s+(Offline)?AudioContext/.test(s.textContent ?? "")
-  );
-}
-
-// detects WebGL renderer info extraction in inline scripts, exposes GPU model and driver.
-function hasWebGLFingerprintingSignal(): boolean {
-  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
-    /WEBGL_debug_renderer_info|getContext\(["']webgl/.test(s.textContent ?? "")
-  );
-}
-
-// detects navigator hardware property access in inline scripts (CPU cores, memory, plugins).
-function hasNavigatorFingerprintingSignal(): boolean {
-  return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
-    /navigator\.(hardwareConcurrency|deviceMemory|plugins|mimeTypes)/.test(s.textContent ?? "")
+    INLINE_FINGERPRINTING_PATTERN.test(s.textContent ?? "")
   );
 }
 
@@ -68,10 +44,6 @@ export function checkArt25(): { isHttps: boolean; fingerprintingDetected: boolea
     fingerprintingDetected:
       hasTinyCanvasElement() ||
       hasFingerprintScript() ||
-      hasScreenFingerprintingSignal() ||
-      hasTimezoneFingerprintingSignal() ||
-      hasAudioFingerprintingSignal() ||
-      hasWebGLFingerprintingSignal() ||
-      hasNavigatorFingerprintingSignal(),
+      hasInlineScriptFingerprintingSignal(),
   };
 }
