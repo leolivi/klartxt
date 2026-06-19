@@ -8,7 +8,7 @@ const AI_TOOLS = [
     href: "https://notebooklm.google.com/",
     uses: [
       `Erklärvideo Klartxt_Privacy_Explained generiert am 14. Juni 2026.`,
-      `Verwendeter Prompt: "Create a short, engaging video explanation (2–3 minutes) aimed at everyday internet users with no technical background. Topic: What are web trackers and cookies, and what do the different categories mean? Cover these tracker categories in plain language: Advertising, Tracking & Analytics, Content, Security, Functional. Cover these cookie categories: Tracking, Functional, Necessary. Tone: conversational, neutral, not alarmist. Avoid legal jargon. Use concrete everyday analogies where helpful. Do not mention specific companies or products. Keep it factual — explain what these things are, not whether they are good or bad. End with one sentence summarising why it matters to know the difference."`,
+      `Verwendeter Prompt: "Create a short, engaging video explanation (2–3 minutes) aimed at everyday internet users with no technical background. Topic: What are web trackers and cookies, and what do the different categories mean? Cover these tracker categories in plain language: Advertising, Tracking & Analytics, Content, Security, Functional. Cover these cookie categories: Tracking, Functional, Necessary. Tone: conversational, neutral, not alarmist. Avoid legal jargon. Use concrete everyday analogies where helpful. Do not mention specific companies or products. Keep it factual, explain what these things are, not whether they are good or bad. End with one sentence summarising why it matters to know the difference."`,
     ],
   },
   {
