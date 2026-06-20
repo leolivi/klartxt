@@ -14,6 +14,14 @@ export default defineConfig(({ mode }) => ({
   define: {
     __PLAYWRIGHT_TEST__: mode === "e2e",
   },
+  server: {
+    port: 5174,
+    strictPort: true,
+    hmr: {
+      host: "localhost",
+      port: 5174,
+    },
+  },
   build: {
     outDir: "build",
   },
