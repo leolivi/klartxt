@@ -84,8 +84,11 @@ function mapToUserCategory(categories: TrackerCategory[]): TrackerCategoryForUse
         return TrackerCategoryForUser.ADS;
     }
 
-    if (categories.includes(TrackerCategory.SESSION) ||
-        categories.includes(TrackerCategory.ANALYTICS) ||
+    if (categories.includes(TrackerCategory.SESSION)) {
+        return TrackerCategoryForUser.SESSION;
+    }
+
+    if (categories.includes(TrackerCategory.ANALYTICS) ||
         categories.includes(TrackerCategory.TAG_MANAGER)) {
         return TrackerCategoryForUser.TRACKING;
     }

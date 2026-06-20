@@ -240,7 +240,6 @@ export class TrackerCache {
       `cookieDetails_${tabId}`,
       `dsgvoResult_${tabId}`,
       `contentResult_${tabId}`,
-      `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,
       `scanCompleted_${tabId}`,
@@ -266,11 +265,6 @@ export class TrackerCache {
     const contentResult = result[`contentResult_${tabId}`];
     if (contentResult != null && typeof contentResult === "object" && !Array.isArray(contentResult)) {
       this.contentResults.set(tabId, contentResult as ContentScriptDsgvoResult);
-    }
-
-    const consentTiming = result[`consentTiming_${tabId}`];
-    if (consentTiming != null && typeof consentTiming === "object" && !Array.isArray(consentTiming)) {
-      this.consentTiming.set(tabId, consentTiming as ConsentTimingResult);
     }
 
     const ts = result[`timestamp_${tabId}`];

@@ -45,6 +45,30 @@ describe("checkArt7", () => {
     expect(checkArt7().bannerVisible).toBe(false);
   });
 
+  it("returns bannerVisible: true for fallback selector: id containing cookie_notification (large enough)", () => {
+    const el = document.createElement("div");
+    el.id = "cookie_notification";
+    el.getBoundingClientRect = () => ({ width: 800, height: 150, top: 0, left: 0, bottom: 150, right: 800 } as DOMRect);
+    document.body.appendChild(el);
+    expect(checkArt7().bannerVisible).toBe(true);
+  });
+
+  it("returns bannerVisible: false for fallback selector: element too small (footer link)", () => {
+    const el = document.createElement("a");
+    el.setAttribute("aria-label", "cookie settings");
+    el.getBoundingClientRect = () => ({ width: 120, height: 20, top: 900, left: 0, bottom: 920, right: 120 } as DOMRect);
+    document.body.appendChild(el);
+    expect(checkArt7().bannerVisible).toBe(false);
+  });
+
+  it("returns bannerVisible: true for fallback selector: aria-label containing cookie (large enough)", () => {
+    const el = document.createElement("div");
+    el.setAttribute("aria-label", "cookie banner");
+    el.getBoundingClientRect = () => ({ width: 800, height: 150, top: 0, left: 0, bottom: 150, right: 800 } as DOMRect);
+    document.body.appendChild(el);
+    expect(checkArt7().bannerVisible).toBe(true);
+  });
+
   it("returns bannerVisible: true when at least one of multiple CMP elements is visible", () => {
     const hidden = document.createElement("div");
     hidden.id = BANNER_ID;

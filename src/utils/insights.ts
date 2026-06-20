@@ -84,9 +84,9 @@ function dsgvoInsight(dsgvoResult: DsgvoResult | null): Insight {
 // - Session replay is treated as the most severe profiling signal because it records individual interactions
 // - Cross-context profiling (ads/analytics + social) is flagged as suspicious because the combination enables cross-site identity linking
 function profilingInsight(trackerList: TrackerInfo[], fingerprintingDetected: boolean): Insight {
-  const hasSessionReplay = trackerList.some(t =>
-    t.detailedCategories.includes(TrackerCategory.SESSION)
-  );
+  const sessionReplayCount = trackerList.filter(t =>
+    t.userCategory === TrackerCategoryForUser.SESSION
+  ).length;
   const hasAdsOrAnalytics = trackerList.some(t =>
     t.detailedCategories.includes(TrackerCategory.AD) ||
     t.detailedCategories.includes(TrackerCategory.ANALYTICS)
@@ -95,8 +95,8 @@ function profilingInsight(trackerList: TrackerInfo[], fingerprintingDetected: bo
     t.detailedCategories.includes(TrackerCategory.SOCIAL)
   );
 
-  if (hasSessionReplay) {
-    return { type: "profiling", severity: "confirmed", textKey: "insightProfiling_sessionReplay" };
+  if (sessionReplayCount > 0) {
+    return { type: "profiling", severity: "confirmed", textKey: "insightProfiling_sessionReplay", vars: { count: sessionReplayCount } };
   }
   if (fingerprintingDetected) {
     return { type: "profiling", severity: "suspicious", textKey: "insightProfiling_fingerprinting" };

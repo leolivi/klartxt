@@ -149,6 +149,12 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
 
   if (changeInfo.status !== "complete") return;
 
+  // On navigation, remove per-page state before restoring so that stale dsgvoResult/consentTiming
+  // from the previous load can never leak into the new scan
+  await chrome.storage.session.remove([
+    `dsgvoResult_${tabId}`,
+    `consentTiming_${tabId}`,
+  ]);
   await cache.restoreFromStorage(tabId);
   cache.startScan(tabId);
 

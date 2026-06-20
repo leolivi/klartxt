@@ -26,8 +26,8 @@ export function InsightSection() {
             <AccordionTrigger className="hover:no-underline">
               <div className="flex items-center gap-3">
                 <h3 className="text-h3 text-text">{t("insightSectionTitle")}</h3>
-                <Button variant={BADGE_VARIANT[severity]} size="xs" interactive={false}>
-                  {badgeText}
+                <Button variant={BADGE_VARIANT[severity]} size="xs" interactive={false} asChild>
+                  <span>{badgeText}</span>
                 </Button>
               </div>
             </AccordionTrigger>
