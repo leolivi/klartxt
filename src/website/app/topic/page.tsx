@@ -6,7 +6,7 @@ import { Separator } from "@/sidepanel/components/ui/separator";
 const SECTIONS = ["s1", "s2", "s3"] as const;
 
 const TOPIC_CATEGORIES: Partial<Record<CheckedItemKey, string[]>> = {
-  tracker: ["ads", "tracking", "content", "security", "functional"],
+  tracker: ["tracking", "ads",  "session", "content", "security", "functional"],
   cookies: ["tracking", "functional", "necessary"],
 };
 
@@ -15,7 +15,7 @@ export function TopicPage({ topicKey }: { topicKey: CheckedItemKey }) {
   const categories = TOPIC_CATEGORIES[topicKey];
 
   return (
-    <div>
+    <div className="px-2">
       <h2 className="text-h2 mb-1">{t(`website_${topicKey}_title`)}</h2>
       <p className="text-body text-muted mb-8">{t(`website_${topicKey}_subtitle`)}</p>
 

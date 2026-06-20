@@ -7,9 +7,10 @@ import { TrackerCategoryForUser } from "@/utils/types/tracking-enums";
 const CATEGORY_ORDER: Record<TrackerCategoryForUser, number> = {
   [TrackerCategoryForUser.TRACKING]:   0,
   [TrackerCategoryForUser.ADS]:        1,
-  [TrackerCategoryForUser.CONTENT]:    2,
-  [TrackerCategoryForUser.SECURITY]:   3,
-  [TrackerCategoryForUser.FUNCTIONAL]: 4,
+  [TrackerCategoryForUser.SESSION]:    2,
+  [TrackerCategoryForUser.CONTENT]:    3,
+  [TrackerCategoryForUser.SECURITY]:   4,
+  [TrackerCategoryForUser.FUNCTIONAL]: 5,
 };
 
 export function TrackerTab() {

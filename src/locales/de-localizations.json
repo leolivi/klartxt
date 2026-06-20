@@ -65,6 +65,7 @@
 
   "trackerCategory_tracking": "Tracking",
   "trackerCategory_ads": "Werbung",
+  "trackerCategory_session_replay": "Session",
   "trackerCategory_functional": "Funktional",
   "trackerCategory_content": "Inhalte",
   "trackerCategory_security": "Sicherheit",
@@ -117,7 +118,8 @@
   "insightCookie_necessary": "Nur als notwendig klassifizierte Cookies erkannt.",
 
   "insightProfiling_none": "Keine technischen Hinweise auf Profilbildung erkannt.",
-  "insightProfiling_sessionReplay": "Session-Replay-Tracker erkannt. Diese Technologie zeichnet Mausbewegungen und Klicks auf, technischer Hinweis auf mögliche Profilbildung.",
+  "insightProfiling_sessionReplay": "{{count}} Session-Replay-Tracker erkannt. Diese Technologie zeichnet Mausbewegungen und Klicks auf, technischer Hinweis auf mögliche Profilbildung.",
+  "insightProfiling_fingerprinting": "Fingerprinting-Signale erkannt. Dein Browser könnte ohne Cookies geräteübergreifend identifiziert werden.",
   "insightProfiling_crossContext": "Kombination aus Werbe-, Analyse- und/oder Social-Media-Trackern erkannt, technischer Hinweis auf mögliche webseitenübergreifende Profilbildung.",
 
   "insightDsgvo_fine": "Keine Datenschutz-Auffälligkeiten gefunden.",
@@ -158,6 +160,8 @@
   "website_tracker_cat_ads_desc": "Diese Tracker sammeln Infos über dich, um dir später genau die passenden Werbebanner anzuzeigen.",
   "website_tracker_cat_tracking_name": "Tracking & Analyse",
   "website_tracker_cat_tracking_desc": "Sie messen, wie du die Seite nutzt, teilweise bis hin zur vollständigen Aufzeichnung deiner Session.",
+  "website_tracker_cat_session_name": "Session Replay",
+  "website_tracker_cat_session_desc": "Diese Tools zeichnen jeden Mausklick, jede Bewegung und jeden Tastendruck auf, um deine Sitzung exakt wiederzugeben.",
   "website_tracker_cat_content_name": "Inhalte",
   "website_tracker_cat_content_desc": "Das sind eingebaute Extras wie YouTube-Videos oder Social-Media-Buttons, die oft eigene Tracker mitbringen.",
   "website_tracker_cat_security_name": "Sicherheit",
@@ -231,6 +235,10 @@
   "sourcesPage_title": "Quellen",
   "sourcesPage_intro": "Alle Quellen, die für die Entwicklung der Erweiterung und der Website verwendet wurden, sind nachfolgend aufgeführt.",
   "sourcesPage_tools_heading": "Hilfsmittel",
+
+  "websiteCTATitle": "Klartxt Extension für Chrome",
+  "websiteCTASubtitle": "Schütze deine Privatsphäre im Alltag. Klartxt analysiert Tracker, Cookies und Datenschutzhinweise in Echtzeit, direkt in deinem Browser.",
+  "websiteCTAButton": "Im Chrome Web Store herunterladen",
 
   "notFoundPage_title": "Seite nicht gefunden",
   "notFoundPage_body": "Die gesuchte Seite existiert nicht.",

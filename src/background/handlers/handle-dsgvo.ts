@@ -8,14 +8,15 @@ interface HandleDsgvoParams {
     cookieCount: number;
     consentTiming: ConsentTimingResult | null;
     tabUrl: string;
+    clientHintsDetected?: boolean;
     onDsgvoChecked: (result: DsgvoResult) => void;
 }
 
-export function handleDsgvo({ contentResult, trackers, cookieCount, consentTiming, tabUrl, onDsgvoChecked }: HandleDsgvoParams): void {
+export function handleDsgvo({ contentResult, trackers, cookieCount, consentTiming, tabUrl, clientHintsDetected, onDsgvoChecked }: HandleDsgvoParams): void {
     const result: DsgvoResult = {
         art7: evaluateArt7(contentResult.art7, trackers, cookieCount, consentTiming),
         art13_14: evaluateArt13_14(contentResult.art13_14.found, contentResult.art13_14.searchedLocations),
-        art25: evaluateArt25(tabUrl.startsWith("https://"), trackers, contentResult.art25.fingerprintingDetected),
+        art25: evaluateArt25(tabUrl.startsWith("https://"), trackers, contentResult.art25.fingerprintingDetected || (clientHintsDetected ?? false)),
         checkedAt: Date.now(),
     };
 

@@ -45,6 +45,9 @@ export function FooterDialog() {
         <DialogDescription className="text-small text-muted">
           {t("footerDialogDisclaimer")}
         </DialogDescription>
+        <div className="flex justify-center">
+          <a href="https://klartxt.app" target="_blank" rel="noreferrer" className="underline text-primary text-small">klartxt.app</a>
+        </div>
       </DialogContent>
     </Dialog>
   );

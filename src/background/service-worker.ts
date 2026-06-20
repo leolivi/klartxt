@@ -2,6 +2,7 @@
 
 import { initTrackerData } from "@/data/trackers/tracking-domains";
 import { handleNetworkRequests } from "./handlers/handle-network-requests";
+import { handleHeaders } from "./handlers/handle-headers";
 import { handleCookies } from "./handlers/handle-cookies";
 import { TrackerCache } from "./cache/tracker-cache";
 import { handleDsgvo } from "./handlers/handle-dsgvo";
@@ -108,6 +109,7 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
         cookieCount: cache.getCookieDetails(tabId).length,
         consentTiming: cache.getConsentTiming(tabId),
         tabUrl: tab.url,
+        clientHintsDetected: cache.getClientHintsDetected(tabId),
         onDsgvoChecked: (result) => {
           cache.setDsgvoResult(tabId, result);
           cache.scheduleUIUpdate(tabId);
@@ -147,6 +149,12 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
 
   if (changeInfo.status !== "complete") return;
 
+  // On navigation, remove per-page state before restoring so that stale dsgvoResult/consentTiming
+  // from the previous load can never leak into the new scan
+  await chrome.storage.session.remove([
+    `dsgvoResult_${tabId}`,
+    `consentTiming_${tabId}`,
+  ]);
   await cache.restoreFromStorage(tabId);
   cache.startScan(tabId);
 
@@ -162,6 +170,45 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
     });
   }
 });
+
+/* ---- RESPONSE HEADER HANDLER ---- */
+chrome.webRequest.onHeadersReceived.addListener(
+  (details) => {
+    const tabId = details.tabId;
+    if (tabId < 0) return undefined;
+    handleHeaders({
+      details,
+      onClientHintsDetected: () => {
+        if (cache.getClientHintsDetected(tabId)) return; // already flagged, skip re-run
+        cache.setClientHintsDetected(tabId);
+        console.debug(`[ClientHints] High-entropy Accept-CH detected on ${details.url}`);
+
+        // re-evaluate DSGVO now that clientHints is known (only if content script already ran)
+        const contentResult = cache.getContentResult(tabId);
+        if (contentResult == null) return;
+
+        chrome.tabs.get(tabId).then((tab) => {
+          if (!tab.url) return;
+          handleDsgvo({
+            contentResult,
+            trackers: cache.getTrackerDetails(tabId),
+            cookieCount: cache.getCookieDetails(tabId).length,
+            consentTiming: cache.getConsentTiming(tabId),
+            tabUrl: tab.url,
+            clientHintsDetected: true,
+            onDsgvoChecked: (result) => {
+              cache.setDsgvoResult(tabId, result);
+              cache.scheduleUIUpdate(tabId);
+            },
+          });
+        }).catch(() => {});
+      },
+    });
+    return undefined;
+  },
+  { urls: ["https://*/*", "http://*/*"] },
+  ["responseHeaders"]
+);
 
 /* ---- NETWORK REQUEST HANDLER ---- */
 chrome.webRequest.onBeforeRequest.addListener(
@@ -305,6 +352,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         cookieCount: cache.getCookieDetails(tabId).length,
         consentTiming: cache.getConsentTiming(tabId),
         tabUrl: tab.url ?? "",
+        clientHintsDetected: cache.getClientHintsDetected(tabId),
         onDsgvoChecked: (result) => {
           cache.setDsgvoResult(tabId, result);
           cache.scheduleUIUpdate(tabId);

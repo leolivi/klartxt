@@ -4,8 +4,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/sidepanel/components/ui/tabs";
 import type { CheckedItemKey } from "@/utils/types/footer-types";
 import { TopicPage } from "./topic/page";
 import { useEffect, useState } from "react";
-import hero from '../../../public/assets/img/hero.svg'
-import { HeroBanner } from "../utils/glow"
+import { HeroBanner } from "../components/heroBanner/HeroBanner"
+import { CTASection } from "../components/ctaSection/CTASection";
 
 const VIDEO_SRC = "/assets/video/Klartxt_Privacy_Explained.mp4";
 
@@ -49,11 +49,8 @@ export function HomePage() {
   return (
     <main>
       <HeroBanner />
-      <div className="flex">
-        <div className="py-12 hidden lg:block">
-          <img src={hero} alt={t("websiteHeroImageAlt")} />
-        </div>
-
+      <div className="flex items-center flex-row-reverse max-[1470px]:flex-col">
+        
         <div className="max-w-3xl mx-auto px-6 py-12">
           <div className="mb-10">
             <h1 className="text-h1 mb-2">{t("websiteHeroTitle")}</h1>
@@ -75,7 +72,7 @@ export function HomePage() {
           </Tabs>
 
           {activeKey === "video" ? (
-            <div>
+            <div className="px-2">
               <video src={VIDEO_SRC} controls className="w-full rounded-lg" />
               <p className="text-xs text-muted mt-2">{t("websiteVideoCaption")}</p>
             </div>
@@ -83,7 +80,11 @@ export function HomePage() {
             <TopicPage topicKey={activeKey as CheckedItemKey} />
           )}
         </div>
+
+        <CTASection />
+        
       </div>
+
     </main>
   );
 }

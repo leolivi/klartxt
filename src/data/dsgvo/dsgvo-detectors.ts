@@ -18,4 +18,17 @@ const cmpData = cmpDataRaw as CmpData;
 
 export const CMP_SELECTORS: string[] = Object.keys(cmpData.selectors);
 
+// fallbacks for banners not covered by Consent-O-Matic rules
+export const BANNER_FALLBACK_SELECTORS: string[] = [
+  '[aria-label*="cookie" i]',
+  '[aria-label*="consent" i]',
+  '[aria-label*="datenschutz" i]',
+  '[id*="cookie_notification"]',
+  '[id*="cookie-notice"]',
+  '[id*="cookie-banner"]',
+  '[id*="cookiebanner"]',
+  '[id*="cookieconsent"]',
+  '[id*="cookie_consent"]',
+];
+
 export const PRIVACY_PATTERNS = /privacy|datenschutz|legal|impressum|cookie.policy/i;

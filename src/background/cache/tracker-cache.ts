@@ -21,10 +21,19 @@ export class TrackerCache {
   private requestsSeen  = new Map<number, number>();
   private scanStartedAt = new Map<number, number>();
   private scanDuration = new Map<number, number>();
+  private clientHintsDetected = new Map<number, boolean>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateCallback: ((tabId: number) => void) | null = null;
   private readonly STALE_THRESHOLD_MS = 30 * 60 * 1000;
+
+  setClientHintsDetected(tabId: number): void {
+    this.clientHintsDetected.set(tabId, true);
+  }
+
+  getClientHintsDetected(tabId: number): boolean {
+    return this.clientHintsDetected.get(tabId) ?? false;
+  }
 
   incrementRequestsSeen(tabId: number): void {
     this.requestsSeen.set(tabId, (this.requestsSeen.get(tabId) ?? 0) + 1);
@@ -231,7 +240,6 @@ export class TrackerCache {
       `cookieDetails_${tabId}`,
       `dsgvoResult_${tabId}`,
       `contentResult_${tabId}`,
-      `consentTiming_${tabId}`,
       `timestamp_${tabId}`,
       `overallRiskScore_${tabId}`,
       `scanCompleted_${tabId}`,
@@ -257,11 +265,6 @@ export class TrackerCache {
     const contentResult = result[`contentResult_${tabId}`];
     if (contentResult != null && typeof contentResult === "object" && !Array.isArray(contentResult)) {
       this.contentResults.set(tabId, contentResult as ContentScriptDsgvoResult);
-    }
-
-    const consentTiming = result[`consentTiming_${tabId}`];
-    if (consentTiming != null && typeof consentTiming === "object" && !Array.isArray(consentTiming)) {
-      this.consentTiming.set(tabId, consentTiming as ConsentTimingResult);
     }
 
     const ts = result[`timestamp_${tabId}`];
@@ -304,6 +307,7 @@ export class TrackerCache {
     this.scanCompleted.delete(tabId);
     this.scanStartedAt.delete(tabId);
     this.scanDuration.delete(tabId);
+    this.clientHintsDetected.delete(tabId);
   }
 
   clear(tabId: number): void {

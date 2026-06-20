@@ -65,6 +65,7 @@
 
   "trackerCategory_tracking": "Tracciamento",
   "trackerCategory_ads": "Pubblicità",
+  "trackerCategory_session_replay": "Sessione",
   "trackerCategory_functional": "Funzionale",
   "trackerCategory_content": "Contenuto",
   "trackerCategory_security": "Sicurezza",
@@ -117,7 +118,8 @@
   "insightCookie_necessary": "Sono stati rilevati solo cookie classificati come necessari.",
 
   "insightProfiling_none": "Nessun indicatore tecnico di profilazione rilevato.",
-  "insightProfiling_sessionReplay": "Rilevato tracker di session replay. Questa tecnologia registra movimenti del mouse e clic, un indicatore tecnico di possibile profilazione dell'utente.",
+  "insightProfiling_sessionReplay": "Rilevati {{count}} tracker di session replay. Questa tecnologia registra movimenti del mouse e clic, un indicatore tecnico di possibile profilazione dell'utente.",
+  "insightProfiling_fingerprinting": "Segnali di fingerprinting rilevati. Il tuo browser potrebbe essere identificato tra i siti senza cookie.",
   "insightProfiling_crossContext": "Rilevata combinazione di tracker pubblicitari, analitici e/o social media, un indicatore tecnico di possibile profilazione cross-contesto.",
 
   "insightDsgvo_fine": "Nessun problema di privacy trovato.",
@@ -158,6 +160,8 @@
   "website_tracker_cat_ads_desc": "Questi tracker raccolgono informazioni su di te per mostrarti in seguito esattamente gli annunci giusti.",
   "website_tracker_cat_tracking_name": "Tracciamento & Analisi",
   "website_tracker_cat_tracking_desc": "Misurano come utilizzi la pagina, talvolta fino alla registrazione completa della tua sessione.",
+  "website_tracker_cat_session_name": "Session Replay",
+  "website_tracker_cat_session_desc": "Questi strumenti registrano ogni clic del mouse, ogni movimento e ogni tasto premuto per riprodurre esattamente la tua sessione.",
   "website_tracker_cat_content_name": "Contenuti",
   "website_tracker_cat_content_desc": "Sono extra integrati come video YouTube o pulsanti social, che spesso portano con sé i propri tracker.",
   "website_tracker_cat_security_name": "Sicurezza",
@@ -231,6 +235,10 @@
   "sourcesPage_title": "Fonti",
   "sourcesPage_intro": "Tutte le fonti utilizzate per lo sviluppo dell'estensione e del sito web sono elencate di seguito.",
   "sourcesPage_tools_heading": "Strumenti",
+
+  "websiteCTATitle": "Estensione Klartxt per Chrome",
+  "websiteCTASubtitle": "Proteggi la tua privacy ogni giorno. Klartxt analizza tracker, cookie e informative sulla privacy in tempo reale, direttamente nel tuo browser.",
+  "websiteCTAButton": "Scarica dal Chrome Web Store",
 
   "notFoundPage_title": "Pagina non trovata",
   "notFoundPage_body": "La pagina che stai cercando non esiste.",

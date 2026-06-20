@@ -29,6 +29,7 @@ export interface DetectedTracker {
 export enum TrackerCategoryForUser {
   TRACKING = "tracking",
   ADS = "ads",
+  SESSION = "session_replay",
   FUNCTIONAL = "functional",
   CONTENT = "content",
   SECURITY = "security"
