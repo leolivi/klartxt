@@ -37,7 +37,7 @@ This is the source code for the Klartxt Chrome extension. The extension analyzes
 
 ### Prerequisites
 
-Make sure you have [Node.js](https://nodejs.org/) (version 18+ or 20+) installed on your machine.
+Make sure you have [Node.js](https://nodejs.org/) (version 22 or higher) installed on your machine.
 
 ### Setup
 
@@ -61,7 +61,7 @@ To start the dev server with hot module replacement:
 npm run dev
 ```
 
-This serves the UI at `http://localhost:5173` with live reload. 
+This serves the UI at `http://localhost:5174` with live reload. 
 
 To also test the extension in Chrome with Hot Module Replacement:
 
@@ -69,7 +69,7 @@ To also test the extension in Chrome with Hot Module Replacement:
 2. Open `chrome://extensions/`, enable "Developer mode", and load the `build` directory as an unpacked extension
 3. After loading, changes to the source code will hot reload in the extension sidepanel automatically
 
-> `localhost:5173` is useful for fast UI iteration. Chrome-specific APIs (tracker data, cookies) are only available when running inside the extension.
+> `localhost:5174` is useful for fast UI iteration. Chrome-specific APIs (tracker data, cookies) are only available when running inside the extension.
 
 ## Build
 
@@ -85,7 +85,7 @@ This will generate the build files in the `build` directory.
 
 The repository also includes an informational website (`klartxt.app`) with explanations of what the extension checks, as well as the privacy policy and imprint. It shares the same components, locales, and design tokens as the extension.
 
-To start the website dev server:
+To start the website dev server on `localhost:5173`:
 
 ```sh
 npm run dev:website
@@ -106,8 +106,7 @@ This will generate the output in the `website-build` directory.
 Unit tests cover scoring logic, insights, recommendations, DSGVO evaluation, heuristics, cache management, network request detection, and DOM-based content checks.
 
 ```sh
-npm test          # run once
-npm run test:watch  # watch mode
+npm test
 ```
 
 ### E2E Tests (Playwright)
