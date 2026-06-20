@@ -61,15 +61,13 @@ To start the dev server with hot module replacement:
 npm run dev
 ```
 
-This serves the UI at `http://localhost:5174` with live reload. 
-
-To also test the extension in Chrome with Hot Module Replacement:
+To test the extension in Chrome with Hot Module Replacement:
 
 1. Run `npm run dev`
 2. Open `chrome://extensions/`, enable "Developer mode", and load the `build` directory as an unpacked extension
 3. After loading, changes to the source code will hot reload in the extension sidepanel automatically
 
-> `localhost:5174` is useful for fast UI iteration. Chrome-specific APIs (tracker data, cookies) are only available when running inside the extension.
+> **Do not open `http://localhost:5174/` directly in the browser.** This is the CRXJS extension dev server, not a website. Opening it in a browser tab will produce errors because Chrome extension APIs are unavailable there.
 
 ## Build
 
