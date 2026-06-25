@@ -32,7 +32,7 @@ export function TopicPage({ topicKey }: { topicKey: CheckedItemKey }) {
           <Accordion type="single" collapsible>
           <Separator/>
             <AccordionItem value="categories">
-              <AccordionTrigger className="hover:no-underline">
+              <AccordionTrigger className="hover:no-underline cursor-pointer">
                 <h3 className="text-h3 text-text">{t(`website_${topicKey}_categories_heading`)}</h3>
               </AccordionTrigger>
               <AccordionContent >

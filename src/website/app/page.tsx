@@ -49,7 +49,7 @@ export function HomePage() {
   return (
     <main>
       <HeroBanner />
-      <div className="flex items-center flex-row-reverse max-[1470px]:flex-col">
+      <div className="flex items-center flex-col">
         
         <div className="max-w-3xl mx-auto px-6 py-12">
           <div className="mb-10">
