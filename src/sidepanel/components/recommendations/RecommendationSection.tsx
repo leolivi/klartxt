@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { Separator } from "../ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { useTabDataContext } from "../../context/useTabDataContext";
 import { RecommendationItem } from "./RecommendationItem";
@@ -11,10 +10,10 @@ export function RecommendationSection() {
   return (
     <>
       <div className="px-4">
-        <Accordion type="single" collapsible>
+          <Accordion type="single" collapsible className="bg-surface-secondary rounded-[15px] border-b-0 px-3">
           <AccordionItem value="recommendations">
             <AccordionTrigger className="hover:no-underline">
-              <h3 className="text-h3 text-text">{t("recommendationSectionTitle")}</h3>
+              <h3 className="text-h3 text-ink-strongest">{t("recommendationSectionTitle")}</h3>
             </AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col gap-4">
@@ -24,7 +23,6 @@ export function RecommendationSection() {
           </AccordionItem>
         </Accordion>
       </div>
-      <Separator />
     </>
   );
 }

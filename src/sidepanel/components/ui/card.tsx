@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { cn } from "@/utils/cn.js"
 
 type CardProps = React.ComponentProps<"div"> & {
@@ -24,7 +24,7 @@ function Card({ className, count, icon, label, href, children, onClick, onKeyDow
   return (
     <div
       data-slot="card"
-      className={cn("bg-primary-100 dark:bg-primary-950 rounded-[15px]", className)}
+      className={cn("bg-surface-secondary hover:bg-surface-tertiary rounded-[15px]", className)}
       role={isInteractive ? "button" : undefined}
       tabIndex={isInteractive ? 0 : undefined}
       onClick={onClick}
@@ -33,16 +33,16 @@ function Card({ className, count, icon, label, href, children, onClick, onKeyDow
     >
       {hasBlueprint ? (
         <div className="flex flex-col items-start p-3 gap-1">
-          <div className="text-h2">{icon ?? count}</div>
           {label && href ? (
-            <a href={href} className="cursor-pointer flex items-center gap-1 text-body underline text-primary dark:text-primary-100">
-              {label} <ArrowUpRight size={12} />
+            <a href={href} className="cursor-pointer flex items-center w-full justify-between pb-2 text-body text-ink-default">
+              {label} <ArrowRight size={16} />
             </a>
           ) : label ? (
-            <p className="flex items-center gap-1 text-body underline text-primary dark:text-primary-100">
-              {label} <ArrowUpRight size={12} />
+            <p className="flex items-center w-full justify-between pb-2 text-body text-ink-default">
+              {label} <ArrowRight size={16} />
             </p>
           ) : null}
+          <div className="text-h2 text-ink-strong">{icon ?? count}</div>
         </div>
       ) : children}
     </div>

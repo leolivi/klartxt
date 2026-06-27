@@ -17,7 +17,7 @@ export function CTASection() {
         <div className="flex-1 flex flex-col gap-6">
           <div className="flex flex-col gap-3">
             <h2 className="text-h2">{t("websiteCTATitle")}</h2>
-            <p className="text-body text-muted">{t("websiteCTASubtitle")}</p>
+            <p className="text-body text-ink-default">{t("websiteCTASubtitle")}</p>
           </div>
           <Button asChild size="default" className="self-start py-3 max-[380px]:whitespace-normal max-[380px]:h-auto w-auto max-[380px]:px-6">
             <a href={CWS_URL} target="_blank" rel="noopener noreferrer">

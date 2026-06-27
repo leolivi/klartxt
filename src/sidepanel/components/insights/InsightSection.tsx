@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { useTabDataContext } from "../../context/useTabDataContext";
@@ -19,13 +18,13 @@ export function InsightSection() {
     : t("insightSectionBadge_other", { count: issueCount });
 
   return (
-    <>
-      <div className="px-4">
-        <Accordion type="single" collapsible defaultValue="insights">
+
+      <div className="p-4">
+        <Accordion type="single" collapsible className="bg-surface-secondary rounded-[15px] border-b-0 px-3">
           <AccordionItem value="insights">
             <AccordionTrigger className="hover:no-underline">
               <div className="flex items-center gap-3">
-                <h3 className="text-h3 text-text">{t("insightSectionTitle")}</h3>
+                <h3 className="text-h3 text-ink-strongest">{t("insightSectionTitle")}</h3>
                 <Button variant={BADGE_VARIANT[severity]} size="xs" interactive={false} asChild>
                   <span>{badgeText}</span>
                 </Button>
@@ -39,7 +38,6 @@ export function InsightSection() {
           </AccordionItem>
         </Accordion>
       </div>
-      <Separator />
-    </>
+
   );
 }

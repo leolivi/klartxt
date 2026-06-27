@@ -21,8 +21,8 @@
   "footerDialog_thirdParty_description": "Combien de services externes ont été contactés lors du chargement de la page.",
   "footerDialogDisclaimer": "Klartxt analyse techniquement et n'évalue pas la conformité légale.",
 
-  "headerCurrentlyOn": "actuellement sur",
-  "headerScanStatusDone": "Scan terminé",
+  "headerLastScanned": "Dernier scan :",
+  "headerScanStatusDone": "Réanalyser",
   "headerScanStatusInProgress": "Scan en cours",
   "headerScanStatusPartial": "Scan obsolète",
   "headerScanButton": "recharger",

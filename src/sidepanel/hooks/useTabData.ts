@@ -17,6 +17,7 @@ export function useTabData() {
   const [data, setData] = useState<TabData>(DEFAULT_TAB_DATA);
   const [domain, setDomain] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [lastScanned, setLastScanned] = useState<Date | null>(null);
 
   const isChromeExtension = typeof chrome !== "undefined" && !!chrome.tabs;
 
@@ -40,6 +41,7 @@ export function useTabData() {
           if (response) {
             setData(response);
             setIsLoaded(true);
+            setLastScanned(new Date());
           }
         }
       );
@@ -56,12 +58,10 @@ export function useTabData() {
     const handleMessage = (message: TabDataMessage) => {
       if (message.type === "TAB_DATA_UPDATED") {
         if (forcedId) {
-          // when pinned via ?tabId, only accept updates for that exact tab
-          // the sidepanel's own scan would otherwise overwrite the pinned data.
-          if (message.tabId === forcedId) setData(message);
+          if (message.tabId === forcedId) { setData(message); setLastScanned(new Date()); }
         } else {
           chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-            if (tab?.id === message.tabId) setData(message);
+            if (tab?.id === message.tabId) { setData(message); setLastScanned(new Date()); }
           });
         }
       }
@@ -83,5 +83,5 @@ export function useTabData() {
     };
   }, [isChromeExtension]);
 
-  return { data, domain, isLoaded };
+  return { data, domain, isLoaded, lastScanned };
 }

@@ -11,7 +11,7 @@ export function WarningBanner() {
   if (!isLoaded || riskScore < 4 || dismissed) return null;
 
   return (
-    <div className="flex items-start gap-3 px-4 py-3 bg-risk-high-fill text-risk-high-text">
+    <div className="flex items-start gap-3 px-4 py-3 bg-surface-red text-ink-red">
       <AlertTriangle className="size-4 shrink-0 mt-0.5" />
       <div className="flex-1 min-w-0">
         <p className="text-h3">{t("warningBannerTitle")}</p>

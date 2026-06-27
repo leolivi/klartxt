@@ -9,7 +9,7 @@ export function InsightItem({ insight }: { insight: Insight }) {
   return (
     <div className="flex items-start gap-2">
       <Icon size={16} className={`mt-0.5 shrink-0 ${className}`} />
-      <p className="text-body text-start">{t(insight.textKey, insight.vars)}</p>
+      <p className="text-body text-ink-default text-start">{t(insight.textKey, insight.vars)}</p>
     </div>
   );
 }

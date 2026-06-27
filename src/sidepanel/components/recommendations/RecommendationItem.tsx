@@ -8,8 +8,8 @@ export function RecommendationItem({ recommendation }: { recommendation: Recomme
 
   return (
     <div className="flex items-start gap-2">
-      <Icon size={16} className="mt-0.5 shrink-0 text-primary" />
-      <p className="text-body text-start">{t(recommendation.textKey)}</p>
+      <Icon size={16} className="mt-0.5 shrink-0 text-ink-strong" />
+      <p className="text-ink-default text-body text-start">{t(recommendation.textKey)}</p>
     </div>
   );
 }
