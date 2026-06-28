@@ -107,12 +107,6 @@ function profilingInsight(trackerList: TrackerInfo[], fingerprintingDetected: bo
   return { type: "profiling", severity: "fine", textKey: "insightProfiling_none" };
 }
 
-export function maxSeverity(insights: Insight[]): InsightSeverity {
-  if (insights.some(i => i.severity === "confirmed")) return "confirmed";
-  if (insights.some(i => i.severity === "suspicious")) return "suspicious";
-  return "fine";
-}
-
 export function inferInsights(
   trackerList: TrackerInfo[],
   cookiesList: ClassifiedCookie[],

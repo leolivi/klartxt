@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { inferInsights, maxSeverity, type Insight } from "./insights";
+import { inferInsights } from "./insights";
 import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type TrackerInfo } from "./types/tracking-enums";
 import { CookieCategory, CookieCategoryForUser, type ClassifiedCookie } from "./types/cookie-types";
 import { Articles, CheckSeverity, type DsgvoResult } from "./types/dsgvo-types";
@@ -257,33 +257,3 @@ describe("inferInsights, returns 4 insights in correct order", () => {
   });
 });
 
-describe("maxSeverity", () => {
-  it("returns fine when all insights are fine", () => {
-    const insights: Insight[] = [
-      { type: "tracker", severity: "fine", textKey: "a" },
-      { type: "cookie", severity: "fine", textKey: "b" },
-    ];
-    expect(maxSeverity(insights)).toBe("fine");
-  });
-
-  it("returns suspicious when at least one is suspicious", () => {
-    const insights: Insight[] = [
-      { type: "tracker", severity: "fine", textKey: "a" },
-      { type: "cookie", severity: "suspicious", textKey: "b" },
-    ];
-    expect(maxSeverity(insights)).toBe("suspicious");
-  });
-
-  it("returns confirmed when at least one is confirmed", () => {
-    const insights: Insight[] = [
-      { type: "tracker", severity: "fine", textKey: "a" },
-      { type: "cookie", severity: "suspicious", textKey: "b" },
-      { type: "dsgvo", severity: "confirmed", textKey: "c" },
-    ];
-    expect(maxSeverity(insights)).toBe("confirmed");
-  });
-
-  it("returns fine for empty array", () => {
-    expect(maxSeverity([])).toBe("fine");
-  });
-});

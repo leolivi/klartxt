@@ -5,9 +5,22 @@ import { Accordion as AccordionPrimitive } from "radix-ui"
 import { cn } from "@/utils/cn.js"
 
 function Accordion({
+  className,
+  cardAccordion = false,
   ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Root>) {
-  return <AccordionPrimitive.Root data-slot="accordion" {...props} />
+}: React.ComponentProps<typeof AccordionPrimitive.Root> & {
+  cardAccordion?: boolean
+}) {
+  return (
+    <AccordionPrimitive.Root
+      data-slot="accordion"
+      className={cn(
+        cardAccordion && "bg-surface-secondary rounded-[15px] border-b-0 px-3",
+        className
+      )}
+      {...props}
+    />
+  )
 }
 
 function AccordionItem({
@@ -33,7 +46,7 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "flex flex-1 items-start text-body hover:no-underline cursor-pointer text-ink-strongest justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:text-ink-strong focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
+          "flex flex-1 items-start text-body hover:no-underline cursor-pointer text-ink-strongest justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
           className
         )}
         {...props}

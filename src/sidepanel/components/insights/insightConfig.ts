@@ -6,9 +6,3 @@ export const SEVERITY_ICON = {
   suspicious: { Icon: CircleAlert, className: "bg-surface-orange text-ink-orange rounded-full" },
   confirmed:  { Icon: CircleX,    className: "bg-surface-red text-ink-red rounded-full" },
 } satisfies Record<InsightSeverity, { Icon: React.FC<{ size?: number; className?: string }>; className: string }>;
-
-export const BADGE_VARIANT: Record<InsightSeverity, "secondaryGreen" | "secondaryOrange" | "secondaryRed"> = {
-  fine:       "secondaryGreen",
-  suspicious: "secondaryOrange",
-  confirmed:  "secondaryRed",
-};

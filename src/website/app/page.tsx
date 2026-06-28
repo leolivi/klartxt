@@ -53,7 +53,7 @@ export function HomePage() {
         
         <div className="max-w-3xl mx-auto px-6 py-12">
           <div className="mb-10">
-            <h1 className="text-h1 mb-2">{t("websiteHeroTitle")}</h1>
+            <h1 className="text-h1 text-ink-strongest mb-2">{t("websiteHeroTitle")}</h1>
             <p className="text-body text-ink-default">{t("websiteHeroSubtitle")}</p>
           </div>
           <Tabs

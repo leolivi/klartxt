@@ -5,28 +5,30 @@ import { Slot } from "radix-ui"
 import { cn } from "@/utils/cn.js"
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-body whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-body whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default: "bg-surface-secondary text-ink-strong hover:bg-surface-tertiary",
+        secondary: "bg-surface-tertiary text-ink-strong hover:text-surface-secondary hover:bg-surface-logo",
         secondaryGreen:
-          "bg-surface-green text-ink-green hover:bg-surface-green/80",
+          "bg-surface-green text-ink-green hover:bg-surface-green/90",
         secondaryOrange:
-          "bg-surface-orange text-ink-orange hover:bg-surface-orange/80",
+          "bg-surface-orange text-ink-orange hover:bg-surface-orange/90",
         secondaryRed:
-          "bg-surface-red text-ink-red hover:bg-surface-red/80",
+          "bg-surface-red text-ink-red hover:bg-surface-red/90",
         link: "text-ink-default underline hover:bg-transparent hover:text-ink-strong",
       },
       interactive: {
-        true: "cursor-pointer hover:bg-surface-tertiary",
-        false: "cursor-default pointer-events-none ",
+        true: "cursor-pointer",
+        false: "cursor-default pointer-events-none",
       },
       size: {
         default: "px-4 py-0 text-body has-[>svg]:p-1 has-[>svg]:aspect-square",
         xs: "h-6 gap-1 rounded-full px-2 text-small",
         sm: "h-8 gap-1.5 rounded-full px-4 text-body has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 text-h3 has-[>svg]:px-4",
+        md: "h-10 gap-1.5 rounded-full px-4 text-body has-[>svg]:px-2.5",
+        lg: "h-12 rounded-full px-6 text-h3 has-[>svg]:px-4",
         icon: "size-9",
         "icon-xs": "size-6 rounded-md [&_svg:not([class*='size-'])]:size-3",
         "icon-sm": "size-8",
@@ -41,24 +43,31 @@ const buttonVariants = cva(
   }
 )
 
+type ButtonProps = VariantProps<typeof buttonVariants> & {
+  asChild?: boolean
+  interactive?: boolean
+  leadingIcon?: React.ReactNode
+  trailingIcon?: React.ReactNode
+  href?: string
+  target?: string
+  rel?: string
+} & Omit<React.ComponentPropsWithoutRef<"button">, "href">
+
 function Button({
   className,
   variant = "default",
   size = "default",
   interactive = true,
   asChild = false,
+  href,
+  target,
+  rel,
   leadingIcon,
   trailingIcon,
   children,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-    interactive?: boolean
-    leadingIcon?: React.ReactNode
-    trailingIcon?: React.ReactNode
-  }) {
-  const Comp = asChild ? Slot.Root : "button"
+}: ButtonProps) {
+  const Comp = (asChild ? Slot.Root : href ? "a" : "button") as React.ElementType
 
   return (
     <Comp
@@ -66,6 +75,7 @@ function Button({
       data-variant={variant}
       data-size={size}
       className={cn(buttonVariants({ variant, size, interactive, className }))}
+      {...(href ? { href, target, rel } : {})}
       {...props}
     >
       {leadingIcon && <span className="shrink-0 flex items-center">{leadingIcon}</span>}

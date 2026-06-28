@@ -5,7 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
 import { normalizeCookieDomain } from "@/utils/domain";
-import { Links } from "lucide-react";
+import { Link2 } from "lucide-react";
 
 const CATEGORY_ORDER: Record<CookieCategoryForUser, number> = {
   [CookieCategoryForUser.TRACKING]:   0,
