@@ -1,12 +1,16 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "@/sidepanel/components/ui/button";
 import { Card } from "@/sidepanel/components/ui/card";
-import hero from '../../../../public/assets/img/hero.svg';
+import { useIsDark } from "@/sidepanel/hooks/useIsDark";
 
+const heroLight = "/assets/img/hero_lm.svg";
+const heroDark = "/assets/img/hero_dm.svg";
 const CWS_URL = "https://chromewebstore.google.com/detail/klartxt/ppghpejbkefmjhnjgpodohadkfkecgam";
 
 export function CTASection() {
   const { t } = useTranslation();
+  const isDark = useIsDark();
+  const hero = isDark ? heroDark : heroLight;
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-12 mb-10">
