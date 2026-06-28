@@ -14,7 +14,7 @@ export function WarningBanner() {
     <div className="flex items-start gap-3 px-4 py-3 bg-surface-red text-ink-red">
       <AlertTriangle className="size-4 shrink-0 mt-0.5" />
       <div className="flex-1 min-w-0">
-        <p className="text-h3">{t("warningBannerTitle")}</p>
+        <p className="text-h3 text-ink-red">{t("warningBannerTitle")}</p>
       </div>
       <button
         onClick={() => setDismissed(true)}

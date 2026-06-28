@@ -17,7 +17,7 @@ const buttonVariants = cva(
           "bg-surface-orange text-ink-orange hover:bg-surface-orange/90",
         secondaryRed:
           "bg-surface-red text-ink-red hover:bg-surface-red/90",
-        link: "text-ink-default underline hover:bg-transparent hover:text-ink-strong",
+        link: "text-ink-default hover:bg-transparent hover:text-ink-strong",
       },
       interactive: {
         true: "cursor-pointer",
@@ -25,7 +25,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "px-4 py-0 text-body has-[>svg]:p-1 has-[>svg]:aspect-square",
-        xs: "h-6 gap-1 rounded-full px-2 text-small",
+        xs: "h-6 gap-1 rounded-full px-2 text-[12px]",
         sm: "h-8 gap-1.5 rounded-full px-4 text-body has-[>svg]:px-2.5",
         md: "h-10 gap-1.5 rounded-full px-4 text-body has-[>svg]:px-2.5",
         lg: "h-12 rounded-full px-6 text-h3 has-[>svg]:px-4",

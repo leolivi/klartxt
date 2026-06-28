@@ -4,6 +4,8 @@ import { Accordion as AccordionPrimitive } from "radix-ui"
 
 import { cn } from "@/utils/cn.js"
 
+const AccordionContext = React.createContext<{ cardAccordion: boolean }>({ cardAccordion: false })
+
 function Accordion({
   className,
   cardAccordion = false,
@@ -12,14 +14,16 @@ function Accordion({
   cardAccordion?: boolean
 }) {
   return (
-    <AccordionPrimitive.Root
-      data-slot="accordion"
-      className={cn(
-        cardAccordion && "bg-surface-secondary rounded-[15px] border-b-0 px-3",
-        className
-      )}
-      {...props}
-    />
+    <AccordionContext.Provider value={{ cardAccordion }}>
+      <AccordionPrimitive.Root
+        data-slot="accordion"
+        className={cn(
+          cardAccordion && "bg-surface-secondary rounded-[15px] border-b-0 px-3",
+          className
+        )}
+        {...props}
+      />
+    </AccordionContext.Provider>
   )
 }
 
@@ -27,10 +31,15 @@ function AccordionItem({
   className,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
+  const { cardAccordion } = React.useContext(AccordionContext)
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
-      className={cn("border-b last:border-b-0", className)}
+      className={cn(
+        "border-b last:border-b-0",
+        cardAccordion && "-mx-3 px-3 data-[state=closed]:hover:bg-surface-tertiary rounded-[10px] transition-colors",
+        className
+      )}
       {...props}
     />
   )

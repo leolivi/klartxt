@@ -52,7 +52,7 @@ function cookieInsight(cookiesList: ClassifiedCookie[]): Insight {
 // 2. art25 (technical safeguards) follows
 // 3. art13_14 (privacy policy) is last because its absence is less immediately harmful than active consent violations
 
-function dsgvoInsight(dsgvoResult: DsgvoResult | null): Insight {
+function dsgvoInsight(dsgvoResult: DsgvoResult | null, totalTrackerCount: number): Insight {
   if (!dsgvoResult) {
     return { type: "dsgvo", severity: "fine", textKey: "insightDsgvo_noData" };
   }
@@ -66,12 +66,12 @@ function dsgvoInsight(dsgvoResult: DsgvoResult | null): Insight {
 
   if (!dsgvoResult.art25.passed) {
     if (dsgvoResult.art25.highRiskTrackerCount > 0) {
-      return { type: "dsgvo", severity: "confirmed", textKey: "insightDsgvo_art25_highRisk", vars: { count: dsgvoResult.art25.highRiskTrackerCount } };
+      return { type: "dsgvo", severity: "confirmed", textKey: "insightDsgvo_art25_highRisk", vars: { count: dsgvoResult.art25.highRiskTrackerCount, total: totalTrackerCount } };
     }
     if (dsgvoResult.art25.fingerprintingDetected) {
       return { type: "dsgvo", severity: "suspicious", textKey: "insightDsgvo_art25_fingerprinting" };
     }
-    return { type: "dsgvo", severity: "confirmed", textKey: "insightDsgvo_art25_highRisk", vars: { count: dsgvoResult.art25.highRiskTrackerCount } };
+    return { type: "dsgvo", severity: "confirmed", textKey: "insightDsgvo_art25_https" };
   }
 
   if (!dsgvoResult.art13_14.passed) {
@@ -113,7 +113,7 @@ export function inferInsights(
   dsgvoResult: DsgvoResult | null,
 ): Insight[] {
   return [
-    dsgvoInsight(dsgvoResult),
+    dsgvoInsight(dsgvoResult, trackerList.length),
     trackerInsight(trackerList),
     cookieInsight(cookiesList),
     profilingInsight(trackerList, dsgvoResult?.art25?.fingerprintingDetected ?? false),

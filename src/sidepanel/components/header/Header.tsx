@@ -31,7 +31,7 @@ export function Header() {
         <div className="flex flex-col gap-2 items-end justify-start">
           <div className="flex gap-4">
             <Button
-              variant={isRefreshing || !isLoaded ? "secondaryGreen" : isPartialData ? "secondaryRed" : "default"}
+              variant={isRefreshing || !isLoaded ? "secondaryOrange" : isPartialData ? "secondaryRed" : "default"}
               interactive={true}
               onClick={onRefresh}
               size={"sm"}
@@ -40,7 +40,7 @@ export function Header() {
               {isRefreshing || !isLoaded ? t('headerScanStatusInProgress') : isPartialData ? t('headerScanStatusPartial') : (t('headerScanStatusDone'))}
             </Button>
           </div>
-          <p className="text-ink-default px-4">{t('headerLastScanned')} <span className="text-ink-default">{lastScanned ? lastScanned.toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' }) : '–'}</span></p>
+          <p className="text-ink-default px-4">{t('headerLastScanned')} <span className="text-ink-default">{lastScanned ? `${lastScanned.toDateString() === new Date().toDateString() ? t('headerToday') + ' ' : lastScanned.toLocaleDateString(i18n.language) + ', '}${lastScanned.toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' })}` : '–'}</span></p>
         </div>
       </header>
       <Separator/>

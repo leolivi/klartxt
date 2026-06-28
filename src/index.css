@@ -36,8 +36,8 @@
   --l-bg-2: 0.83;
   --l-bg-3: 0.74;
   --l-logo: 0.25;
-  --l-font-1: 0.34;
-  --l-font-2: 0.17;
+  --l-font-1: 0.40;
+  --l-font-2: 0.25;
   --l-font-3: 0.09;
 
 /* Semantic tokens */
@@ -82,7 +82,7 @@ html {
 
 @layer base {
   h1    { @apply text-ink-strongest; }
-  h2    { @apply text-ink-strong; }
+  h2    { @apply text-ink-strongest; }
   h3    { @apply text-ink-strong; }
   p     { @apply text-ink-default; }
   small { @apply text-ink-default; }
@@ -114,7 +114,7 @@ html {
 .hero-gradient {
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, hsl(var(--hs-surface) 78%) 60%, transparent) 0%,
+    color-mix(in srgb, hsl(var(--hs-surface) 70%) 60%, transparent) 0%,
     color-mix(in srgb, hsl(var(--hs-surface) 88%) 35%, transparent) 50%,
     var(--color-bg-primary) 75%
   );
@@ -123,8 +123,8 @@ html {
 html.dark .hero-gradient {
   background: radial-gradient(
     ellipse at center,
-    color-mix(in srgb, hsl(var(--hs-surface) 22%) 60%, transparent) 0%,
-    color-mix(in srgb, hsl(var(--hs-surface) 14%) 35%, transparent) 50%,
+    color-mix(in srgb, hsl(var(--hs-surface) 30%) 60%, transparent) 0%,
+    color-mix(in srgb, hsl(var(--hs-surface) 16%) 35%, transparent) 50%,
     var(--color-bg-primary) 75%
   );
 }
