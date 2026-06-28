@@ -12,11 +12,11 @@ export function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className='flex justify-between gap-8 p-4 fixed left-0 bottom-0 w-full bg-bg'>
+    <footer className='flex justify-between items-center gap-8 p-4 fixed left-0 bottom-0 w-full bg-surface-primary'>
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant='defaultFocus'
+            variant='default'
             size='icon-sm'
             aria-label={t('footerExportCsv')}
             onClick={() => exportTabDataAsCsv(context)}

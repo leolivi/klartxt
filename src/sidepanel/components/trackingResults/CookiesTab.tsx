@@ -1,9 +1,11 @@
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 import { CookieCategoryForUser } from "@/utils/types/cookie-types";
-import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
+import { normalizeCookieDomain } from "@/utils/domain";
+import { Link2 } from "lucide-react";
 
 const CATEGORY_ORDER: Record<CookieCategoryForUser, number> = {
   [CookieCategoryForUser.TRACKING]:   0,
@@ -12,32 +14,69 @@ const CATEGORY_ORDER: Record<CookieCategoryForUser, number> = {
   [CookieCategoryForUser.UNKNOWN]:    3,
 };
 
-function cookieKey(cookie: ClassifiedCookie) {
-  return `${cookie.domain}__${cookie.name}`;
-}
-
 export function CookiesTab() {
   const { cookiesList } = useTabDataContext();
-  const sorted = [...cookiesList].sort(
-    (a, b) => (CATEGORY_ORDER[a.userCategory] ?? 3) - (CATEGORY_ORDER[b.userCategory] ?? 3)
-  );
   const { t } = useTranslation();
 
-  if (cookiesList.length === 0) return <p className="text-small text-muted py-4">{t("trackingResultsDialogError")}</p>;
+  if (cookiesList.length === 0) return <p className="text-small text-ink-default py-4">{t("trackingResultsDialogError")}</p>;
+
+  const byCategory = cookiesList.reduce<Record<string, ClassifiedCookie[]>>((acc, cookie) => {
+    const cat = cookie.userCategory;
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(cookie);
+    return acc;
+  }, {});
+
+  const categories = Object.keys(byCategory).sort(
+    (a, b) => (CATEGORY_ORDER[a as CookieCategoryForUser] ?? 99) - (CATEGORY_ORDER[b as CookieCategoryForUser] ?? 99)
+  );
+
   return (
-    <>
-      {sorted.map((cookie, i) => (
-        <div key={cookieKey(cookie)}>
-          <div className="flex items-center justify-between py-3">
-            <div>
-              <p className="text-body">{cookie.name}:</p>
-              <p className="text-small text-muted">{t(cookie.isThirdParty ? "cookieThirdParty" : "cookieFirstParty")} - {cookie.domain}</p>
-            </div>
-            <Label>{t(`cookiesCategory_${cookie.userCategory}`)}</Label>
+    <Accordion type="multiple">
+      {categories.map((cat, i) => {
+        const cookies = byCategory[cat];
+
+        const byDomain = cookies.reduce<Record<string, ClassifiedCookie[]>>((acc, cookie) => {
+          const key = normalizeCookieDomain(cookie.domain);
+          if (!acc[key]) acc[key] = [];
+          acc[key].push(cookie);
+          return acc;
+        }, {});
+
+        return (
+          <div key={cat}>
+            <AccordionItem value={cat} className="border-b-0">
+              <AccordionTrigger>
+                <span>{t(`cookiesCategory_${cat}`)}</span>
+                <span className="ml-auto mr-2 text-small text-ink-strong">{cookies.length}</span>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-col gap-3 pb-2">
+                  {Object.entries(byDomain).map(([domain, domainCookies]) => (
+                    <div key={domain}>
+                      <div className="flex items-center gap-1">
+                        <Link2 size={12} className="text-ink-strong"/>
+                        <p className="text-small text-ink-strong pb-1">{domain}</p>
+                      </div>
+                      <ul className="flex flex-col gap-1">
+                        {domainCookies.map((cookie) => (
+                          <li key={`${cookie.domain}__${cookie.name}`} className="flex items-center justify-between pl-1">
+                            <span className="text-body text-ink-default">{cookie.name}</span>
+                            <span className="text-small text-ink-default">
+                              {t(cookie.isThirdParty ? "cookieThirdParty" : "cookieFirstParty")}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            {i < categories.length - 1 && <Separator />}
           </div>
-          {i < sorted.length - 1 && <Separator />}
-        </div>
-      ))}
-    </>
+        );
+      })}
+    </Accordion>
   );
 }

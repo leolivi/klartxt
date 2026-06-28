@@ -6,6 +6,7 @@ import type { TabData } from "@/utils/types/tab-types";
 export interface TabDataContextValue extends TabData {
   domain: string;
   isLoaded: boolean;
+  lastScanned: Date | null;
   insights: Insight[];
   recommendations: Recommendation[];
 }

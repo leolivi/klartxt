@@ -18,13 +18,13 @@ function RiskScoreDialogDescription() {
       {LEVELS.map((level, i) => (
         <div key={level}>
           <div className="flex gap-3 items-center py-3">
-            <div className={`rounded-full size-10 shrink-0 flex items-center justify-center font-semibold ${LEVEL_COLORS[level]}`}>
+            <div className={`rounded-full size-8 shrink-0 flex items-center justify-center font-semibold ${LEVEL_COLORS[level]}`}>
               {level}
             </div>
             <div>
-              <p className="text-body-bold">{t(`riskScore${level}Label`)}</p>
-              <p className="text-small text-muted">{t(`riskScore${level}Explanation`)}</p>
-              <p className="text-small">{t(`riskScore${level}Recommendation`)}</p>
+              <p className="text-body-bold text-ink-strong">{t(`riskScore${level}Label`)}</p>
+              <p className="text-small text-ink-default">{t(`riskScore${level}Explanation`)}</p>
+              <p className="text-small text-ink-strongest">{t(`riskScore${level}Recommendation`)}</p>
             </div>
           </div>
           {i < LEVELS.length && <Separator />}
@@ -40,13 +40,13 @@ export function RiskScoreDialog() {
   return (
     <>
         <Dialog>
-        <DialogTrigger aria-label={t("riskScoreDialogOpenLabel")}><Info aria-hidden="true" className="absolute top-[0.2rem] -right-[0.2rem] stroke-primary bg-white rounded-full" size={25} /></DialogTrigger>
+        <DialogTrigger aria-label={t("riskScoreDialogOpenLabel")}><Info aria-hidden="true" className="absolute top-[0.1rem] right-[-0.4rem] stroke-ink-strong bg-surface-primary hover:bg-surface-tertiary rounded-full" size={25} /></DialogTrigger>
         <DialogContent>
             <DialogHeader>
             <DialogTitle>{t("riskScoreDialogTitle")}</DialogTitle>
             </DialogHeader>
             <RiskScoreDialogDescription />
-            <DialogDescription className="text-small text-text-muted">
+            <DialogDescription className="text-small text-ink-default">
                 {t("riskScoreDialogDescription")}
             </DialogDescription>
         </DialogContent>

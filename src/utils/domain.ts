@@ -6,3 +6,8 @@ export function extractDomain(url: string): string {
     return "";
   }
 }
+
+// normalize cookie domain: strip leading dot and www. prefix
+export function normalizeCookieDomain(domain: string): string {
+  return domain.replace(/^\./, "").replace(/^www\./, "");
+}

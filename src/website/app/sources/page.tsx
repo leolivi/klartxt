@@ -34,7 +34,7 @@ export function SourcesPage() {
         <h2 className="text-h2 mb-6">{t("sourcesPage_tools_heading")}</h2>
         <ul className="flex flex-col gap-4 list-disc list-outside pl-5">
           {AI_TOOLS.map((tool, i) => (
-            <li key={i} className="text-body text-muted">
+            <li key={i} className="text-body text-ink-default">
               <span className="font-medium text-foreground">{tool.name}</span>
               {", "}
               {tool.provider}
@@ -59,10 +59,10 @@ export function SourcesPage() {
 
       <section>
         <h2 className="text-h2 mb-6">{t("sourcesPage_title")}</h2>
-         <p className="text-body text-muted mb-6">{t("sourcesPage_intro")}</p>
+         <p className="text-body text-ink-default mb-6">{t("sourcesPage_intro")}</p>
         <ul className="flex flex-col gap-6 list-disc list-outside pl-5">
           {SOURCES.map((s, i) => (
-            <li key={i} className="text-body text-muted">
+            <li key={i} className="text-body text-ink-default">
               {s.citation}
               {s.doi && (
                 <>

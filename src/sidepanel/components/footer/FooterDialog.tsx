@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Link2 } from "lucide-react";
 import { CHECKED_ITEMS } from "@/utils/types/footer-types";
 
 export function FooterDialog() {
@@ -18,7 +18,7 @@ export function FooterDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="link" size="sm">{t("footerWhatWasChecked")}</Button>
+        <Button variant="link" className="text-ink-default" size={"xs"} >{t("footerWhatWasChecked")}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -32,21 +32,22 @@ export function FooterDialog() {
                   href={href}
                   target="_blank"
                   rel="noreferrer"
-                  className="cursor-pointer flex items-center gap-1 text-body underline text-primary dark:text-primary-100"
+                  className="cursor-pointer flex items-center gap-1 text-body underline text-ink-strong"
                 >
-                  {t(`footerDialog_${key}_title`)} <ArrowUpRight size={12} />
+                  {t(`footerDialog_${key}_title`)} <ArrowUpRight size={16} />
                 </a>
-                <p className="text-body">{t(`footerDialog_${key}_description`)}</p>
+                <p className="text-body text-ink-default">{t(`footerDialog_${key}_description`)}</p>
               </div>
-              {i < CHECKED_ITEMS.length - 1 && <Separator />}
+              {i < CHECKED_ITEMS.length && <Separator />}
             </div>
           ))}
         </div>
-        <DialogDescription className="text-small text-muted">
+        <DialogDescription className="text-small text-ink-default">
           {t("footerDialogDisclaimer")}
         </DialogDescription>
-        <div className="flex justify-center">
-          <a href="https://klartxt.app" target="_blank" rel="noreferrer" className="underline text-primary text-small">klartxt.app</a>
+        <div className="flex justify-center gap-1">
+          <Link2 size={"16"} className="text-ink-strongest"/>
+          <a href="https://klartxt.app" target="_blank" rel="noreferrer" className="text-ink-strongest hover:underline text-small">klartxt.app</a>
         </div>
       </DialogContent>
     </Dialog>

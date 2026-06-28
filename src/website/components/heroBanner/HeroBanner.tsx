@@ -11,9 +11,9 @@ export function HeroBanner() {
   const [animateOnLoad, setAnimateOnLoad] = useState(true);
 
   return (
-    <div className="hero-gradient min-h-[200px] sm:min-h-[600px] w-full flex flex-col items-center justify-center p-8">
+    <div className="hero-gradient sm:min-h-150 min-h-50 w-full flex flex-col items-center justify-center p-8">
       <Card
-        className={`logo-spin-3d${animateOnLoad ? " logo-spin-3d--animate" : ""} bg-primary shadow-xl dark:bg-text size-20 sm:size-40 border-none flex justify-center items-center`}
+        className={`logo-spin-3d${animateOnLoad ? " logo-spin-3d--animate" : ""} bg-transparent hover:bg-transparent size-20 sm:size-40 border-none rounded-[7px] overflow-hidden flex justify-center items-center`}
         onAnimationEnd={() => setAnimateOnLoad(false)}
       >
         <img src={brandmark} alt="Klartxt Brandmark" className="w-full h-full" />

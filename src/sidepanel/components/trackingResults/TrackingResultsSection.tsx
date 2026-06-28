@@ -9,18 +9,18 @@ import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
 
 function dsgvoIcons(dsgvoResult: DsgvoResult | null, t: (key: string) => string) {
-  if (!dsgvoResult) return <span className="text-small text-muted">–</span>;
+  if (!dsgvoResult) return <span className="text-small text-ink-default">–</span>;
   return (
     <div className="flex gap-1 pb-1">
       {DSGVO_KEYS.map((key) =>
         dsgvoResult[key].passed ? (
           <span key={key} className="inline-flex">
-            <CircleCheck aria-hidden="true" size={20} className="bg-risk-low-fill text-risk-low-text rounded-full" />
+            <CircleCheck aria-hidden="true" size={20} className="bg-surface-green text-ink-green rounded-full" />
             <span className="sr-only">{t("dsgvoCheckPassed")}</span>
           </span>
         ) : (
           <span key={key} className="inline-flex">
-            <CircleX aria-hidden="true" size={20} className="bg-risk-high-fill text-risk-high-text rounded-full" />
+            <CircleX aria-hidden="true" size={20} className="bg-surface-red text-ink-red rounded-full" />
             <span className="sr-only">{t("dsgvoCheckFailed")}</span>
           </span>
         )

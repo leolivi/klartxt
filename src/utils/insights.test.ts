@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { inferInsights, maxSeverity, type Insight } from "./insights";
+import { inferInsights } from "./insights";
 import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type TrackerInfo } from "./types/tracking-enums";
 import { CookieCategory, CookieCategoryForUser, type ClassifiedCookie } from "./types/cookie-types";
 import { Articles, CheckSeverity, type DsgvoResult } from "./types/dsgvo-types";
@@ -47,6 +47,7 @@ function makeDsgvoResult(overrides: {
   art25Severity?: CheckSeverity;
   art25Fingerprinting?: boolean;
   art25HighRiskCount?: number;
+  art25IsHttps?: boolean;
   art1314Passed?: boolean;
   art1314Severity?: CheckSeverity;
 } = {}): DsgvoResult {
@@ -73,7 +74,7 @@ function makeDsgvoResult(overrides: {
       severity: overrides.art25Severity ?? CheckSeverity.FINE,
       passed: overrides.art25Passed ?? true,
       highRiskTrackerCount: overrides.art25HighRiskCount ?? 0,
-      isHttps: true,
+      isHttps: overrides.art25IsHttps ?? true,
       highRiskTrackers: [],
       fingerprintingDetected: overrides.art25Fingerprinting ?? false,
     },
@@ -180,9 +181,12 @@ describe("inferInsights, dsgvo", () => {
       art25Fingerprinting: false,
       art25HighRiskCount: 3,
     });
-    const [dsgvo] = inferInsights([], [], result);
+    const trackers = [makeTracker(), makeTracker(), makeTracker(), makeTracker(), makeTracker()];
+    const [dsgvo] = inferInsights(trackers, [], result);
     expect(dsgvo.severity).toBe("confirmed");
     expect(dsgvo.textKey).toBe("insightDsgvo_art25_highRisk");
+    expect(dsgvo.vars?.count).toBe(3);
+    expect(dsgvo.vars?.total).toBe(5);
   });
 
   it("returns fine insight when all dsgvo checks pass", () => {
@@ -190,6 +194,13 @@ describe("inferInsights, dsgvo", () => {
     const [dsgvo] = inferInsights([], [], result);
     expect(dsgvo.severity).toBe("fine");
     expect(dsgvo.textKey).toBe("insightDsgvo_fine");
+  });
+
+  it("returns https insight when art25 fails due to missing HTTPS only", () => {
+    const result = makeDsgvoResult({ art25Passed: false, art25Severity: CheckSeverity.CONFIRMED, art25IsHttps: false });
+    const [dsgvo] = inferInsights([], [], result);
+    expect(dsgvo.severity).toBe("confirmed");
+    expect(dsgvo.textKey).toBe("insightDsgvo_art25_https");
   });
 });
 
@@ -257,33 +268,3 @@ describe("inferInsights, returns 4 insights in correct order", () => {
   });
 });
 
-describe("maxSeverity", () => {
-  it("returns fine when all insights are fine", () => {
-    const insights: Insight[] = [
-      { type: "tracker", severity: "fine", textKey: "a" },
-      { type: "cookie", severity: "fine", textKey: "b" },
-    ];
-    expect(maxSeverity(insights)).toBe("fine");
-  });
-
-  it("returns suspicious when at least one is suspicious", () => {
-    const insights: Insight[] = [
-      { type: "tracker", severity: "fine", textKey: "a" },
-      { type: "cookie", severity: "suspicious", textKey: "b" },
-    ];
-    expect(maxSeverity(insights)).toBe("suspicious");
-  });
-
-  it("returns confirmed when at least one is confirmed", () => {
-    const insights: Insight[] = [
-      { type: "tracker", severity: "fine", textKey: "a" },
-      { type: "cookie", severity: "suspicious", textKey: "b" },
-      { type: "dsgvo", severity: "confirmed", textKey: "c" },
-    ];
-    expect(maxSeverity(insights)).toBe("confirmed");
-  });
-
-  it("returns fine for empty array", () => {
-    expect(maxSeverity([])).toBe("fine");
-  });
-});
