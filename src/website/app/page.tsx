@@ -1,60 +1,64 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Tabs, TabsList, TabsTrigger } from "@/sidepanel/components/ui/tabs";
-import type { CheckedItemKey } from "@/utils/types/footer-types";
-import { TopicPage } from "./topic/page";
-import { useEffect, useState } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/sidepanel/components/ui/tabs"
+import type { CheckedItemKey } from "@/utils/types/footer-types"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useLocation, useNavigate } from "react-router-dom"
+import { CTASection } from "../components/ctaSection/CTASection"
 import { HeroBanner } from "../components/heroBanner/HeroBanner"
-import { CTASection } from "../components/ctaSection/CTASection";
+import { TopicPage } from "./topic/page"
 
-const VIDEO_SRC = "/assets/video/Klartxt_Privacy_Explained.mp4";
+const VIDEO_SRC = "/assets/video/Klartxt_Privacy_Explained.mp4"
 
 const WEBSITE_TABS = [
   { key: "tracker" },
   { key: "cookies" },
   { key: "privacyPolicy" },
   { key: "video" },
-] as const;
+] as const
 
-type WebsiteTabKey = typeof WEBSITE_TABS[number]["key"];
+type WebsiteTabKey = (typeof WEBSITE_TABS)[number]["key"]
 
 const ROUTES: Record<WebsiteTabKey, string> = {
-  tracker:       "/trackers",
-  cookies:       "/cookies",
+  tracker: "/trackers",
+  cookies: "/cookies",
   privacyPolicy: "/privacy-policy",
-  video:         "/video",
-};
+  video: "/video",
+}
 
 const PATH_TO_KEY = Object.fromEntries(
-  Object.entries(ROUTES).map(([k, v]) => [v, k as WebsiteTabKey])
-);
+  Object.entries(ROUTES).map(([k, v]) => [v, k as WebsiteTabKey]),
+)
 
 export function HomePage() {
-  const { t } = useTranslation();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const activeKey: WebsiteTabKey = PATH_TO_KEY[location.pathname] ?? WEBSITE_TABS[0].key;
+  const { t } = useTranslation()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const activeKey: WebsiteTabKey =
+    PATH_TO_KEY[location.pathname] ?? WEBSITE_TABS[0].key
 
   const [isDesktop, setIsDesktop] = useState(
-    () => window.matchMedia("(min-width: 640px)").matches
-  );
+    () => window.matchMedia("(min-width: 640px)").matches,
+  )
 
   useEffect(() => {
-    const mql = window.matchMedia("(min-width: 640px)");
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
+    const mql = window.matchMedia("(min-width: 640px)")
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
+    mql.addEventListener("change", handler)
+    return () => mql.removeEventListener("change", handler)
+  }, [])
 
   return (
     <main>
       <HeroBanner />
       <div className="flex items-center flex-col">
-        
         <div className="max-w-3xl mx-auto px-6 py-12">
           <div className="mb-10">
-            <h1 className="text-h1 text-ink-strongest mb-2">{t("websiteHeroTitle")}</h1>
-            <p className="text-body text-ink-default">{t("websiteHeroSubtitle")}</p>
+            <h1 className="text-h1 text-ink-strongest mb-2">
+              {t("websiteHeroTitle")}
+            </h1>
+            <p className="text-body text-ink-default">
+              {t("websiteHeroSubtitle")}
+            </p>
           </div>
           <Tabs
             value={activeKey}
@@ -74,7 +78,9 @@ export function HomePage() {
           {activeKey === "video" ? (
             <div className="px-2">
               <video src={VIDEO_SRC} controls className="w-full rounded-lg" />
-              <p className="text-xs text-ink-default mt-2">{t("websiteVideoCaption")}</p>
+              <p className="text-xs text-ink-default mt-2">
+                {t("websiteVideoCaption")}
+              </p>
             </div>
           ) : (
             <TopicPage topicKey={activeKey as CheckedItemKey} />
@@ -82,9 +88,7 @@ export function HomePage() {
         </div>
 
         <CTASection />
-        
       </div>
-
     </main>
-  );
+  )
 }

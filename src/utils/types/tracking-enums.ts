@@ -6,23 +6,23 @@ This file evaluates the categories from the Duck Duck Go Tracker Radar Json File
 
 // Conficence Level of Tracking detection
 export enum TrackerConfidence {
-  CONFIRMED = "confirmed",   // DDG Radar Match + Heuristics
+  CONFIRMED = "confirmed", // DDG Radar Match + Heuristics
   SUSPICIOUS = "suspicious", // only Heuristics
 }
 
 export interface TrackerInfo {
-    domain: string;
-    owner: string | null;
-    userCategory: TrackerCategoryForUser;
-    detailedCategories: TrackerCategory[];
-    riskScore: number;
-    confidence: TrackerConfidence;
-    fingerprintingScore: number; // DDG Tracker Radar fingerprinting score: 0=none 1=low 2=medium 3=high
+  domain: string
+  owner: string | null
+  userCategory: TrackerCategoryForUser
+  detailedCategories: TrackerCategory[]
+  riskScore: number
+  confidence: TrackerConfidence
+  fingerprintingScore: number // DDG Tracker Radar fingerprinting score: 0=none 1=low 2=medium 3=high
 }
 
 export interface DetectedTracker {
-  tracker: TrackerInfo;
-  confidence: TrackerConfidence;
+  tracker: TrackerInfo
+  confidence: TrackerConfidence
 }
 
 // Tracker Category for Users (simplyfied)
@@ -32,11 +32,11 @@ export enum TrackerCategoryForUser {
   SESSION = "session_replay",
   FUNCTIONAL = "functional",
   CONTENT = "content",
-  SECURITY = "security"
+  SECURITY = "security",
 }
 
 export enum TrackerCategory {
-  AD = "advertising", // Werbung 
+  AD = "advertising", // Werbung
   ANALYTICS = "analytics", // Nutzerverhalten messen (z.B. Google Analytics)
   SOCIAL = "social", // Social Media Integration (Like, Share, etc.)
   SESSION = "session_replay", // zeichnet User-Sessions auf (Mausbewegung, Klicks, teilweise sehr invasiv)
@@ -49,4 +49,3 @@ export enum TrackerCategory {
   MALWARE = "malware", // klar schädlich
   UNKNOWN = "unknown", // nicht zuordenbar
 }
-

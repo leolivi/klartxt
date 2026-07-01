@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
-import SOURCES from '../../utils/reference.json';
+import { useTranslation } from "react-i18next"
+import SOURCES from "../../utils/reference.json"
 
 const AI_TOOLS = [
   {
@@ -21,12 +21,14 @@ const AI_TOOLS = [
     name: "Claude, Version Sonnet 4.6",
     provider: "Anthropic",
     href: "https://claude.ai",
-    uses: ["Hilfe bei der Erstellung von Textstruktur, Code, Code Review und Lokalisierungen der Website und Erweiterung"],
+    uses: [
+      "Hilfe bei der Erstellung von Textstruktur, Code, Code Review und Lokalisierungen der Website und Erweiterung",
+    ],
   },
-];
+]
 
 export function SourcesPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <main className="max-w-2xl mx-auto px-6 py-12">
@@ -49,7 +51,9 @@ export function SourcesPage() {
               </a>
               <div className="mt-1 flex flex-col gap-1">
                 {tool.uses.map((use, j) => (
-                  <span key={j} className="block">{use}</span>
+                  <span key={j} className="block">
+                    {use}
+                  </span>
                 ))}
               </div>
             </li>
@@ -59,7 +63,9 @@ export function SourcesPage() {
 
       <section>
         <h2 className="text-h2 mb-6">{t("sourcesPage_title")}</h2>
-         <p className="text-body text-ink-default mb-6">{t("sourcesPage_intro")}</p>
+        <p className="text-body text-ink-default mb-6">
+          {t("sourcesPage_intro")}
+        </p>
         <ul className="flex flex-col gap-6 list-disc list-outside pl-5">
           {SOURCES.map((s, i) => (
             <li key={i} className="text-body text-ink-default">
@@ -82,5 +88,5 @@ export function SourcesPage() {
         </ul>
       </section>
     </main>
-  );
+  )
 }

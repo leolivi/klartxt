@@ -2,21 +2,21 @@
 DSGVO Detectors
 
 Source:
-- CMP_SELECTORS: Generiert aus Consent-O-Matic CMP-Regeln (Nouwens und Nylandsted Klokmose, 2025)
-- PRIVACY_PATTERNS: privacy, datenschutz, cookie.policy: typical link texts / href-patterns that can indicate GDPR Compliance ->  Art. 13 Abs. 1 DSGVO (Europäische Union, 2016)
+- CMP_SELECTORS: generated from Consent-O-Matic CMP-Regeln (Nouwens und Nylandsted Klokmose, 2025)
+- PRIVACY_PATTERNS: privacy, policy, cookie.policy: typical link texts / href-patterns that can indicate GDPR Compliance -> Art. 13 Abs. 1 DSGVO (Europäische Union, 2016)
 ----- */
 
-import cmpDataRaw from "./cmp-selectors.json";
+import cmpDataRaw from "./cmp-selectors.json"
 
 interface CmpData {
-  version: string;
-  cmps: Record<string, boolean>;
-  selectors: Record<string, boolean>;
+  version: string
+  cmps: Record<string, boolean>
+  selectors: Record<string, boolean>
 }
 
-const cmpData = cmpDataRaw as CmpData;
+const cmpData = cmpDataRaw as CmpData
 
-export const CMP_SELECTORS: string[] = Object.keys(cmpData.selectors);
+export const CMP_SELECTORS: string[] = Object.keys(cmpData.selectors)
 
 // fallbacks for banners not covered by Consent-O-Matic rules
 export const BANNER_FALLBACK_SELECTORS: string[] = [
@@ -29,6 +29,7 @@ export const BANNER_FALLBACK_SELECTORS: string[] = [
   '[id*="cookiebanner"]',
   '[id*="cookieconsent"]',
   '[id*="cookie_consent"]',
-];
+]
 
-export const PRIVACY_PATTERNS = /privacy|datenschutz|legal|impressum|cookie.policy/i;
+export const PRIVACY_PATTERNS =
+  /privacy|datenschutz|legal|impressum|cookie.policy/i

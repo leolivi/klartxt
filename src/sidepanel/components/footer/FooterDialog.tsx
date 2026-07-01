@@ -1,5 +1,7 @@
-import { useTranslation } from "react-i18next";
-import { Separator } from "../ui/separator";
+import { CHECKED_ITEMS } from "@/utils/types/footer-types"
+import { ArrowUpRight, Link2 } from "lucide-react"
+import { useTranslation } from "react-i18next"
+import { Button } from "../ui/button"
 import {
   Dialog,
   DialogContent,
@@ -7,18 +9,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
-import { ArrowUpRight, Link2 } from "lucide-react";
-import { CHECKED_ITEMS } from "@/utils/types/footer-types";
+} from "../ui/dialog"
+import { Separator } from "../ui/separator"
 
 export function FooterDialog() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="link" className="text-ink-default" size={"xs"} >{t("footerWhatWasChecked")}</Button>
+        <Button variant="link" className="text-ink-default" size={"xs"}>
+          {t("footerWhatWasChecked")}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -36,7 +38,9 @@ export function FooterDialog() {
                 >
                   {t(`footerDialog_${key}_title`)} <ArrowUpRight size={16} />
                 </a>
-                <p className="text-body text-ink-default">{t(`footerDialog_${key}_description`)}</p>
+                <p className="text-body text-ink-default">
+                  {t(`footerDialog_${key}_description`)}
+                </p>
               </div>
               {i < CHECKED_ITEMS.length && <Separator />}
             </div>
@@ -46,10 +50,17 @@ export function FooterDialog() {
           {t("footerDialogDisclaimer")}
         </DialogDescription>
         <div className="flex justify-center gap-1">
-          <Link2 size={"16"} className="text-ink-strongest"/>
-          <a href="https://klartxt.app" target="_blank" rel="noreferrer" className="text-ink-strongest hover:underline text-small">klartxt.app</a>
+          <Link2 size={"16"} className="text-ink-strongest" />
+          <a
+            href="https://klartxt.app"
+            target="_blank"
+            rel="noreferrer"
+            className="text-ink-strongest hover:underline text-small"
+          >
+            klartxt.app
+          </a>
         </div>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

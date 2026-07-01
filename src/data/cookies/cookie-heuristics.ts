@@ -2,27 +2,27 @@
   Cookie Name Heuristics
 
   Sources per pattern group:
-  - Generiert aus Open Cookie Database (Analytics / Marketing / Functional / Security): Kwakman, 2023
-  - Primärquelle Klassifikationsansatz: Munir u.a., 2023 (CookieGraph)
+  - Generated from Open Cookie Database (Analytics / Marketing / Functional / Security): Kwakman, 2023
+  - Primary Source for classification: Munir u.a., 2023 (CookieGraph)
 ----- */
 
-import cookieDataRaw from "./cookie-heuristics.json";
+import cookieDataRaw from "./cookie-heuristics.json"
 
-type CookieSet = Record<string, boolean>;
+type CookieSet = Record<string, boolean>
 
 interface CookieHeuristics {
-  version: string;
-  necessary: CookieSet;
-  session: CookieSet;
-  analytics: CookieSet;
-  advertising: CookieSet;
+  version: string
+  necessary: CookieSet
+  session: CookieSet
+  analytics: CookieSet
+  advertising: CookieSet
 }
 
-const cookieData = cookieDataRaw as CookieHeuristics;
+const cookieData = cookieDataRaw as CookieHeuristics
 
-const toLower = (set: CookieSet) => Object.keys(set).map((p) => p.toLowerCase());
+const toLower = (set: CookieSet) => Object.keys(set).map((p) => p.toLowerCase())
 
-export const NECESSARY_PATTERNS_LOWER = toLower(cookieData.necessary);
-export const SESSION_PATTERNS_LOWER = toLower(cookieData.session);
-export const ANALYTICS_PATTERNS_LOWER = toLower(cookieData.analytics);
-export const ADVERTISING_PATTERNS_LOWER = toLower(cookieData.advertising);
+export const NECESSARY_PATTERNS_LOWER = toLower(cookieData.necessary)
+export const SESSION_PATTERNS_LOWER = toLower(cookieData.session)
+export const ANALYTICS_PATTERNS_LOWER = toLower(cookieData.analytics)
+export const ADVERTISING_PATTERNS_LOWER = toLower(cookieData.advertising)

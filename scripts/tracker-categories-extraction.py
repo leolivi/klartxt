@@ -4,7 +4,7 @@
 #   - DuckDuckGo Tracker Radar (DuckDuckGo, Inc., 2025)
 #     -> https://spreadprivacy.com/duckduckgo-tracker-radar/
 #
-# Purpose: research/visualisation tool for inspecting category distribution
+# Purpose: research/visualisation for inspecting category distribution
 
 
 import os
@@ -36,8 +36,8 @@ def plot_categories(categories: dict[str, int]) -> None:
     values = [x[1] for x in sorted_data[:15]]
     plt.figure()
     plt.barh(names, values)
-    plt.xlabel("Anzahl")
-    plt.title("Top Tracker-Kategorien (DDG Tracker Radar)")
+    plt.xlabel("Count")
+    plt.title("Top Tracker-Categories (DDG Tracker Radar)")
     plt.tight_layout()
     plt.show()
 
@@ -48,7 +48,7 @@ def main() -> None:
 
     categories = extract_categories([core, extended])
 
-    print("Gefundene Kategorien:\n")
+    print("Found Categories:\n")
     for cat, count in sorted(categories.items(), key=lambda x: x[1], reverse=True):
         print(f"  {cat}: {count}")
 
