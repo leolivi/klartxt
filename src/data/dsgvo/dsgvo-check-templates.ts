@@ -1,22 +1,22 @@
-import { Articles, SeverityLevel } from "@/utils/types/dsgvo-types"
+import { Articles, SeverityLevel } from "@/utils/types/dsgvo-types";
 
 interface CheckTemplate {
-  article: Articles
-  title: string
+  article: Articles;
+  title: string;
 }
 
 interface SeverityTemplate {
-  quickTitle: string
-  explanation: string
-  recommendation: string
+  quickTitle: string;
+  explanation: string;
+  recommendation: string;
 }
 
 type CheckTemplates = {
-  base: CheckTemplate
-  [SeverityLevel.FINE]: SeverityTemplate
-  [SeverityLevel.SUSPICIOUS]: SeverityTemplate
-  [SeverityLevel.CONFIRMED]: SeverityTemplate
-}
+  base: CheckTemplate;
+  [SeverityLevel.FINE]: SeverityTemplate;
+  [SeverityLevel.SUSPICIOUS]: SeverityTemplate;
+  [SeverityLevel.CONFIRMED]: SeverityTemplate;
+};
 
 export const ART7_TEMPLATES: CheckTemplates = {
   base: {
@@ -38,7 +38,7 @@ export const ART7_TEMPLATES: CheckTemplates = {
     explanation: "dsgvoArt7ConfirmedExplanation",
     recommendation: "dsgvoArt7ConfirmedRecommendation",
   },
-}
+};
 
 export const ART13_14_TEMPLATES: CheckTemplates = {
   base: {
@@ -60,7 +60,7 @@ export const ART13_14_TEMPLATES: CheckTemplates = {
     explanation: "dsgvoArt1314ConfirmedExplanation",
     recommendation: "dsgvoArt1314ConfirmedRecommendation",
   },
-}
+};
 
 export const ART25_TEMPLATES: CheckTemplates = {
   base: {
@@ -82,4 +82,4 @@ export const ART25_TEMPLATES: CheckTemplates = {
     explanation: "dsgvoArt25ConfirmedExplanation",
     recommendation: "dsgvoArt25ConfirmedRecommendation",
   },
-}
+};

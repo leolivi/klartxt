@@ -16,25 +16,20 @@ const HIGH_ENTROPY_HINTS = new Set([
   "rtt",
   "downlink",
   "ect",
-])
+]);
 
 interface HandleHeaders {
-  details: chrome.webRequest.OnHeadersReceivedDetails
-  onClientHintsDetected: () => void
+  details: chrome.webRequest.OnHeadersReceivedDetails;
+  onClientHintsDetected: () => void;
 }
 
-export function handleHeaders({
-  details,
-  onClientHintsDetected,
-}: HandleHeaders): void {
-  const acceptCH = details.responseHeaders?.find(
-    (h) => h.name.toLowerCase() === "accept-ch",
-  )
-  if (!acceptCH?.value) return
+export function handleHeaders({ details, onClientHintsDetected }: HandleHeaders): void {
+  const acceptCH = details.responseHeaders?.find(h => h.name.toLowerCase() === "accept-ch");
+  if (!acceptCH?.value) return;
 
-  const requested = acceptCH.value.split(",").map((h) => h.trim().toLowerCase())
-  const matchCount = requested.filter((h) => HIGH_ENTROPY_HINTS.has(h)).length
+  const requested = acceptCH.value.split(",").map(h => h.trim().toLowerCase());
+  const matchCount = requested.filter(h => HIGH_ENTROPY_HINTS.has(h)).length;
   if (matchCount >= 2) {
-    onClientHintsDetected()
+    onClientHintsDetected();
   }
 }

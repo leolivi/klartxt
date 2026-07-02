@@ -1,6 +1,6 @@
-import { test, expect } from "@playwright/test";
-import sitesData from "../sites.json" with { type: "json" };
+import { expect, test } from "@playwright/test";
 import { launchWithExtension } from "../fixtures/extension";
+import sitesData from "../sites.json" with { type: "json" };
 
 // ── Cold Start & Storage-Wiederherstellung ── //
 // Service workers can be terminated by the browser after ~30 s of inactivity.
@@ -19,7 +19,7 @@ type CacheForTest = {
   isScanCompleted(tabId: number): boolean;
 };
 type ChromeLike = { storage: { session: { get(keys: string[]): Promise<Record<string, unknown>> } } };
-type TabsLike   = { query(q: { url: string }): Promise<Array<{ id?: number }>> };
+type TabsLike = { query(q: { url: string }): Promise<Array<{ id?: number }>> };
 
 test("restores cache state from session storage after cold start", async () => {
   test.setTimeout(5 * 60_000);
@@ -34,8 +34,8 @@ test("restores cache state from session storage after cold start", async () => {
 
     const tabId = await sw.evaluate(async (finalUrl: string) => {
       const origin = new URL(finalUrl).origin;
-      const tabs   = (globalThis as unknown as { chrome: { tabs: TabsLike } }).chrome.tabs;
-      const found  = await tabs.query({ url: `${origin}/*` });
+      const tabs = (globalThis as unknown as { chrome: { tabs: TabsLike } }).chrome.tabs;
+      const found = await tabs.query({ url: `${origin}/*` });
       return found[0]?.id ?? -1;
     }, page.url());
 
@@ -52,7 +52,7 @@ test("restores cache state from session storage after cold start", async () => {
     // Wait for scheduleUIUpdate debounce (300 ms) + debouncedPersist (500 ms) + margin.
     await page.waitForTimeout(2_000);
 
-    // ── session storage 
+    // ── session storage
     const stored = await sw.evaluate(async (id: number) => {
       const chrome = (globalThis as unknown as { chrome: ChromeLike }).chrome;
       const result = await chrome.storage.session.get([
@@ -61,9 +61,9 @@ test("restores cache state from session storage after cold start", async () => {
         `scanCompleted_${id}`,
       ]);
       return {
-        trackerCount:  ((result[`trackerDetails_${id}`] as unknown[]) ?? []).length,
-        cookieCount:   ((result[`cookieDetails_${id}`]  as unknown[]) ?? []).length,
-        scanCompleted: (result[`scanCompleted_${id}`]   as boolean)   ?? false,
+        trackerCount: ((result[`trackerDetails_${id}`] as unknown[]) ?? []).length,
+        cookieCount: ((result[`cookieDetails_${id}`] as unknown[]) ?? []).length,
+        scanCompleted: (result[`scanCompleted_${id}`] as boolean) ?? false,
       };
     }, tabId);
 
@@ -73,35 +73,42 @@ test("restores cache state from session storage after cold start", async () => {
       const c = (globalThis as unknown as { __klartxtCache: CacheForTest }).__klartxtCache;
       c.reset(id);
       return {
-        trackerCount:  c.getTrackerDetails(id).length,
-        cookieCount:   c.getCookieDetails(id).length,
+        trackerCount: c.getTrackerDetails(id).length,
+        cookieCount: c.getCookieDetails(id).length,
         scanCompleted: c.isScanCompleted(id),
       };
     }, tabId);
 
-    expect(afterReset.trackerCount,  `[${site.name}] Trackers must be gone after memory reset`).toBe(0);
-    expect(afterReset.cookieCount,   `[${site.name}] Cookies must be gone after memory reset`).toBe(0);
+    expect(afterReset.trackerCount, `[${site.name}] Trackers must be gone after memory reset`).toBe(0);
+    expect(afterReset.cookieCount, `[${site.name}] Cookies must be gone after memory reset`).toBe(0);
     expect(afterReset.scanCompleted, `[${site.name}] scanCompleted must be false after memory reset`).toBe(false);
 
-    // Restore from session storage 
+    // Restore from session storage
     await sw.evaluate(async (id: number) => {
       await (globalThis as unknown as { __klartxtCache: CacheForTest }).__klartxtCache.restoreFromStorage(id);
     }, tabId);
 
-    // Verify restoration matches session storage 
+    // Verify restoration matches session storage
     const afterRestore = await sw.evaluate((id: number) => {
       const c = (globalThis as unknown as { __klartxtCache: CacheForTest }).__klartxtCache;
       return {
-        trackerCount:  c.getTrackerDetails(id).length,
-        cookieCount:   c.getCookieDetails(id).length,
+        trackerCount: c.getTrackerDetails(id).length,
+        cookieCount: c.getCookieDetails(id).length,
         scanCompleted: c.isScanCompleted(id),
       };
     }, tabId);
 
-
-    expect(afterRestore.trackerCount,  `[${site.name}] Trackers must be restored from session storage`).toBeGreaterThanOrEqual(stored.trackerCount);
-    expect(afterRestore.cookieCount,   `[${site.name}] Cookies must be restored from session storage`).toBeGreaterThanOrEqual(stored.cookieCount);
-    expect(afterRestore.scanCompleted, `[${site.name}] scanCompleted must be restored from session storage`).toBe(stored.scanCompleted);
+    expect(
+      afterRestore.trackerCount,
+      `[${site.name}] Trackers must be restored from session storage`,
+    ).toBeGreaterThanOrEqual(stored.trackerCount);
+    expect(
+      afterRestore.cookieCount,
+      `[${site.name}] Cookies must be restored from session storage`,
+    ).toBeGreaterThanOrEqual(stored.cookieCount);
+    expect(afterRestore.scanCompleted, `[${site.name}] scanCompleted must be restored from session storage`).toBe(
+      stored.scanCompleted,
+    );
 
     await page.close();
     await context.close();

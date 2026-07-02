@@ -4,31 +4,31 @@ import path from "path";
 export const RESULTS_PATH = path.join("e2e", "test-results-data.json");
 
 export type CookieEntry = {
-  name:         string;
-  domain:       string;
-  category:     string;
+  name: string;
+  domain: string;
+  category: string;
   userCategory: string;
   isThirdParty: boolean;
-  httpOnly:     boolean;
-  secure:       boolean;
+  httpOnly: boolean;
+  secure: boolean;
 };
 
 export type RunData = {
-  score:              number;
-  trackerDetails:     Array<{ domain: string }>;
-  cookieDetails:      CookieEntry[];
-  seenHostnames:      string[];
+  score: number;
+  trackerDetails: Array<{ domain: string }>;
+  cookieDetails: CookieEntry[];
+  seenHostnames: string[];
   playwrightRequests: number;
-  extensionRequests:  number;
-  scanCompleted:      boolean;
-  scanDuration:       number | null;
-  pageErrors:         string[];
-  swErrors:           string[];
+  extensionRequests: number;
+  scanCompleted: boolean;
+  scanDuration: number | null;
+  pageErrors: string[];
+  swErrors: string[];
 };
 
 export type SiteData = {
   name: string;
-  url:  string;
+  url: string;
   runs: RunData[];
 };
 

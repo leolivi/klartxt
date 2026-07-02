@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
 
 export function ImprintPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <main className="max-w-2xl mx-auto px-6 py-12">
@@ -13,27 +13,19 @@ export function ImprintPage() {
           {" & "}
           {t("imprintPage_contact_title")}
         </h2>
-        <p className="text-body text-ink-default whitespace-pre-line">
-          {t("imprintPage_responsible_body")}
-        </p>
-        <p className="text-body text-ink-default">
-          {t("imprintPage_contact_body")}
-        </p>
+        <p className="text-body text-ink-default whitespace-pre-line">{t("imprintPage_responsible_body")}</p>
+        <p className="text-body text-ink-default">{t("imprintPage_contact_body")}</p>
       </section>
 
       <section className="mb-8">
         <h2 className="text-h2 mb-3">{t("imprintPage_disclaimer_title")}</h2>
-        <p className="text-body text-ink-default">
-          {t("imprintPage_disclaimer_body")}
-        </p>
+        <p className="text-body text-ink-default">{t("imprintPage_disclaimer_body")}</p>
       </section>
 
       <section className="mb-8">
         <h2 className="text-h2 mb-3">{t("imprintPage_project_title")}</h2>
-        <p className="text-body text-ink-default">
-          {t("imprintPage_project_body")}
-        </p>
+        <p className="text-body text-ink-default">{t("imprintPage_project_body")}</p>
       </section>
     </main>
-  )
+  );
 }

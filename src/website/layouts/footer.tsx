@@ -1,8 +1,8 @@
-import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export function Footer() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <footer className="px-6 py-12 text-center">
@@ -21,5 +21,5 @@ export function Footer() {
         </Link>
       </div>
     </footer>
-  )
+  );
 }

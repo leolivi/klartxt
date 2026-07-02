@@ -24,11 +24,11 @@ export enum CookieCategory {
 }
 
 export interface ClassifiedCookie {
-  name: string
-  domain: string
-  category: CookieCategory
-  userCategory: CookieCategoryForUser
-  isThirdParty: boolean
-  httpOnly: boolean
-  secure: boolean
+  name: string;
+  domain: string;
+  category: CookieCategory;
+  userCategory: CookieCategoryForUser;
+  isThirdParty: boolean;
+  httpOnly: boolean;
+  secure: boolean;
 }

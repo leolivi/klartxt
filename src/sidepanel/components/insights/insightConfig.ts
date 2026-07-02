@@ -1,5 +1,5 @@
-import type { InsightSeverity } from "@/utils/insights"
-import { CircleAlert, CircleCheck, CircleX } from "lucide-react"
+import type { InsightSeverity } from "@/utils/insights";
+import { CircleAlert, CircleCheck, CircleX } from "lucide-react";
 
 export const SEVERITY_ICON = {
   fine: {
@@ -14,7 +14,4 @@ export const SEVERITY_ICON = {
     Icon: CircleX,
     className: "bg-surface-red text-ink-red rounded-full",
   },
-} satisfies Record<
-  InsightSeverity,
-  { Icon: React.FC<{ size?: number; className?: string }>; className: string }
->
+} satisfies Record<InsightSeverity, { Icon: React.FC<{ size?: number; className?: string }>; className: string }>;

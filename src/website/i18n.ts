@@ -1,14 +1,12 @@
-import i18n from "i18next"
-import { initReactI18next } from "react-i18next"
-import translationDE from "../locales/de-localizations.json"
-import translationEN from "../locales/en-localizations.json"
-import translationFR from "../locales/fr-localizations.json"
-import translationIT from "../locales/it-localizations.json"
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import translationDE from "../locales/de-localizations.json";
+import translationEN from "../locales/en-localizations.json";
+import translationFR from "../locales/fr-localizations.json";
+import translationIT from "../locales/it-localizations.json";
 
-const browserLang = (navigator.language ?? "en").split("-")[0].toLowerCase()
-const defaultLang = ["de", "fr", "it"].includes(browserLang)
-  ? browserLang
-  : "en"
+const browserLang = (navigator.language ?? "en").split("-")[0].toLowerCase();
+const defaultLang = ["de", "fr", "it"].includes(browserLang) ? browserLang : "en";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -20,6 +18,6 @@ i18n.use(initReactI18next).init({
   lng: defaultLang,
   keySeparator: false,
   interpolation: { escapeValue: false },
-})
+});
 
-export default i18n
+export default i18n;

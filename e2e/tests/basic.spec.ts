@@ -1,7 +1,7 @@
-import { test, expect } from "@playwright/test";
-import sitesData from "../sites.json" with { type: "json" };
+import { expect, test } from "@playwright/test";
 import { launchWithExtension } from "../fixtures/extension";
 import { getExtensionId, sidepanelUrl } from "../helpers/extension-id";
+import sitesData from "../sites.json" with { type: "json" };
 
 // ── Extension loads ── //
 
@@ -24,14 +24,14 @@ test("extension loads and sidepanel opens", async () => {
   await context.close();
 });
 
-// ── Scan runs and produces data ── // 
+// ── Scan runs and produces data ── //
 
 const github = sitesData.sites.find(s => s.name === "github")!;
 
 test(`scan completes and loads data from a testpage`, async ({}, testInfo) => {
-  const context     = await launchWithExtension();
+  const context = await launchWithExtension();
   const extensionId = await getExtensionId(context);
-  const page        = await context.newPage();
+  const page = await context.newPage();
 
   let sw = context.serviceWorkers()[0];
   if (!sw) sw = await context.waitForEvent("serviceworker", { timeout: 5_000 });
@@ -63,7 +63,7 @@ test(`scan completes and loads data from a testpage`, async ({}, testInfo) => {
   await sidepanel.goto(sidepanelUrl(extensionId, tabId, github.url));
   await expect(sidepanel.getByText("Scan completed")).toBeVisible();
   await testInfo.attach("sidepanel.png", {
-    body:        await sidepanel.screenshot({ fullPage: true }),
+    body: await sidepanel.screenshot({ fullPage: true }),
     contentType: "image/png",
   });
 

@@ -1,53 +1,39 @@
-import {
-  classifyCookieCategory,
-  extractRootDomain,
-  mapToUserCategory,
-} from "@/data/cookies/cookie-domains"
-import type { ClassifiedCookie } from "@/utils/types/cookie-types"
+import { classifyCookieCategory, extractRootDomain, mapToUserCategory } from "@/data/cookies/cookie-domains";
+import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 
 interface HandleCookies {
-  tabUrl: string
-  onCookiesDetected: (cookies: ClassifiedCookie[]) => void
+  tabUrl: string;
+  onCookiesDetected: (cookies: ClassifiedCookie[]) => void;
 }
 
-export async function handleCookies({
-  tabUrl,
-  onCookiesDetected,
-}: HandleCookies): Promise<void> {
-  let url: URL
+export async function handleCookies({ tabUrl, onCookiesDetected }: HandleCookies): Promise<void> {
+  let url: URL;
   try {
-    url = new URL(tabUrl)
+    url = new URL(tabUrl);
   } catch {
-    return
+    return;
   }
 
-  const tabRootDomain = extractRootDomain(url.hostname)
+  const tabRootDomain = extractRootDomain(url.hostname);
 
-  const allCookies = await chrome.cookies.getAll({})
+  const allCookies = await chrome.cookies.getAll({});
 
-  const pageCookies = allCookies.filter((c) => {
-    const cookieDomain = c.domain.replace(/^\./, "")
-    return (
-      cookieDomain.includes(tabRootDomain) ||
-      tabRootDomain.includes(extractRootDomain(cookieDomain))
-    )
-  })
+  const pageCookies = allCookies.filter(c => {
+    const cookieDomain = c.domain.replace(/^\./, "");
+    return cookieDomain.includes(tabRootDomain) || tabRootDomain.includes(extractRootDomain(cookieDomain));
+  });
 
-  const seen = new Set<string>()
-  const classified: ClassifiedCookie[] = []
+  const seen = new Set<string>();
+  const classified: ClassifiedCookie[] = [];
 
   for (const cookie of pageCookies) {
-    const key = `${cookie.name}||${cookie.domain.replace(/^\./, "")}`
-    if (seen.has(key)) continue
-    seen.add(key)
+    const key = `${cookie.name}||${cookie.domain.replace(/^\./, "")}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
 
-    const cookieRootDomain = extractRootDomain(cookie.domain.replace(/^\./, ""))
-    const isThirdParty = cookieRootDomain !== tabRootDomain
-    const category = classifyCookieCategory(
-      cookie.name,
-      cookieRootDomain,
-      cookie,
-    )
+    const cookieRootDomain = extractRootDomain(cookie.domain.replace(/^\./, ""));
+    const isThirdParty = cookieRootDomain !== tabRootDomain;
+    const category = classifyCookieCategory(cookie.name, cookieRootDomain, cookie);
 
     classified.push({
       name: cookie.name,
@@ -57,8 +43,8 @@ export async function handleCookies({
       isThirdParty,
       httpOnly: cookie.httpOnly,
       secure: cookie.secure,
-    })
+    });
   }
 
-  onCookiesDetected(classified)
+  onCookiesDetected(classified);
 }

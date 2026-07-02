@@ -1,12 +1,12 @@
-import LanguageSwitcher from "@/sidepanel/components/languageSwitcher/LanguageSwitcher"
-import { useIsDark } from "@/sidepanel/hooks/useIsDark"
+import LanguageSwitcher from "@/sidepanel/components/languageSwitcher/LanguageSwitcher";
+import { useIsDark } from "@/sidepanel/hooks/useIsDark";
 
-const logoLight = "/assets/logo/Klartxt_logo_lm.svg"
-const logoDark = "/assets/logo/Klartxt_logo_dm.svg"
+const logoLight = "/assets/logo/Klartxt_logo_lm.svg";
+const logoDark = "/assets/logo/Klartxt_logo_dm.svg";
 
 export function Header() {
-  const isDark = useIsDark()
-  const logo = isDark ? logoDark : logoLight
+  const isDark = useIsDark();
+  const logo = isDark ? logoDark : logoLight;
 
   return (
     <header className="px-6 py-4 flex items-center justify-between max-[300px]:flex-col flex-row max-[300px]:gap-3">
@@ -17,5 +17,5 @@ export function Header() {
       </div>
       <LanguageSwitcher />
     </header>
-  )
+  );
 }

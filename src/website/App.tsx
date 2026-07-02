@@ -1,19 +1,19 @@
-import { useEffect } from "react"
-import { useTranslation } from "react-i18next"
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import { ImprintPage } from "./app/imprint/page"
-import { Layout } from "./app/layout"
-import { NotFoundPage } from "./app/not-found/page"
-import { HomePage } from "./app/page"
-import { PrivacyPage } from "./app/privacy/page"
-import { SourcesPage } from "./app/sources/page"
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { ImprintPage } from "./app/imprint/page";
+import { Layout } from "./app/layout";
+import { NotFoundPage } from "./app/not-found/page";
+import { HomePage } from "./app/page";
+import { PrivacyPage } from "./app/privacy/page";
+import { SourcesPage } from "./app/sources/page";
 
 export default function App() {
-  const { i18n } = useTranslation()
+  const { i18n } = useTranslation();
 
   useEffect(() => {
-    document.documentElement.lang = i18n.language
-  }, [i18n.language])
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
 
   return (
     <BrowserRouter>
@@ -31,5 +31,5 @@ export default function App() {
         </Routes>
       </Layout>
     </BrowserRouter>
-  )
+  );
 }

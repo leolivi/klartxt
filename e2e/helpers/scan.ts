@@ -1,25 +1,38 @@
 import type { BrowserContext, ConsoleMessage, Worker } from "@playwright/test";
 
 type SessionStorage = Record<string, unknown>;
-type ChromeLike     = { storage: { session: { get(keys: string[]): Promise<SessionStorage> } } };
-type TabsLike       = { query(q: { url: string }): Promise<Array<{ id?: number }>> };
-type CacheLike      = { getRequestsSeen(tabId: number): number; getCookieDetails(tabId: number): CookieEntry[]; isScanCompleted(tabId: number): boolean; getScanDuration(tabId: number): number | null };
+type ChromeLike = { storage: { session: { get(keys: string[]): Promise<SessionStorage> } } };
+type TabsLike = { query(q: { url: string }): Promise<Array<{ id?: number }>> };
+type CacheLike = {
+  getRequestsSeen(tabId: number): number;
+  getCookieDetails(tabId: number): CookieEntry[];
+  isScanCompleted(tabId: number): boolean;
+  getScanDuration(tabId: number): number | null;
+};
 
 export type TrackerEntry = { domain: string };
-export type CookieEntry  = { name: string; domain: string; category: string; userCategory: string; isThirdParty: boolean; httpOnly: boolean; secure: boolean };
+export type CookieEntry = {
+  name: string;
+  domain: string;
+  category: string;
+  userCategory: string;
+  isThirdParty: boolean;
+  httpOnly: boolean;
+  secure: boolean;
+};
 
 export type ScanResult = {
-  tabId:              number;
-  score:              number;
-  trackerDetails:     TrackerEntry[];
-  cookieDetails:      CookieEntry[];
-  scanCompleted:      boolean;
-  scanDuration:       number | null; // ms from status:complete to last tracker+300ms debounce
-  seenHostnames:      Set<string>;   // unique HTTP/HTTPS hostnames Playwright observed
-  playwrightRequests: number;        // total request count Playwright observed
-  extensionRequests:  number;        // total requests the extension's webRequest saw
-  pageErrors:         string[];      // unhandled JS exceptions on the page
-  swErrors:           string[];      // console.error messages from the extension service worker
+  tabId: number;
+  score: number;
+  trackerDetails: TrackerEntry[];
+  cookieDetails: CookieEntry[];
+  scanCompleted: boolean;
+  scanDuration: number | null; // ms from status:complete to last tracker+300ms debounce
+  seenHostnames: Set<string>; // unique HTTP/HTTPS hostnames Playwright observed
+  playwrightRequests: number; // total request count Playwright observed
+  extensionRequests: number; // total requests the extension's webRequest saw
+  pageErrors: string[]; // unhandled JS exceptions on the page
+  swErrors: string[]; // console.error messages from the extension service worker
 };
 
 /**
@@ -29,16 +42,12 @@ export type ScanResult = {
  * Uses chrome.tabs.query to resolve the tabId, no console-message dependency,
  * so sites with slow service-worker installs (e.g. Wikipedia) don't time out.
  */
-export async function scanSite(
-  context: BrowserContext,
-  sw: Worker,
-  url: string,
-): Promise<ScanResult> {
-  const page               = await context.newPage();
-  const seenHostnames      = new Set<string>();
-  let   playwrightRequests = 0;
-  const pageErrors:        string[] = [];
-  const swErrors:          string[] = [];
+export async function scanSite(context: BrowserContext, sw: Worker, url: string): Promise<ScanResult> {
+  const page = await context.newPage();
+  const seenHostnames = new Set<string>();
+  let playwrightRequests = 0;
+  const pageErrors: string[] = [];
+  const swErrors: string[] = [];
 
   page.on("request", req => {
     try {
@@ -47,7 +56,9 @@ export async function scanSite(
         seenHostnames.add(hostname);
         playwrightRequests++;
       }
-    } catch { /* ignore unparseable URLs */ }
+    } catch {
+      /* ignore unparseable URLs */
+    }
   });
 
   // Unhandled JS exceptions thrown on the page
@@ -66,8 +77,8 @@ export async function scanSite(
   // domcontentloaded ensures redirects have settled and page.url() is stable.
   const tabId = await sw.evaluate(async (finalUrl: string) => {
     const origin = new URL(finalUrl).origin;
-    const tabs   = (globalThis as unknown as { chrome: { tabs: TabsLike } }).chrome.tabs;
-    const found  = await tabs.query({ url: `${origin}/*` });
+    const tabs = (globalThis as unknown as { chrome: { tabs: TabsLike } }).chrome.tabs;
+    const found = await tabs.query({ url: `${origin}/*` });
     return found[0]?.id ?? -1;
   }, page.url());
 
@@ -80,10 +91,7 @@ export async function scanSite(
 
   const storage = await sw.evaluate((id: number) => {
     const chrome = (globalThis as unknown as { chrome: ChromeLike }).chrome;
-    return chrome.storage.session.get([
-      `overallRiskScore_${id}`,
-      `trackerDetails_${id}`,
-    ]);
+    return chrome.storage.session.get([`overallRiskScore_${id}`, `trackerDetails_${id}`]);
   }, tabId);
 
   // Trigger a fresh cookie scan so JS-set tracker cookies (set after status:complete)
@@ -98,10 +106,10 @@ export async function scanSite(
   const { extensionRequests, cookieDetails, scanCompleted, scanDuration } = await sw.evaluate((id: number) => {
     const c = (globalThis as unknown as { __klartxtCache: CacheLike }).__klartxtCache;
     return {
-      extensionRequests: c?.getRequestsSeen(id)   ?? 0,
-      cookieDetails:     c?.getCookieDetails(id)   ?? [],
-      scanCompleted:     c?.isScanCompleted(id)    ?? false,
-      scanDuration:      c?.getScanDuration(id)    ?? null,
+      extensionRequests: c?.getRequestsSeen(id) ?? 0,
+      cookieDetails: c?.getCookieDetails(id) ?? [],
+      scanCompleted: c?.isScanCompleted(id) ?? false,
+      scanDuration: c?.getScanDuration(id) ?? null,
     };
   }, tabId);
 
@@ -110,8 +118,8 @@ export async function scanSite(
 
   return {
     tabId,
-    score:          (storage[`overallRiskScore_${tabId}`] as number         | undefined) ?? 0,
-    trackerDetails: (storage[`trackerDetails_${tabId}`]   as TrackerEntry[] | undefined) ?? [],
+    score: (storage[`overallRiskScore_${tabId}`] as number | undefined) ?? 0,
+    trackerDetails: (storage[`trackerDetails_${tabId}`] as TrackerEntry[] | undefined) ?? [],
     cookieDetails,
     scanCompleted,
     scanDuration,

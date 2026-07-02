@@ -11,18 +11,18 @@ export enum TrackerConfidence {
 }
 
 export interface TrackerInfo {
-  domain: string
-  owner: string | null
-  userCategory: TrackerCategoryForUser
-  detailedCategories: TrackerCategory[]
-  riskScore: number
-  confidence: TrackerConfidence
-  fingerprintingScore: number // DDG Tracker Radar fingerprinting score: 0=none 1=low 2=medium 3=high
+  domain: string;
+  owner: string | null;
+  userCategory: TrackerCategoryForUser;
+  detailedCategories: TrackerCategory[];
+  riskScore: number;
+  confidence: TrackerConfidence;
+  fingerprintingScore: number; // DDG Tracker Radar fingerprinting score: 0=none 1=low 2=medium 3=high
 }
 
 export interface DetectedTracker {
-  tracker: TrackerInfo
-  confidence: TrackerConfidence
+  tracker: TrackerInfo;
+  confidence: TrackerConfidence;
 }
 
 // Tracker Category for Users (simplyfied)

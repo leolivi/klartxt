@@ -1,8 +1,4 @@
-import {
-  TrackerCategory,
-  TrackerConfidence,
-  type TrackerInfo,
-} from "../types/tracking-enums"
+import { TrackerCategory, TrackerConfidence, type TrackerInfo } from "../types/tracking-enums";
 
 const CATEGORY_SCORE: Record<TrackerCategory, number> = {
   [TrackerCategory.MALWARE]: 100,
@@ -17,39 +13,38 @@ const CATEGORY_SCORE: Record<TrackerCategory, number> = {
   [TrackerCategory.CDN]: 5,
   [TrackerCategory.SECURITY]: 10,
   [TrackerCategory.UNKNOWN]: 25,
-}
+};
 
 // conficence multiplicator
 const CONFIDENCE_MULTIPLIER: Record<TrackerConfidence, number> = {
   [TrackerConfidence.CONFIRMED]: 1.0,
   [TrackerConfidence.SUSPICIOUS]: 0.5,
-}
+};
 
 // calculate risk score of each individual tracker
 export function calculateTrackerRiskScore(
   categories: TrackerCategory[],
   confidence: TrackerConfidence = TrackerConfidence.CONFIRMED,
 ): number {
-  let maxScore = 0
+  let maxScore = 0;
 
   for (const cat of categories) {
-    const score = CATEGORY_SCORE[cat] ?? 0
-    if (score > maxScore) maxScore = score
+    const score = CATEGORY_SCORE[cat] ?? 0;
+    if (score > maxScore) maxScore = score;
   }
 
-  return Math.round(maxScore * CONFIDENCE_MULTIPLIER[confidence])
+  return Math.round(maxScore * CONFIDENCE_MULTIPLIER[confidence]);
 }
 
 // calculate risk score of all trackers on one page
 export function calculateTrackerRiskPageScore(trackers: TrackerInfo[]): number {
-  if (trackers.length === 0) return 0
+  if (trackers.length === 0) return 0;
 
-  const maxRisk = Math.max(...trackers.map((t) => t.riskScore))
-  const avgRisk =
-    trackers.reduce((sum, t) => sum + t.riskScore, 0) / trackers.length
+  const maxRisk = Math.max(...trackers.map(t => t.riskScore));
+  const avgRisk = trackers.reduce((sum, t) => sum + t.riskScore, 0) / trackers.length;
 
-  const trackerCountFactor = Math.min(trackers.length * 2, 30)
-  const score = maxRisk * 0.6 + avgRisk * 0.3 + trackerCountFactor
+  const trackerCountFactor = Math.min(trackers.length * 2, 30);
+  const score = maxRisk * 0.6 + avgRisk * 0.3 + trackerCountFactor;
 
-  return Math.min(Math.round(score), 100)
+  return Math.min(Math.round(score), 100);
 }

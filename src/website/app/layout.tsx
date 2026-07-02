@@ -1,6 +1,6 @@
-import { Separator } from "@/sidepanel/components/ui/separator"
-import { Footer } from "../layouts/footer"
-import { Header } from "../layouts/header"
+import { Separator } from "@/sidepanel/components/ui/separator";
+import { Footer } from "../layouts/footer";
+import { Header } from "../layouts/header";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,5 +11,5 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <Separator />
       <Footer />
     </div>
-  )
+  );
 }

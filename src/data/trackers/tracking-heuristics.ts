@@ -15,35 +15,16 @@
   - USER_ID_PATTERN (Long Hex): Papadopoulos, Kourtellis und Markatos, 2020
 ----- */
 
-import trackingParamsData from "./tracking-params.json"
+import trackingParamsData from "./tracking-params.json";
 
 // DDG-measured params + platform-specific additions not captured by DDG
-export const TRACKING_PARAMS = new Set<string>(
-  Object.keys(trackingParamsData.params),
-)
+export const TRACKING_PARAMS = new Set<string>(Object.keys(trackingParamsData.params));
 
 // Tracking-relevant request paths
-export const TRACKING_PATHS = [
-  "/pixel",
-  "/beacon",
-  "/collect",
-  "/ping",
-  "/sync",
-  "/match",
-  "/cm",
-]
+export const TRACKING_PATHS = ["/pixel", "/beacon", "/collect", "/ping", "/sync", "/match", "/cm"];
 
 // Tracking-relevant subdomain prefixes
-export const TRACKING_SUBDOMAINS = new Set([
-  "pixel.",
-  "track.",
-  "beacon.",
-  "analytics.",
-  "sync.",
-  "match.",
-  "cdn.",
-])
+export const TRACKING_SUBDOMAINS = new Set(["pixel.", "track.", "beacon.", "analytics.", "sync.", "match.", "cdn."]);
 
 // Cookie-Sync-Requests for cross-domain ID exchange
-export const USER_ID_PATTERN =
-  /^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|[0-9a-f]{16,})$/i
+export const USER_ID_PATTERN = /^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|[0-9a-f]{16,})$/i;

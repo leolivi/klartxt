@@ -5,4 +5,4 @@ export const NETWORK_EXCLUSIONS = new Set([
   "ajax.googleapis.com",
   "cdn.jsdelivr.net",
   "cdnjs.cloudflare.com",
-])
+]);

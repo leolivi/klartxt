@@ -10,14 +10,13 @@ export function calculateOverallRiskScore(
   cookieRiskScore: number,
   dsgvoRiskScore: number,
 ): number {
-  const score =
-    trackerPageScore * 0.4 + cookieRiskScore * 0.3 + dsgvoRiskScore * 0.3
-  const normalized = Math.min(Math.round(score), 100)
+  const score = trackerPageScore * 0.4 + cookieRiskScore * 0.3 + dsgvoRiskScore * 0.3;
+  const normalized = Math.min(Math.round(score), 100);
 
   // recalculate from 1-100 to 1-5
-  if (normalized <= 20) return 1
-  if (normalized <= 40) return 2
-  if (normalized <= 55) return 3
-  if (normalized <= 72) return 4
-  return 5
+  if (normalized <= 20) return 1;
+  if (normalized <= 40) return 2;
+  if (normalized <= 55) return 3;
+  if (normalized <= 72) return 4;
+  return 5;
 }

@@ -1,18 +1,11 @@
-import { Info } from "lucide-react"
-import { useTranslation } from "react-i18next"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog"
-import { Separator } from "../ui/separator"
-import { LEVELS, LEVEL_COLORS } from "./riskScoreConfig"
+import { Info } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Separator } from "../ui/separator";
+import { LEVELS, LEVEL_COLORS } from "./riskScoreConfig";
 
 function RiskScoreDialogDescription() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       {LEVELS.map((level, i) => (
@@ -24,26 +17,20 @@ function RiskScoreDialogDescription() {
               {level}
             </div>
             <div>
-              <p className="text-body-bold text-ink-strong">
-                {t(`riskScore${level}Label`)}
-              </p>
-              <p className="text-small text-ink-default">
-                {t(`riskScore${level}Explanation`)}
-              </p>
-              <p className="text-small text-ink-strongest">
-                {t(`riskScore${level}Recommendation`)}
-              </p>
+              <p className="text-body-bold text-ink-strong">{t(`riskScore${level}Label`)}</p>
+              <p className="text-small text-ink-default">{t(`riskScore${level}Explanation`)}</p>
+              <p className="text-small text-ink-strongest">{t(`riskScore${level}Recommendation`)}</p>
             </div>
           </div>
           {i < LEVELS.length && <Separator />}
         </div>
       ))}
     </>
-  )
+  );
 }
 
 export function RiskScoreDialog() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Dialog>
@@ -59,10 +46,8 @@ export function RiskScoreDialog() {
           <DialogTitle>{t("riskScoreDialogTitle")}</DialogTitle>
         </DialogHeader>
         <RiskScoreDialogDescription />
-        <DialogDescription className="text-small text-ink-default">
-          {t("riskScoreDialogDescription")}
-        </DialogDescription>
+        <DialogDescription className="text-small text-ink-default">{t("riskScoreDialogDescription")}</DialogDescription>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

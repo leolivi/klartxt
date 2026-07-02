@@ -1,8 +1,8 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { Slot } from "radix-ui"
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
+import * as React from "react";
 
-import { cn } from "@/utils/cn.js"
+import { cn } from "@/utils/cn.js";
 
 const buttonVariants = cva(
   "inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-body whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -11,12 +11,9 @@ const buttonVariants = cva(
       variant: {
         default: "bg-surface-secondary text-ink-strong hover:bg-surface-tertiary",
         secondary: "bg-surface-tertiary text-ink-strong hover:text-surface-secondary hover:bg-surface-logo",
-        secondaryGreen:
-          "bg-surface-green text-ink-green hover:bg-surface-green/90",
-        secondaryOrange:
-          "bg-surface-orange text-ink-orange hover:bg-surface-orange/90",
-        secondaryRed:
-          "bg-surface-red text-ink-red hover:bg-surface-red/90",
+        secondaryGreen: "bg-surface-green text-ink-green hover:bg-surface-green/90",
+        secondaryOrange: "bg-surface-orange text-ink-orange hover:bg-surface-orange/90",
+        secondaryRed: "bg-surface-red text-ink-red hover:bg-surface-red/90",
         link: "text-ink-default hover:bg-transparent hover:text-ink-strong",
       },
       interactive: {
@@ -40,18 +37,18 @@ const buttonVariants = cva(
       size: "default",
       interactive: true,
     },
-  }
-)
+  },
+);
 
 type ButtonProps = VariantProps<typeof buttonVariants> & {
-  asChild?: boolean
-  interactive?: boolean
-  leadingIcon?: React.ReactNode
-  trailingIcon?: React.ReactNode
-  href?: string
-  target?: string
-  rel?: string
-} & Omit<React.ComponentPropsWithoutRef<"button">, "href">
+  asChild?: boolean;
+  interactive?: boolean;
+  leadingIcon?: React.ReactNode;
+  trailingIcon?: React.ReactNode;
+  href?: string;
+  target?: string;
+  rel?: string;
+} & Omit<React.ComponentPropsWithoutRef<"button">, "href">;
 
 function Button({
   className,
@@ -67,7 +64,7 @@ function Button({
   children,
   ...props
 }: ButtonProps) {
-  const Comp = (asChild ? Slot.Root : href ? "a" : "button") as React.ElementType
+  const Comp = (asChild ? Slot.Root : href ? "a" : "button") as React.ElementType;
 
   return (
     <Comp
@@ -82,7 +79,7 @@ function Button({
       <Slot.Slottable>{children}</Slot.Slottable>
       {trailingIcon && <span className="shrink-0 flex items-center">{trailingIcon}</span>}
     </Comp>
-  )
+  );
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

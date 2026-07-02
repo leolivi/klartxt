@@ -13,29 +13,16 @@
     "32": "assets/logo/Klartxt_brandmark_lm_32.png",
     "64": "assets/logo/Klartxt_brandmark_lm_64.png"
   },
-  "permissions": [
-    "webRequest",
-    "cookies",
-    "tabs",
-    "storage",
-    "sidePanel"
-  ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
+  "permissions": ["webRequest", "cookies", "tabs", "storage", "sidePanel"],
+  "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "src/background/service-worker.ts",
     "type": "module"
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://*/*",
-        "http://*/*"
-      ],
-      "js": [
-        "src/content/content-script.ts"
-      ],
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["src/content/content-script.ts"],
       "run_at": "document_idle",
       "all_frames": false
     }
@@ -48,9 +35,7 @@
         "src/data/trackers/tracker-core.json",
         "src/data/trackers/tracker-extended.json"
       ],
-      "matches": [
-        "<all_urls>"
-      ]
+      "matches": ["<all_urls>"]
     }
   ]
 }

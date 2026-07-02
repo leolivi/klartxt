@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { readResults } from "../helpers/results";
 
 // ── Scan-Performance ── //
@@ -12,28 +12,24 @@ test("completes scan within 2 s for all sites", async ({}, testInfo) => {
   const { sites } = readResults();
 
   const report = sites.map(site => {
-    const durations = site.runs
-      .map(r => r.scanDuration)
-      .filter((d): d is number => d !== null);
+    const durations = site.runs.map(r => r.scanDuration).filter((d): d is number => d !== null);
 
-    const avg = durations.length > 0
-      ? Math.round(durations.reduce((s, d) => s + d, 0) / durations.length)
-      : null;
+    const avg = durations.length > 0 ? Math.round(durations.reduce((s, d) => s + d, 0) / durations.length) : null;
 
     const max = durations.length > 0 ? Math.max(...durations) : null;
 
     return {
-      site:            site.name,
-      runs_measured:   durations.length,
-      runs_total:      site.runs.length,
-      avg_ms:          avg,
-      max_ms:          max,
+      site: site.name,
+      runs_measured: durations.length,
+      runs_total: site.runs.length,
+      avg_ms: avg,
+      max_ms: max,
       under_threshold: durations.every(d => d < THRESHOLD_MS),
     };
   });
 
   await testInfo.attach("performance-report.json", {
-    body:        JSON.stringify(report, null, 2),
+    body: JSON.stringify(report, null, 2),
     contentType: "application/json",
   });
 
