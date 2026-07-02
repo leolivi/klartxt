@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { calculateTrackerRiskScore, calculateTrackerRiskPageScore } from "./network-risk-score";
+import { describe, expect, it } from "vitest";
 import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type TrackerInfo } from "../types/tracking-enums";
+import { calculateTrackerRiskPageScore, calculateTrackerRiskScore } from "./network-risk-score";
 
 function makeTracker(riskScore: number, overrides: Partial<TrackerInfo> = {}): TrackerInfo {
   return {
@@ -42,12 +42,16 @@ describe("calculateTrackerRiskScore", () => {
 
   it("uses the highest score when multiple categories are given", () => {
     // MALWARE (100) beats CDN (5)
-    expect(calculateTrackerRiskScore([TrackerCategory.MALWARE, TrackerCategory.CDN], TrackerConfidence.CONFIRMED)).toBe(100);
+    expect(calculateTrackerRiskScore([TrackerCategory.MALWARE, TrackerCategory.CDN], TrackerConfidence.CONFIRMED)).toBe(
+      100,
+    );
   });
 
   it("uses SUSPICIOUS multiplier with multiple categories", () => {
     // AD (70) is max, * 0.5 = 35
-    expect(calculateTrackerRiskScore([TrackerCategory.AD, TrackerCategory.ANALYTICS], TrackerConfidence.SUSPICIOUS)).toBe(35);
+    expect(
+      calculateTrackerRiskScore([TrackerCategory.AD, TrackerCategory.ANALYTICS], TrackerConfidence.SUSPICIOUS),
+    ).toBe(35);
   });
 
   it("defaults to CONFIRMED confidence when omitted", () => {

@@ -1,8 +1,13 @@
-import { vi, describe, it, expect, beforeEach } from "vitest";
-import { TrackerCache } from "./tracker-cache";
-import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type TrackerInfo } from "@/utils/types/tracking-enums";
 import { CookieCategory, CookieCategoryForUser, type ClassifiedCookie } from "@/utils/types/cookie-types";
-import { Articles, CheckSeverity, type DsgvoResult } from "@/utils/types/dsgvo-types";
+import { Articles, SeverityLevel, type DsgvoResult } from "@/utils/types/dsgvo-types";
+import {
+  TrackerCategory,
+  TrackerCategoryForUser,
+  TrackerConfidence,
+  type TrackerInfo,
+} from "@/utils/types/tracking-enums";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { TrackerCache } from "./tracker-cache";
 
 // TrackerCache uses chrome.storage inside debounced setTimeout calls.
 // stubbing prevents errors if timers fire after the test ends.
@@ -46,19 +51,42 @@ function makeCookie(name: string, overrides: Partial<ClassifiedCookie> = {}): Cl
 
 const baseDsgvo: DsgvoResult = {
   art7: {
-    passed: true, severity: CheckSeverity.FINE, article: Articles.ART7,
-    title: "", quickTitle: "", explanation: "", recommendation: "", evidence: [],
-    consentViolations: [], cookiesAfterConsent: [],
+    passed: true,
+    severity: SeverityLevel.FINE,
+    article: Articles.ART7,
+    title: "",
+    quickTitle: "",
+    explanation: "",
+    recommendation: "",
+    evidence: [],
+    consentViolations: [],
+    cookiesAfterConsent: [],
   },
   art13_14: {
-    passed: true, severity: CheckSeverity.FINE, article: Articles.ART1314,
-    title: "", quickTitle: "", explanation: "", recommendation: "", evidence: [],
-    privacyPolicyFound: true, searchedLocations: [],
+    passed: true,
+    severity: SeverityLevel.FINE,
+    article: Articles.ART1314,
+    title: "",
+    quickTitle: "",
+    explanation: "",
+    recommendation: "",
+    evidence: [],
+    privacyPolicyFound: true,
+    searchedLocations: [],
   },
   art25: {
-    passed: true, severity: CheckSeverity.FINE, article: Articles.ART25,
-    title: "", quickTitle: "", explanation: "", recommendation: "", evidence: [],
-    highRiskTrackerCount: 0, isHttps: true, highRiskTrackers: [], fingerprintingDetected: false,
+    passed: true,
+    severity: SeverityLevel.FINE,
+    article: Articles.ART25,
+    title: "",
+    quickTitle: "",
+    explanation: "",
+    recommendation: "",
+    evidence: [],
+    highRiskTrackerCount: 0,
+    isHttps: true,
+    highRiskTrackers: [],
+    fingerprintingDetected: false,
   },
   checkedAt: Date.now(),
 };
@@ -175,7 +203,11 @@ describe("dsgvo / content results", () => {
   });
 
   it("stores and retrieves content result", () => {
-    const cr = { art7: { bannerVisible: true, cookieCount: 2 }, art13_14: { found: true, searchedLocations: [] }, art25: { isHttps: true, fingerprintingDetected: false } };
+    const cr = {
+      art7: { bannerVisible: true, cookieCount: 2 },
+      art13_14: { found: true, searchedLocations: [] },
+      art25: { isHttps: true, fingerprintingDetected: false },
+    };
     cache.setContentResult(TAB, cr);
     expect(cache.getContentResult(TAB)).toBe(cr);
   });

@@ -5,9 +5,7 @@ import type { CollectedResults } from "../helpers/results";
 
 function field(value: string | number | boolean | null): string {
   const s = value === null ? "" : String(value);
-  return s.includes(",") || s.includes('"') || s.includes("\n")
-    ? `"${s.replace(/"/g, '""')}"`
-    : s;
+  return s.includes(",") || s.includes('"') || s.includes("\n") ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
 type TestRow = {
@@ -25,12 +23,12 @@ class CsvReporter implements Reporter {
 
   onTestEnd(test: TestCase, result: TestResult): void {
     this.testRows.push({
-      date:        this.date,
-      suite:       path.basename(test.location.file, ".spec.ts"),
-      test:        test.title,
-      status:      result.status,
+      date: this.date,
+      suite: path.basename(test.location.file, ".spec.ts"),
+      test: test.title,
+      status: result.status,
       duration_ms: result.duration,
-      error:       (result.errors[0]?.message ?? "").replace(/\n/g, " "),
+      error: (result.errors[0]?.message ?? "").replace(/\n/g, " "),
     });
   }
 
@@ -42,7 +40,7 @@ class CsvReporter implements Reporter {
   private writeTestOutcomes(): void {
     const header = "date,suite,test,status,duration_ms,error";
     const rows = this.testRows.map(r =>
-      [field(r.date), field(r.suite), field(r.test), field(r.status), field(r.duration_ms), field(r.error)].join(",")
+      [field(r.date), field(r.suite), field(r.test), field(r.status), field(r.duration_ms), field(r.error)].join(","),
     );
     const out = path.join("e2e", "report/test-outcomes.csv");
     fs.writeFileSync(out, [header, ...rows].join("\n") + "\n", "utf8");
@@ -56,12 +54,21 @@ class CsvReporter implements Reporter {
     const { sites } = JSON.parse(fs.readFileSync(dataPath, "utf8")) as CollectedResults;
 
     const header = [
-      "date", "site", "url", "run",
-      "score", "tracker_count", "cookie_count",
-      "tracking_cookies", "third_party_cookies",
-      "scan_duration_ms", "scan_completed",
-      "playwright_requests", "extension_requests",
-      "page_errors", "sw_errors",
+      "date",
+      "site",
+      "url",
+      "run",
+      "score",
+      "tracker_count",
+      "cookie_count",
+      "tracking_cookies",
+      "third_party_cookies",
+      "scan_duration_ms",
+      "scan_completed",
+      "playwright_requests",
+      "extension_requests",
+      "page_errors",
+      "sw_errors",
     ].join(",");
 
     const rows = sites.flatMap(site =>
@@ -82,8 +89,8 @@ class CsvReporter implements Reporter {
           field(r.extensionRequests),
           field(r.pageErrors.length),
           field(r.swErrors.length),
-        ].join(",")
-      )
+        ].join(","),
+      ),
     );
 
     const out = path.join("e2e", "report/site-measurements.csv");

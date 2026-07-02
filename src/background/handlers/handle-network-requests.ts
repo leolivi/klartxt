@@ -1,9 +1,20 @@
-import { parse } from "tldts";
 import { NETWORK_EXCLUSIONS } from "@/data/trackers/false-positive-list";
 import { TRACKER_MAP } from "@/data/trackers/tracking-domains";
-import { TRACKING_PARAMS, TRACKING_PATHS, TRACKING_SUBDOMAINS, USER_ID_PATTERN } from "@/data/trackers/tracking-heuristics";
+import {
+  TRACKING_PARAMS,
+  TRACKING_PATHS,
+  TRACKING_SUBDOMAINS,
+  USER_ID_PATTERN,
+} from "@/data/trackers/tracking-heuristics";
 import { calculateTrackerRiskScore } from "@/utils/scoring/network-risk-score";
-import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type DetectedTracker, type TrackerInfo } from "@/utils/types/tracking-enums";
+import {
+  TrackerCategory,
+  TrackerCategoryForUser,
+  TrackerConfidence,
+  type DetectedTracker,
+  type TrackerInfo,
+} from "@/utils/types/tracking-enums";
+import { parse } from "tldts";
 
 interface HandleNetworkRequests {
   details: chrome.webRequest.OnBeforeRequestDetails;
@@ -21,7 +32,7 @@ function hasTrackingParams(url: URL): boolean {
 // detect pixel/beacon request paths (heuristics)
 function hasTrackingPath(url: URL): boolean {
   const path = url.pathname.toLowerCase();
-  return TRACKING_PATHS.some((p) => path.includes(p));
+  return TRACKING_PATHS.some(p => path.includes(p));
 }
 
 // detect tracking subdomains using the eTLD+1-parsed subdomain label
@@ -59,10 +70,7 @@ function buildSuspiciousTracker(domain: string): TrackerInfo {
 
 // 1. DDG Tracker Radar (DuckDuckGo, Inc., 2025) is the primary source (CONFIRMED confidence).
 // 2. Heuristics (tracking params, paths, subdomains, cookie-sync patterns) are the fallback for domains not in the Radar database (SUSPICIOUS confidence).
-export function handleNetworkRequests({
-  details,
-  onTrackerDetected,
-}: HandleNetworkRequests): void {
+export function handleNetworkRequests({ details, onTrackerDetected }: HandleNetworkRequests): void {
   let url: URL;
 
   try {

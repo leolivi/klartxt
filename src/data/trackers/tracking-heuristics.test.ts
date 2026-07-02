@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { TRACKING_PARAMS, TRACKING_PATHS, TRACKING_SUBDOMAINS, USER_ID_PATTERN } from "./tracking-heuristics";
 
 describe("USER_ID_PATTERN", () => {

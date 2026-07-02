@@ -1,16 +1,9 @@
-import { useTranslation } from "react-i18next";
-import { Separator } from "../ui/separator";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
-import { ArrowUpRight, Link2 } from "lucide-react";
 import { CHECKED_ITEMS } from "@/utils/types/footer-types";
+import { ArrowUpRight, Link2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Button } from "../ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Separator } from "../ui/separator";
 
 export function FooterDialog() {
   const { t } = useTranslation();
@@ -18,7 +11,9 @@ export function FooterDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="link" className="text-ink-default" size={"xs"} >{t("footerWhatWasChecked")}</Button>
+        <Button variant="link" className="text-ink-default" size={"xs"}>
+          {t("footerWhatWasChecked")}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -42,12 +37,17 @@ export function FooterDialog() {
             </div>
           ))}
         </div>
-        <DialogDescription className="text-small text-ink-default">
-          {t("footerDialogDisclaimer")}
-        </DialogDescription>
+        <DialogDescription className="text-small text-ink-default">{t("footerDialogDisclaimer")}</DialogDescription>
         <div className="flex justify-center gap-1">
-          <Link2 size={"16"} className="text-ink-strongest"/>
-          <a href="https://klartxt.app" target="_blank" rel="noreferrer" className="text-ink-strongest hover:underline text-small">klartxt.app</a>
+          <Link2 size={"16"} className="text-ink-strongest" />
+          <a
+            href="https://klartxt.app"
+            target="_blank"
+            rel="noreferrer"
+            className="text-ink-strongest hover:underline text-small"
+          >
+            klartxt.app
+          </a>
         </div>
       </DialogContent>
     </Dialog>

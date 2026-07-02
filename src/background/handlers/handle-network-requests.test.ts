@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
 import { TrackerConfidence } from "@/utils/types/tracking-enums";
+import { describe, expect, it, vi } from "vitest";
 
 // TRACKER_MAP is fetched via chrome.runtime.getURL at extension runtime
 // in unit tests that environment is unavailable, therefore a mock is provided
@@ -163,7 +163,10 @@ describe("handleNetworkRequests, exclusions and clean URLs", () => {
   it("handles an invalid URL without throwing", () => {
     const onTrackerDetected = vi.fn();
     expect(() =>
-      handleNetworkRequests({ details: makeDetails("not-a-url"), onTrackerDetected })
+      handleNetworkRequests({
+        details: makeDetails("not-a-url"),
+        onTrackerDetected,
+      }),
     ).not.toThrow();
     expect(onTrackerDetected).not.toHaveBeenCalled();
   });

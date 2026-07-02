@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { checkArt25 } from "./art25";
 
 beforeEach(() => {
@@ -17,7 +17,10 @@ describe("checkArt25, isHttps", () => {
   });
 
   it("returns isHttps: true when protocol is https:", () => {
-    vi.stubGlobal("location", { protocol: "https:", href: "https://example.com/" });
+    vi.stubGlobal("location", {
+      protocol: "https:",
+      href: "https://example.com/",
+    });
     expect(checkArt25().isHttps).toBe(true);
   });
 });

@@ -1,33 +1,26 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { Tabs, TabsList, TabsTrigger } from "@/sidepanel/components/ui/tabs";
 import type { CheckedItemKey } from "@/utils/types/footer-types";
-import { TopicPage } from "./topic/page";
 import { useEffect, useState } from "react";
-import { HeroBanner } from "../components/heroBanner/HeroBanner"
+import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CTASection } from "../components/ctaSection/CTASection";
+import { HeroBanner } from "../components/heroBanner/HeroBanner";
+import { TopicPage } from "./topic/page";
 
 const VIDEO_SRC = "/assets/video/Klartxt_Privacy_Explained.mp4";
 
-const WEBSITE_TABS = [
-  { key: "tracker" },
-  { key: "cookies" },
-  { key: "privacyPolicy" },
-  { key: "video" },
-] as const;
+const WEBSITE_TABS = [{ key: "tracker" }, { key: "cookies" }, { key: "privacyPolicy" }, { key: "video" }] as const;
 
-type WebsiteTabKey = typeof WEBSITE_TABS[number]["key"];
+type WebsiteTabKey = (typeof WEBSITE_TABS)[number]["key"];
 
 const ROUTES: Record<WebsiteTabKey, string> = {
-  tracker:       "/trackers",
-  cookies:       "/cookies",
+  tracker: "/trackers",
+  cookies: "/cookies",
   privacyPolicy: "/privacy-policy",
-  video:         "/video",
+  video: "/video",
 };
 
-const PATH_TO_KEY = Object.fromEntries(
-  Object.entries(ROUTES).map(([k, v]) => [v, k as WebsiteTabKey])
-);
+const PATH_TO_KEY = Object.fromEntries(Object.entries(ROUTES).map(([k, v]) => [v, k as WebsiteTabKey]));
 
 export function HomePage() {
   const { t } = useTranslation();
@@ -35,9 +28,7 @@ export function HomePage() {
   const navigate = useNavigate();
   const activeKey: WebsiteTabKey = PATH_TO_KEY[location.pathname] ?? WEBSITE_TABS[0].key;
 
-  const [isDesktop, setIsDesktop] = useState(
-    () => window.matchMedia("(min-width: 640px)").matches
-  );
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia("(min-width: 640px)").matches);
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 640px)");
@@ -50,7 +41,6 @@ export function HomePage() {
     <main>
       <HeroBanner />
       <div className="flex items-center flex-col">
-        
         <div className="max-w-3xl mx-auto px-6 py-12">
           <div className="mb-10">
             <h1 className="text-h1 text-ink-strongest mb-2">{t("websiteHeroTitle")}</h1>
@@ -58,7 +48,7 @@ export function HomePage() {
           </div>
           <Tabs
             value={activeKey}
-            onValueChange={(key) => navigate(ROUTES[key as WebsiteTabKey])}
+            onValueChange={key => navigate(ROUTES[key as WebsiteTabKey])}
             className="mb-4"
             orientation={isDesktop ? "horizontal" : "vertical"}
           >
@@ -82,9 +72,7 @@ export function HomePage() {
         </div>
 
         <CTASection />
-        
       </div>
-
     </main>
   );
 }

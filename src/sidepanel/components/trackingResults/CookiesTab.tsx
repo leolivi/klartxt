@@ -1,24 +1,25 @@
+import { normalizeCookieDomain } from "@/utils/domain";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 import { CookieCategoryForUser } from "@/utils/types/cookie-types";
-import { Separator } from "../ui/separator";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
-import { normalizeCookieDomain } from "@/utils/domain";
-import { Link2 } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { Separator } from "../ui/separator";
 
 const CATEGORY_ORDER: Record<CookieCategoryForUser, number> = {
-  [CookieCategoryForUser.TRACKING]:   0,
+  [CookieCategoryForUser.TRACKING]: 0,
   [CookieCategoryForUser.FUNCTIONAL]: 1,
-  [CookieCategoryForUser.NECESSARY]:  2,
-  [CookieCategoryForUser.UNKNOWN]:    3,
+  [CookieCategoryForUser.NECESSARY]: 2,
+  [CookieCategoryForUser.UNKNOWN]: 3,
 };
 
 export function CookiesTab() {
   const { cookiesList } = useTabDataContext();
   const { t } = useTranslation();
 
-  if (cookiesList.length === 0) return <p className="text-small text-ink-default py-4">{t("trackingResultsDialogError")}</p>;
+  if (cookiesList.length === 0)
+    return <p className="text-small text-ink-default py-4">{t("trackingResultsDialogError")}</p>;
 
   const byCategory = cookiesList.reduce<Record<string, ClassifiedCookie[]>>((acc, cookie) => {
     const cat = cookie.userCategory;
@@ -28,7 +29,7 @@ export function CookiesTab() {
   }, {});
 
   const categories = Object.keys(byCategory).sort(
-    (a, b) => (CATEGORY_ORDER[a as CookieCategoryForUser] ?? 99) - (CATEGORY_ORDER[b as CookieCategoryForUser] ?? 99)
+    (a, b) => (CATEGORY_ORDER[a as CookieCategoryForUser] ?? 99) - (CATEGORY_ORDER[b as CookieCategoryForUser] ?? 99),
   );
 
   return (
@@ -55,12 +56,15 @@ export function CookiesTab() {
                   {Object.entries(byDomain).map(([domain, domainCookies]) => (
                     <div key={domain}>
                       <div className="flex items-center gap-1">
-                        <Link2 size={12} className="text-ink-strong"/>
+                        <Link2 size={12} className="text-ink-strong" />
                         <p className="text-small text-ink-strong pb-1">{domain}</p>
                       </div>
                       <ul className="flex flex-col gap-1">
-                        {domainCookies.map((cookie) => (
-                          <li key={`${cookie.domain}__${cookie.name}`} className="flex items-center justify-between pl-1">
+                        {domainCookies.map(cookie => (
+                          <li
+                            key={`${cookie.domain}__${cookie.name}`}
+                            className="flex items-center justify-between pl-1"
+                          >
                             <span className="text-body text-ink-default">{cookie.name}</span>
                             <span className="text-small text-ink-default">
                               {t(cookie.isThirdParty ? "cookieThirdParty" : "cookieFirstParty")}

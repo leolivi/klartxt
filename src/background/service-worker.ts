@@ -1,13 +1,13 @@
 /// <reference types="chrome" />
 
 import { initTrackerData } from "@/data/trackers/tracking-domains";
-import { handleNetworkRequests } from "./handlers/handle-network-requests";
-import { handleHeaders } from "./handlers/handle-headers";
-import { handleCookies } from "./handlers/handle-cookies";
 import { TrackerCache } from "./cache/tracker-cache";
+import { handleCookies } from "./handlers/handle-cookies";
 import { handleDsgvo } from "./handlers/handle-dsgvo";
-import { updateTabBadge } from "./handlers/update-badge";
 import { isSidePanelClosedError } from "./handlers/handle-errors";
+import { handleHeaders } from "./handlers/handle-headers";
+import { handleNetworkRequests } from "./handlers/handle-network-requests";
+import { updateTabBadge } from "./handlers/update-badge";
 
 initTrackerData();
 
@@ -26,7 +26,7 @@ if (__PLAYWRIGHT_TEST__) {
     if (!tab?.url) return;
     await handleCookies({
       tabUrl: tab.url,
-      onCookiesDetected: (cookies) => {
+      onCookiesDetected: cookies => {
         cache.setCookies(tabId, cookies);
         // Trigger score recalculation so getOverallRiskScore() is fresh after the rescan
         cache.scheduleUIUpdate(tabId);
@@ -39,20 +39,22 @@ if (__PLAYWRIGHT_TEST__) {
 function notifySidePanel(tabId: number): void {
   const trackers = cache.getTrackerDetails(tabId);
   const cookies = cache.getCookieDetails(tabId);
-  chrome.runtime.sendMessage({
-    type: "TAB_DATA_UPDATED",
-    tabId,
-    trackerCount: trackers.length,
-    trackerList: trackers,
-    cookieCount: cookies.length,
-    cookiesList: cookies,
-    isPartialData: !cache.isScanCompleted(tabId) || cache.isDataStale(tabId),
-    riskScore: cache.getOverallRiskScore(tabId),
-    dsgvoResult: cache.getDsgvoResult(tabId),
-    scanDuration: cache.getScanDuration(tabId),
-  }).catch((error) => {
-    if (!isSidePanelClosedError(error)) console.warn("[notifySidePanel] sendMessage failed:", error);
-  });
+  chrome.runtime
+    .sendMessage({
+      type: "TAB_DATA_UPDATED",
+      tabId,
+      trackerCount: trackers.length,
+      trackerList: trackers,
+      cookieCount: cookies.length,
+      cookiesList: cookies,
+      isPartialData: !cache.isScanCompleted(tabId) || cache.isDataStale(tabId),
+      riskScore: cache.getOverallRiskScore(tabId),
+      dsgvoResult: cache.getDsgvoResult(tabId),
+      scanDuration: cache.getScanDuration(tabId),
+    })
+    .catch(error => {
+      if (!isSidePanelClosedError(error)) console.warn("[notifySidePanel] sendMessage failed:", error);
+    });
 }
 
 /* ---- UI UPDATE HANDLER ---- */
@@ -66,9 +68,8 @@ cache.setUIUpdateCallback(handleUIUpdate);
 
 /* ---- SIDE PANEL ---- */
 chrome.sidePanel
-  .setPanelBehavior({openPanelOnActionClick: true})
-  .catch((error) => console.warn("[sidePanel] setPanelBehavior failed:", error));
-
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch(error => console.warn("[sidePanel] setPanelBehavior failed:", error));
 
 /* ---- TAB ACTIVATED HANDLER ---- */
 let activatedDebounceTimer: ReturnType<typeof setTimeout> | undefined;
@@ -94,7 +95,7 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
     // fresh cookie scan
     await handleCookies({
       tabUrl: tab.url,
-      onCookiesDetected: (cookies) => {
+      onCookiesDetected: cookies => {
         cache.setCookies(tabId, cookies);
         cache.scheduleUIUpdate(tabId);
       },
@@ -110,7 +111,7 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
         consentTiming: cache.getConsentTiming(tabId),
         tabUrl: tab.url,
         clientHintsDetected: cache.getClientHintsDetected(tabId),
-        onDsgvoChecked: (result) => {
+        onDsgvoChecked: result => {
           cache.setDsgvoResult(tabId, result);
           cache.scheduleUIUpdate(tabId);
         },
@@ -118,14 +119,14 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
     }
 
     // also request fresh DOM analysis from content script (best effort)
-    chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch((error) => {
+    chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch(error => {
       if (!isSidePanelClosedError(error)) console.warn("[onActivated] RUN_DSGVO_CHECKS failed:", error);
     });
   }, 150);
 });
 
 /* ---- TAB UPDATE HANDLER ---- */
-chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   // Reset on any navigation (full page load or SPA URL change via History API)
   if (changeInfo.url) {
     cache.reset(tabId);
@@ -138,7 +139,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
       cache.startScan(tabId);
       await handleCookies({
         tabUrl: tab.url,
-        onCookiesDetected: (cookies) => {
+        onCookiesDetected: cookies => {
           cache.setCookies(tabId, cookies);
           cache.scheduleUIUpdate(tabId);
         },
@@ -151,10 +152,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
 
   // On navigation, remove per-page state before restoring so that stale dsgvoResult/consentTiming
   // from the previous load can never leak into the new scan
-  await chrome.storage.session.remove([
-    `dsgvoResult_${tabId}`,
-    `consentTiming_${tabId}`,
-  ]);
+  await chrome.storage.session.remove([`dsgvoResult_${tabId}`, `consentTiming_${tabId}`]);
   await cache.restoreFromStorage(tabId);
   cache.startScan(tabId);
 
@@ -162,7 +160,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
   if (tab.url && !tab.url.startsWith("chrome://")) {
     await handleCookies({
       tabUrl: tab.url,
-      onCookiesDetected: (cookies) => {
+      onCookiesDetected: cookies => {
         cache.setCookies(tabId, cookies);
         cache.scheduleUIUpdate(tabId);
         console.debug(`Cookies (${cookies.length} total):`, cookies, `Risk: ${cache.getOverallRiskScore(tabId)}`);
@@ -173,7 +171,7 @@ chrome.tabs.onUpdated.addListener(async(tabId, changeInfo, tab) => {
 
 /* ---- RESPONSE HEADER HANDLER ---- */
 chrome.webRequest.onHeadersReceived.addListener(
-  (details) => {
+  details => {
     const tabId = details.tabId;
     if (tabId < 0) return undefined;
     handleHeaders({
@@ -187,32 +185,35 @@ chrome.webRequest.onHeadersReceived.addListener(
         const contentResult = cache.getContentResult(tabId);
         if (contentResult == null) return;
 
-        chrome.tabs.get(tabId).then((tab) => {
-          if (!tab.url) return;
-          handleDsgvo({
-            contentResult,
-            trackers: cache.getTrackerDetails(tabId),
-            cookieCount: cache.getCookieDetails(tabId).length,
-            consentTiming: cache.getConsentTiming(tabId),
-            tabUrl: tab.url,
-            clientHintsDetected: true,
-            onDsgvoChecked: (result) => {
-              cache.setDsgvoResult(tabId, result);
-              cache.scheduleUIUpdate(tabId);
-            },
-          });
-        }).catch(() => {});
+        chrome.tabs
+          .get(tabId)
+          .then(tab => {
+            if (!tab.url) return;
+            handleDsgvo({
+              contentResult,
+              trackers: cache.getTrackerDetails(tabId),
+              cookieCount: cache.getCookieDetails(tabId).length,
+              consentTiming: cache.getConsentTiming(tabId),
+              tabUrl: tab.url,
+              clientHintsDetected: true,
+              onDsgvoChecked: result => {
+                cache.setDsgvoResult(tabId, result);
+                cache.scheduleUIUpdate(tabId);
+              },
+            });
+          })
+          .catch(() => {});
       },
     });
     return undefined;
   },
   { urls: ["https://*/*", "http://*/*"] },
-  ["responseHeaders"]
+  ["responseHeaders"],
 );
 
 /* ---- NETWORK REQUEST HANDLER ---- */
 chrome.webRequest.onBeforeRequest.addListener(
-  (details) => {
+  details => {
     const tabId = details.tabId;
     if (tabId < 0) return undefined;
 
@@ -221,7 +222,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 
     handleNetworkRequests({
       details,
-      onTrackerDetected: (result) => {
+      onTrackerDetected: result => {
         cache.setTrackerDetail(tabId, result.tracker);
         cache.scheduleUIUpdate(tabId);
         const trackers = cache.getTrackerDetails(tabId);
@@ -235,36 +236,40 @@ chrome.webRequest.onBeforeRequest.addListener(
     });
     return undefined;
   },
-  { urls: ["https://*/*", "http://*/*"] }
+  { urls: ["https://*/*", "http://*/*"] },
 );
 
 const IGNORED_COOKIE_NAMES = new Set(["_cookie_test"]);
 
 /* ---- CONSENT TIMING: Cookie Change Listener ---- */
-chrome.cookies.onChanged.addListener((changeInfo) => {
+chrome.cookies.onChanged.addListener(changeInfo => {
   if (changeInfo.removed) return;
   if (IGNORED_COOKIE_NAMES.has(changeInfo.cookie.name)) return;
 
   // find active tab
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     (async () => {
       const tab = tabs[0];
       if (tab?.id == null || tab.url == null) return;
-  
+
       const tabId = tab.id;
       const timing = cache.getConsentTiming(tabId);
       // no banner shown
       if (timing?.bannerShownAt == null) return;
-  
+
       // cookies set before user interacted?
       const cookie = changeInfo.cookie;
       // track violations (before consent)
       const tabDomain = new URL(tab.url).hostname.replace(/^www\./, "");
-      cache.addCookieViolation(tabId, {
-        name: cookie.name,
-        domain: cookie.domain,
-        setAt: Date.now(),
-      }, tabDomain);
+      cache.addCookieViolation(
+        tabId,
+        {
+          name: cookie.name,
+          domain: cookie.domain,
+          setAt: Date.now(),
+        },
+        tabDomain,
+      );
 
       const updated = cache.getConsentTiming(tabId);
       console.debug(
@@ -299,18 +304,23 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         try {
           tab = await chrome.tabs.get(message.tabId);
         } catch {
-          sendResponse({ trackerCount: 0, cookieCount: 0, isPartialData: true, riskScore: 0 });
+          sendResponse({
+            trackerCount: 0,
+            cookieCount: 0,
+            isPartialData: true,
+            riskScore: 0,
+          });
           return;
         }
         if (tab.url && !tab.url.startsWith("chrome://")) {
           await handleCookies({
             tabUrl: tab.url,
-            onCookiesDetected: (cookies) => {
+            onCookiesDetected: cookies => {
               cache.setCookies(message.tabId, cookies);
               cache.scheduleUIUpdate(message.tabId);
             },
           });
-          chrome.tabs.sendMessage(message.tabId, { type: "RUN_DSGVO_CHECKS" }).catch((error) => {
+          chrome.tabs.sendMessage(message.tabId, { type: "RUN_DSGVO_CHECKS" }).catch(error => {
             if (!isSidePanelClosedError(error)) console.warn("[GET_TAB_DATA] RUN_DSGVO_CHECKS failed:", error);
           });
         }
@@ -334,7 +344,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     return true;
   }
 
-
   if (message.type === "DSGVO_CHECKS_RESULT" && _sender.tab?.id != null) {
     (async () => {
       const tabId = _sender.tab!.id!;
@@ -353,7 +362,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         consentTiming: cache.getConsentTiming(tabId),
         tabUrl: tab.url ?? "",
         clientHintsDetected: cache.getClientHintsDetected(tabId),
-        onDsgvoChecked: (result) => {
+        onDsgvoChecked: result => {
           cache.setDsgvoResult(tabId, result);
           cache.scheduleUIUpdate(tabId);
           console.debug(`DSGVO Checks:`, result);
@@ -382,7 +391,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       // cookie refresh after consent (only one time)
       await handleCookies({
         tabUrl: tab.url,
-        onCookiesDetected: (cookies) => {
+        onCookiesDetected: cookies => {
           cache.setCookies(tabId, cookies);
           cache.scheduleUIUpdate(tabId);
           console.debug(`Cookies after consent (${cookies.length} total):`, cookies);

@@ -1,13 +1,13 @@
 import type {
+  Art13_14Check,
+  Art25Check,
+  Art7Check,
   ConsentTimingResult,
   ContentScriptDsgvoResult,
-  Art7Check,
-  Art13_14Check,
-  Art25Check
 } from "@/utils/types/dsgvo-types";
-import { CheckSeverity } from "@/utils/types/dsgvo-types";
+import { SeverityLevel } from "@/utils/types/dsgvo-types";
 import { TrackerCategory, TrackerConfidence, type TrackerInfo } from "@/utils/types/tracking-enums";
-import { ART7_TEMPLATES, ART13_14_TEMPLATES, ART25_TEMPLATES } from "./dsgvo-check-templates";
+import { ART13_14_TEMPLATES, ART25_TEMPLATES, ART7_TEMPLATES } from "./dsgvo-check-templates";
 
 // Threshold derived from the defined CATEGORY_SCORE table (network-risk-score.ts):
 // EMBEDDED = 30 is the highest score considered borderline (third-party content, not necessarily tracking).
@@ -15,13 +15,11 @@ import { ART7_TEMPLATES, ART13_14_TEMPLATES, ART25_TEMPLATES } from "./dsgvo-che
 const HIGH_RISK_SCORE_BENCHMARK = 30;
 
 function isConsentTool(tracker: TrackerInfo): boolean {
-    return tracker.detailedCategories.includes(TrackerCategory.CONSENT);
+  return tracker.detailedCategories.includes(TrackerCategory.CONSENT);
 }
 
 export function confirmedTrackers(trackers: TrackerInfo[]): TrackerInfo[] {
-    return trackers.filter(
-        (t) => t.confidence === TrackerConfidence.CONFIRMED && !isConsentTool(t)
-    );
+  return trackers.filter(t => t.confidence === TrackerConfidence.CONFIRMED && !isConsentTool(t));
 }
 
 // CONFIRMED if cookies were set before any consent interaction
@@ -32,22 +30,18 @@ export function evaluateArt7(
   art7: ContentScriptDsgvoResult["art7"],
   trackers: TrackerInfo[],
   cookieCount: number,
-  consentTiming: ConsentTimingResult | null
+  consentTiming: ConsentTimingResult | null,
 ): Art7Check {
   const consentViolations = consentTiming?.cookiesSetBeforeConsent ?? [];
   const cookiesAfterConsent = consentTiming?.cookiesSetAfterConsent ?? [];
   const evidence: string[] = [];
-  let severity: CheckSeverity;
+  let severity: SeverityLevel;
   let passed: boolean;
   const confirmed = confirmedTrackers(trackers);
 
   // CONFIRMED violation: cookies were set before consent
-  if (
-    consentTiming != null &&
-    consentTiming.bannerShownAt != null &&
-    consentViolations.length > 0
-  ) {
-    severity = CheckSeverity.CONFIRMED;
+  if (consentTiming != null && consentTiming.bannerShownAt != null && consentViolations.length > 0) {
+    severity = SeverityLevel.CONFIRMED;
     passed = false;
     evidence.push(`${consentViolations.length} Cookie(s) wurden VOR der Einwilligung gesetzt`);
     consentViolations.forEach(cookie => {
@@ -56,7 +50,7 @@ export function evaluateArt7(
   }
   // SUSPICIOUS: banner visible and tracking/cookies detected
   else if (art7.bannerVisible && (confirmed.length > 0 || cookieCount > 0)) {
-    severity = CheckSeverity.SUSPICIOUS;
+    severity = SeverityLevel.SUSPICIOUS;
     passed = false;
     evidence.push("Cookie-Banner erkannt");
     if (confirmed.length > 0) {
@@ -68,7 +62,7 @@ export function evaluateArt7(
   }
   // FINE: no violations detected
   else {
-    severity = CheckSeverity.FINE;
+    severity = SeverityLevel.FINE;
     passed = true;
     if (consentTiming?.bannerShownAt) {
       evidence.push("Cookie-Banner wurde angezeigt");
@@ -94,21 +88,18 @@ export function evaluateArt7(
   };
 }
 
-export function evaluateArt13_14(
-  privacyPolicyFound: boolean,
-  searchedLocations: string[]
-): Art13_14Check {
+export function evaluateArt13_14(privacyPolicyFound: boolean, searchedLocations: string[]): Art13_14Check {
   const evidence: string[] = [];
-  let severity: CheckSeverity;
+  let severity: SeverityLevel;
   let passed: boolean;
 
   if (privacyPolicyFound) {
-    severity = CheckSeverity.FINE;
+    severity = SeverityLevel.FINE;
     passed = true;
     evidence.push("Link zur Datenschutzerklaerung gefunden");
     evidence.push(`Gefunden in: ${searchedLocations.join(", ")}`);
   } else {
-    severity = CheckSeverity.CONFIRMED;
+    severity = SeverityLevel.CONFIRMED;
     passed = false;
     evidence.push("Kein Link zur Datenschutzerklaerung gefunden");
     evidence.push(`Durchsuchte Bereiche: ${searchedLocations.join(", ")}`);
@@ -134,7 +125,7 @@ export function evaluateArt13_14(
 export function evaluateArt25(
   isHttps: boolean,
   trackers: TrackerInfo[],
-  domFingerprintingDetected: boolean
+  domFingerprintingDetected: boolean,
 ): Art25Check {
   const confirmed = confirmedTrackers(trackers);
   const highRisk = confirmed.filter(t => t.riskScore > HIGH_RISK_SCORE_BENCHMARK);
@@ -143,24 +134,24 @@ export function evaluateArt25(
   const fingerprintingDetected = domFingerprintingDetected || networkFingerprintingTrackers.length > 0;
 
   const evidence: string[] = [];
-  let severity: CheckSeverity;
+  let severity: SeverityLevel;
   let passed: boolean;
 
   if (!isHttps) {
-    severity = CheckSeverity.CONFIRMED;
+    severity = SeverityLevel.CONFIRMED;
     passed = false;
     evidence.push("Verbindung ist NICHT verschlüsselt (HTTP statt HTTPS)");
   } else if (highRisk.length > 0) {
-    severity = CheckSeverity.CONFIRMED;
+    severity = SeverityLevel.CONFIRMED;
     passed = false;
     evidence.push(`${highRisk.length} High-Risk Tracker erkannt`);
     highRisk.forEach(tracker => {
       evidence.push(`- ${tracker.domain} (Risk Score: ${tracker.riskScore})`);
     });
   } else if (confirmed.length > 0 || fingerprintingDetected) {
-    severity = CheckSeverity.SUSPICIOUS;
+    severity = SeverityLevel.SUSPICIOUS;
     // not a violation, but worth noting
-    passed = true; 
+    passed = true;
     if (confirmed.length > 0) {
       evidence.push(`${confirmed.length} Tracker erkannt (kein High-Risk)`);
     }
@@ -174,7 +165,7 @@ export function evaluateArt25(
       evidence.push("DOM-seitiges Fingerprinting erkannt (Canvas oder bekannte Script-Domain)");
     }
   } else {
-    severity = CheckSeverity.FINE;
+    severity = SeverityLevel.FINE;
     passed = true;
     evidence.push("HTTPS aktiv");
     evidence.push("Keine High-Risk Tracker oder Fingerprinting erkannt");

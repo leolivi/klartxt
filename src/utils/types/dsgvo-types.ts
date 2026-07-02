@@ -1,23 +1,23 @@
 // DSGVO Category
 
 export enum Articles {
-    ART7 = "Art. 7",
-    ART1314 = "Art. 13 and Art. 14",
-    ART25 = "Art. 25",
+  ART7 = "Art. 7",
+  ART1314 = "Art. 13 and Art. 14",
+  ART25 = "Art. 25",
 }
 
 export const DSGVO_KEYS = ["art7", "art13_14", "art25"] as const;
-export type DsgvoKey = typeof DSGVO_KEYS[number];
+export type DsgvoKey = (typeof DSGVO_KEYS)[number];
 
-export enum CheckSeverity {
+export enum SeverityLevel {
   FINE = "fine",
   SUSPICIOUS = "suspicious",
-  CONFIRMED = "confirmed"
+  CONFIRMED = "confirmed",
 }
 
 export interface DsgvoCheck {
   passed: boolean;
-  severity: CheckSeverity;
+  severity: SeverityLevel;
   article: Articles;
   title: string;
   quickTitle: string;

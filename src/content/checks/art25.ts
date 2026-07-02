@@ -10,7 +10,7 @@ const FINGERPRINT_DOMAIN_SET = new Set<string>(Object.keys(fingerprintData.domai
 // legitimate UI canvases are always larger.
 function hasTinyCanvasElement(): boolean {
   return Array.from(document.querySelectorAll("canvas")).some(
-    c => c instanceof HTMLCanvasElement && (c.width <= 2 || c.height <= 2)
+    c => c instanceof HTMLCanvasElement && (c.width <= 2 || c.height <= 2),
   );
 }
 
@@ -34,16 +34,16 @@ const INLINE_FINGERPRINTING_PATTERN =
 
 function hasInlineScriptFingerprintingSignal(): boolean {
   return Array.from(document.querySelectorAll("script:not([src])")).some(s =>
-    INLINE_FINGERPRINTING_PATTERN.test(s.textContent ?? "")
+    INLINE_FINGERPRINTING_PATTERN.test(s.textContent ?? ""),
   );
 }
 
-export function checkArt25(): { isHttps: boolean; fingerprintingDetected: boolean } {
+export function checkArt25(): {
+  isHttps: boolean;
+  fingerprintingDetected: boolean;
+} {
   return {
     isHttps: window.location.protocol === "https:",
-    fingerprintingDetected:
-      hasTinyCanvasElement() ||
-      hasFingerprintScript() ||
-      hasInlineScriptFingerprintingSignal(),
+    fingerprintingDetected: hasTinyCanvasElement() || hasFingerprintScript() || hasInlineScriptFingerprintingSignal(),
   };
 }

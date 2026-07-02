@@ -1,6 +1,6 @@
-import { checkArt13_14 } from "./checks/art13_14";
-import { checkArt25 } from "./checks/art25";
-import { checkArt7 } from "./checks/art7";
+import { checkArt13_14 } from "./checks/art13_14"
+import { checkArt25 } from "./checks/art25"
+import { checkArt7 } from "./checks/art7"
 
 /* -----
   DSGVO Content Script Checks
@@ -15,5 +15,5 @@ export function runDsgvoChecks() {
     art7: checkArt7(),
     art13_14: checkArt13_14(),
     art25: checkArt25(),
-  };
+  }
 }

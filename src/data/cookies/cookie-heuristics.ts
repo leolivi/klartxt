@@ -2,8 +2,8 @@
   Cookie Name Heuristics
 
   Sources per pattern group:
-  - Generiert aus Open Cookie Database (Analytics / Marketing / Functional / Security): Kwakman, 2023
-  - Primärquelle Klassifikationsansatz: Munir u.a., 2023 (CookieGraph)
+  - Generated from Open Cookie Database (Analytics / Marketing / Functional / Security): Kwakman, 2023
+  - Primary Source for classification: Munir u.a., 2023 (CookieGraph)
 ----- */
 
 import cookieDataRaw from "./cookie-heuristics.json";
@@ -20,7 +20,7 @@ interface CookieHeuristics {
 
 const cookieData = cookieDataRaw as CookieHeuristics;
 
-const toLower = (set: CookieSet) => Object.keys(set).map((p) => p.toLowerCase());
+const toLower = (set: CookieSet) => Object.keys(set).map(p => p.toLowerCase());
 
 export const NECESSARY_PATTERNS_LOWER = toLower(cookieData.necessary);
 export const SESSION_PATTERNS_LOWER = toLower(cookieData.session);

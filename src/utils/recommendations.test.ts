@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { inferRecommendations } from "./recommendations";
-import { TrackerCategoryForUser, TrackerConfidence, TrackerCategory, type TrackerInfo } from "./types/tracking-enums";
 import { CookieCategory, CookieCategoryForUser, type ClassifiedCookie } from "./types/cookie-types";
-import { Articles, CheckSeverity, type DsgvoResult } from "./types/dsgvo-types";
+import { Articles, SeverityLevel, type DsgvoResult } from "./types/dsgvo-types";
+import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type TrackerInfo } from "./types/tracking-enums";
 
 function makeTracker(overrides: Partial<TrackerInfo> = {}): TrackerInfo {
   return {
@@ -38,15 +38,17 @@ const baseCheck = {
   evidence: [],
 };
 
-function makeDsgvoResult(overrides: {
-  art7Passed?: boolean;
-  art7Violations?: { name: string; domain: string; setAt: number }[];
-} = {}): DsgvoResult {
+function makeDsgvoResult(
+  overrides: {
+    art7Passed?: boolean;
+    art7Violations?: { name: string; domain: string; setAt: number }[];
+  } = {},
+): DsgvoResult {
   return {
     art7: {
       ...baseCheck,
       article: Articles.ART7,
-      severity: overrides.art7Passed === false ? CheckSeverity.CONFIRMED : CheckSeverity.FINE,
+      severity: overrides.art7Passed === false ? SeverityLevel.CONFIRMED : SeverityLevel.FINE,
       passed: overrides.art7Passed ?? true,
       consentViolations: overrides.art7Violations ?? [],
       cookiesAfterConsent: [],
@@ -54,7 +56,7 @@ function makeDsgvoResult(overrides: {
     art13_14: {
       ...baseCheck,
       article: Articles.ART1314,
-      severity: CheckSeverity.FINE,
+      severity: SeverityLevel.FINE,
       passed: true,
       privacyPolicyFound: true,
       searchedLocations: [],
@@ -62,7 +64,7 @@ function makeDsgvoResult(overrides: {
     art25: {
       ...baseCheck,
       article: Articles.ART25,
-      severity: CheckSeverity.FINE,
+      severity: SeverityLevel.FINE,
       passed: true,
       highRiskTrackerCount: 0,
       isHttps: true,
@@ -81,7 +83,10 @@ describe("inferRecommendations", () => {
 
   it("always includes a legal recommendation as last item", () => {
     const result = inferRecommendations([], [], null, 1);
-    expect(result[3]).toEqual({ type: "legal", textKey: "recommendation_legal" });
+    expect(result[3]).toEqual({
+      type: "legal",
+      textKey: "recommendation_legal",
+    });
   });
 
   describe("general recommendation", () => {

@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
 import type { Insight } from "@/utils/insights";
+import { useTranslation } from "react-i18next";
 import { SEVERITY_ICON } from "./insightConfig";
 
 export function InsightItem({ insight }: { insight: Insight }) {

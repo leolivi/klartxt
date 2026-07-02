@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { readResults } from "../helpers/results";
 
 // ── clean Console-Log ── //
@@ -10,22 +10,18 @@ test("throws no unhandled exceptions across all sites", async ({}, testInfo) => 
   const { sites } = readResults();
 
   const report = sites.map(site => {
-    const allPageErrors = site.runs.flatMap((r, i) =>
-      r.pageErrors.map(msg => ({ run: i, msg }))
-    );
-    const allSwErrors = site.runs.flatMap((r, i) =>
-      r.swErrors.map(msg => ({ run: i, msg }))
-    );
+    const allPageErrors = site.runs.flatMap((r, i) => r.pageErrors.map(msg => ({ run: i, msg })));
+    const allSwErrors = site.runs.flatMap((r, i) => r.swErrors.map(msg => ({ run: i, msg })));
 
     return {
-      site:        site.name,
+      site: site.name,
       page_errors: allPageErrors,
-      sw_errors:   allSwErrors,
+      sw_errors: allSwErrors,
     };
   });
 
   await testInfo.attach("console-errors-report.json", {
-    body:        JSON.stringify(report, null, 2),
+    body: JSON.stringify(report, null, 2),
     contentType: "application/json",
   });
 

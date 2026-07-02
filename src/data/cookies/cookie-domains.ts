@@ -1,6 +1,11 @@
-import { CookieCategory, CookieCategoryForUser } from "@/utils/types/cookie-types";
+import {
+  ADVERTISING_PATTERNS_LOWER,
+  ANALYTICS_PATTERNS_LOWER,
+  NECESSARY_PATTERNS_LOWER,
+  SESSION_PATTERNS_LOWER,
+} from "@/data/cookies/cookie-heuristics";
 import { TRACKER_MAP } from "@/data/trackers/tracking-domains";
-import { ADVERTISING_PATTERNS_LOWER, ANALYTICS_PATTERNS_LOWER, NECESSARY_PATTERNS_LOWER, SESSION_PATTERNS_LOWER } from "@/data/cookies/cookie-heuristics";
+import { CookieCategory, CookieCategoryForUser } from "@/utils/types/cookie-types";
 
 /* -----
   Cookie Classification
@@ -44,10 +49,10 @@ export function mapNameToCategory(name: string): CookieCategory {
   if (lower.includes("csrf") || lower.includes("xsrf")) return CookieCategory.SECURITY;
   if (lower === "jsessionid" || lower === "phpsessid" || lower === "asp.net_sessionid") return CookieCategory.NECESSARY;
 
-  if (NECESSARY_MIN3.some((p) => lower.includes(p))) return CookieCategory.NECESSARY;
-  if (SESSION_MIN3.some((p) => lower.includes(p))) return CookieCategory.SESSION;
-  if (ANALYTICS_MIN3.some((p) => lower.includes(p))) return CookieCategory.ANALYTICS;
-  if (ADVERTISING_MIN3.some((p) => lower.includes(p))) return CookieCategory.ADVERTISING;
+  if (NECESSARY_MIN3.some(p => lower.includes(p))) return CookieCategory.NECESSARY;
+  if (SESSION_MIN3.some(p => lower.includes(p))) return CookieCategory.SESSION;
+  if (ANALYTICS_MIN3.some(p => lower.includes(p))) return CookieCategory.ANALYTICS;
+  if (ADVERTISING_MIN3.some(p => lower.includes(p))) return CookieCategory.ADVERTISING;
   return CookieCategory.UNKNOWN;
 }
 
@@ -61,18 +66,23 @@ export function isLongLivedCookie(cookie: chrome.cookies.Cookie): boolean {
 // DDG Tracker Radar: domain-based classification
 function mapTrackerCategoryToCookieCategory(trackerCategory: string): CookieCategory {
   switch (trackerCategory) {
-    case "advertising": return CookieCategory.ADVERTISING;
-    case "analytics": return CookieCategory.ANALYTICS;
-    case "social": return CookieCategory.ADVERTISING;
-    case "session_replay": return CookieCategory.ANALYTICS;
-    default: return CookieCategory.UNKNOWN;
+    case "advertising":
+      return CookieCategory.ADVERTISING;
+    case "analytics":
+      return CookieCategory.ANALYTICS;
+    case "social":
+      return CookieCategory.ADVERTISING;
+    case "session_replay":
+      return CookieCategory.ANALYTICS;
+    default:
+      return CookieCategory.UNKNOWN;
   }
 }
 
 export function classifyCookieCategory(
   cookieName: string,
   cookieRootDomain: string,
-  cookie: chrome.cookies.Cookie
+  cookie: chrome.cookies.Cookie,
 ): CookieCategory {
   // 1. DDG Tracker Radar
   const trackerInfo = TRACKER_MAP.get(cookieRootDomain);

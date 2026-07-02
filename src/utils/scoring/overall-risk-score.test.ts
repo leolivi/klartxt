@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { calculateOverallRiskScore } from "./overall-risk-score";
 
 // formula: score = tracker*0.4 + cookie*0.3 + dsgvo*0.3, normalized = min(round(score), 100)

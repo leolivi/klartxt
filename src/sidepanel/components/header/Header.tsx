@@ -1,11 +1,11 @@
-import { RefreshCw } from 'lucide-react';
+import { handleRefresh } from "@/utils/refresh";
+import { RefreshCw } from "lucide-react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useTabDataContext } from "../../context/useTabDataContext";
 import { useIsDark } from "../../hooks/useIsDark";
-import { Button } from '../ui/button';
-import { useTranslation } from 'react-i18next';
-import { Separator } from '../ui/separator';
-import { useTabDataContext } from '../../context/useTabDataContext';
-import { handleRefresh } from '@/utils/refresh';
-import { useState } from 'react';
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 
 const logoLight = "/assets/logo/Klartxt_logo_lm.svg";
 const logoDark = "/assets/logo/Klartxt_logo_dm.svg";
@@ -37,13 +37,24 @@ export function Header() {
               size={"sm"}
               leadingIcon={<RefreshCw className={isRefreshing ? "animate-spin" : ""} />}
             >
-              {isRefreshing || !isLoaded ? t('headerScanStatusInProgress') : isPartialData ? t('headerScanStatusPartial') : (t('headerScanStatusDone'))}
+              {isRefreshing || !isLoaded
+                ? t("headerScanStatusInProgress")
+                : isPartialData
+                  ? t("headerScanStatusPartial")
+                  : t("headerScanStatusDone")}
             </Button>
           </div>
-          <p className="text-ink-default px-4">{t('headerLastScanned')} <span className="text-ink-default">{lastScanned ? `${lastScanned.toDateString() === new Date().toDateString() ? t('headerToday') + ' ' : lastScanned.toLocaleDateString(i18n.language) + ', '}${lastScanned.toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' })}` : '–'}</span></p>
+          <p className="text-ink-default px-4">
+            {t("headerLastScanned")}{" "}
+            <span className="text-ink-default">
+              {lastScanned
+                ? `${lastScanned.toDateString() === new Date().toDateString() ? t("headerToday") + " " : lastScanned.toLocaleDateString(i18n.language) + ", "}${lastScanned.toLocaleTimeString(i18n.language, { hour: "2-digit", minute: "2-digit" })}`
+                : "–"}
+            </span>
+          </p>
         </div>
       </header>
-      <Separator/>
+      <Separator />
     </>
   );
 }

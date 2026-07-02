@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
+  ADVERTISING_PATTERNS_LOWER,
+  ANALYTICS_PATTERNS_LOWER,
   NECESSARY_PATTERNS_LOWER,
   SESSION_PATTERNS_LOWER,
-  ANALYTICS_PATTERNS_LOWER,
-  ADVERTISING_PATTERNS_LOWER,
 } from "./cookie-heuristics";
 
 const allArrays = [
@@ -25,7 +25,7 @@ describe("cookie heuristic pattern arrays", () => {
       });
 
       it("contains only lowercase strings", () => {
-        data.forEach((pattern) => {
+        data.forEach(pattern => {
           expect(pattern).toBe(pattern.toLowerCase());
         });
       });

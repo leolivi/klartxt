@@ -1,8 +1,8 @@
+import type { ClassifiedCookie } from "./types/cookie-types";
+import { CookieCategoryForUser } from "./types/cookie-types";
 import type { DsgvoResult } from "./types/dsgvo-types";
 import type { TrackerInfo } from "./types/tracking-enums";
 import { TrackerCategoryForUser } from "./types/tracking-enums";
-import type { ClassifiedCookie } from "./types/cookie-types";
-import { CookieCategoryForUser } from "./types/cookie-types";
 
 export interface Recommendation {
   type: "cookie" | "tracker" | "general" | "legal";
@@ -14,7 +14,10 @@ function cookieRecommendation(dsgvoResult: DsgvoResult | null, cookiesList: Clas
     if (dsgvoResult.art7.consentViolations.length > 0) {
       return { type: "cookie", textKey: "recommendation_cookie_decline_banner" };
     }
-    return { type: "cookie", textKey: "recommendation_cookie_consent_suspicious" };
+    return {
+      type: "cookie",
+      textKey: "recommendation_cookie_consent_suspicious",
+    };
   }
   const hasTrackingCookies = cookiesList.some(c => c.userCategory === CookieCategoryForUser.TRACKING);
   if (hasTrackingCookies) {

@@ -1,6 +1,6 @@
+import { AlertTriangle, X } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, X } from "lucide-react";
 import { useTabDataContext } from "../../context/useTabDataContext";
 
 export function WarningBanner() {

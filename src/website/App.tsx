@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { ImprintPage } from "./app/imprint/page";
+import { Layout } from "./app/layout";
+import { NotFoundPage } from "./app/not-found/page";
 import { HomePage } from "./app/page";
 import { PrivacyPage } from "./app/privacy/page";
-import { ImprintPage } from "./app/imprint/page";
 import { SourcesPage } from "./app/sources/page";
-import { NotFoundPage } from "./app/not-found/page";
-import { Layout } from "./app/layout";
 
 export default function App() {
   const { i18n } = useTranslation();

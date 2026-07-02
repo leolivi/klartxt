@@ -1,5 +1,5 @@
-import { cache } from "../service-worker";
 import { RISK_COLORS } from "@/utils/tokens";
+import { cache } from "../service-worker";
 
 // set badge color and text based on the current risk score
 function setBadge(tabId: number, riskLevel: number) {

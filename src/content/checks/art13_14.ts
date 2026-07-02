@@ -6,19 +6,28 @@ function hasPrivacyPolicyLink(containers: Element[]): boolean {
       const href = a.getAttribute("href") ?? "";
       const text = a.textContent ?? "";
       return PRIVACY_PATTERNS.test(href) || PRIVACY_PATTERNS.test(text);
-    })
+    }),
   );
 }
 
 /* ---- Art. 13/14: Data Policy available ---- */
 // Limitation: can only detect direct links based on defined patterns. Hidden policies cannot be detected that way
-export function checkArt13_14(): { found: boolean; searchedLocations: string[] } {
+export function checkArt13_14(): {
+  found: boolean;
+  searchedLocations: string[];
+} {
   const footerSelectors = ["footer", "[role='contentinfo']", "#footer", ".footer"];
   const navSelectors = ["nav", "[role='navigation']", "header"];
 
   const searchAreas = [
-    { name: "Footer", containers: footerSelectors.flatMap(sel => Array.from(document.querySelectorAll(sel))) },
-    { name: "Navigation", containers: navSelectors.flatMap(sel => Array.from(document.querySelectorAll(sel))) },
+    {
+      name: "Footer",
+      containers: footerSelectors.flatMap(sel => Array.from(document.querySelectorAll(sel))),
+    },
+    {
+      name: "Navigation",
+      containers: navSelectors.flatMap(sel => Array.from(document.querySelectorAll(sel))),
+    },
     { name: "whole document", containers: [document.body] },
   ];
 

@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { inferInsights } from "./insights";
-import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type TrackerInfo } from "./types/tracking-enums";
 import { CookieCategory, CookieCategoryForUser, type ClassifiedCookie } from "./types/cookie-types";
-import { Articles, CheckSeverity, type DsgvoResult } from "./types/dsgvo-types";
+import { Articles, SeverityLevel, type DsgvoResult } from "./types/dsgvo-types";
+import { TrackerCategory, TrackerCategoryForUser, TrackerConfidence, type TrackerInfo } from "./types/tracking-enums";
 
 function makeTracker(overrides: Partial<TrackerInfo> = {}): TrackerInfo {
   return {
@@ -39,23 +39,25 @@ const baseCheck = {
   evidence: [],
 };
 
-function makeDsgvoResult(overrides: {
-  art7Passed?: boolean;
-  art7Severity?: CheckSeverity;
-  art7Violations?: { name: string; domain: string; setAt: number }[];
-  art25Passed?: boolean;
-  art25Severity?: CheckSeverity;
-  art25Fingerprinting?: boolean;
-  art25HighRiskCount?: number;
-  art25IsHttps?: boolean;
-  art1314Passed?: boolean;
-  art1314Severity?: CheckSeverity;
-} = {}): DsgvoResult {
+function makeDsgvoResult(
+  overrides: {
+    art7Passed?: boolean;
+    art7Severity?: SeverityLevel;
+    art7Violations?: { name: string; domain: string; setAt: number }[];
+    art25Passed?: boolean;
+    art25Severity?: SeverityLevel;
+    art25Fingerprinting?: boolean;
+    art25HighRiskCount?: number;
+    art25IsHttps?: boolean;
+    art1314Passed?: boolean;
+    art1314Severity?: SeverityLevel;
+  } = {},
+): DsgvoResult {
   return {
     art7: {
       ...baseCheck,
       article: Articles.ART7,
-      severity: overrides.art7Severity ?? CheckSeverity.FINE,
+      severity: overrides.art7Severity ?? SeverityLevel.FINE,
       passed: overrides.art7Passed ?? true,
       consentViolations: overrides.art7Violations ?? [],
       cookiesAfterConsent: [],
@@ -63,7 +65,7 @@ function makeDsgvoResult(overrides: {
     art13_14: {
       ...baseCheck,
       article: Articles.ART1314,
-      severity: overrides.art1314Severity ?? CheckSeverity.FINE,
+      severity: overrides.art1314Severity ?? SeverityLevel.FINE,
       passed: overrides.art1314Passed ?? true,
       privacyPolicyFound: overrides.art1314Passed ?? true,
       searchedLocations: [],
@@ -71,7 +73,7 @@ function makeDsgvoResult(overrides: {
     art25: {
       ...baseCheck,
       article: Articles.ART25,
-      severity: overrides.art25Severity ?? CheckSeverity.FINE,
+      severity: overrides.art25Severity ?? SeverityLevel.FINE,
       passed: overrides.art25Passed ?? true,
       highRiskTrackerCount: overrides.art25HighRiskCount ?? 0,
       isHttps: overrides.art25IsHttps ?? true,
@@ -91,7 +93,10 @@ describe("inferInsights, tracker", () => {
 
   it("returns confirmed insight with company names when ads trackers with owners exist", () => {
     const trackers = [
-      makeTracker({ userCategory: TrackerCategoryForUser.ADS, owner: "Google LLC" }),
+      makeTracker({
+        userCategory: TrackerCategoryForUser.ADS,
+        owner: "Google LLC",
+      }),
     ];
     const [, tracker] = inferInsights(trackers, [], null);
     expect(tracker.severity).toBe("confirmed");
@@ -148,7 +153,7 @@ describe("inferInsights, dsgvo", () => {
   it("returns confirmed insight for art7 violations", () => {
     const result = makeDsgvoResult({
       art7Passed: false,
-      art7Severity: CheckSeverity.CONFIRMED,
+      art7Severity: SeverityLevel.CONFIRMED,
       art7Violations: [{ name: "_ga", domain: "google.com", setAt: 500 }],
     });
     const [dsgvo] = inferInsights([], [], result);
@@ -157,7 +162,10 @@ describe("inferInsights, dsgvo", () => {
   });
 
   it("returns suspicious insight for art7 failure without violations", () => {
-    const result = makeDsgvoResult({ art7Passed: false, art7Severity: CheckSeverity.SUSPICIOUS });
+    const result = makeDsgvoResult({
+      art7Passed: false,
+      art7Severity: SeverityLevel.SUSPICIOUS,
+    });
     const [dsgvo] = inferInsights([], [], result);
     expect(dsgvo.severity).toBe("suspicious");
     expect(dsgvo.textKey).toBe("insightDsgvo_art7_suspicious");
@@ -166,7 +174,7 @@ describe("inferInsights, dsgvo", () => {
   it("returns suspicious insight when art25 has fingerprinting", () => {
     const result = makeDsgvoResult({
       art25Passed: false,
-      art25Severity: CheckSeverity.SUSPICIOUS,
+      art25Severity: SeverityLevel.SUSPICIOUS,
       art25Fingerprinting: true,
     });
     const [dsgvo] = inferInsights([], [], result);
@@ -177,7 +185,7 @@ describe("inferInsights, dsgvo", () => {
   it("returns confirmed insight when art25 has high-risk trackers", () => {
     const result = makeDsgvoResult({
       art25Passed: false,
-      art25Severity: CheckSeverity.CONFIRMED,
+      art25Severity: SeverityLevel.CONFIRMED,
       art25Fingerprinting: false,
       art25HighRiskCount: 3,
     });
@@ -197,7 +205,11 @@ describe("inferInsights, dsgvo", () => {
   });
 
   it("returns https insight when art25 fails due to missing HTTPS only", () => {
-    const result = makeDsgvoResult({ art25Passed: false, art25Severity: CheckSeverity.CONFIRMED, art25IsHttps: false });
+    const result = makeDsgvoResult({
+      art25Passed: false,
+      art25Severity: SeverityLevel.CONFIRMED,
+      art25IsHttps: false,
+    });
     const [dsgvo] = inferInsights([], [], result);
     expect(dsgvo.severity).toBe("confirmed");
     expect(dsgvo.textKey).toBe("insightDsgvo_art25_https");
@@ -206,7 +218,12 @@ describe("inferInsights, dsgvo", () => {
 
 describe("inferInsights, profiling", () => {
   it("returns confirmed insight when session replay tracker is present", () => {
-    const trackers = [makeTracker({ detailedCategories: [TrackerCategory.SESSION], userCategory: TrackerCategoryForUser.SESSION })];
+    const trackers = [
+      makeTracker({
+        detailedCategories: [TrackerCategory.SESSION],
+        userCategory: TrackerCategoryForUser.SESSION,
+      }),
+    ];
     const [, , , profiling] = inferInsights(trackers, [], null);
     expect(profiling.severity).toBe("confirmed");
     expect(profiling.textKey).toBe("insightProfiling_sessionReplay");
@@ -233,14 +250,35 @@ describe("inferInsights, profiling", () => {
   });
 
   it("returns suspicious insight when fingerprintingDetected is true", () => {
-    const [, , , profiling] = inferInsights([], [], makeDsgvoResult({ art25Fingerprinting: true, art25Passed: false, art25Severity: CheckSeverity.SUSPICIOUS }));
+    const [, , , profiling] = inferInsights(
+      [],
+      [],
+      makeDsgvoResult({
+        art25Fingerprinting: true,
+        art25Passed: false,
+        art25Severity: SeverityLevel.SUSPICIOUS,
+      }),
+    );
     expect(profiling.severity).toBe("suspicious");
     expect(profiling.textKey).toBe("insightProfiling_fingerprinting");
   });
 
   it("session replay takes priority over fingerprinting", () => {
-    const trackers = [makeTracker({ detailedCategories: [TrackerCategory.SESSION], userCategory: TrackerCategoryForUser.SESSION })];
-    const [, , , profiling] = inferInsights(trackers, [], makeDsgvoResult({ art25Fingerprinting: true, art25Passed: false, art25Severity: CheckSeverity.SUSPICIOUS }));
+    const trackers = [
+      makeTracker({
+        detailedCategories: [TrackerCategory.SESSION],
+        userCategory: TrackerCategoryForUser.SESSION,
+      }),
+    ];
+    const [, , , profiling] = inferInsights(
+      trackers,
+      [],
+      makeDsgvoResult({
+        art25Fingerprinting: true,
+        art25Passed: false,
+        art25Severity: SeverityLevel.SUSPICIOUS,
+      }),
+    );
     expect(profiling.textKey).toBe("insightProfiling_sessionReplay");
   });
 
@@ -267,4 +305,3 @@ describe("inferInsights, returns 4 insights in correct order", () => {
     expect(insights[3].type).toBe("profiling");
   });
 });
-

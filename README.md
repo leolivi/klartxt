@@ -1,4 +1,5 @@
 ![Klartxt Logo](/public/assets/logo/Klartxt_logo_lm.svg)
+
 # Klartxt Extension
 
 This is the source code for the Klartxt Chrome extension. The extension analyzes website tracking mechanisms (network requests and cookies) in real time, visualizes them in a structured way, and provides actionable privacy recommendations based on technical findings.
@@ -31,6 +32,7 @@ This is the source code for the Klartxt Chrome extension. The extension analyzes
 > All analysis runs locally in your browser. No data is sent to external servers!
 
 ## Architecture
+
 ![Software architecture diagram](/public/assets/img/software-architecture-diagram.svg)
 
 ## Getting Started
@@ -121,16 +123,16 @@ npm run test:e2e:report  # open the HTML report in the browser
 
 **Test suites:**
 
-| Suite | What it checks |
-|---|---|
-| `basic` | Extension loads, side panel opens, scan completes on a real page |
-| `cold-start` | Cache state is fully restored from session storage after a service worker restart |
-| `collect` | *(setup)* Scans all sites and writes `test-results-data.json` for the suites below |
-| `console-errors` | No unhandled JS exceptions thrown on page or in the extension service worker |
-| `cookie-capture` | Cookies are detected and classified with correct first/third-party status |
-| `performance` | Full scan completes within 2 seconds |
-| `request-capture` | Extension captures ≥ 100 % of network requests (local only -> skipped in CI) |
-| `score-reproducibility` | Identical scores are reproduced in ≥ 80 % of repeated runs |
+| Suite                   | What it checks                                                                     |
+| ----------------------- | ---------------------------------------------------------------------------------- |
+| `basic`                 | Extension loads, side panel opens, scan completes on a real page                   |
+| `cold-start`            | Cache state is fully restored from session storage after a service worker restart  |
+| `collect`               | _(setup)_ Scans all sites and writes `test-results-data.json` for the suites below |
+| `console-errors`        | No unhandled JS exceptions thrown on page or in the extension service worker       |
+| `cookie-capture`        | Cookies are detected and classified with correct first/third-party status          |
+| `performance`           | Full scan completes within 2 seconds                                               |
+| `request-capture`       | Extension captures ≥ 100 % of network requests (local only -> skipped in CI)       |
+| `score-reproducibility` | Identical scores are reproduced in ≥ 80 % of repeated runs                         |
 
 Each test attaches a JSON result and for reproducibility tests a sidepanel screenshot to the HTML report. These attachments are the basis for manual false-positive analysis.
 
@@ -146,19 +148,19 @@ Each test attaches a JSON result and for reproducibility tests a sidepanel scree
 
 Two GitHub Actions workflows are included:
 
-| Workflow | Trigger | What it does |
-|---|---|---|
-| [`e2e.yml`](.github/workflows/e2e.yml) | Push / pull request | Runs unit tests and E2E tests in CI using Xvfb |
+| Workflow                                                           | Trigger                      | What it does                                                                                                                                                                          |
+| ------------------------------------------------------------------ | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`e2e.yml`](.github/workflows/e2e.yml)                             | Push / pull request          | Runs unit tests and E2E tests in CI using Xvfb                                                                                                                                        |
 | [`chrome-deployment.yml`](.github/workflows/chrome-deployment.yml) | Manual (`workflow_dispatch`) | Bumps the version in `manifest.json` based on conventional commits (`feat` -> minor, everything else -> patch), builds the extension, zips it, and uploads it to the Chrome Web Store |
 
 **Required secrets for deployment:**
 
-| Secret | Description |
-|---|---|
-| `CHROME_EXTENSION_ID` | The extension ID from the Chrome Web Store dashboard |
-| `CHROME_CLIENT_ID` | OAuth client ID from Google Cloud Console |
-| `CHROME_CLIENT_SECRET` | OAuth client secret |
-| `CHROME_REFRESH_TOKEN` | Refresh token for the Chrome Web Store API |
+| Secret                 | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| `CHROME_EXTENSION_ID`  | The extension ID from the Chrome Web Store dashboard |
+| `CHROME_CLIENT_ID`     | OAuth client ID from Google Cloud Console            |
+| `CHROME_CLIENT_SECRET` | OAuth client secret                                  |
+| `CHROME_REFRESH_TOKEN` | Refresh token for the Chrome Web Store API           |
 
 ## Project Structure
 
@@ -177,8 +179,28 @@ Two GitHub Actions workflows are included:
 - `tsconfig.json`: Root TypeScript configuration
 - `package.json`: Project dependencies and scripts
 
+## Python Scripts
+
+### Tracker category extraction
+
+The helper script `scripts/tracker-categories-extraction.py` can be run directly from the command line. It does not require the Chrome extension to be installed or started; it only reads the local tracker data from `src/data/trackers/tracker-core.json` and `src/data/trackers/tracker-extended.json`.
+
+If `matplotlib` is not installed yet, install it first:
+
+```sh
+python3 -m pip install matplotlib
+```
+
+Then run the script from the repository root:
+
+```sh
+python3 scripts/tracker-categories-extraction.py
+```
+
+The script prints all detected tracker categories with their counts and opens a bar chart window. Pressing "Play" in an editor such as VS Code or PyCharm usually runs the same Python file, but the command above is the reproducible way to execute it.
 
 ## Tools
+
 NotebookLM Video Overview (Gemini), Google LLC: https://notebooklm.google.com/
 Erklärvideo Klartxt_Privacy_Explained generiert am 14. Juni 2026.
 Verwendeter Prompt: "Create a short, engaging video explanation (2–3 minutes) aimed at everyday internet users with no technical background. Topic: What are web trackers and cookies, and what do the different categories mean? Cover these tracker categories in plain language: Advertising, Tracking & Analytics, Content, Security, Functional. Cover these cookie categories: Tracking, Functional, Necessary. Tone: conversational, neutral, not alarmist. Avoid legal jargon. Use concrete everyday analogies where helpful. Do not mention specific companies or products. Keep it factual, explain what these things are, not whether they are good or bad. End with one sentence summarising why it matters to know the difference."
@@ -189,8 +211,8 @@ DeepL Translate, DeepL SE: https://www.deepl.com/de/translator
 Claude, Version Sonnet 4.6, Anthropic: https://claude.ai
 Hilfe bei der Erstellung von Textstruktur, Code, Code Review und Lokalisierungen der Website und Erweiterung
 
-
 ## Sources
+
 Chrome for Developers, 2025. Chrome Extensions Docs. [online] Chrome for Developers. Verfügbar unter: <https://developer.chrome.com/docs/extensions?hl=de> [Zugegriffen 13 November 2025].
 
 Davis, K.R., Peabody, B. und Leach, P., 2024. Universally Unique IDentifiers (UUIDs). [Request for Comments] Internet Engineering Task Force. https://doi.org/10.17487/RFC9562.
@@ -228,10 +250,3 @@ Taylor, M. und Weiss, Y., 2026. User-Agent Client Hints. [online] WICG. Verfügb
 TikTok For Business, 2025. About TikTok Click ID. [online] TikTok Business Help Center. Verfügbar unter: <https://ads.tiktok.com/help/article/tiktok-click-id?lang=en> [Zugegriffen 8 Mai 2026].
 
 X Corp., 2026. Conversion tracking for websites. [online] X Business. Verfügbar unter: <https://business.x.com/en/help/campaign-measurement-and-analytics/conversion-tracking-for-websites> [Zugegriffen 8 Mai 2026].
-
-
-
-
-
-
-

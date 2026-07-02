@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { extractDomain } from "@/utils/domain";
 import type { TabData, TabDataMessage } from "@/utils/types/tab-types";
+import { useEffect, useState } from "react";
 
 const DEFAULT_TAB_DATA: TabData = {
   trackerCount: 0,
@@ -22,10 +22,10 @@ export function useTabData() {
   const isChromeExtension = typeof chrome !== "undefined" && !!chrome.tabs;
 
   useEffect(() => {
-    // ?tabId lets E2E tests pin the sidepanel to a specific tab so screenshots show the real scan data instead of the sidepanel tab's own (empty) data.
-    const params     = new URLSearchParams(window.location.search);
-    const forcedId   = Number(params.get("tabId"))  || null;
-    const forcedUrl  = params.get("tabUrl")          ?? "";
+    // tabId lets E2E tests pin the sidepanel to a specific tab so screenshots show the real scan data instead of the sidepanel tab's own (empty) data
+    const params = new URLSearchParams(window.location.search);
+    const forcedId = Number(params.get("tabId")) || null;
+    const forcedUrl = params.get("tabUrl") ?? "";
 
     async function fetchData() {
       if (!isChromeExtension) return;
@@ -35,16 +35,13 @@ export function useTabData() {
       if (!tab?.id) return;
       setIsLoaded(false);
       setDomain(extractDomain(tab.url ?? ""));
-      chrome.runtime.sendMessage(
-        { type: "GET_TAB_DATA", tabId: tab.id },
-        (response: TabData) => {
-          if (response) {
-            setData(response);
-            setIsLoaded(true);
-            setLastScanned(new Date());
-          }
+      chrome.runtime.sendMessage({ type: "GET_TAB_DATA", tabId: tab.id }, (response: TabData) => {
+        if (response) {
+          setData(response);
+          setIsLoaded(true);
+          setLastScanned(new Date());
         }
-      );
+      });
     }
 
     fetchData();
@@ -58,10 +55,16 @@ export function useTabData() {
     const handleMessage = (message: TabDataMessage) => {
       if (message.type === "TAB_DATA_UPDATED") {
         if (forcedId) {
-          if (message.tabId === forcedId) { setData(message); setLastScanned(new Date()); }
+          if (message.tabId === forcedId) {
+            setData(message);
+            setLastScanned(new Date());
+          }
         } else {
           chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-            if (tab?.id === message.tabId) { setData(message); setLastScanned(new Date()); }
+            if (tab?.id === message.tabId) {
+              setData(message);
+              setLastScanned(new Date());
+            }
           });
         }
       }

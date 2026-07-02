@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
-import { useTabData } from "../hooks/useTabData";
 import { inferInsights } from "@/utils/insights";
 import { inferRecommendations } from "@/utils/recommendations";
+import type { ReactNode } from "react";
+import { useTabData } from "../hooks/useTabData";
 import { TabDataContext } from "./TabDataContextValue";
 
 export function TabDataProvider({ children }: { children: ReactNode }) {
@@ -11,7 +11,16 @@ export function TabDataProvider({ children }: { children: ReactNode }) {
   const recommendations = inferRecommendations(data.trackerList, data.cookiesList, data.dsgvoResult, data.riskScore);
 
   return (
-    <TabDataContext.Provider value={{ ...data, domain, isLoaded, lastScanned, insights, recommendations }}>
+    <TabDataContext.Provider
+      value={{
+        ...data,
+        domain,
+        isLoaded,
+        lastScanned,
+        insights,
+        recommendations,
+      }}
+    >
       {children}
     </TabDataContext.Provider>
   );

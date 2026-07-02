@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Card } from "@/sidepanel/components/ui/card";
 import { useIsDark } from "@/sidepanel/hooks/useIsDark";
+import { useState } from "react";
 
 const brandmarkLight = "/assets/logo/Klartxt_brandmark_lm.svg";
 const brandmarkDark = "/assets/logo/Klartxt_brandmark_dm.svg";

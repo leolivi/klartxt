@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { handleHeaders } from "./handle-headers";
 
 function makeDetails(headers: { name: string; value: string }[]): chrome.webRequest.OnHeadersReceivedDetails {
@@ -65,7 +65,12 @@ describe("handleHeaders, Accept-CH client hints", () => {
   it("triggers only once even with multiple high-entropy hints", () => {
     const cb = vi.fn();
     handleHeaders({
-      details: makeDetails([{ name: "Accept-CH", value: "Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Device-Memory" }]),
+      details: makeDetails([
+        {
+          name: "Accept-CH",
+          value: "Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Device-Memory",
+        },
+      ]),
       onClientHintsDetected: cb,
     });
     expect(cb).toHaveBeenCalledOnce();

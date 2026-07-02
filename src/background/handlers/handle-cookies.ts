@@ -1,19 +1,12 @@
+import { classifyCookieCategory, extractRootDomain, mapToUserCategory } from "@/data/cookies/cookie-domains";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
-import {
-  classifyCookieCategory,
-  extractRootDomain,
-  mapToUserCategory,
-} from "@/data/cookies/cookie-domains";
 
 interface HandleCookies {
   tabUrl: string;
   onCookiesDetected: (cookies: ClassifiedCookie[]) => void;
 }
 
-export async function handleCookies({
-  tabUrl,
-  onCookiesDetected,
-}: HandleCookies): Promise<void> {
+export async function handleCookies({ tabUrl, onCookiesDetected }: HandleCookies): Promise<void> {
   let url: URL;
   try {
     url = new URL(tabUrl);
@@ -25,12 +18,9 @@ export async function handleCookies({
 
   const allCookies = await chrome.cookies.getAll({});
 
-  const pageCookies = allCookies.filter((c) => {
+  const pageCookies = allCookies.filter(c => {
     const cookieDomain = c.domain.replace(/^\./, "");
-    return (
-      cookieDomain.includes(tabRootDomain) ||
-      tabRootDomain.includes(extractRootDomain(cookieDomain))
-    );
+    return cookieDomain.includes(tabRootDomain) || tabRootDomain.includes(extractRootDomain(cookieDomain));
   });
 
   const seen = new Set<string>();

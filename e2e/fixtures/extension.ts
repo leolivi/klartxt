@@ -1,8 +1,8 @@
 /// <reference types="chrome" />
-import  { chromium, type BrowserContext } from "@playwright/test";
-import path from "path";
-import os from "os";
+import { chromium, type BrowserContext } from "@playwright/test";
 import fs from "fs";
+import os from "os";
+import path from "path";
 
 /**
  * Launches a persistent Chromium context with the built extension loaded.
@@ -12,9 +12,7 @@ export async function launchWithExtension(): Promise<BrowserContext> {
   const pathToExtension = path.resolve("./build");
 
   if (!fs.existsSync(pathToExtension)) {
-    throw new Error(
-      `Extension build not found at ${pathToExtension}.\nRun "npm run build" before running E2E tests.`
-    );
+    throw new Error(`Extension build not found at ${pathToExtension}.\nRun "npm run build" before running E2E tests.`);
   }
 
   // mkdtempSync is atomic guarantees a unique dir even across parallel workers
@@ -22,10 +20,6 @@ export async function launchWithExtension(): Promise<BrowserContext> {
 
   return chromium.launchPersistentContext(userDataDir, {
     headless: false,
-    args: [
-      `--disable-extensions-except=${pathToExtension}`,
-      `--load-extension=${pathToExtension}`,
-      "--no-sandbox",
-    ],
+    args: [`--disable-extensions-except=${pathToExtension}`, `--load-extension=${pathToExtension}`, "--no-sandbox"],
   });
 }

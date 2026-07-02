@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
 import type { Recommendation } from "@/utils/recommendations";
+import { useTranslation } from "react-i18next";
 import { TYPE_ICON } from "./recommendationConfig";
 
 export function RecommendationItem({ recommendation }: { recommendation: Recommendation }) {

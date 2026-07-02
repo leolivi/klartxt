@@ -1,18 +1,18 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import js from "@eslint/js";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig, globalIgnores } from "eslint/config";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
+      reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite,
       { rules: { "react-refresh/only-export-components": ["warn", { allowConstantExport: true }] } },
     ],
@@ -24,7 +24,7 @@ export default defineConfig([
   {
     // Playwright requires {} destructuring for the fixtures argument in test().
     // no-empty-pattern would flag every test that uses no built-in fixtures.
-    files: ['e2e/**/*.{ts,spec.ts}'],
-    rules: { 'no-empty-pattern': 'off' },
+    files: ["e2e/**/*.{ts,spec.ts}"],
+    rules: { "no-empty-pattern": "off" },
   },
-])
+]);

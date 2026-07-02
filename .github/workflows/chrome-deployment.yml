@@ -28,6 +28,7 @@ jobs:
             const fs = require('fs');
 
             const manifest = JSON.parse(fs.readFileSync('public/manifest.json', 'utf8'));
+            const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
             const [major, minor, patch] = manifest.version.split('.').map(Number);
 
             const lastBumpHash = execSync('git log --format=%H -- public/manifest.json').toString().trim().split('\n')[0];
@@ -40,7 +41,19 @@ jobs:
               : \`\${major}.\${minor}.\${patch + 1}\`;
 
             manifest.version = newVersion;
+            packageJson.version = newVersion;
             fs.writeFileSync('public/manifest.json', JSON.stringify(manifest, null, 2) + '\n');
+            fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2) + '\n');
+
+            if (fs.existsSync('package-lock.json')) {
+              const packageLock = JSON.parse(fs.readFileSync('package-lock.json', 'utf8'));
+              packageLock.version = newVersion;
+              if (packageLock.packages?.['']) {
+                packageLock.packages[''].version = newVersion;
+              }
+              fs.writeFileSync('package-lock.json', JSON.stringify(packageLock, null, 2) + '\n');
+            }
+
             console.log('Bump:', hasFeat ? 'minor' : 'patch');
             console.log('Version:', newVersion);
           "
@@ -49,7 +62,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/manifest.json
+          git add public/manifest.json package.json
+          if [ -f package-lock.json ]; then
+            git add package-lock.json
+          fi
           git commit -m "chore: bump version to $(jq -r '.version' public/manifest.json)"
           git push
 

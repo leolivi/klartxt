@@ -1,6 +1,6 @@
+import type { ClassifiedCookie } from "./cookie-types";
 import type { DsgvoResult } from "./dsgvo-types";
 import type { TrackerInfo } from "./tracking-enums";
-import type { ClassifiedCookie } from "./cookie-types";
 
 export interface TabData {
   trackerCount: number;

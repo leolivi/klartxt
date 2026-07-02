@@ -1,9 +1,9 @@
 import { test } from "@playwright/test";
 import fs from "fs";
-import sitesData from "../sites.json" with { type: "json" };
 import { launchWithExtension } from "../fixtures/extension";
-import { scanSite } from "../helpers/scan";
 import { RESULTS_PATH, type CollectedResults } from "../helpers/results";
+import { scanSite } from "../helpers/scan";
+import sitesData from "../sites.json" with { type: "json" };
 
 // ── Data collection ── //
 // Runs 3 scans per site and writes test-results-data.json.
@@ -25,8 +25,18 @@ test("collects scan data for all sites", async () => {
       let sw = context.serviceWorkers()[0];
       if (!sw) sw = await context.waitForEvent("serviceworker", { timeout: 5_000 });
 
-      const { score, trackerDetails, cookieDetails, seenHostnames, scanCompleted, scanDuration, playwrightRequests, extensionRequests, pageErrors, swErrors } =
-        await scanSite(context, sw, site.url);
+      const {
+        score,
+        trackerDetails,
+        cookieDetails,
+        seenHostnames,
+        scanCompleted,
+        scanDuration,
+        playwrightRequests,
+        extensionRequests,
+        pageErrors,
+        swErrors,
+      } = await scanSite(context, sw, site.url);
 
       await context.close();
 

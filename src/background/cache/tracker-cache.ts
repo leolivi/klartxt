@@ -5,7 +5,12 @@ import { calculateDsgvoRiskScore } from "@/utils/scoring/dsgvo-risk-score";
 import { calculateTrackerRiskPageScore } from "@/utils/scoring/network-risk-score";
 import { calculateOverallRiskScore } from "@/utils/scoring/overall-risk-score";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
-import type { ConsentTimingResult, ContentScriptDsgvoResult, CookieViolation, DsgvoResult } from "@/utils/types/dsgvo-types";
+import type {
+  ConsentTimingResult,
+  ContentScriptDsgvoResult,
+  CookieViolation,
+  DsgvoResult,
+} from "@/utils/types/dsgvo-types";
 import type { TrackerInfo } from "@/utils/types/tracking-enums";
 
 /* ---- CACHE MANAGER ---- */
@@ -18,7 +23,7 @@ export class TrackerCache {
   private timestamps = new Map<number, number>();
   private consentTiming = new Map<number, ConsentTimingResult>();
   private scanCompleted = new Map<number, boolean>();
-  private requestsSeen  = new Map<number, number>();
+  private requestsSeen = new Map<number, number>();
   private scanStartedAt = new Map<number, number>();
   private scanDuration = new Map<number, number>();
   private clientHintsDetected = new Map<number, boolean>();
@@ -158,13 +163,9 @@ export class TrackerCache {
     const isAfterConsent = existing.interactedAt != null;
     if (isAfterConsent && !violation.domain.includes(tabDomain)) return;
 
-    const list = existing.interactedAt == null
-      ? existing.cookiesSetBeforeConsent
-      : existing.cookiesSetAfterConsent;
+    const list = existing.interactedAt == null ? existing.cookiesSetBeforeConsent : existing.cookiesSetAfterConsent;
 
-    const alreadyTracked = list.some(
-      (v) => v.name === violation.name && v.domain === violation.domain
-    );
+    const alreadyTracked = list.some(v => v.name === violation.name && v.domain === violation.domain);
     if (alreadyTracked) return;
 
     list.push(violation);
@@ -193,8 +194,8 @@ export class TrackerCache {
       [`contentResult_${tabId}`]: this.contentResults.get(tabId) ?? null,
       [`consentTiming_${tabId}`]: this.consentTiming.get(tabId) ?? null,
       [`overallRiskScore_${tabId}`]: this.overallRiskScore.get(tabId) ?? null,
-      [`scanCompleted_${tabId}`]:   this.scanCompleted.get(tabId) ?? false,
-      [`requestsSeen_${tabId}`]:    this.requestsSeen.get(tabId) ?? 0,
+      [`scanCompleted_${tabId}`]: this.scanCompleted.get(tabId) ?? false,
+      [`requestsSeen_${tabId}`]: this.requestsSeen.get(tabId) ?? 0,
     };
     await chrome.storage.session.set(data);
   }
@@ -218,7 +219,9 @@ export class TrackerCache {
     if (existing) clearTimeout(existing);
     const timer = setTimeout(() => {
       const start = this.scanStartedAt.get(tabId);
-      console.debug(`[ScanDuration] debounce fired tabId=${tabId}, start=${start}, hasDuration=${this.scanDuration.has(tabId)}`);
+      console.debug(
+        `[ScanDuration] debounce fired tabId=${tabId}, start=${start}, hasDuration=${this.scanDuration.has(tabId)}`,
+      );
       if (start != null && !this.scanDuration.has(tabId)) {
         const duration = Math.round((Date.now() - start) / 100) / 10;
         this.scanDuration.set(tabId, duration);
@@ -231,7 +234,7 @@ export class TrackerCache {
     this.uiUpdateDebounceTimers.set(tabId, timer);
   }
 
-  // Restores in-memory state from chrome.storage.session after a service worker cold start. 
+  // Restores in-memory state from chrome.storage.session after a service worker cold start.
   // The overall risk score is recalculated from sub-data at the end so the stored snapshot is only used as
   // a fallback when no sub-data is available
   async restoreFromStorage(tabId: number): Promise<void> {
@@ -248,7 +251,7 @@ export class TrackerCache {
     const trackers = result[`trackerDetails_${tabId}`];
     if (Array.isArray(trackers)) {
       const trackerMap = new Map<string, TrackerInfo>();
-      (trackers as TrackerInfo[]).forEach((t) => trackerMap.set(t.domain, t));
+      (trackers as TrackerInfo[]).forEach(t => trackerMap.set(t.domain, t));
       this.trackerDetails.set(tabId, trackerMap);
     }
 
@@ -293,9 +296,15 @@ export class TrackerCache {
     // cancel pending timers -> without this, a debounced write fires after reset
     // and overwrites storage with empty data, corrupting the cold-start restore.
     const pt = this.persistDebounceTimers.get(tabId);
-    if (pt) { clearTimeout(pt); this.persistDebounceTimers.delete(tabId); }
+    if (pt) {
+      clearTimeout(pt);
+      this.persistDebounceTimers.delete(tabId);
+    }
     const ut = this.uiUpdateDebounceTimers.get(tabId);
-    if (ut) { clearTimeout(ut); this.uiUpdateDebounceTimers.delete(tabId); }
+    if (ut) {
+      clearTimeout(ut);
+      this.uiUpdateDebounceTimers.delete(tabId);
+    }
 
     this.trackerDetails.delete(tabId);
     this.cookieDetails.delete(tabId);

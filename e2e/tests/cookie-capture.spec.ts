@@ -1,6 +1,6 @@
-import { test, expect } from "@playwright/test";
-import { readResults } from "../helpers/results";
+import { expect, test } from "@playwright/test";
 import { parse as parseTld } from "tldts";
+import { readResults } from "../helpers/results";
 
 function rootDomain(hostname: string): string {
   return parseTld(hostname.replace(/^\./, "")).domain ?? hostname;
@@ -25,8 +25,8 @@ test("captures and classifies cookies with first/third-party status", async ({},
   const { sites } = readResults();
 
   const report = sites.map(site => {
-    const run           = site.runs[0];
-    const cookies       = run.cookieDetails;
+    const run = site.runs[0];
+    const cookies = run.cookieDetails;
     const missingStatus = cookies.filter(c => typeof c.isThirdParty !== "boolean");
 
     const siteRootDomain = rootDomain(new URL(site.url).hostname);
@@ -39,31 +39,31 @@ test("captures and classifies cookies with first/third-party status", async ({},
     });
 
     return {
-      site:                 site.name,
-      total_cookies:        cookies.length,
-      first_party_cookies:  cookies.filter(c => !c.isThirdParty).length,
-      third_party_cookies:  cookies.filter(c =>  c.isThirdParty).length,
-      tracking_cookies:     cookies.filter(c => c.userCategory === "tracking").length,
+      site: site.name,
+      total_cookies: cookies.length,
+      first_party_cookies: cookies.filter(c => !c.isThirdParty).length,
+      third_party_cookies: cookies.filter(c => c.isThirdParty).length,
+      tracking_cookies: cookies.filter(c => c.userCategory === "tracking").length,
       missing_party_status: missingStatus.map(c => c.name),
-      phantom_cookies:      phantomCookies.map(c => `${c.name}@${c.domain}`),
-      scan_completed:       run.scanCompleted,
+      phantom_cookies: phantomCookies.map(c => `${c.name}@${c.domain}`),
+      scan_completed: run.scanCompleted,
     };
   });
 
   await testInfo.attach("cookie-capture-report.json", {
-    body:        JSON.stringify(report, null, 2),
+    body: JSON.stringify(report, null, 2),
     contentType: "application/json",
   });
 
   for (const result of report) {
     expect(
       result.missing_party_status,
-      `Cookies without first/third-party status on ${result.site}: ${result.missing_party_status.join(", ")}`
+      `Cookies without first/third-party status on ${result.site}: ${result.missing_party_status.join(", ")}`,
     ).toHaveLength(0);
 
     expect(
       result.phantom_cookies,
-      `Extension reported phantom cookie domains on ${result.site}: ${result.phantom_cookies.join(", ")}`
+      `Extension reported phantom cookie domains on ${result.site}: ${result.phantom_cookies.join(", ")}`,
     ).toHaveLength(0);
   }
 });

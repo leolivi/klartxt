@@ -4,9 +4,7 @@ import type { TabDataContextValue } from "@/sidepanel/context/TabDataContextValu
 function cell(value: string | number | boolean | null | undefined): string {
   if (value == null) return "";
   const str = String(value);
-  return str.includes(",") || str.includes('"') || str.includes("\n")
-    ? `"${str.replace(/"/g, '""')}"`
-    : str;
+  return str.includes(",") || str.includes('"') || str.includes("\n") ? `"${str.replace(/"/g, '""')}"` : str;
 }
 
 function row(...values: (string | number | boolean | null | undefined)[]): string {
@@ -18,20 +16,27 @@ export function exportTabDataAsCsv(data: TabDataContextValue): void {
 
   lines.push("SUMMARY");
   lines.push(row("domain", "exportedAt", "riskScore", "scanDuration", "trackerCount", "cookieCount"));
-  lines.push(row(
-    data.domain,
-    new Date().toISOString(),
-    data.riskScore,
-    data.scanDuration,
-    data.trackerCount,
-    data.cookieCount,
-  ));
+  lines.push(
+    row(data.domain, new Date().toISOString(), data.riskScore, data.scanDuration, data.trackerCount, data.cookieCount),
+  );
 
   lines.push("");
   lines.push("TRACKERS");
-  lines.push(row("domain", "owner", "userCategory", "detailedCategories", "riskScore", "confidence", "fingerprintingScore"));
+  lines.push(
+    row("domain", "owner", "userCategory", "detailedCategories", "riskScore", "confidence", "fingerprintingScore"),
+  );
   for (const t of data.trackerList) {
-    lines.push(row(t.domain, t.owner, t.userCategory, t.detailedCategories.join(" | "), t.riskScore, t.confidence, t.fingerprintingScore));
+    lines.push(
+      row(
+        t.domain,
+        t.owner,
+        t.userCategory,
+        t.detailedCategories.join(" | "),
+        t.riskScore,
+        t.confidence,
+        t.fingerprintingScore,
+      ),
+    );
   }
 
   lines.push("");
@@ -46,14 +51,16 @@ export function exportTabDataAsCsv(data: TabDataContextValue): void {
     lines.push("DSGVO CHECKS");
     lines.push(row("article", "passed", "severity", "quickTitle", "explanation", "recommendation"));
     for (const check of [data.dsgvoResult.art7, data.dsgvoResult.art13_14, data.dsgvoResult.art25]) {
-      lines.push(row(
-        check.article,
-        check.passed,
-        check.severity,
-        i18n.t(check.quickTitle),
-        i18n.t(check.explanation),
-        i18n.t(check.recommendation),
-      ));
+      lines.push(
+        row(
+          check.article,
+          check.passed,
+          check.severity,
+          i18n.t(check.quickTitle),
+          i18n.t(check.explanation),
+          i18n.t(check.recommendation),
+        ),
+      );
     }
   }
 
@@ -72,7 +79,7 @@ export function exportTabDataAsCsv(data: TabDataContextValue): void {
   }
 
   // signals UTF-8 to Excel, prevents garbled umlauts/special chars
-  const BOM = "﻿"; 
+  const BOM = "﻿";
   const csv = BOM + lines.join("\n");
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);

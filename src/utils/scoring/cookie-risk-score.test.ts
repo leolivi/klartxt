@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { calculateCookieRiskScore } from "./cookie-risk-score";
+import { describe, expect, it } from "vitest";
 import { CookieCategory, CookieCategoryForUser, type ClassifiedCookie } from "../types/cookie-types";
+import { calculateCookieRiskScore } from "./cookie-risk-score";
 
 function makeCookie(overrides: Partial<ClassifiedCookie> = {}): ClassifiedCookie {
   return {
@@ -46,23 +46,24 @@ describe("calculateCookieRiskScore", () => {
 
   it("caps advertising contribution at 30", () => {
     // 4 advertising: min(32,30)=30, general: 4 -> 34
-    const cookies = Array.from({ length: 4 }, () =>
-      makeCookie({ category: CookieCategory.ADVERTISING })
-    );
+    const cookies = Array.from({ length: 4 }, () => makeCookie({ category: CookieCategory.ADVERTISING }));
     expect(calculateCookieRiskScore(cookies)).toBe(34);
   });
 
   it("caps analytics contribution at 20", () => {
     // 5 analytics: min(20,20)=20, general: 5 -> 25
-    const cookies = Array.from({ length: 5 }, () =>
-      makeCookie({ category: CookieCategory.ANALYTICS })
-    );
+    const cookies = Array.from({ length: 5 }, () => makeCookie({ category: CookieCategory.ANALYTICS }));
     expect(calculateCookieRiskScore(cookies)).toBe(25);
   });
 
   it("caps total score at 100", () => {
     const cookies = [
-      ...Array.from({ length: 5 }, () => makeCookie({ isThirdParty: true, category: CookieCategory.ADVERTISING })),
+      ...Array.from({ length: 5 }, () =>
+        makeCookie({
+          isThirdParty: true,
+          category: CookieCategory.ADVERTISING,
+        }),
+      ),
       ...Array.from({ length: 5 }, () => makeCookie({ category: CookieCategory.ANALYTICS })),
     ];
     expect(calculateCookieRiskScore(cookies)).toBeLessThanOrEqual(100);
