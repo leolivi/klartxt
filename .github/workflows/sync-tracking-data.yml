@@ -1,0 +1,46 @@
+name: Sync Tracking Data
+
+on:
+  # each Monday at 10am, an hour after tracking-data-collector's weekly run (9am)
+  schedule:
+    - cron: "0 10 * * 1"
+    # manual trigger
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout klartxt
+        uses: actions/checkout@v4.2.2
+
+      # pull the already-formatted data from the tracking-data-collector pipeline repo
+      - name: Pull generated data from tracking-data-collector
+        run: |
+          git clone --depth 1 https://${{ secrets.ACTIONS_TOKEN }}@github.com/leolivi/tracking-data-collector.git tracking-data-collector
+
+      - name: Copy updated data files
+        run: |
+          cp tracking-data-collector/dist/tracker-core.json src/data/trackers/
+          cp tracking-data-collector/dist/tracker-extended.json src/data/trackers/
+          cp tracking-data-collector/dist/fingerprint-domains.json src/data/trackers/
+          cp tracking-data-collector/dist/tracking-params.json src/data/trackers/
+          cp tracking-data-collector/dist/cmp-selectors.json src/data/dsgvo/
+          cp tracking-data-collector/dist/cookie-heuristics.json src/data/cookies/
+          rm -rf tracking-data-collector
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add src/data/trackers/tracker-core.json src/data/trackers/tracker-extended.json src/data/trackers/fingerprint-domains.json src/data/trackers/tracking-params.json src/data/dsgvo/cmp-selectors.json src/data/cookies/cookie-heuristics.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: sync tracking data from tracking-data-collector"
+            git push
+          fi

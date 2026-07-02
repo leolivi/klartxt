@@ -146,21 +146,25 @@ Each test attaches a JSON result and for reproducibility tests a sidepanel scree
 
 ## CI / CD
 
-Two GitHub Actions workflows are included:
+Three GitHub Actions workflows are included:
 
-| Workflow                                                           | Trigger                      | What it does                                                                                                                                                                          |
-| ------------------------------------------------------------------ | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`e2e.yml`](.github/workflows/e2e.yml)                             | Push / pull request          | Runs unit tests and E2E tests in CI using Xvfb                                                                                                                                        |
-| [`chrome-deployment.yml`](.github/workflows/chrome-deployment.yml) | Manual (`workflow_dispatch`) | Bumps the version in `manifest.json` based on conventional commits (`feat` -> minor, everything else -> patch), builds the extension, zips it, and uploads it to the Chrome Web Store |
+| Workflow                                                             | Trigger                                      | What it does                                                                                                                                                                                                               |
+| -------------------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`e2e.yml`](.github/workflows/e2e.yml)                               | Push / pull request                          | Runs unit tests and E2E tests in CI using Xvfb                                                                                                                                                                             |
+| [`chrome-deployment.yml`](.github/workflows/chrome-deployment.yml)   | Manual (`workflow_dispatch`)                 | Bumps the version in `manifest.json` based on conventional commits (`feat` -> minor, everything else -> patch), builds the extension, zips it, and uploads it to the Chrome Web Store                                      |
+| [`sync-tracking-data.yml`](.github/workflows/sync-tracking-data.yml) | Weekly (Mon 10 AM UTC) / `workflow_dispatch` | Pulls the pre-formatted tracker, CMP, and cookie data files from the [tracking-data-collector](https://github.com/leolivi/tracking-data-collector) repo's `dist/` output and commits them into `src/data/` if they changed |
 
-**Required secrets for deployment:**
+The tracking data itself is not generated in this repo, it is collected and formatted weekly by the separate [tracking-data-collector](https://github.com/leolivi/tracking-data-collector) pipeline (tracker domains, fingerprinting domains, tracking params, CMP selectors, cookie heuristics), each stored as a flat `{ key: value }` lookup object for O(1) access. `sync-tracking-data.yml` pulls that output into klartxt on its own schedule, an hour after the collector's run, so klartxt controls when new data is accepted.
 
-| Secret                 | Description                                          |
-| ---------------------- | ---------------------------------------------------- |
-| `CHROME_EXTENSION_ID`  | The extension ID from the Chrome Web Store dashboard |
-| `CHROME_CLIENT_ID`     | OAuth client ID from Google Cloud Console            |
-| `CHROME_CLIENT_SECRET` | OAuth client secret                                  |
-| `CHROME_REFRESH_TOKEN` | Refresh token for the Chrome Web Store API           |
+**Required secrets:**
+
+| Secret                 | Description                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| `CHROME_EXTENSION_ID`  | The extension ID from the Chrome Web Store dashboard                                                 |
+| `CHROME_CLIENT_ID`     | OAuth client ID from Google Cloud Console                                                            |
+| `CHROME_CLIENT_SECRET` | OAuth client secret                                                                                  |
+| `CHROME_REFRESH_TOKEN` | Refresh token for the Chrome Web Store API                                                           |
+| `ACTIONS_TOKEN`        | GitHub token with read access to `leolivi/tracking-data-collector`, used by `sync-tracking-data.yml` |
 
 ## Project Structure
 
