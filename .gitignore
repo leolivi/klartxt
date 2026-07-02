@@ -17,6 +17,9 @@ website-build
 # TypeScript build cache
 *.tsbuildinfo
 
+# CI version bump (temporary file, see .github/workflows/scripts/bump-version.sh)
+version.tmp.json
+
 # Playwright
 .playwright-mcp/
 .mcp.json
