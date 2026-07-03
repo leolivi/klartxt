@@ -49,6 +49,21 @@ function makeCookie(name: string, overrides: Partial<ClassifiedCookie> = {}): Cl
   };
 }
 
+function makeRawCookie(name: string, domain: string): chrome.cookies.Cookie {
+  return {
+    name,
+    domain,
+    value: "1",
+    hostOnly: true,
+    path: "/",
+    secure: false,
+    httpOnly: false,
+    sameSite: "lax",
+    session: true,
+    storeId: "0",
+  } as chrome.cookies.Cookie;
+}
+
 const baseDsgvo: DsgvoResult = {
   art7: {
     passed: true,
@@ -297,6 +312,7 @@ describe("reset", () => {
     cache.setDsgvoResult(TAB, baseDsgvo);
     cache.setOverallRiskScore(TAB, 4);
     cache.setConsentTimingBannerShown(TAB);
+    cache.recordThirdPartyCookieSighting(TAB, makeRawCookie("_fbp", "doubleclick.net"));
 
     cache.reset(TAB);
 
@@ -306,6 +322,7 @@ describe("reset", () => {
     expect(cache.getOverallRiskScore(TAB)).toBe(0);
     expect(cache.isScanCompleted(TAB)).toBe(false);
     expect(cache.getConsentTiming(TAB)).toBeNull();
+    expect(cache.getThirdPartyCookieSightings(TAB)).toEqual([]);
   });
 
   it("does not affect data for other tabs", () => {
@@ -315,5 +332,30 @@ describe("reset", () => {
     cache.reset(TAB);
 
     expect(cache.getTrackerDetails(TAB + 1)).toHaveLength(1);
+  });
+});
+
+describe("third-party cookie sightings", () => {
+  it("returns an empty array for a tab with no sightings", () => {
+    expect(cache.getThirdPartyCookieSightings(TAB)).toEqual([]);
+  });
+
+  it("records a sighting and returns it", () => {
+    cache.recordThirdPartyCookieSighting(TAB, makeRawCookie("_fbp", "doubleclick.net"));
+    expect(cache.getThirdPartyCookieSightings(TAB)).toHaveLength(1);
+    expect(cache.getThirdPartyCookieSightings(TAB)[0].name).toBe("_fbp");
+  });
+
+  it("deduplicates by name and domain", () => {
+    cache.recordThirdPartyCookieSighting(TAB, makeRawCookie("_fbp", "doubleclick.net"));
+    cache.recordThirdPartyCookieSighting(TAB, makeRawCookie("_fbp", "doubleclick.net"));
+    expect(cache.getThirdPartyCookieSightings(TAB)).toHaveLength(1);
+  });
+
+  it("keeps sightings isolated per tab", () => {
+    cache.recordThirdPartyCookieSighting(TAB, makeRawCookie("_fbp", "doubleclick.net"));
+    cache.recordThirdPartyCookieSighting(TAB + 1, makeRawCookie("uid", "criteo.com"));
+    expect(cache.getThirdPartyCookieSightings(TAB)).toHaveLength(1);
+    expect(cache.getThirdPartyCookieSightings(TAB + 1)).toHaveLength(1);
   });
 });

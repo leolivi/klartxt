@@ -1,5 +1,6 @@
 /// <reference types="chrome" />
 
+import { extractRootDomain } from "@/data/cookies/cookie-domains";
 import { initTrackerData } from "@/data/trackers/tracking-domains";
 import { TrackerCache } from "./cache/tracker-cache";
 import { handleCookies } from "./handlers/handle-cookies";
@@ -26,6 +27,7 @@ if (__PLAYWRIGHT_TEST__) {
     if (!tab?.url) return;
     await handleCookies({
       tabUrl: tab.url,
+      thirdPartyCookies: cache.getThirdPartyCookieSightings(tabId),
       onCookiesDetected: cookies => {
         cache.setCookies(tabId, cookies);
         // Trigger score recalculation so getOverallRiskScore() is fresh after the rescan
@@ -95,6 +97,7 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
     // fresh cookie scan
     await handleCookies({
       tabUrl: tab.url,
+      thirdPartyCookies: cache.getThirdPartyCookieSightings(tabId),
       onCookiesDetected: cookies => {
         cache.setCookies(tabId, cookies);
         cache.scheduleUIUpdate(tabId);
@@ -139,6 +142,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       cache.startScan(tabId);
       await handleCookies({
         tabUrl: tab.url,
+        thirdPartyCookies: cache.getThirdPartyCookieSightings(tabId),
         onCookiesDetected: cookies => {
           cache.setCookies(tabId, cookies);
           cache.scheduleUIUpdate(tabId);
@@ -160,6 +164,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (tab.url && !tab.url.startsWith("chrome://")) {
     await handleCookies({
       tabUrl: tab.url,
+      thirdPartyCookies: cache.getThirdPartyCookieSightings(tabId),
       onCookiesDetected: cookies => {
         cache.setCookies(tabId, cookies);
         cache.scheduleUIUpdate(tabId);
@@ -241,7 +246,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 
 const IGNORED_COOKIE_NAMES = new Set(["_cookie_test"]);
 
-/* ---- CONSENT TIMING: Cookie Change Listener ---- */
+/* ---- COOKIE CHANGE LISTENER: third-party live observation + consent timing ---- */
 chrome.cookies.onChanged.addListener(changeInfo => {
   if (changeInfo.removed) return;
   if (IGNORED_COOKIE_NAMES.has(changeInfo.cookie.name)) return;
@@ -253,12 +258,29 @@ chrome.cookies.onChanged.addListener(changeInfo => {
       if (tab?.id == null || tab.url == null) return;
 
       const tabId = tab.id;
+      const cookie = changeInfo.cookie;
+
+      // Record third-party sightings as they actually happen, regardless of consent-banner
+      // -> this is the only source of truth for third-party cookies (see handle-cookies.ts).
+      const tabRootDomain = extractRootDomain(new URL(tab.url).hostname);
+      const cookieRootDomain = extractRootDomain(cookie.domain.replace(/^\./, ""));
+      if (cookieRootDomain !== tabRootDomain) {
+        // Guard against misattribution: chrome.cookies.onChanged has no tab info, so we guess
+        // "the active tab" caused this change. If the cookie belongs to another open tab, don't record it here.
+        const openTabs = await chrome.tabs.query({});
+        const belongsToAnotherOpenTab = openTabs.some(
+          t => t.id !== tabId && t.url != null && extractRootDomain(new URL(t.url).hostname) === cookieRootDomain,
+        );
+        if (!belongsToAnotherOpenTab) {
+          cache.recordThirdPartyCookieSighting(tabId, cookie);
+        }
+      }
+
       const timing = cache.getConsentTiming(tabId);
       // no banner shown
       if (timing?.bannerShownAt == null) return;
 
       // cookies set before user interacted?
-      const cookie = changeInfo.cookie;
       // track violations (before consent)
       const tabDomain = new URL(tab.url).hostname.replace(/^www\./, "");
       cache.addCookieViolation(
@@ -315,6 +337,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         if (tab.url && !tab.url.startsWith("chrome://")) {
           await handleCookies({
             tabUrl: tab.url,
+            thirdPartyCookies: cache.getThirdPartyCookieSightings(message.tabId),
             onCookiesDetected: cookies => {
               cache.setCookies(message.tabId, cookies);
               cache.scheduleUIUpdate(message.tabId);
@@ -391,6 +414,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       // cookie refresh after consent (only one time)
       await handleCookies({
         tabUrl: tab.url,
+        thirdPartyCookies: cache.getThirdPartyCookieSightings(tabId),
         onCookiesDetected: cookies => {
           cache.setCookies(tabId, cookies);
           cache.scheduleUIUpdate(tabId);

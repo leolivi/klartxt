@@ -6,6 +6,7 @@ import {
 } from "@/data/cookies/cookie-heuristics";
 import { TRACKER_MAP } from "@/data/trackers/tracking-domains";
 import { CookieCategory, CookieCategoryForUser } from "@/utils/types/cookie-types";
+import { parse } from "tldts";
 
 /* -----
   Cookie Classification
@@ -100,11 +101,13 @@ export function classifyCookieCategory(
   return nameCategory;
 }
 
-// Englehardt & Narayanan: First/Third-Party via root domain comparison (Public Suffix + 1 )
+// Englehardt & Narayanan: First/Third-Party via root domain comparison (Public Suffix List + 1).
+// Uses tldts (same as handle-network-requests.ts) instead of a naive slice(-2),
+// which mishandles multi-part TLDs like .co.uk or .com.au.
 export function extractRootDomain(hostname: string): string {
   if (rootDomainCache.has(hostname)) return rootDomainCache.get(hostname)!;
-  const parts = hostname.replace(/^\./, "").split(".");
-  const result = parts.length <= 2 ? parts.join(".") : parts.slice(-2).join(".");
+  const clean = hostname.replace(/^\./, "");
+  const result = parse(clean).domain ?? clean;
   rootDomainCache.set(hostname, result);
   return result;
 }
