@@ -27,6 +27,7 @@ export class TrackerCache {
   private scanStartedAt = new Map<number, number>();
   private scanDuration = new Map<number, number>();
   private clientHintsDetected = new Map<number, boolean>();
+  private thirdPartySightings = new Map<number, Map<string, chrome.cookies.Cookie>>();
   private persistDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateDebounceTimers = new Map<number, ReturnType<typeof setTimeout>>();
   private uiUpdateCallback: ((tabId: number) => void) | null = null;
@@ -61,6 +62,18 @@ export class TrackerCache {
 
   getTrackerDetails(tabId: number): TrackerInfo[] {
     return Array.from(this.trackerDetails.get(tabId)?.values() ?? []);
+  }
+
+  recordThirdPartyCookieSighting(tabId: number, cookie: chrome.cookies.Cookie): void {
+    if (!this.thirdPartySightings.has(tabId)) {
+      this.thirdPartySightings.set(tabId, new Map());
+    }
+    const key = `${cookie.name}||${cookie.domain.replace(/^\./, "")}`;
+    this.thirdPartySightings.get(tabId)!.set(key, cookie);
+  }
+
+  getThirdPartyCookieSightings(tabId: number): chrome.cookies.Cookie[] {
+    return Array.from(this.thirdPartySightings.get(tabId)?.values() ?? []);
   }
 
   setCookies(tabId: number, cookies: ClassifiedCookie[]): void {
@@ -317,6 +330,7 @@ export class TrackerCache {
     this.scanStartedAt.delete(tabId);
     this.scanDuration.delete(tabId);
     this.clientHintsDetected.delete(tabId);
+    this.thirdPartySightings.delete(tabId);
   }
 
   clear(tabId: number): void {

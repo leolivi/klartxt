@@ -54,19 +54,23 @@ export function CookiesTab() {
               <AccordionContent>
                 <div className="flex flex-col gap-3 pb-2">
                   {Object.entries(byDomain).map(([domain, domainCookies]) => (
-                    <div key={domain}>
-                      <div className="flex items-center gap-1">
-                        <Link2 size={12} className="text-ink-strong" />
-                        <p className="text-small text-ink-strong pb-1">{domain}</p>
+                    <div key={domain} className="min-w-0">
+                      <div className="flex items-center gap-1 min-w-0">
+                        <Link2 size={12} className="text-ink-strong shrink-0" />
+                        <p title={domain} className="text-body text-ink-strong pb-1 min-w-0 truncate">
+                          {domain}
+                        </p>
                       </div>
                       <ul className="flex flex-col gap-1">
                         {domainCookies.map(cookie => (
                           <li
                             key={`${cookie.domain}__${cookie.name}`}
-                            className="flex items-center justify-between pl-1"
+                            className="flex items-center justify-between gap-2 pl-1"
                           >
-                            <span className="text-body text-ink-default">{cookie.name}</span>
-                            <span className="text-small text-ink-default">
+                            <span title={cookie.name} className="text-small text-ink-default min-w-0 truncate">
+                              {cookie.name}
+                            </span>
+                            <span className="text-small text-ink-default shrink-0">
                               {t(cookie.isThirdParty ? "cookieThirdParty" : "cookieFirstParty")}
                             </span>
                           </li>

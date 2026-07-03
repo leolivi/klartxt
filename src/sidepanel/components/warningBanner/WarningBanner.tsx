@@ -19,7 +19,7 @@ export function WarningBanner() {
       <button
         onClick={() => setDismissed(true)}
         aria-label={t("warningBannerDismiss")}
-        className="shrink-0 opacity-70 hover:opacity-100 transition-opacity"
+        className="shrink-0 opacity-70 hover:opacity-100 transition-opacity hover:cursor-pointer"
       >
         <X className="size-4" />
       </button>

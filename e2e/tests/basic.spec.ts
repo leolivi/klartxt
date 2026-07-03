@@ -61,7 +61,7 @@ test(`scan completes and loads data from a testpage`, async ({}, testInfo) => {
   // Open sidepanel pinned to the scanned tab -> screenshot shows real scan data
   const sidepanel = await context.newPage();
   await sidepanel.goto(sidepanelUrl(extensionId, tabId, github.url));
-  await expect(sidepanel.getByText("Scan completed")).toBeVisible();
+  await expect(sidepanel.getByTestId("header-scan-status")).toBeVisible();
   await testInfo.attach("sidepanel.png", {
     body: await sidepanel.screenshot({ fullPage: true }),
     contentType: "image/png",

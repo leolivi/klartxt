@@ -116,7 +116,7 @@ E2E tests run the built extension in a real Chromium instance and verify behavio
 **Prerequisites:** a production build must exist before running E2E tests.
 
 ```sh
-npm run build            # build the extension first
+npm run build:e2e        # build the extension first
 npm run test:e2e         # run all 27 tests (headful Chromium)
 npm run test:e2e:report  # open the HTML report in the browser
 ```

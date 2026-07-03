@@ -44,9 +44,9 @@ export function TrackerTab() {
             <AccordionContent>
               <ul className="flex flex-col gap-1 pb-2">
                 {grouped[cat].map(domain => (
-                  <div className="flex items-center gap-1">
-                    <Link2 size={12} className="text-ink-default" />
-                    <li key={domain} className="text-body text-ink-default pl-1">
+                  <div className="flex items-center gap-1 min-w-0">
+                    <Link2 size={12} className="text-ink-default shrink-0" />
+                    <li key={domain} title={domain} className="text-body text-ink-default pl-1 min-w-0 truncate">
                       {domain}
                     </li>
                   </div>
