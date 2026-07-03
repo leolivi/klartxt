@@ -31,6 +31,7 @@ export function Header() {
         <div className="flex flex-col gap-2 items-end justify-start">
           <div className="flex gap-4">
             <Button
+              data-testid="header-scan-status"
               variant={isRefreshing || !isLoaded ? "secondaryOrange" : isPartialData ? "secondaryRed" : "default"}
               interactive={true}
               onClick={onRefresh}

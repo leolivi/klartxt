@@ -23,7 +23,7 @@
 
   "headerLastScanned": "Last scan:",
   "headerToday": "Today",
-  "headerScanStatusDone": "Rescanned",
+  "headerScanStatusDone": "Rescan",
   "headerScanStatusInProgress": "Scan in progress",
   "headerScanStatusPartial": "Scan outdated",
   "headerScanButton": "reload",
