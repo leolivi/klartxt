@@ -246,6 +246,16 @@ chrome.webRequest.onBeforeRequest.addListener(
 
 const IGNORED_COOKIE_NAMES = new Set(["_cookie_test"]);
 
+// tab.url can be an empty string or otherwise unparseable (e.g. internal/discarded tabs),
+// so guard every URL parse the same way handle-cookies.ts / handle-network-requests.ts do.
+function tryGetHostname(url: string): string | null {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return null;
+  }
+}
+
 /* ---- COOKIE CHANGE LISTENER: third-party live observation + consent timing ---- */
 chrome.cookies.onChanged.addListener(changeInfo => {
   if (changeInfo.removed) return;
@@ -262,15 +272,20 @@ chrome.cookies.onChanged.addListener(changeInfo => {
 
       // Record third-party sightings as they actually happen, regardless of consent-banner
       // -> this is the only source of truth for third-party cookies (see handle-cookies.ts).
-      const tabRootDomain = extractRootDomain(new URL(tab.url).hostname);
+      const tabHostname = tryGetHostname(tab.url);
+      if (tabHostname == null) return;
+
+      const tabRootDomain = extractRootDomain(tabHostname);
       const cookieRootDomain = extractRootDomain(cookie.domain.replace(/^\./, ""));
       if (cookieRootDomain !== tabRootDomain) {
         // Guard against misattribution: chrome.cookies.onChanged has no tab info, so we guess
         // "the active tab" caused this change. If the cookie belongs to another open tab, don't record it here.
         const openTabs = await chrome.tabs.query({});
-        const belongsToAnotherOpenTab = openTabs.some(
-          t => t.id !== tabId && t.url != null && extractRootDomain(new URL(t.url).hostname) === cookieRootDomain,
-        );
+        const belongsToAnotherOpenTab = openTabs.some(t => {
+          if (t.id === tabId || t.url == null) return false;
+          const otherHostname = tryGetHostname(t.url);
+          return otherHostname != null && extractRootDomain(otherHostname) === cookieRootDomain;
+        });
         if (!belongsToAnotherOpenTab) {
           cache.recordThirdPartyCookieSighting(tabId, cookie);
         }
@@ -282,7 +297,7 @@ chrome.cookies.onChanged.addListener(changeInfo => {
 
       // cookies set before user interacted?
       // track violations (before consent)
-      const tabDomain = new URL(tab.url).hostname.replace(/^www\./, "");
+      const tabDomain = tabHostname.replace(/^www\./, "");
       cache.addCookieViolation(
         tabId,
         {

@@ -1,5 +1,7 @@
-import { CMP_SELECTORS } from "@/data/dsgvo/dsgvo-detectors"
+import { BANNER_FALLBACK_SELECTORS, CMP_SELECTORS } from "@/data/dsgvo/dsgvo-detectors"
 import { isElementVisible } from "./dom"
+
+const ALL_BANNER_SELECTORS = [...CMP_SELECTORS, ...BANNER_FALLBACK_SELECTORS]
 
 let bannerShownReported = false
 let interactionReported = false
@@ -27,7 +29,7 @@ export function reportInteraction(): void {
 }
 
 export function findBannerElement(): HTMLElement | null {
-  for (const sel of CMP_SELECTORS) {
+  for (const sel of ALL_BANNER_SELECTORS) {
     const el = document.querySelector(sel)
     if (el instanceof HTMLElement && isElementVisible(el)) return el
   }

@@ -29,6 +29,11 @@ export const BANNER_FALLBACK_SELECTORS: string[] = [
   '[id*="cookiebanner"]',
   '[id*="cookieconsent"]',
   '[id*="cookie_consent"]',
+  '[id*="consent" i]',
+  '[class*="consent-banner" i]',
+  '[id*="fides" i]',
+  '[class*="fides" i]',
+  "uhf-cookie-banner",
 ];
 
 export const PRIVACY_PATTERNS = /privacy|datenschutz|legal|impressum|cookie.policy/i;
