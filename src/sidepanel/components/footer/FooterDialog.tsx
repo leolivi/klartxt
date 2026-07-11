@@ -1,20 +1,23 @@
 import { CHECKED_ITEMS } from "@/utils/types/footer-types";
 import { ArrowUpRight, Link2 } from "lucide-react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Separator } from "../ui/separator";
 
-export function FooterDialog() {
+export function FooterDialog({ trigger }: { trigger?: ReactNode } = {}) {
   const { t } = useTranslation();
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="link" className="text-ink-default" size={"xs"}>
-          {t("footerWhatWasChecked")}
-        </Button>
-      </DialogTrigger>
+      {trigger ?? (
+        <DialogTrigger asChild>
+          <Button variant="link" className="text-ink-default" size={"xs"}>
+            {t("footerWhatWasChecked")}
+          </Button>
+        </DialogTrigger>
+      )}
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t("footerDialogTitle")}</DialogTitle>
