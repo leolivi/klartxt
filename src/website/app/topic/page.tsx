@@ -2,7 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import type { CheckedItemKey } from "@/utils/types/footer-types";
 import { useTranslation } from "react-i18next";
 
-const SECTIONS = ["s1", "s2", "s3"] as const;
+const SECTIONS = ["s1", "s2", "s4", "s3"] as const;
 
 const TOPIC_CATEGORIES: Partial<Record<CheckedItemKey, string[]>> = {
   tracker: ["tracking", "ads", "session", "content", "security", "functional"],
