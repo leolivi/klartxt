@@ -1,4 +1,5 @@
 import { TrackingType } from "@/utils/types/tracking-type";
+import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
 import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -15,6 +16,7 @@ interface TrackingResultsDialogProps {
 
 export function TrackingResultsDialog({ open, onOpenChange, activeTab, onTabChange }: TrackingResultsDialogProps) {
   const { trackerCount, cookieCount } = useTabDataContext();
+  const { t } = useTranslation();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -22,7 +24,7 @@ export function TrackingResultsDialog({ open, onOpenChange, activeTab, onTabChan
         <DialogTitle className="sr-only">Details</DialogTitle>
         <Tabs value={activeTab} onValueChange={v => onTabChange(v as TrackingType)}>
           <TabsList className="mt-4">
-            <TabsTrigger value={TrackingType.DSGVO}>DSGVO</TabsTrigger>
+            <TabsTrigger value={TrackingType.DSGVO}>{t("TrackingResultsCardDSGVO")}</TabsTrigger>
             <TabsTrigger value={TrackingType.TRACKER}>Tracker ({trackerCount})</TabsTrigger>
             <TabsTrigger value={TrackingType.COOKIE}>Cookies ({cookieCount})</TabsTrigger>
           </TabsList>

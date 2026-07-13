@@ -39,9 +39,17 @@ function AccordionItem({ className, ...props }: React.ComponentProps<typeof Acco
   );
 }
 
-function AccordionTrigger({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
+function AccordionTrigger({
+  className,
+  children,
+  label,
+  actions,
+  ...props
+}: React.ComponentProps<typeof AccordionPrimitive.Trigger> & { label?: React.ReactNode; actions?: React.ReactNode }) {
   return (
-    <AccordionPrimitive.Header className="flex">
+    <AccordionPrimitive.Header className="flex items-center gap-2">
+      {label}
+      {actions}
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(

@@ -148,6 +148,10 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
           cache.scheduleUIUpdate(tabId);
         },
       });
+
+      chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch(error => {
+        if (!isSidePanelClosedError(error)) console.warn("[onUpdated:spa] RUN_DSGVO_CHECKS failed:", error);
+      });
     }
     return;
   }
@@ -170,6 +174,10 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         cache.scheduleUIUpdate(tabId);
         console.debug(`Cookies (${cookies.length} total):`, cookies, `Risk: ${cache.getOverallRiskScore(tabId)}`);
       },
+    });
+
+    chrome.tabs.sendMessage(tabId, { type: "RUN_DSGVO_CHECKS" }).catch(error => {
+      if (!isSidePanelClosedError(error)) console.warn("[onUpdated:complete] RUN_DSGVO_CHECKS failed:", error);
     });
   }
 });

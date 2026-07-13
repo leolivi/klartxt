@@ -18,6 +18,8 @@
   "footerDialog_thirdParty_title": "Richieste di terze parti",
   "footerDialog_thirdParty_description": "Quanti servizi esterni sono stati contattati durante il caricamento della pagina.",
   "footerDialogDisclaimer": "Klartxt analizza tecnicamente e non valuta la conformità legale.",
+  "footerDialogLinkOpensNewTab": "Si apre in una nuova scheda",
+  "categoryInfoLabel": "Scopri di più su questa categoria",
 
   "headerLastScanned": "Ultima scansione:",
   "headerToday": "Oggi",

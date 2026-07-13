@@ -1,23 +1,21 @@
 import { CHECKED_ITEMS } from "@/utils/types/footer-types";
 import { ArrowUpRight, Link2 } from "lucide-react";
-import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Separator } from "../ui/separator";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-export function FooterDialog({ trigger }: { trigger?: ReactNode } = {}) {
+export function FooterDialog() {
   const { t } = useTranslation();
 
   return (
     <Dialog>
-      {trigger ?? (
-        <DialogTrigger asChild>
-          <Button variant="link" className="text-ink-default" size={"xs"}>
-            {t("footerWhatWasChecked")}
-          </Button>
-        </DialogTrigger>
-      )}
+      <DialogTrigger asChild>
+        <Button variant="secondary" className="text-ink-strongest" size={"sm"}>
+          {t("footerWhatWasChecked")}
+        </Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t("footerDialogTitle")}</DialogTitle>
@@ -26,14 +24,19 @@ export function FooterDialog({ trigger }: { trigger?: ReactNode } = {}) {
           {CHECKED_ITEMS.map(({ key, href }, i) => (
             <div key={key}>
               <div className="py-3">
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="cursor-pointer flex items-center gap-1 text-body underline text-ink-strong"
-                >
-                  {t(`footerDialog_${key}_title`)} <ArrowUpRight size={16} />
-                </a>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="cursor-pointer flex items-center gap-1 text-body underline text-ink-strong w-fit"
+                    >
+                      {t(`footerDialog_${key}_title`)} <ArrowUpRight size={16} />
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">{t("footerDialogLinkOpensNewTab")}</TooltipContent>
+                </Tooltip>
                 <p className="text-body text-ink-default">{t(`footerDialog_${key}_description`)}</p>
               </div>
               {i < CHECKED_ITEMS.length && <Separator />}
