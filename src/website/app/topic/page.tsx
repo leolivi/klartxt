@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 
-const SECTIONS = ["s1", "s2", "s4", "s3"] as const;
+const SECTIONS = ["s1", "s2", "s3"] as const;
+
+const TOPIC_EXTRA_SECTIONS: Partial<Record<CheckedItemKey, string[]>> = {
+  tracker: ["s4"],
+};
 
 const TOPIC_CATEGORIES: Partial<Record<CheckedItemKey, string[]>> = {
   tracker: ["tracking", "ads", "session", "content", "security", "functional"],
@@ -15,6 +19,7 @@ export function TopicPage({ topicKey }: { topicKey: CheckedItemKey }) {
   const { t } = useTranslation();
   const { hash } = useLocation();
   const categories = TOPIC_CATEGORIES[topicKey];
+  const sections = [...SECTIONS, ...(TOPIC_EXTRA_SECTIONS[topicKey] ?? [])];
   const activeCategory = hash.slice(1);
   const shouldOpenCategories = !!categories?.includes(activeCategory);
 
@@ -32,7 +37,7 @@ export function TopicPage({ topicKey }: { topicKey: CheckedItemKey }) {
       <p className="text-body text-ink-default mb-8">{t(`website_${topicKey}_subtitle`)}</p>
 
       <div className="flex flex-col gap-8">
-        {SECTIONS.map(s => (
+        {sections.map(s => (
           <div key={s}>
             <h3 className="text-h3 text-ink-strong mb-2">{t(`website_${topicKey}_${s}_heading`)}</h3>
             <p className="text-body text-ink-default">{t(`website_${topicKey}_${s}_body`)}</p>
