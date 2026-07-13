@@ -1,18 +1,22 @@
 import { normalizeCookieDomain } from "@/utils/domain";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 import { CookieCategoryForUser } from "@/utils/types/cookie-types";
-import { Link2 } from "lucide-react";
+import { CHECKED_ITEMS } from "@/utils/types/footer-types";
+import { Info, Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { Separator } from "../ui/separator";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-const CATEGORY_ORDER: Record<CookieCategoryForUser, number> = {
-  [CookieCategoryForUser.TRACKING]: 0,
-  [CookieCategoryForUser.FUNCTIONAL]: 1,
-  [CookieCategoryForUser.NECESSARY]: 2,
-  [CookieCategoryForUser.UNKNOWN]: 3,
+const CATEGORY_META: Record<CookieCategoryForUser, { order: number; topicId?: string }> = {
+  [CookieCategoryForUser.TRACKING]: { order: 0, topicId: "tracking" },
+  [CookieCategoryForUser.FUNCTIONAL]: { order: 1, topicId: "functional" },
+  [CookieCategoryForUser.NECESSARY]: { order: 2, topicId: "necessary" },
+  [CookieCategoryForUser.UNKNOWN]: { order: 3 },
 };
+
+const COOKIES_TOPIC_URL = CHECKED_ITEMS.find(item => item.key === "cookies")!.href;
 
 export function CookiesTab() {
   const { cookiesList } = useTabDataContext();
@@ -29,7 +33,9 @@ export function CookiesTab() {
   }, {});
 
   const categories = Object.keys(byCategory).sort(
-    (a, b) => (CATEGORY_ORDER[a as CookieCategoryForUser] ?? 99) - (CATEGORY_ORDER[b as CookieCategoryForUser] ?? 99),
+    (a, b) =>
+      (CATEGORY_META[a as CookieCategoryForUser]?.order ?? 99) -
+      (CATEGORY_META[b as CookieCategoryForUser]?.order ?? 99),
   );
 
   return (
@@ -44,11 +50,36 @@ export function CookiesTab() {
           return acc;
         }, {});
 
+        const topicId = CATEGORY_META[cat as CookieCategoryForUser]?.topicId;
+
         return (
           <div key={cat}>
             <AccordionItem value={cat} className="border-b-0">
-              <AccordionTrigger>
-                <span>{t(`cookiesCategory_${cat}`)}</span>
+              <AccordionTrigger
+                label={<span>{t(`cookiesCategory_${cat}`)} </span>}
+                actions={
+                  topicId && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <a
+                          href={`${COOKIES_TOPIC_URL}#${topicId}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={t("categoryInfoLabel")}
+                          className="shrink-0"
+                        >
+                          <Info
+                            aria-hidden="true"
+                            size={16}
+                            className="text-ink-default hover:text-ink-strong cursor-pointer"
+                          />
+                        </a>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">{t("categoryInfoLabel")}</TooltipContent>
+                    </Tooltip>
+                  )
+                }
+              >
                 <span className="ml-auto mr-2 text-small text-ink-strong">{cookies.length}</span>
               </AccordionTrigger>
               <AccordionContent>

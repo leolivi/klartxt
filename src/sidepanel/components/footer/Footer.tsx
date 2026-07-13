@@ -16,7 +16,7 @@ export function Footer() {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant="default"
+            variant="outline"
             size="icon-sm"
             aria-label={t("footerExportCsv")}
             onClick={() => exportTabDataAsCsv(context)}
