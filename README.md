@@ -39,7 +39,10 @@ This is the source code for the Klartxt Chrome extension. The extension analyzes
 
 ### Prerequisites
 
-Make sure you have [Node.js](https://nodejs.org/) (version 22 or higher) installed on your machine.
+Make sure you have [Node.js](https://nodejs.org/) (version 24) installed on your machine.
+
+Automatically switch to the Node version defined in the project:
+`nvm use`
 
 ### Setup
 
