@@ -22,10 +22,10 @@ This is the source code for the Klartxt Chrome extension. The extension analyzes
 2. Visit any website
 3. Open the Klartxt side panel via the extension icon
 4. The panel shows:
-   - A **risk score** (1–5) with a short explanation
-   - Three cards for **Privacy checks**, **Trackers**, and **Cookies**, click any card to see the full list
-   - An **Insights** section summarising what was detected
-   - A **Recommendations** section with suggested next steps
+    - A **risk score** (1–5) with a short explanation
+    - Three cards for **Privacy checks**, **Trackers**, and **Cookies**, click any card to see the full list
+    - An **Insights** section summarising what was detected
+    - A **Recommendations** section with suggested next steps
 5. Use the **reload button** in the header to re-run the scan on the current page
 6. Use the **download button** in the footer to export results as CSV
 
@@ -48,15 +48,15 @@ Automatically switch to the Node version defined in the project:
 
 1. Clone or fork the repository:
 
-   ```
-   git clone https://github.com/leolivi/klartxt
-   ```
+    ```
+    git clone https://github.com/leolivi/klartxt
+    ```
 
 2. Install the dependencies:
 
-   ```
-   npm install
-   ```
+    ```
+    npm install
+    ```
 
 ## Development
 
@@ -173,12 +173,12 @@ The tracking data itself is not generated in this repo, it is collected and form
 
 - `public/`: Static assets (fonts, icons, `manifest.json`)
 - `src/`: Shared source code
-  - `sidepanel/`: Extension UI (React components, context, hooks)
-  - `website/`: Informational website (`klartxt.app`) which shares components, locales, and design tokens with the extension
-  - `background/`: Extension service worker and background handlers
-  - `content/`: Content scripts injected into web pages
-  - `locales/`: Shared i18n translation files (EN, DE, FR, IT)
-  - `utils/`: Shared utilities and TypeScript types
+    - `sidepanel/`: Extension UI (React components, context, hooks)
+    - `website/`: Informational website (`klartxt.app`) which shares components, locales, and design tokens with the extension
+    - `background/`: Extension service worker and background handlers
+    - `content/`: Content scripts injected into web pages
+    - `locales/`: Shared i18n translation files (EN, DE, FR, IT)
+    - `utils/`: Shared utilities and TypeScript types
 - `build/`: Production build of the extension (auto-generated)
 - `website-build/`: Production build of the website (auto-generated)
 - `vite.config.ts`: Vite config for the extension
@@ -232,21 +232,19 @@ Europäische Union, 2016. Datenschutz-Grundverordnung: Finaler Text der DSGVO. [
 
 Kwakman, J., 2023. Open Cookie Database. [online] GitHub. Verfügbar unter: <https://github.com/jkwakman/Open-Cookie-Database> [Zugegriffen 10 Mai 2026].
 
-Le Pochat, V., Van Goethem, T., Tajalizadehkhoob, S., Korczynski, M. und Joosen, W., 2019. Tranco: A Research-Oriented Top Sites Ranking Hardened Against Manipulation. In: Proceedings 2019 Network and Distributed System Security Symposium. San Diego, CA: Internet Society. https://doi.org/10.14722/ndss.2019.23386.
+Le Pochat, V., Van Goethem, T., Tajalizadehkhoob, S., Korczynski, M. und Joosen, W., 2019. Tranco: A Research-Oriented Top Sites Ranking Hardened Against Manipulation. In: Proceedings 2019 Network and Distributed System Security Symposium. [online] Network and Distributed System Security Symposium. San Diego, CA: Internet Society. https://doi.org/10.14722/ndss.2019.23386.
 
 LinkedIn, 2016. LinkedIn Cookie-Tabelle. [online] LinkedIn. Verfügbar unter: <https://de.linkedin.com/legal/l/cookie-table> [Zugegriffen 8 Mai 2026].
 
 Liviero, L., 2025. leolivi/detecta. Verfügbar unter: <https://github.com/leolivi/detecta> [Zugegriffen 25 Dezember 2025].
 
-Mozilla, 2025a. Browser extensions - Mozilla | MDN. [online] MDN Web Docs. Verfügbar unter: <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions> [Zugegriffen 13 November 2025].
-
-Mozilla, 2025b. HTTP headers | MDN. [online] MDN Web Docs. Verfügbar unter: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers [Zugegriffen 18 Juni 2026].
+Mozilla, 2025. HTTP headers | MDN. [online] MDN Web Docs. Verfügbar unter: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers> [Zugegriffen 18 Juni 2026].
 
 Munir, S., Siby, S., Iqbal, U., Englehardt, S., Shafiq, Z. und Troncoso, C., 2023. CookieGraph: Understanding and Detecting First-Party Tracking Cookies. https://doi.org/10.48550/arXiv.2208.12370.
 
 Nouwens, M. und Nylandsted Klokmose, C., 2025. Consent-O-Matic. [online] Verfügbar unter: <https://consentomatic.au.dk/> [Zugegriffen 30 Dezember 2025].
 
-O'Brien, D., 2025. Playwright MCP Servers Explained: Automation and Testing. [online] DEV Community. Verfügbar unter: https://dev.to/debs_obrien/playwright-mcp-servers-explained-automation-and-testing-4mo0 [Zugegriffen 19 Juni 2026].
+O’Brien, D., 2025. Playwright MCP Servers Explained: Automation and Testing. [online] DEV Community. Verfügbar unter: <https://dev.to/debs_obrien/playwright-mcp-servers-explained-automation-and-testing-4mo0> [Zugegriffen 19 Juni 2026].
 
 Oh, C., 2025. 5tigerjelly/chrome-extension-react-template. Verfügbar unter: <https://github.com/5tigerjelly/chrome-extension-react-template> [Zugegriffen 13 November 2025].
 

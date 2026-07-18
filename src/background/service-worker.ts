@@ -7,6 +7,7 @@ import { handleCookies } from "./handlers/handle-cookies";
 import { handleDsgvo } from "./handlers/handle-dsgvo";
 import { isSidePanelClosedError } from "./handlers/handle-errors";
 import { handleHeaders } from "./handlers/handle-headers";
+import { createMessageHandlers } from "./handlers/handle-messages";
 import { handleNetworkRequests } from "./handlers/handle-network-requests";
 import { updateTabBadge } from "./handlers/update-badge";
 
@@ -331,128 +332,12 @@ chrome.cookies.onChanged.addListener(changeInfo => {
 
 /* ---- MESSAGE HANDLER ---- */
 // send info to sidepanel
-chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  if (message.type === "PING") {
-    sendResponse({ alive: true });
-    return true;
-  }
+const messageHandlers = createMessageHandlers(cache);
 
-  if (message.type === "GET_TAB_DATA" && message.tabId != null) {
-    (async () => {
-      await cache.restoreFromStorage(message.tabId);
-
-      const isStale = cache.isDataStale(message.tabId);
-      if (isStale) cache.invalidateScan(message.tabId);
-
-      if (isStale || cache.getCookieDetails(message.tabId).length === 0) {
-        let tab: chrome.tabs.Tab;
-        try {
-          tab = await chrome.tabs.get(message.tabId);
-        } catch {
-          sendResponse({
-            trackerCount: 0,
-            cookieCount: 0,
-            isPartialData: true,
-            riskScore: 0,
-          });
-          return;
-        }
-        if (tab.url && !tab.url.startsWith("chrome://")) {
-          await handleCookies({
-            tabUrl: tab.url,
-            thirdPartyCookies: cache.getThirdPartyCookieSightings(message.tabId),
-            onCookiesDetected: cookies => {
-              cache.setCookies(message.tabId, cookies);
-              cache.scheduleUIUpdate(message.tabId);
-            },
-          });
-          chrome.tabs.sendMessage(message.tabId, { type: "RUN_DSGVO_CHECKS" }).catch(error => {
-            if (!isSidePanelClosedError(error)) console.warn("[GET_TAB_DATA] RUN_DSGVO_CHECKS failed:", error);
-          });
-        }
-      }
-
-      const trackers = cache.getTrackerDetails(message.tabId);
-      const cookies = cache.getCookieDetails(message.tabId);
-      const riskScore = cache.getOverallRiskScore(message.tabId);
-
-      sendResponse({
-        trackerCount: trackers.length,
-        trackerList: trackers,
-        cookieCount: cookies.length,
-        cookiesList: cookies,
-        isPartialData: !cache.isScanCompleted(message.tabId),
-        riskScore,
-        dsgvoResult: cache.getDsgvoResult(message.tabId),
-        scanDuration: cache.getScanDuration(message.tabId),
-      });
-    })();
-    return true;
-  }
-
-  if (message.type === "DSGVO_CHECKS_RESULT" && _sender.tab?.id != null) {
-    (async () => {
-      const tabId = _sender.tab!.id!;
-      let tab: chrome.tabs.Tab;
-      try {
-        tab = await chrome.tabs.get(tabId);
-      } catch {
-        return;
-      }
-
-      cache.setContentResult(tabId, message.result);
-      handleDsgvo({
-        contentResult: message.result,
-        trackers: cache.getTrackerDetails(tabId),
-        cookieCount: cache.getCookieDetails(tabId).length,
-        consentTiming: cache.getConsentTiming(tabId),
-        tabUrl: tab.url ?? "",
-        clientHintsDetected: cache.getClientHintsDetected(tabId),
-        onDsgvoChecked: result => {
-          cache.setDsgvoResult(tabId, result);
-          cache.scheduleUIUpdate(tabId);
-          console.debug(`DSGVO Checks:`, result);
-        },
-      });
-    })();
-    return true;
-  }
-
-  if (message.type === "CONSENT_BANNER_SHOWN" && _sender.tab?.id != null) {
-    cache.setConsentTimingBannerShown(_sender.tab.id);
-    return true;
-  }
-
-  if (message.type === "CONSENT_BANNER_INTERACTED" && _sender.tab?.id != null) {
-    const tabId = _sender.tab.id;
-    cache.setConsentTimingInteracted(tabId, async () => {
-      let tab: chrome.tabs.Tab;
-      try {
-        tab = await chrome.tabs.get(tabId);
-      } catch {
-        return;
-      }
-      if (tab.url == null || tab.url.startsWith("chrome://")) return;
-
-      // cookie refresh after consent (only one time)
-      await handleCookies({
-        tabUrl: tab.url,
-        thirdPartyCookies: cache.getThirdPartyCookieSightings(tabId),
-        onCookiesDetected: cookies => {
-          cache.setCookies(tabId, cookies);
-          cache.scheduleUIUpdate(tabId);
-          console.debug(`Cookies after consent (${cookies.length} total):`, cookies);
-        },
-      });
-    });
-    return true;
-  }
-
-  if (message.type === "RESET_CACHE" && message.tabId != null) {
-    cache.clear(message.tabId);
-    sendResponse({ success: true });
-    return true;
-  }
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  const handler = messageHandlers[message.type];
+  if (!handler) return false;
+  return handler(message, sender, sendResponse);
 });
 
 /* ---- TAB CLEANUP ---- */
