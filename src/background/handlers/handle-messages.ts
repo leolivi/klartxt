@@ -20,11 +20,6 @@ type MessageHandler = (
   sendResponse: (response?: unknown) => void,
 ) => boolean;
 
-function handlePing(_message: unknown, _sender: chrome.runtime.MessageSender, sendResponse: (r?: unknown) => void) {
-  sendResponse({ alive: true });
-  return true;
-}
-
 function handleGetTabData(cache: TrackerCache): MessageHandler {
   return (message, _sender, sendResponse) => {
     if (message.tabId == null) return false;
@@ -109,7 +104,7 @@ function handleDsgvoChecksResult(cache: TrackerCache): MessageHandler {
         onDsgvoChecked: result => {
           cache.setDsgvoResult(tabId, result);
           cache.scheduleUIUpdate(tabId);
-          console.debug(`DSGVO Checks:`, result);
+          // console.debug(`DSGVO Checks:`, result);
         },
       });
     })();
@@ -147,7 +142,7 @@ function handleConsentBannerInteracted(cache: TrackerCache): MessageHandler {
         onCookiesDetected: cookies => {
           cache.setCookies(tabId, cookies);
           cache.scheduleUIUpdate(tabId);
-          console.debug(`Cookies after consent (${cookies.length} total):`, cookies);
+          // console.debug(`Cookies after consent (${cookies.length} total):`, cookies);
         },
       });
     });
@@ -156,22 +151,11 @@ function handleConsentBannerInteracted(cache: TrackerCache): MessageHandler {
   };
 }
 
-function handleResetCache(cache: TrackerCache): MessageHandler {
-  return (message, _sender, sendResponse) => {
-    if (message.tabId == null) return false;
-    cache.clear(message.tabId);
-    sendResponse({ success: true });
-    return true;
-  };
-}
-
 export function createMessageHandlers(cache: TrackerCache): Record<string, MessageHandler> {
   return {
-    PING: handlePing,
     GET_TAB_DATA: handleGetTabData(cache),
     DSGVO_CHECKS_RESULT: handleDsgvoChecksResult(cache),
     CONSENT_BANNER_SHOWN: handleConsentBannerShown(cache),
     CONSENT_BANNER_INTERACTED: handleConsentBannerInteracted(cache),
-    RESET_CACHE: handleResetCache(cache),
   };
 }

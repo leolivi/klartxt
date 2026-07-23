@@ -110,7 +110,7 @@ function ingest(data: TrackerFile, overwrite = false): void {
     if (!overwrite && TRACKER_MAP.has(domain)) return;
 
     const categories = mapToCategories(info.c);
-    const riskScore = calculateTrackerRiskScore(categories, TrackerConfidence.SUSPICIOUS);
+    const riskScore = calculateTrackerRiskScore(categories, TrackerConfidence.CONFIRMED);
 
     TRACKER_MAP.set(domain, {
       domain,
@@ -130,13 +130,13 @@ export async function initTrackerData(): Promise<void> {
   const coreUrl = chrome.runtime.getURL("src/data/trackers/tracker-core.json");
   const core = await loadFromUrl(coreUrl);
   ingest(core);
-  console.debug(`Core loaded: ${TRACKER_MAP.size} trackers`);
+  // console.debug(`Core loaded: ${TRACKER_MAP.size} trackers`);
 
   // load extended data (second badge, lazy load)
   loadFromUrl(chrome.runtime.getURL("src/data/trackers/tracker-extended.json"))
     .then(extended => {
       ingest(extended);
-      console.debug(`Extended loaded: ${TRACKER_MAP.size} total trackers`);
+      // console.debug(`Extended loaded: ${TRACKER_MAP.size} total trackers`);
     })
-    .catch(e => console.debug("Extended konnte nicht geladen werden", e));
+    .catch(e => console.log("Extended konnte nicht geladen werden", e));
 }

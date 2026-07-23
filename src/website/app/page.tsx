@@ -6,8 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CTASection } from "../components/ctaSection/CTASection";
 import { HeroBanner } from "../components/heroBanner/HeroBanner";
 import { TopicPage } from "./topic/page";
-
-const VIDEO_SRC = "/assets/video/Klartxt_Privacy_Explained.mp4";
+import VIDEO_SRC from "../assets/video/Klartxt_Privacy_Explained.mp4";
 
 const WEBSITE_TABS = [{ key: "tracker" }, { key: "cookies" }, { key: "privacyPolicy" }, { key: "video" }] as const;
 

@@ -232,13 +232,13 @@ export class TrackerCache {
     if (existing) clearTimeout(existing);
     const timer = setTimeout(() => {
       const start = this.scanStartedAt.get(tabId);
-      console.debug(
-        `[ScanDuration] debounce fired tabId=${tabId}, start=${start}, hasDuration=${this.scanDuration.has(tabId)}`,
-      );
+      // console.debug(
+      //   `[ScanDuration] debounce fired tabId=${tabId}, start=${start}, hasDuration=${this.scanDuration.has(tabId)}`,
+      // );
       if (start != null && !this.scanDuration.has(tabId)) {
         const duration = Math.round((Date.now() - start) / 100) / 10;
         this.scanDuration.set(tabId, duration);
-        console.debug(`[ScanDuration] tabId=${tabId} duration=${duration}s`);
+        // console.debug(`[ScanDuration] tabId=${tabId} duration=${duration}s`);
       }
       this.recalculateOverallRiskScore(tabId);
       this.uiUpdateCallback?.(tabId);

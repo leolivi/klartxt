@@ -30,7 +30,7 @@ export function sendResult() {
       })
       .catch(() => {});
   } catch (error) {
-    console.debug("[content-script] sendResult failed:", error);
+    console.log("[content-script] sendResult failed:", error);
   }
 }
 

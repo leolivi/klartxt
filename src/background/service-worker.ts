@@ -173,7 +173,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       onCookiesDetected: cookies => {
         cache.setCookies(tabId, cookies);
         cache.scheduleUIUpdate(tabId);
-        console.debug(`Cookies (${cookies.length} total):`, cookies, `Risk: ${cache.getOverallRiskScore(tabId)}`);
+        // console.debug(`Cookies (${cookies.length} total):`, cookies, `Risk: ${cache.getOverallRiskScore(tabId)}`);
       },
     });
 
@@ -193,7 +193,7 @@ chrome.webRequest.onHeadersReceived.addListener(
       onClientHintsDetected: () => {
         if (cache.getClientHintsDetected(tabId)) return; // already flagged, skip re-run
         cache.setClientHintsDetected(tabId);
-        console.debug(`[ClientHints] High-entropy Accept-CH detected on ${details.url}`);
+        // console.debug(`[ClientHints] High-entropy Accept-CH detected on ${details.url}`);
 
         // re-evaluate DSGVO now that clientHints is known (only if content script already ran)
         const contentResult = cache.getContentResult(tabId);
@@ -239,13 +239,13 @@ chrome.webRequest.onBeforeRequest.addListener(
       onTrackerDetected: result => {
         cache.setTrackerDetail(tabId, result.tracker);
         cache.scheduleUIUpdate(tabId);
-        const trackers = cache.getTrackerDetails(tabId);
-        console.debug(
-          `Tracker (${trackers.length} total):`,
-          trackers,
-          `Risk: ${cache.getOverallRiskScore(tabId)}`,
-          result.confidence,
-        );
+        // const trackers = cache.getTrackerDetails(tabId);
+        // console.debug(
+        //   `Tracker (${trackers.length} total):`,
+        //   trackers,
+        //   `Risk: ${cache.getOverallRiskScore(tabId)}`,
+        //   result.confidence,
+        // );
       },
     });
     return undefined;
@@ -317,14 +317,14 @@ chrome.cookies.onChanged.addListener(changeInfo => {
         tabDomain,
       );
 
-      const updated = cache.getConsentTiming(tabId);
-      console.debug(
-        `[ConsentTiming] ${timing.interactedAt == null ? "BEFORE" : "AFTER"} consent |`,
-        changeInfo.cookie.name,
-        `| before: ${updated?.cookiesSetBeforeConsent.length}`,
-        `| after: ${updated?.cookiesSetAfterConsent.length}`,
-        `| interactedAt: ${timing.interactedAt != null ? new Date(timing.interactedAt).toISOString() : "null"}`,
-      );
+      // const updated = cache.getConsentTiming(tabId);
+      // console.debug(
+      //   `[ConsentTiming] ${timing.interactedAt == null ? "BEFORE" : "AFTER"} consent |`,
+      //   changeInfo.cookie.name,
+      //   `| before: ${updated?.cookiesSetBeforeConsent.length}`,
+      //   `| after: ${updated?.cookiesSetAfterConsent.length}`,
+      //   `| interactedAt: ${timing.interactedAt != null ? new Date(timing.interactedAt).toISOString() : "null"}`,
+      // );
     })();
     return true;
   });

@@ -12,7 +12,7 @@ export function reportBannerShown(): void {
   try {
     chrome.runtime.sendMessage({ type: "CONSENT_BANNER_SHOWN" }).catch(() => {});
   } catch (error) {
-    console.debug("[observe-consent] reportBannerShown failed:", error);
+    console.log("[observe-consent] reportBannerShown failed:", error);
   }
 }
 
@@ -22,7 +22,7 @@ export function reportInteraction(): void {
   try {
     chrome.runtime.sendMessage({ type: "CONSENT_BANNER_INTERACTED" }).catch(() => {});
   } catch (error) {
-    console.debug("[observe-consent] reportInteraction failed:", error);
+    console.log("[observe-consent] reportInteraction failed:", error);
   }
 }
 
