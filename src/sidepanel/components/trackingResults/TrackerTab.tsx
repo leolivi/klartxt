@@ -1,5 +1,6 @@
 import { CHECKED_ITEMS } from "@/utils/types/footer-types";
 import { TrackerCategoryForUser } from "@/utils/types/tracking-enums";
+import { localizeHref } from "@/utils/website-link";
 import { Info, Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
@@ -20,7 +21,7 @@ const TRACKERS_TOPIC_URL = CHECKED_ITEMS.find(item => item.key === "tracker")!.h
 
 export function TrackerTab() {
   const { trackerList } = useTabDataContext();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (trackerList.length === 0)
     return <p className="text-small text-ink-default py-4">{t("trackingResultsDialogError")}</p>;
@@ -49,7 +50,11 @@ export function TrackerTab() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <a
-                      href={`${TRACKERS_TOPIC_URL}#${CATEGORY_META[cat as TrackerCategoryForUser].topicId}`}
+                      href={localizeHref(
+                        TRACKERS_TOPIC_URL,
+                        i18n.language,
+                        CATEGORY_META[cat as TrackerCategoryForUser].topicId,
+                      )}
                       target="_blank"
                       rel="noreferrer"
                       aria-label={t("categoryInfoLabel")}

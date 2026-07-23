@@ -1,3 +1,4 @@
+import { localizeHref } from "@/utils/website-link";
 import { CHECKED_ITEMS } from "@/utils/types/footer-types";
 import { ArrowUpRight, Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -7,7 +8,7 @@ import { Separator } from "../ui/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export function FooterDialog() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <Dialog>
@@ -27,7 +28,7 @@ export function FooterDialog() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <a
-                      href={href}
+                      href={localizeHref(href, i18n.language)}
                       target="_blank"
                       rel="noreferrer"
                       className="cursor-pointer flex items-center gap-1 text-body underline text-ink-strong w-fit"
@@ -47,7 +48,7 @@ export function FooterDialog() {
         <div className="flex justify-center gap-1">
           <Link2 size={"16"} className="text-ink-strongest" />
           <a
-            href="https://klartxt.app"
+            href={localizeHref("https://klartxt.app", i18n.language)}
             target="_blank"
             rel="noreferrer"
             className="text-ink-strongest hover:underline text-small"

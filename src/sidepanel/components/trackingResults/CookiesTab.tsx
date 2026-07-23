@@ -2,6 +2,7 @@ import { normalizeCookieDomain } from "@/utils/domain";
 import type { ClassifiedCookie } from "@/utils/types/cookie-types";
 import { CookieCategoryForUser } from "@/utils/types/cookie-types";
 import { CHECKED_ITEMS } from "@/utils/types/footer-types";
+import { localizeHref } from "@/utils/website-link";
 import { Info, Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTabDataContext } from "../../context/useTabDataContext";
@@ -20,7 +21,7 @@ const COOKIES_TOPIC_URL = CHECKED_ITEMS.find(item => item.key === "cookies")!.hr
 
 export function CookiesTab() {
   const { cookiesList } = useTabDataContext();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (cookiesList.length === 0)
     return <p className="text-small text-ink-default py-4">{t("trackingResultsDialogError")}</p>;
@@ -62,7 +63,7 @@ export function CookiesTab() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <a
-                          href={`${COOKIES_TOPIC_URL}#${topicId}`}
+                          href={localizeHref(COOKIES_TOPIC_URL, i18n.language, topicId)}
                           target="_blank"
                           rel="noreferrer"
                           aria-label={t("categoryInfoLabel")}

@@ -13,3 +13,7 @@ export const LANGUAGES = [
   { code: "fr", label: "Français" },
   { code: "it", label: "Italiano" },
 ];
+
+// shared between src/i18n.ts (extension) and src/website/i18n.ts (website) so LanguageSwitcher
+// can persist a language pick under the same key in whichever context it renders.
+export const LANGUAGE_STORAGE_KEY = "klartxtLanguage";
