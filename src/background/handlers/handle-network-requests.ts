@@ -79,22 +79,23 @@ export function handleNetworkRequests({ details, onTrackerDetected }: HandleNetw
     return;
   }
 
-  const hostname = url.hostname.replace(/^www\./, "");
-  if (NETWORK_EXCLUSIONS.has(hostname)) return;
+  // parse the raw hostname first so tldts (PSL-aware) resolves the registrable domain and
+  // subdomain correctly for multi-part TLDs (.co.uk, .com.au) before any "www" stripping —
+  // stripping "www." off the raw string first could mangle a hostname where "www" is itself
+  // the registrable label (e.g. www.co.uk) rather than a stylistic subdomain
+  const parsed = parse(url.hostname);
+  const registrable = parsed.domain ?? url.hostname;
+  const subdomain = (parsed.subdomain ?? "").replace(/^www(\.|$)/, "");
+  const hostname = subdomain ? `${subdomain}.${registrable}` : registrable;
 
-  // fixes naive slice(-2) which incorrectly handles multi-part TLDs like .co.uk, .com.au
-  const parsed = parse(hostname);
-  const registrable = parsed.domain ?? hostname;
+  if (NETWORK_EXCLUSIONS.has(hostname)) return;
 
   // DDG Radar lookup
   const radarMatch = TRACKER_MAP.get(hostname) ?? (hostname !== registrable ? TRACKER_MAP.get(registrable) : undefined);
 
   // heuristics
   const heuristicMatch =
-    hasTrackingParams(url) ||
-    hasTrackingPath(url) ||
-    hasTrackingSubdomain(parsed.subdomain ?? "") ||
-    hasCookieSyncPattern(url);
+    hasTrackingParams(url) || hasTrackingPath(url) || hasTrackingSubdomain(subdomain) || hasCookieSyncPattern(url);
 
   if (radarMatch) {
     return onTrackerDetected({

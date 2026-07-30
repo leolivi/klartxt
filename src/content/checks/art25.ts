@@ -1,4 +1,5 @@
 import fingerprintData from "@/data/trackers/fingerprint-domains.json";
+import { stripWww } from "@/utils/domain";
 
 /* ---- Art. 25: Privacy by Design ---- */
 
@@ -18,7 +19,7 @@ function hasTinyCanvasElement(): boolean {
 function hasFingerprintScript(): boolean {
   return Array.from(document.querySelectorAll("script[src]")).some(s => {
     try {
-      const hostname = new URL(s.getAttribute("src") ?? "", location.href).hostname.replace(/^www\./, "");
+      const hostname = stripWww(new URL(s.getAttribute("src") ?? "", location.href).hostname);
       const registrable = hostname.split(".").slice(-2).join(".");
       return FINGERPRINT_DOMAIN_SET.has(hostname) || FINGERPRINT_DOMAIN_SET.has(registrable);
     } catch {
