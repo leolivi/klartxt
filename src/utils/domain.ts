@@ -1,7 +1,12 @@
+// strip a leading "www." prefix from a hostname
+export function stripWww(hostname: string): string {
+  return hostname.replace(/^www\./, "");
+}
+
 // function to extract current domain and display in ui
 export function extractDomain(url: string): string {
   try {
-    return new URL(url).hostname.replace(/^www\./, "");
+    return stripWww(new URL(url).hostname);
   } catch {
     return "";
   }
@@ -9,5 +14,5 @@ export function extractDomain(url: string): string {
 
 // normalize cookie domain: strip leading dot and www. prefix
 export function normalizeCookieDomain(domain: string): string {
-  return domain.replace(/^\./, "").replace(/^www\./, "");
+  return stripWww(domain.replace(/^\./, ""));
 }

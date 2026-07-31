@@ -2,6 +2,7 @@
 
 import { extractRootDomain } from "@/data/cookies/cookie-domains";
 import { initTrackerData } from "@/data/trackers/tracking-domains";
+import { stripWww } from "@/utils/domain";
 import { TrackerCache } from "./cache/tracker-cache";
 import { handleCookies } from "./handlers/handle-cookies";
 import { handleDsgvo } from "./handlers/handle-dsgvo";
@@ -306,7 +307,7 @@ chrome.cookies.onChanged.addListener(changeInfo => {
 
       // cookies set before user interacted?
       // track violations (before consent)
-      const tabDomain = tabHostname.replace(/^www\./, "");
+      const tabDomain = stripWww(tabHostname);
       cache.addCookieViolation(
         tabId,
         {

@@ -116,12 +116,13 @@ npm test
 
 E2E tests run the built extension in a real Chromium instance and verify behaviour across a list of real websites defined in [`e2e/sites.json`](e2e/sites.json). To add or replace sites, edit that file and all test suites pick them up automatically.
 
-**Prerequisites:** a production build must exist before running E2E tests.
+**Prerequisites:** a production build must exist before running E2E tests, and Playwright's Chromium browser must be installed.
 
 ```sh
-npm run build:e2e        # build the extension first
-npm run test:e2e         # run all 27 tests (headful Chromium)
-npm run test:e2e:report  # open the HTML report in the browser
+npx playwright install chromium  # one-time: download Playwright's Chromium
+npm run build:e2e                # build the extension first
+npm run test:e2e                 # run all 27 tests (headful Chromium)
+npm run test:e2e:report          # open the HTML report in the browser
 ```
 
 **Test suites:**

@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: "build",
     cssMinify: false,
+    chunkSizeWarningLimit: 600,
   },
   css: {
     postcss: "./postcss.config.js",

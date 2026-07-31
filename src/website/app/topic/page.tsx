@@ -2,7 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import type { CheckedItemKey } from "@/utils/types/footer-types";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 const SECTIONS = ["s1", "s2", "s3"] as const;
 
