@@ -2,7 +2,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/sidepanel/components/ui/tabs";
 import type { CheckedItemKey } from "@/utils/types/footer-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { CTASection } from "../components/ctaSection/CTASection";
 import { HeroBanner } from "../components/heroBanner/HeroBanner";
 import { TopicPage } from "./topic/page";

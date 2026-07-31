@@ -15,6 +15,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "website-build"),
     emptyOutDir: true,
+    chunkSizeWarningLimit: 600,
   },
   css: {
     postcss: path.resolve(__dirname, "postcss.config.js"),

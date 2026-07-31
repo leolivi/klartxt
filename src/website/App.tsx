@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { ImprintPage } from "./app/imprint/page";
 import { Layout } from "./app/layout";
 import { NotFoundPage } from "./app/not-found/page";
