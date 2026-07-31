@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Klartxt",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Analyzes website trackers, cookies and privacy indicators in real time, and provides actionable privacy recommendations.",
   "action": {
     "default_icon": "assets/logo/Klartxt_brandmark_filled_lm_64.png"
