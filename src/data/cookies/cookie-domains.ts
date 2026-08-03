@@ -13,9 +13,6 @@ import { parse } from "tldts";
   Sources:
   - DDG Tracker Radar (DuckDuckGo, Inc., 2025): domain-based classifications (primary)
   - Englehardt & Narayanan (2016): First/Third-Party via root domain comparison
-  - CookieGraph (Munir et al. 2023): name-based heuristics as fallback
-    - Cookie-Name Pattern
-    - Cookie-Lifetime
 ----- */
 
 const rootDomainCache = new Map<string, string>();
@@ -42,7 +39,7 @@ export function mapToUserCategory(category: CookieCategory): CookieCategoryForUs
   }
 }
 
-// CookieGraph: Cookie-Name Pattern
+// Cookie-Name Pattern
 export function mapNameToCategory(name: string): CookieCategory {
   const lower = name.toLowerCase();
 
@@ -57,7 +54,7 @@ export function mapNameToCategory(name: string): CookieCategory {
   return CookieCategory.UNKNOWN;
 }
 
-// CookieGraph: Cookie-Lifetime
+// Cookie-Lifetime
 export function isLongLivedCookie(cookie: chrome.cookies.Cookie): boolean {
   if (!cookie.expirationDate) return false;
   const daysUntilExpiry = (cookie.expirationDate - Date.now() / 1000) / 86400;
@@ -93,7 +90,7 @@ export function classifyCookieCategory(
 
   const nameCategory = mapNameToCategory(cookieName);
 
-  // 2. CookieGraph: longevity + name pattern
+  // 2. longevity + name pattern
   if (isLongLivedCookie(cookie) && nameCategory !== CookieCategory.UNKNOWN) {
     return nameCategory;
   }
