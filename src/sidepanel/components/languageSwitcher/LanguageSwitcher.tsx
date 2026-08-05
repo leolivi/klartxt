@@ -8,9 +8,9 @@ const LanguageSwitcher = () => {
   const handleLanguageChange = (lng: string) => {
     i18n.changeLanguage(lng);
 
-    if (chrome.storage?.local) {
-      //extension: persist the pick so it survives reopening the side panel
-      chrome.storage.local.set({ [LANGUAGE_STORAGE_KEY]: lng });
+    if (chrome.storage?.session) {
+      //extension: persist the pick so it survives reopening the side panel (cleared on browser restart)
+      chrome.storage.session.set({ [LANGUAGE_STORAGE_KEY]: lng });
     } else {
       // website: keep the URL's ?lang= and sessionStorage in sync with the new pick
       sessionStorage.setItem(LANGUAGE_STORAGE_KEY, lng);

@@ -35,8 +35,8 @@ i18n.use(initReactI18next).init({
 });
 
 // only present in the extension context
-if (chrome.storage?.local) {
-  chrome.storage.local.get<Record<string, string>>(LANGUAGE_STORAGE_KEY).then(result => {
+if (chrome.storage?.session) {
+  chrome.storage.session.get<Record<string, string>>(LANGUAGE_STORAGE_KEY).then(result => {
     const storedLang = result[LANGUAGE_STORAGE_KEY];
     if (storedLang && storedLang !== i18n.language) {
       i18n.changeLanguage(storedLang);
