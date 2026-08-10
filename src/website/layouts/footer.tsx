@@ -19,6 +19,10 @@ export function Footer() {
         <Link to="/sources" className="underline">
           {t("sourcesPage_footerLink")}
         </Link>
+        {" · "}
+        <a href="https://github.com/leolivi/klartxt" target="_blank" rel="noopener noreferrer" className="underline">
+          Github
+        </a>
       </div>
     </footer>
   );
