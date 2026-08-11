@@ -35,7 +35,7 @@ export async function handleCookies({ tabUrl, thirdPartyCookies, onCookiesDetect
 
     const cookieRootDomain = extractRootDomain(cookie.domain.replace(/^\./, ""));
     const isThirdParty = cookieRootDomain !== tabRootDomain;
-    const category = classifyCookieCategory(cookie.name, cookieRootDomain, cookie);
+    const category = classifyCookieCategory(cookie.name, cookieRootDomain);
 
     classified.push({
       name: cookie.name,

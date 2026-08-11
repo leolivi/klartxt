@@ -54,13 +54,6 @@ export function mapNameToCategory(name: string): CookieCategory {
   return CookieCategory.UNKNOWN;
 }
 
-// Cookie-Lifetime
-export function isLongLivedCookie(cookie: chrome.cookies.Cookie): boolean {
-  if (!cookie.expirationDate) return false;
-  const daysUntilExpiry = (cookie.expirationDate - Date.now() / 1000) / 86400;
-  return daysUntilExpiry > 365;
-}
-
 // DDG Tracker Radar: domain-based classification
 function mapTrackerCategoryToCookieCategory(trackerCategory: string): CookieCategory {
   switch (trackerCategory) {
@@ -77,11 +70,7 @@ function mapTrackerCategoryToCookieCategory(trackerCategory: string): CookieCate
   }
 }
 
-export function classifyCookieCategory(
-  cookieName: string,
-  cookieRootDomain: string,
-  cookie: chrome.cookies.Cookie,
-): CookieCategory {
+export function classifyCookieCategory(cookieName: string, cookieRootDomain: string): CookieCategory {
   // 1. DDG Tracker Radar
   const trackerInfo = TRACKER_MAP.get(cookieRootDomain);
   if (trackerInfo) {
@@ -90,10 +79,6 @@ export function classifyCookieCategory(
 
   const nameCategory = mapNameToCategory(cookieName);
 
-  // 2. longevity + name pattern
-  if (isLongLivedCookie(cookie) && nameCategory !== CookieCategory.UNKNOWN) {
-    return nameCategory;
-  }
   // 3. name pattern fallback
   return nameCategory;
 }
