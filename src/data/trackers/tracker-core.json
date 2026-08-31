@@ -1,6 +1,6 @@
 {
-  "version": "2026-08-24",
-  "totalCount": 387,
+  "version": "2026-08-31",
+  "totalCount": 383,
   "trackers": {
     "googletagmanager.com": {
       "o": "Google LLC",
@@ -12,16 +12,7 @@
         "Third-Party Analytics Marketing",
         "Tag Manager"
       ],
-      "p": 0.355,
-      "f": 2
-    },
-    "doubleclick.net": {
-      "o": "Google LLC",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.166,
+      "p": 0.356,
       "f": 2
     },
     "google.com": {
@@ -32,7 +23,16 @@
         "Online Payment",
         "CDN"
       ],
-      "p": 0.193,
+      "p": 0.189,
+      "f": 3
+    },
+    "doubleclick.net": {
+      "o": "Google LLC",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.166,
       "f": 3
     },
     "gstatic.com": {
@@ -41,7 +41,7 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.184,
+      "p": 0.181,
       "f": 3
     },
     "fonts.googleapis.com": {
@@ -50,7 +50,7 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.148,
+      "p": 0.149,
       "f": 0
     },
     "google-analytics.com": {
@@ -61,17 +61,7 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.186,
-      "f": 1
-    },
-    "cloudflare.com": {
-      "o": "Cloudflare, Inc.",
-      "c": [
-        "Analytics",
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.126,
+      "p": 0.187,
       "f": 1
     },
     "facebook.net": {
@@ -90,17 +80,18 @@
         "Embedded Content",
         "Social Network"
       ],
-      "p": 0.0332,
+      "p": 0.0315,
       "f": 2
     },
-    "googlesyndication.com": {
-      "o": "Google LLC",
+    "cloudflare.com": {
+      "o": "Cloudflare, Inc.",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
+        "Analytics",
+        "CDN",
+        "Embedded Content"
       ],
-      "p": 0.137,
-      "f": 3
+      "p": 0.125,
+      "f": 1
     },
     "facebook.com": {
       "o": "Facebook, Inc.",
@@ -118,17 +109,17 @@
         "Embedded Content",
         "Social Network"
       ],
-      "p": 0.027,
+      "p": 0.0247,
       "f": 0
     },
-    "adnxs.com": {
-      "o": "Microsoft Corporation",
+    "googlesyndication.com": {
+      "o": "Google LLC",
       "c": [
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.0177,
-      "f": 1
+      "p": 0.135,
+      "f": 3
     },
     "adsrvr.org": {
       "o": "The Trade Desk Inc",
@@ -136,8 +127,29 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.0119,
+      "p": 0.011,
       "f": 1
+    },
+    "adnxs.com": {
+      "o": "Microsoft Corporation",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.0148,
+      "f": 1
+    },
+    "bing.com": {
+      "o": "Microsoft Corporation",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Action Pixels",
+        "Embedded Content"
+      ],
+      "p": 0.0236,
+      "f": 2
     },
     "rubiconproject.com": {
       "o": "Magnite, Inc.",
@@ -154,8 +166,43 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.0239,
+      "p": 0.022,
       "f": 2
+    },
+    "yahoo.com": {
+      "o": "Yahoo Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Federated Login"
+      ],
+      "p": 0.00413,
+      "f": 1
+    },
+    "criteo.com": {
+      "o": "Criteo SA",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.012,
+      "f": 1
+    },
+    "rlcdn.com": {
+      "o": "LiveRamp Holdings, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Analytics",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00644,
+      "f": 0
     },
     "casalemedia.com": {
       "o": "Index Exchange, Inc.",
@@ -164,7 +211,7 @@
         "Advertising",
         "Analytics"
       ],
-      "p": 0.00695,
+      "p": 0.00514,
       "f": 0
     },
     "pubmatic.com": {
@@ -177,54 +224,25 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00644,
+      "p": 0.00906,
       "f": 2
     },
-    "rlcdn.com": {
-      "o": "LiveRamp Holdings, Inc.",
+    "jsdelivr.net": {
+      "o": "Prospect One",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Analytics",
-        "Third-Party Analytics Marketing"
+        "CDN"
       ],
-      "p": 0.00714,
-      "f": 0
+      "p": 0.048,
+      "f": 3
     },
-    "bing.com": {
-      "o": "Microsoft Corporation",
+    "crwdcntrl.net": {
+      "o": "Lotame Solutions, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Ad Fraud",
-        "Action Pixels",
-        "Embedded Content"
+        "Audience Measurement"
       ],
-      "p": 0.0223,
-      "f": 2
-    },
-    "yahoo.com": {
-      "o": "Yahoo Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Federated Login"
-      ],
-      "p": 0.00534,
-      "f": 1
-    },
-    "criteo.com": {
-      "o": "Criteo SA",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.0145,
+      "p": 0.00966,
       "f": 1
     },
     "id5-sync.com": {
@@ -233,7 +251,7 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.0106,
+      "p": 0.0118,
       "f": 2
     },
     "tapad.com": {
@@ -244,18 +262,8 @@
         "Analytics",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00373,
+      "p": 0.00272,
       "f": 0
-    },
-    "crwdcntrl.net": {
-      "o": "Lotame Solutions, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Audience Measurement"
-      ],
-      "p": 0.00916,
-      "f": 1
     },
     "openx.net": {
       "o": "OpenX Technologies Inc",
@@ -265,16 +273,8 @@
         "Ad Fraud",
         "Audience Measurement"
       ],
-      "p": 0.00564,
+      "p": 0.00513,
       "f": 0
-    },
-    "jsdelivr.net": {
-      "o": "Prospect One",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.0487,
-      "f": 3
     },
     "demdex.net": {
       "o": "Adobe Inc.",
@@ -283,7 +283,7 @@
         "Advertising",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00846,
+      "p": 0.00867,
       "f": 1
     },
     "linkedin.com": {
@@ -297,7 +297,7 @@
         "Embedded Content",
         "Social Network"
       ],
-      "p": 0.00684,
+      "p": 0.00704,
       "f": 0
     },
     "stackadapt.com": {
@@ -309,7 +309,7 @@
         "Audience Measurement",
         "Action Pixels"
       ],
-      "p": 0.00262,
+      "p": 0.00322,
       "f": 1
     },
     "3lift.com": {
@@ -318,7 +318,7 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00342,
+      "p": 0.00332,
       "f": 0
     },
     "onetrust.com": {
@@ -328,7 +328,7 @@
         "Non-Tracking",
         "Consent Management Platform"
       ],
-      "p": 0.0463,
+      "p": 0.0456,
       "f": 1
     },
     "33across.com": {
@@ -339,54 +339,8 @@
         "Analytics",
         "Action Pixels"
       ],
-      "p": 0.00322,
-      "f": 1
-    },
-    "turn.com": {
-      "o": "Amobee, Inc",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00603,
+      "p": 0.00282,
       "f": 0
-    },
-    "bidswitch.net": {
-      "o": "IPONWEB GmbH",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud"
-      ],
-      "p": 0.00252,
-      "f": 0
-    },
-    "smartadserver.com": {
-      "o": "Smartadserver S.A.S",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00432,
-      "f": 2
-    },
-    "everesttech.net": {
-      "o": "Adobe Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00362,
-      "f": 0
-    },
-    "creativecdn.com": {
-      "o": "RTB House S.A.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00393,
-      "f": 1
     },
     "liadm.com": {
       "o": "LiveIntent Inc.",
@@ -396,7 +350,44 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00271,
+      "p": 0.00513,
+      "f": 1
+    },
+    "smartadserver.com": {
+      "o": "Smartadserver S.A.S",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00342,
+      "f": 2
+    },
+    "turn.com": {
+      "o": "Amobee, Inc",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00463,
+      "f": 1
+    },
+    "bidswitch.net": {
+      "o": "IPONWEB GmbH",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud"
+      ],
+      "p": 0.00282,
+      "f": 0
+    },
+    "creativecdn.com": {
+      "o": "RTB House S.A.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00322,
       "f": 1
     },
     "sharethrough.com": {
@@ -405,7 +396,16 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00332,
+      "p": 0.00282,
+      "f": 0
+    },
+    "everesttech.net": {
+      "o": "Adobe Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00353,
       "f": 0
     },
     "gumgum.com": {
@@ -414,8 +414,8 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00282,
-      "f": 0
+      "p": 0.00312,
+      "f": 3
     },
     "media.net": {
       "o": "Media.net Advertising FZ-LLC",
@@ -423,7 +423,7 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00513,
+      "p": 0.00402,
       "f": 2
     },
     "scorecardresearch.com": {
@@ -432,7 +432,7 @@
         "Analytics",
         "Audience Measurement"
       ],
-      "p": 0.0114,
+      "p": 0.0106,
       "f": 1
     },
     "adform.net": {
@@ -443,8 +443,8 @@
         "Ad Fraud",
         "Audience Measurement"
       ],
-      "p": 0.00413,
-      "f": 2
+      "p": 0.00282,
+      "f": 1
     },
     "lijit.com": {
       "o": "Sovrn Holdings",
@@ -456,8 +456,18 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00352,
+      "p": 0.00403,
       "f": 0
+    },
+    "cookielaw.org": {
+      "o": "OneTrust LLC",
+      "c": [
+        "Embedded Content",
+        "Non-Tracking",
+        "Consent Management Platform"
+      ],
+      "p": 0.0445,
+      "f": 2
     },
     "bidr.io": {
       "o": "Beeswax",
@@ -465,7 +475,18 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00261,
+      "p": 0.00332,
+      "f": 0
+    },
+    "1rx.io": {
+      "o": "RhythmOne",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00262,
       "f": 0
     },
     "dotomi.com": {
@@ -474,7 +495,28 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00302,
+      "p": 0.00292,
+      "f": 1
+    },
+    "contextweb.com": {
+      "o": "Pulsepoint, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Audience Measurement"
+      ],
+      "p": 0.00342,
+      "f": 0
+    },
+    "2mdn.net": {
+      "o": "Google LLC",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud"
+      ],
+      "p": 0.00514,
       "f": 1
     },
     "blismedia.com": {
@@ -487,29 +529,8 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00272,
+      "p": 0.00342,
       "f": 0
-    },
-    "1rx.io": {
-      "o": "RhythmOne",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00281,
-      "f": 0
-    },
-    "cookielaw.org": {
-      "o": "OneTrust LLC",
-      "c": [
-        "Embedded Content",
-        "Non-Tracking",
-        "Consent Management Platform"
-      ],
-      "p": 0.0466,
-      "f": 2
     },
     "sitescout.com": {
       "o": "Centro, Inc.",
@@ -519,7 +540,7 @@
         "Analytics",
         "Action Pixels"
       ],
-      "p": 0.00282,
+      "p": 0.00413,
       "f": 0
     },
     "ipredictive.com": {
@@ -528,7 +549,7 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.0393,
+      "p": 0.0354,
       "f": 0
     },
     "sonobi.com": {
@@ -539,45 +560,14 @@
       "p": 0.00272,
       "f": 0
     },
-    "outbrain.com": {
-      "o": "Outbrain",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00292,
-      "f": 2
-    },
-    "pippio.com": {
-      "o": "LiveRamp Holdings, Inc.",
+    "googleadservices.com": {
+      "o": "Google LLC",
       "c": [
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.0445,
-      "f": 0
-    },
-    "contextweb.com": {
-      "o": "Pulsepoint, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Audience Measurement"
-      ],
-      "p": 0.0337,
+      "p": 0.00533,
       "f": 1
-    },
-    "simpli.fi": {
-      "o": "Simplifi Holdings Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics"
-      ],
-      "p": 0.0462,
-      "f": 0
     },
     "quantserve.com": {
       "o": "Quantcast Corporation",
@@ -588,19 +578,38 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00503,
+      "p": 0.00453,
       "f": 2
     },
-    "fwmrm.net": {
-      "o": "FreeWheel",
+    "outbrain.com": {
+      "o": "Outbrain",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Analytics",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00281,
+      "p": 0.00322,
+      "f": 2
+    },
+    "rfihub.com": {
+      "o": "Zeta Global",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00442,
       "f": 1
+    },
+    "cookiebot.com": {
+      "o": "Usercentrics GmbH",
+      "c": [
+        "Embedded Content",
+        "Non-Tracking",
+        "Consent Management Platform"
+      ],
+      "p": 0.00794,
+      "f": 2
     },
     "postrelease.com": {
       "o": "Nativo, Inc",
@@ -609,7 +618,7 @@
         "Advertising",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00352,
+      "p": 0.00272,
       "f": 0
     },
     "loopme.me": {
@@ -622,18 +631,36 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00281,
+      "p": 0.00282,
       "f": 0
     },
-    "2mdn.net": {
-      "o": "Google LLC",
+    "simpli.fi": {
+      "o": "Simplifi Holdings Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Ad Fraud"
+        "Analytics"
       ],
-      "p": 0.00423,
-      "f": 1
+      "p": 0.0413,
+      "f": 0
+    },
+    "yieldmo.com": {
+      "o": "YieldMo, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.0398,
+      "f": 0
+    },
+    "pippio.com": {
+      "o": "LiveRamp Holdings, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.0422,
+      "f": 0
     },
     "deepintent.com": {
       "o": "DeepIntent Inc",
@@ -643,36 +670,7 @@
         "Analytics",
         "Audience Measurement"
       ],
-      "p": 0.00251,
-      "f": 0
-    },
-    "rfihub.com": {
-      "o": "Zeta Global",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00342,
-      "f": 1
-    },
-    "cookiebot.com": {
-      "o": "Usercentrics GmbH",
-      "c": [
-        "Embedded Content",
-        "Non-Tracking",
-        "Consent Management Platform"
-      ],
-      "p": 0.00796,
-      "f": 2
-    },
-    "yieldmo.com": {
-      "o": "YieldMo, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.045,
+      "p": 0.00322,
       "f": 0
     },
     "ladsp.com": {
@@ -682,17 +680,7 @@
         "Advertising",
         "Analytics"
       ],
-      "p": 0.0638,
-      "f": 0
-    },
-    "criteo.net": {
-      "o": "Criteo SA",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics"
-      ],
-      "p": 0.00282,
+      "p": 0.065,
       "f": 1
     },
     "ajax.googleapis.com": {
@@ -701,18 +689,19 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.0282,
+      "p": 0.0271,
       "f": 3
     },
-    "smaato.net": {
-      "o": "Smaato Inc.",
+    "fwmrm.net": {
+      "o": "FreeWheel",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Analytics"
+        "Analytics",
+        "Third-Party Analytics Marketing"
       ],
-      "p": 0.00302,
-      "f": 0
+      "p": 0.00322,
+      "f": 1
     },
     "hotjar.com": {
       "o": "Hotjar Ltd",
@@ -721,7 +710,7 @@
         "Audience Measurement",
         "Session Replay"
       ],
-      "p": 0.00775,
+      "p": 0.00815,
       "f": 2
     },
     "typekit.net": {
@@ -737,26 +726,17 @@
       "c": [
         "Consent Management Platform"
       ],
-      "p": 0.00382,
+      "p": 0.00322,
       "f": 2
     },
-    "semasio.net": {
-      "o": "Semasio GmbH",
+    "criteo.net": {
+      "o": "Criteo SA",
       "c": [
         "Ad Motivated Tracking",
-        "Advertising"
+        "Advertising",
+        "Analytics"
       ],
-      "p": 0.00953,
-      "f": 0
-    },
-    "licdn.com": {
-      "o": "Microsoft Corporation",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "CDN"
-      ],
-      "p": 0.00604,
+      "p": 0.00252,
       "f": 1
     },
     "privacymanager.io": {
@@ -765,15 +745,17 @@
         "Consent Management Platform"
       ],
       "p": 0.00594,
-      "f": 1
-    },
-    "consentmanager.net": {
-      "o": "consentmanager AB",
-      "c": [
-        "Consent Management Platform"
-      ],
-      "p": 0.0187,
       "f": 2
+    },
+    "licdn.com": {
+      "o": "Microsoft Corporation",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "CDN"
+      ],
+      "p": 0.00584,
+      "f": 1
     },
     "teads.tv": {
       "o": "Teads ( Luxenbourg ) SA",
@@ -784,8 +766,46 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00261,
+      "p": 0.00302,
       "f": 1
+    },
+    "smaato.net": {
+      "o": "Smaato Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics"
+      ],
+      "p": 0.00292,
+      "f": 0
+    },
+    "consentmanager.net": {
+      "o": "consentmanager AB",
+      "c": [
+        "Consent Management Platform"
+      ],
+      "p": 0.0185,
+      "f": 2
+    },
+    "semasio.net": {
+      "o": "Semasio GmbH",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00954,
+      "f": 0
+    },
+    "shopify.com": {
+      "o": "Shopify Inc.",
+      "c": [
+        "Analytics",
+        "Online Payment",
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00886,
+      "f": 3
     },
     "360yield.com": {
       "o": "Improve Digital BV",
@@ -794,44 +814,7 @@
         "Advertising",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00332,
-      "f": 0
-    },
-    "indexww.com": {
-      "o": "Index Exchange, Inc.",
-      "c": [
-        "Advertising",
-        "Analytics"
-      ],
-      "p": 0.00261,
-      "f": 1
-    },
-    "googleadservices.com": {
-      "o": "Google LLC",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00796,
-      "f": 1
-    },
-    "omnitagjs.com": {
-      "o": "Adyoulike",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00261,
-      "f": 1
-    },
-    "disqus.com": {
-      "o": "Disqus, Inc.",
-      "c": [
-        "Federated Login",
-        "Social - Comment",
-        "Embedded Content"
-      ],
-      "p": 0.00362,
+      "p": 0.00272,
       "f": 1
     },
     "trustpilot.com": {
@@ -840,17 +823,29 @@
         "Analytics",
         "Embedded Content"
       ],
-      "p": 0.00634,
+      "p": 0.00614,
       "f": 2
     },
-    "kargo.com": {
-      "o": "Kargo Global, Inc.",
+    "indexww.com": {
+      "o": "Index Exchange, Inc.",
+      "c": [
+        "Advertising",
+        "Analytics"
+      ],
+      "p": 0.00262,
+      "f": 1
+    },
+    "klaviyo.com": {
+      "o": "Klaviyo",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Ad Fraud"
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Embedded Content"
       ],
-      "p": 0.00251,
+      "p": 0.00766,
       "f": 2
     },
     "youtube.com": {
@@ -860,52 +855,8 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.017,
+      "p": 0.0166,
       "f": 3
-    },
-    "agkn.com": {
-      "o": "TransUnion LLC",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00281,
-      "f": 0
-    },
-    "intentiq.com": {
-      "o": "Almondnet Group",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Analytics",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00292,
-      "f": 1
-    },
-    "eyeota.net": {
-      "o": "eyeota Limited",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00251,
-      "f": 0
-    },
-    "thrtle.com": {
-      "o": "Throtle",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.0232,
-      "f": 0
     },
     "pinterest.com": {
       "o": "Pinterest, Inc.",
@@ -914,18 +865,37 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00392,
+      "p": 0.00453,
       "f": 1
     },
-    "mathtag.com": {
-      "o": "MediaMath, Inc.",
+    "omnitagjs.com": {
+      "o": "Adyoulike",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00413,
+      "f": 0
+    },
+    "kargo.com": {
+      "o": "Kargo Global, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Third-Party Analytics Marketing"
+        "Ad Fraud"
       ],
-      "p": 0.019,
-      "f": 1
+      "p": 0.00262,
+      "f": 2
+    },
+    "disqus.com": {
+      "o": "Disqus, Inc.",
+      "c": [
+        "Federated Login",
+        "Social - Comment",
+        "Embedded Content"
+      ],
+      "p": 0.00252,
+      "f": 0
     },
     "redditstatic.com": {
       "o": "Reddit Inc.",
@@ -934,7 +904,7 @@
         "Analytics",
         "Action Pixels"
       ],
-      "p": 0.00423,
+      "p": 0.00503,
       "f": 1
     },
     "reddit.com": {
@@ -951,7 +921,25 @@
         "Embedded Content",
         "Social Network"
       ],
-      "p": 0.00433,
+      "p": 0.00513,
+      "f": 0
+    },
+    "rezync.com": {
+      "o": "Zeta Global",
+      "c": [
+        "Ad Motivated Tracking"
+      ],
+      "p": 0.00312,
+      "f": 0
+    },
+    "mfadsrvr.com": {
+      "o": "IPONWEB GmbH",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud"
+      ],
+      "p": 0.0114,
       "f": 0
     },
     "imasdk.googleapis.com": {
@@ -960,18 +948,8 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00745,
+      "p": 0.0101,
       "f": 2
-    },
-    "adentifi.com": {
-      "o": "AdTheorent Inc",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud"
-      ],
-      "p": 0.00301,
-      "f": 0
     },
     "twitter.com": {
       "o": "Twitter, Inc.",
@@ -985,31 +963,43 @@
         "Embedded Content",
         "Social Network"
       ],
-      "p": 0.00795,
+      "p": 0.00815,
       "f": 2
     },
-    "jquery.com": {
-      "o": "OpenJS Foundation",
+    "adentifi.com": {
+      "o": "AdTheorent Inc",
       "c": [
-        "CDN"
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud"
       ],
-      "p": 0.0176,
-      "f": 1
-    },
-    "rezync.com": {
-      "o": "Zeta Global",
-      "c": [
-        "Ad Motivated Tracking"
-      ],
-      "p": 0.00251,
-      "f": 1
+      "p": 0.00382,
+      "f": 0
     },
     "privacy-mgmt.com": {
       "o": "Sourcepoint Technologies Inc",
       "c": [
         "Consent Management Platform"
       ],
-      "p": 0.00917,
+      "p": 0.00949,
+      "f": 1
+    },
+    "mathtag.com": {
+      "o": "MediaMath, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.0215,
+      "f": 1
+    },
+    "jquery.com": {
+      "o": "OpenJS Foundation",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.0164,
       "f": 1
     },
     "fontawesome.com": {
@@ -1017,7 +1007,7 @@
       "c": [
         "CDN"
       ],
-      "p": 0.00906,
+      "p": 0.00855,
       "f": 1
     },
     "unpkg.com": {
@@ -1025,8 +1015,29 @@
       "c": [
         "CDN"
       ],
-      "p": 0.0163,
-      "f": 1
+      "p": 0.0166,
+      "f": 2
+    },
+    "adsafeprotected.com": {
+      "o": "Integral Ad Science, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud"
+      ],
+      "p": 0.00292,
+      "f": 3
+    },
+    "taboola.com": {
+      "o": "Taboola, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00583,
+      "f": 2
     },
     "adobedtm.com": {
       "o": "Adobe Inc.",
@@ -1038,17 +1049,68 @@
         "Third-Party Analytics Marketing",
         "Tag Manager"
       ],
-      "p": 0.0139,
+      "p": 0.0142,
       "f": 2
     },
-    "mfadsrvr.com": {
-      "o": "IPONWEB GmbH",
+    "agkn.com": {
+      "o": "TransUnion LLC",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00262,
+      "f": 0
+    },
+    "pinimg.com": {
+      "o": "Pinterest, Inc.",
+      "c": [
+        "Social - Share",
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00322,
+      "f": 2
+    },
+    "cookieinformation.com": {
+      "o": "Cookie Information A/S",
+      "c": [
+        "Consent Management Platform"
+      ],
+      "p": 0.0369,
+      "f": 1
+    },
+    "intentiq.com": {
+      "o": "Almondnet Group",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Ad Fraud"
+        "Ad Fraud",
+        "Analytics",
+        "Third-Party Analytics Marketing"
       ],
-      "p": 0.0171,
+      "p": 0.00302,
+      "f": 1
+    },
+    "eyeota.net": {
+      "o": "eyeota Limited",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00362,
+      "f": 0
+    },
+    "adkernel.com": {
+      "o": "Adkernel, LLC",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00302,
       "f": 0
     },
     "nr-data.net": {
@@ -1056,18 +1118,25 @@
       "c": [
         "Analytics"
       ],
-      "p": 0.0113,
+      "p": 0.00996,
       "f": 0
     },
-    "adsafeprotected.com": {
-      "o": "Integral Ad Science, Inc.",
+    "newrelic.com": {
+      "o": "New Relic",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud"
+        "Analytics"
       ],
-      "p": 0.00282,
-      "f": 3
+      "p": 0.00976,
+      "f": 2
+    },
+    "ytimg.com": {
+      "o": "Google LLC",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.0149,
+      "f": 0
     },
     "googletagservices.com": {
       "o": "Google LLC",
@@ -1079,59 +1148,27 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00845,
+      "p": 0.00865,
+      "f": 1
+    },
+    "maps.googleapis.com": {
+      "o": "Google LLC",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00594,
       "f": 2
     },
-    "adkernel.com": {
-      "o": "Adkernel, LLC",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00322,
-      "f": 0
-    },
-    "newrelic.com": {
-      "o": "New Relic",
-      "c": [
-        "Analytics"
-      ],
-      "p": 0.011,
-      "f": 2
-    },
-    "klaviyo.com": {
-      "o": "Klaviyo",
+    "rkdms.com": {
+      "o": "Merkle Inc",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
         "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Embedded Content"
-      ],
-      "p": 0.00443,
-      "f": 2
-    },
-    "taboola.com": {
-      "o": "Taboola, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00573,
-      "f": 2
-    },
-    "pinimg.com": {
-      "o": "Pinterest, Inc.",
-      "c": [
-        "Social - Share",
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00262,
+      "p": 0.018,
       "f": 2
     },
     "emxdgt.com": {
@@ -1141,8 +1178,18 @@
         "Advertising",
         "Analytics"
       ],
-      "p": 0.0186,
+      "p": 0.0192,
       "f": 0
+    },
+    "doubleverify.com": {
+      "o": "DoubleVerify",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud"
+      ],
+      "p": 0.00352,
+      "f": 3
     },
     "unrulymedia.com": {
       "o": "Unruly Group Limited",
@@ -1153,74 +1200,27 @@
         "Third-Party Analytics Marketing",
         "Embedded Content"
       ],
-      "p": 0.00442,
+      "p": 0.00252,
       "f": 0
     },
-    "ytimg.com": {
-      "o": "Google LLC",
-      "c": [
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.0144,
-      "f": 0
-    },
-    "cookieinformation.com": {
-      "o": "Cookie Information A/S",
-      "c": [
-        "Consent Management Platform"
-      ],
-      "p": 0.0322,
-      "f": 1
-    },
-    "rkdms.com": {
-      "o": "Merkle Inc",
+    "ads-twitter.com": {
+      "o": "Twitter, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Analytics",
-        "Third-Party Analytics Marketing"
+        "Third-Party Analytics Marketing",
+        "Action Pixels"
       ],
-      "p": 0.0184,
-      "f": 2
-    },
-    "shopify.com": {
-      "o": "Shopify Inc.",
-      "c": [
-        "Analytics",
-        "Online Payment",
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00423,
-      "f": 2
+      "p": 0.00453,
+      "f": 3
     },
     "go-mpulse.net": {
       "o": "Akamai Technologies",
       "c": [
         "Analytics"
       ],
-      "p": 0.0141,
-      "f": 2
-    },
-    "zemanta.com": {
-      "o": "Outbrain",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.0156,
-      "f": 1
-    },
-    "maps.googleapis.com": {
-      "o": "Google LLC",
-      "c": [
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00664,
-      "f": 2
+      "p": 0.0134,
+      "f": 3
     },
     "jwplayer.com": {
       "o": "LongTail Ad Solutions, Inc.",
@@ -1231,28 +1231,8 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00433,
+      "p": 0.00423,
       "f": 1
-    },
-    "ads-twitter.com": {
-      "o": "Twitter, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
-      ],
-      "p": 0.00483,
-      "f": 3
-    },
-    "ad-m.asia": {
-      "o": "FreeBit Co, Ltd.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.029,
-      "f": 0
     },
     "t.co": {
       "o": "Twitter, Inc.",
@@ -1267,20 +1247,8 @@
         "Embedded Content",
         "Social Network"
       ],
-      "p": 0.00402,
+      "p": 0.00433,
       "f": 0
-    },
-    "tynt.com": {
-      "o": "33Across, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Third-Party Analytics Marketing",
-        "Social - Share",
-        "Action Pixels"
-      ],
-      "p": 0.017,
-      "f": 1
     },
     "omtrdc.net": {
       "o": "Adobe Inc.",
@@ -1291,7 +1259,33 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00705,
+      "p": 0.00645,
+      "f": 0
+    },
+    "ad-m.asia": {
+      "o": "FreeBit Co, Ltd.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.0278,
+      "f": 0
+    },
+    "googleusercontent.com": {
+      "o": "Google LLC",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00545,
+      "f": 0
+    },
+    "jnn-pa.googleapis.com": {
+      "o": "Google LLC",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00946,
       "f": 0
     },
     "wp.com": {
@@ -1301,8 +1295,165 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00734,
+      "p": 0.00704,
       "f": 1
+    },
+    "bootstrapcdn.com": {
+      "o": "StackPath, LLC",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00865,
+      "f": 1
+    },
+    "thrtle.com": {
+      "o": "Throtle",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement"
+      ],
+      "p": 0.0201,
+      "f": 0
+    },
+    "ctnsnet.com": {
+      "o": "Crimtan Holdings Ltd",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.0139,
+      "f": 1
+    },
+    "shopifycdn.com": {
+      "o": "Shopify Inc.",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00271,
+      "f": 1
+    },
+    "adthrive.com": {
+      "o": "AdThrive, LLC",
+      "c": [
+        "Advertising"
+      ],
+      "p": 0.00322,
+      "f": 2
+    },
+    "tribalfusion.com": {
+      "o": "Exponential Interactive Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.0166,
+      "f": 3
+    },
+    "tynt.com": {
+      "o": "33Across, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Third-Party Analytics Marketing",
+        "Social - Share",
+        "Action Pixels"
+      ],
+      "p": 0.0154,
+      "f": 1
+    },
+    "zemanta.com": {
+      "o": "Outbrain",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.0141,
+      "f": 1
+    },
+    "imgix.net": {
+      "o": "Zebrafish Labs",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00423,
+      "f": 0
+    },
+    "undertone.com": {
+      "o": "Undertone Networks",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.0118,
+      "f": 1
+    },
+    "consentframework.com": {
+      "o": "Sirdata SAS",
+      "c": [
+        "Consent Management Platform"
+      ],
+      "p": 0.00342,
+      "f": 2
+    },
+    "imrworldwide.com": {
+      "o": "The Nielsen Company",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Action Pixels"
+      ],
+      "p": 0.00342,
+      "f": 2
+    },
+    "ml314.com": {
+      "o": "Bombora Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Action Pixels",
+        "Session Replay"
+      ],
+      "p": 0.00352,
+      "f": 1
+    },
+    "uncn.jp": {
+      "o": "Bulbit Inc",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Audience Measurement"
+      ],
+      "p": 0.00272,
+      "f": 0
+    },
+    "rqtrk.eu": {
+      "o": "Roq.ad",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00272,
+      "f": 0
+    },
+    "mediavine.com": {
+      "o": "Mediavine, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Audience Measurement"
+      ],
+      "p": 0.00513,
+      "f": 0
     },
     "yandex.ru": {
       "o": "Yandex LLC",
@@ -1317,182 +1468,8 @@
         "Embedded Content",
         "Session Replay"
       ],
-      "p": 0.0112,
+      "p": 0.011,
       "f": 3
-    },
-    "ctnsnet.com": {
-      "o": "Crimtan Holdings Ltd",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.0121,
-      "f": 1
-    },
-    "jnn-pa.googleapis.com": {
-      "o": "Google LLC",
-      "c": [
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00976,
-      "f": 0
-    },
-    "doubleverify.com": {
-      "o": "DoubleVerify",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud"
-      ],
-      "p": 0.00372,
-      "f": 3
-    },
-    "bootstrapcdn.com": {
-      "o": "StackPath, LLC",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.0103,
-      "f": 1
-    },
-    "googleusercontent.com": {
-      "o": "Google LLC",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00544,
-      "f": 0
-    },
-    "adthrive.com": {
-      "o": "AdThrive, LLC",
-      "c": [
-        "Advertising"
-      ],
-      "p": 0.00322,
-      "f": 2
-    },
-    "imrworldwide.com": {
-      "o": "The Nielsen Company",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
-      ],
-      "p": 0.00362,
-      "f": 2
-    },
-    "media6degrees.com": {
-      "o": "Dstillery Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.0148,
-      "f": 0
-    },
-    "rqtrk.eu": {
-      "o": "Roq.ad",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00262,
-      "f": 0
-    },
-    "tribalfusion.com": {
-      "o": "Exponential Interactive Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.016,
-      "f": 3
-    },
-    "uncn.jp": {
-      "o": "Bulbit Inc",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Audience Measurement"
-      ],
-      "p": 0.0244,
-      "f": 0
-    },
-    "adroll.com": {
-      "o": "AdRoll, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00251,
-      "f": 1
-    },
-    "ml314.com": {
-      "o": "Bombora Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Action Pixels",
-        "Session Replay"
-      ],
-      "p": 0.00382,
-      "f": 1
-    },
-    "undertone.com": {
-      "o": "Undertone Networks",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.0129,
-      "f": 1
-    },
-    "consentframework.com": {
-      "o": "Sirdata SAS",
-      "c": [
-        "Consent Management Platform"
-      ],
-      "p": 0.00342,
-      "f": 2
-    },
-    "mediavine.com": {
-      "o": "Mediavine, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Audience Measurement"
-      ],
-      "p": 0.00533,
-      "f": 0
-    },
-    "bttrack.com": {
-      "o": "Bidtellect, Inc",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Analytics",
-        "Embedded Content"
-      ],
-      "p": 0.00804,
-      "f": 1
-    },
-    "imgix.net": {
-      "o": "Zebrafish Labs",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00382,
-      "f": 0
     },
     "sc-static.net": {
       "o": "Snap Inc.",
@@ -1503,35 +1480,16 @@
         "Action Pixels",
         "Embedded Content"
       ],
-      "p": 0.00312,
+      "p": 0.00292,
       "f": 2
     },
-    "snapchat.com": {
-      "o": "Snap Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Action Pixels",
-        "Social Network"
-      ],
-      "p": 0.00312,
-      "f": 0
-    },
-    "springserve.com": {
-      "o": "SpringServe, LLC",
+    "adroll.com": {
+      "o": "AdRoll, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00673,
-      "f": 0
-    },
-    "socdm.com": {
-      "o": "Supership Inc",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.0129,
+      "p": 0.0166,
       "f": 1
     },
     "dwin1.com": {
@@ -1541,7 +1499,46 @@
         "Advertising",
         "Analytics"
       ],
-      "p": 0.00291,
+      "p": 0.00302,
+      "f": 1
+    },
+    "appier.net": {
+      "o": "Appier Group, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.0119,
+      "f": 1
+    },
+    "snapchat.com": {
+      "o": "Snap Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Action Pixels",
+        "Social Network"
+      ],
+      "p": 0.00302,
+      "f": 0
+    },
+    "visualwebsiteoptimizer.com": {
+      "o": "Wingify",
+      "c": [
+        "Analytics",
+        "Third-Party Analytics Marketing",
+        "Session Replay"
+      ],
+      "p": 0.00594,
+      "f": 2
+    },
+    "storage.googleapis.com": {
+      "o": "Google LLC",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00896,
       "f": 1
     },
     "civiccomputing.com": {
@@ -1549,7 +1546,7 @@
       "c": [
         "Consent Management Platform"
       ],
-      "p": 0.0196,
+      "p": 0.0187,
       "f": 1
     },
     "yimg.com": {
@@ -1559,35 +1556,56 @@
         "Advertising",
         "CDN"
       ],
-      "p": 0.00312,
+      "p": 0.00262,
       "f": 1
     },
-    "visualwebsiteoptimizer.com": {
-      "o": "Wingify",
-      "c": [
-        "Analytics",
-        "Third-Party Analytics Marketing",
-        "Session Replay"
-      ],
-      "p": 0.00563,
-      "f": 2
-    },
-    "acuityplatform.com": {
-      "o": "AcuityAds",
+    "springserve.com": {
+      "o": "SpringServe, LLC",
       "c": [
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00769,
+      "p": 0.00442,
       "f": 0
     },
-    "shopifycdn.com": {
-      "o": "Shopify Inc.",
+    "trustedshops.com": {
+      "o": "Trusted Shops GmbH",
       "c": [
-        "CDN",
+        "Badge"
+      ],
+      "p": 0.00785,
+      "f": 1
+    },
+    "optimizely.com": {
+      "o": "Optimizely, Inc.",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Action Pixels"
+      ],
+      "p": 0.00474,
+      "f": 1
+    },
+    "socdm.com": {
+      "o": "Supership Inc",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.0112,
+      "f": 1
+    },
+    "bttrack.com": {
+      "o": "Bidtellect, Inc",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Analytics",
         "Embedded Content"
       ],
-      "p": 0.00262,
+      "p": 0.00613,
       "f": 1
     },
     "hs-analytics.net": {
@@ -1598,7 +1616,7 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00453,
+      "p": 0.00403,
       "f": 3
     },
     "exelator.com": {
@@ -1610,7 +1628,7 @@
         "Audience Measurement",
         "Action Pixels"
       ],
-      "p": 0.00884,
+      "p": 0.00905,
       "f": 1
     },
     "hs-scripts.com": {
@@ -1623,18 +1641,8 @@
         "Third-Party Analytics Marketing",
         "CDN"
       ],
-      "p": 0.00443,
+      "p": 0.00423,
       "f": 0
-    },
-    "appier.net": {
-      "o": "Appier Group, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.0107,
-      "f": 1
     },
     "hubspot.com": {
       "o": "HubSpot, Inc.",
@@ -1645,69 +1653,52 @@
         "Third-Party Analytics Marketing",
         "Embedded Content"
       ],
-      "p": 0.00463,
+      "p": 0.00413,
       "f": 2
+    },
+    "spotify.com": {
+      "o": "Spotify AB",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00272,
+      "f": 0
+    },
+    "acuityplatform.com": {
+      "o": "AcuityAds",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00688,
+      "f": 0
     },
     "cdn-cookieyes.com": {
       "o": null,
       "c": [
         "Consent Management Platform"
       ],
-      "p": 0.00382,
+      "p": 0.00392,
       "f": 2
     },
-    "mgid.com": {
-      "o": "MGID Inc",
+    "zdassets.com": {
+      "o": "Zendesk, Inc.",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing"
+        "CDN",
+        "Embedded Content"
       ],
-      "p": 0.00954,
-      "f": 3
-    },
-    "trustedshops.com": {
-      "o": "Trusted Shops GmbH",
-      "c": [
-        "Badge"
-      ],
-      "p": 0.00694,
-      "f": 1
-    },
-    "optimizely.com": {
-      "o": "Optimizely, Inc.",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
-      ],
-      "p": 0.00534,
-      "f": 1
-    },
-    "chartbeat.com": {
-      "o": "Chartbeat",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.00342,
+      "p": 0.00503,
       "f": 2
     },
-    "tsyndicate.com": {
-      "o": "Traffic Stars",
+    "tremorhub.com": {
+      "o": "Telaria",
       "c": [
         "Ad Motivated Tracking",
-        "Advertising",
-        "Action Pixels"
+        "Advertising"
       ],
-      "p": 0.00574,
-      "f": 3
+      "p": 0.00271,
+      "f": 0
     },
     "gravatar.com": {
       "o": "Automattic, Inc.",
@@ -1717,10 +1708,10 @@
         "Embedded Content",
         "Social Network"
       ],
-      "p": 0.00493,
+      "p": 0.00382,
       "f": 0
     },
-    "chartbeat.net": {
+    "chartbeat.com": {
       "o": "Chartbeat",
       "c": [
         "Ad Motivated Tracking",
@@ -1728,8 +1719,8 @@
         "Analytics",
         "Audience Measurement"
       ],
-      "p": 0.00312,
-      "f": 0
+      "p": 0.00353,
+      "f": 2
     },
     "company-target.com": {
       "o": "Demandbase, Inc.",
@@ -1742,43 +1733,8 @@
         "Action Pixels",
         "Obscure Ownership"
       ],
-      "p": 0.00292,
+      "p": 0.00302,
       "f": 0
-    },
-    "creative-serving.com": {
-      "o": "Platform161",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Action Pixels"
-      ],
-      "p": 0.00696,
-      "f": 0
-    },
-    "abtasty.com": {
-      "o": "AB Tasty",
-      "c": [
-        "Analytics",
-        "Third-Party Analytics Marketing",
-        "Session Replay"
-      ],
-      "p": 0.00312,
-      "f": 3
-    },
-    "flashtalking.com": {
-      "o": "Mediaocean LLC",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels",
-        "Embedded Content",
-        "Session Replay"
-      ],
-      "p": 0.00633,
-      "f": 3
     },
     "permutive.com": {
       "o": "Permutive, Inc.",
@@ -1788,55 +1744,17 @@
         "Third-Party Analytics Marketing",
         "Session Replay"
       ],
-      "p": 0.00382,
+      "p": 0.00322,
       "f": 1
     },
-    "adgrx.com": {
-      "o": "AdGear Technologies Inc.",
+    "abtasty.com": {
+      "o": "AB Tasty",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00633,
-      "f": 0
-    },
-    "yadro.ru": {
-      "o": "OOO \"ECO PC - Complex Solutions\"",
-      "c": [
-        "Ad Motivated Tracking",
         "Analytics",
-        "Malware"
-      ],
-      "p": 0.00512,
-      "f": 0
-    },
-    "spotify.com": {
-      "o": "Spotify AB",
-      "c": [
-        "CDN",
-        "Embedded Content"
+        "Third-Party Analytics Marketing",
+        "Session Replay"
       ],
       "p": 0.00282,
-      "f": 0
-    },
-    "storage.googleapis.com": {
-      "o": "Google LLC",
-      "c": [
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00936,
-      "f": 1
-    },
-    "zdassets.com": {
-      "o": "Zendesk, Inc.",
-      "c": [
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00473,
       "f": 2
     },
     "tiqcdn.com": {
@@ -1851,23 +1769,25 @@
       "p": 0.00724,
       "f": 2
     },
+    "chartbeat.net": {
+      "o": "Chartbeat",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement"
+      ],
+      "p": 0.00292,
+      "f": 0
+    },
     "hsforms.com": {
       "o": "HubSpot, Inc.",
       "c": [
         "Analytics",
         "Embedded Content"
       ],
-      "p": 0.00413,
+      "p": 0.00392,
       "f": 0
-    },
-    "translate.googleapis.com": {
-      "o": "Google LLC",
-      "c": [
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00262,
-      "f": 2
     },
     "crazyegg.com": {
       "o": "Crazy Egg, Inc.",
@@ -1877,20 +1797,86 @@
         "Third-Party Analytics Marketing",
         "Session Replay"
       ],
-      "p": 0.00291,
+      "p": 0.00302,
       "f": 2
     },
-    "parsely.com": {
-      "o": "Parsely, Inc.",
+    "creative-serving.com": {
+      "o": "Platform161",
       "c": [
         "Ad Motivated Tracking",
+        "Advertising",
+        "Action Pixels"
+      ],
+      "p": 0.00629,
+      "f": 1
+    },
+    "flashtalking.com": {
+      "o": "Mediaocean LLC",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
         "Analytics",
         "Audience Measurement",
         "Third-Party Analytics Marketing",
-        "Action Pixels"
+        "Action Pixels",
+        "Embedded Content",
+        "Session Replay"
       ],
-      "p": 0.00332,
+      "p": 0.00643,
+      "f": 3
+    },
+    "translate.googleapis.com": {
+      "o": "Google LLC",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00372,
       "f": 2
+    },
+    "yotpo.com": {
+      "o": "Yotpo Ltd",
+      "c": [
+        "Advertising",
+        "Third-Party Analytics Marketing",
+        "Embedded Content"
+      ],
+      "p": 0.00625,
+      "f": 2
+    },
+    "zendesk.com": {
+      "o": "Zendesk, Inc.",
+      "c": [
+        "Analytics",
+        "Federated Login",
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00382,
+      "f": 0
+    },
+    "contentsquare.net": {
+      "o": "ContentSquare",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Action Pixels",
+        "Session Replay"
+      ],
+      "p": 0.00412,
+      "f": 2
+    },
+    "media6degrees.com": {
+      "o": "Dstillery Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement"
+      ],
+      "p": 0.00929,
+      "f": 0
     },
     "translate-pa.googleapis.com": {
       "o": "Google LLC",
@@ -1898,15 +1884,15 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00262,
+      "p": 0.00342,
       "f": 0
     },
-    "xiti.com": {
-      "o": "AT Internet",
+    "d3k81ch9hvuctc.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
       "c": [
-        "Analytics"
+        "CDN"
       ],
-      "p": 0.0137,
+      "p": 0.00573,
       "f": 0
     },
     "sharethis.com": {
@@ -1918,28 +1904,7 @@
         "Social - Share",
         "Embedded Content"
       ],
-      "p": 0.00342,
-      "f": 2
-    },
-    "tremorhub.com": {
-      "o": "Telaria",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00291,
-      "f": 0
-    },
-    "qualtrics.com": {
-      "o": "Silver Lake Technology Management, L.L.C.",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Embedded Content",
-        "Session Replay"
-      ],
-      "p": 0.00272,
+      "p": 0.00302,
       "f": 2
     },
     "bfmio.com": {
@@ -1950,37 +1915,77 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.0094,
+      "p": 0.00882,
       "f": 0
     },
-    "zendesk.com": {
-      "o": "Zendesk, Inc.",
-      "c": [
-        "Analytics",
-        "Federated Login",
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00362,
-      "f": 0
-    },
-    "bounceexchange.com": {
-      "o": "Bounce Exchange",
+    "technoratimedia.com": {
+      "o": "Synacor, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
+        "Ad Fraud"
+      ],
+      "p": 0.00814,
+      "f": 1
+    },
+    "mgid.com": {
+      "o": "MGID Inc",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
         "Analytics",
         "Audience Measurement",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00754,
+      "f": 3
+    },
+    "parsely.com": {
+      "o": "Parsely, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00332,
+      "p": 0.00262,
       "f": 2
+    },
+    "siteimproveanalytics.com": {
+      "o": "Siteimprove A/S",
+      "c": [
+        "Analytics"
+      ],
+      "p": 0.00604,
+      "f": 2
+    },
+    "xiti.com": {
+      "o": "AT Internet",
+      "c": [
+        "Analytics"
+      ],
+      "p": 0.0126,
+      "f": 0
     },
     "adition.com": {
       "o": "Virtual Minds AG",
       "c": [
         "Ad Motivated Tracking",
         "Advertising"
+      ],
+      "p": 0.00272,
+      "f": 1
+    },
+    "qualtrics.com": {
+      "o": "Silver Lake Technology Management, L.L.C.",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Embedded Content",
+        "Session Replay"
       ],
       "p": 0.00252,
       "f": 1
@@ -1992,26 +1997,7 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00402,
-      "f": 1
-    },
-    "siteimproveanalytics.com": {
-      "o": "Siteimprove A/S",
-      "c": [
-        "Analytics"
-      ],
-      "p": 0.00251,
-      "f": 2
-    },
-    "mxptint.net": {
-      "o": "Valassis Digital",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.00796,
+      "p": 0.00342,
       "f": 1
     },
     "siteimproveanalytics.io": {
@@ -2019,36 +2005,8 @@
       "c": [
         "Analytics"
       ],
-      "p": 0.00271,
+      "p": 0.00272,
       "f": 0
-    },
-    "storejs.s3.us-west-2.amazonaws.com": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00514,
-      "f": 1
-    },
-    "capi-automation.s3.us-east-2.amazonaws.com": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00271,
-      "f": 1
-    },
-    "contentsquare.net": {
-      "o": "ContentSquare",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels",
-        "Session Replay"
-      ],
-      "p": 0.00332,
-      "f": 2
     },
     "vimeo.com": {
       "o": "Vimeo, LLC",
@@ -2056,33 +2014,51 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00262,
+      "p": 0.00363,
       "f": 1
     },
-    "w55c.net": {
-      "o": "Roku, Inc.",
+    "chimpstatic.com": {
+      "o": "Intuit Inc.",
       "c": [
         "Ad Motivated Tracking",
-        "Advertising"
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "CDN"
       ],
-      "p": 0.0107,
-      "f": 0
+      "p": 0.00583,
+      "f": 1
     },
-    "amplitude.com": {
-      "o": "Amplitude",
+    "bounceexchange.com": {
+      "o": "Bounce Exchange",
       "c": [
-        "Analytics"
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Action Pixels"
       ],
-      "p": 0.00413,
+      "p": 0.00362,
       "f": 2
     },
-    "cloudinary.com": {
-      "o": "Cloudinary Ltd",
+    "capi-automation.s3.us-east-2.amazonaws.com": {
+      "o": "Amazon Technologies, Inc.",
       "c": [
         "CDN"
       ],
-      "p": 0.00553,
+      "p": 0.00362,
       "f": 1
+    },
+    "yadro.ru": {
+      "o": "OOO \"ECO PC - Complex Solutions\"",
+      "c": [
+        "Ad Motivated Tracking",
+        "Analytics",
+        "Malware"
+      ],
+      "p": 0.00523,
+      "f": 0
     },
     "attn.tv": {
       "o": "Attentive Mobile",
@@ -2092,17 +2068,79 @@
         "Analytics",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00342,
+      "p": 0.00412,
       "f": 2
     },
-    "adotmob.com": {
-      "o": "A.Mob SAS",
+    "w55c.net": {
+      "o": "Roku, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00302,
+      "p": 0.0108,
       "f": 0
+    },
+    "yandex.net": {
+      "o": "Yandex LLC",
+      "c": [
+        "CDN",
+        "Embedded Content",
+        "Session Replay"
+      ],
+      "p": 0.00864,
+      "f": 1
+    },
+    "adgrx.com": {
+      "o": "AdGear Technologies Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00681,
+      "f": 0
+    },
+    "gorgias.chat": {
+      "o": null,
+      "c": [
+        "Support Chat Widget"
+      ],
+      "p": 0.00433,
+      "f": 2
+    },
+    "sentry-cdn.com": {
+      "o": "Functional Software, Inc.",
+      "c": [
+        "Analytics",
+        "CDN"
+      ],
+      "p": 0.00585,
+      "f": 2
+    },
+    "storejs.s3.us-west-2.amazonaws.com": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00486,
+      "f": 1
+    },
+    "amplitude.com": {
+      "o": "Amplitude",
+      "c": [
+        "Analytics"
+      ],
+      "p": 0.00423,
+      "f": 2
+    },
+    "cloudinary.com": {
+      "o": "Cloudinary Ltd",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00543,
+      "f": 1
     },
     "addtoany.com": {
       "o": "AddToAny",
@@ -2114,32 +2152,24 @@
         "Social - Share",
         "Embedded Content"
       ],
-      "p": 0.00332,
+      "p": 0.00262,
       "f": 1
     },
-    "pubnation.com": {
-      "o": "OpenX Technologies Inc",
+    "d2wu036mkcz52n.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00534,
-      "f": 2
-    },
-    "ctfassets.net": {
-      "o": "Contentful GmbH",
-      "c": [
-        "Federated Login",
-        "SSO",
-        "Third-Party Analytics Marketing",
         "CDN"
       ],
-      "p": 0.00524,
+      "p": 0.00272,
       "f": 0
+    },
+    "eu-west-1.amazonaws.com": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00282,
+      "f": 1
     },
     "clickagy.com": {
       "o": "Clickagy",
@@ -2150,20 +2180,37 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00451,
+      "p": 0.00503,
       "f": 2
     },
-    "hsadspixel.net": {
-      "o": "HubSpot, Inc.",
+    "tsyndicate.com": {
+      "o": "Traffic Stars",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00281,
+      "p": 0.00508,
+      "f": 3
+    },
+    "adotmob.com": {
+      "o": "A.Mob SAS",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00432,
+      "f": 0
+    },
+    "ctfassets.net": {
+      "o": "Contentful GmbH",
+      "c": [
+        "Federated Login",
+        "SSO",
+        "Third-Party Analytics Marketing",
+        "CDN"
+      ],
+      "p": 0.00484,
       "f": 0
     },
     "hubapi.com": {
@@ -2175,45 +2222,53 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00251,
+      "p": 0.00262,
       "f": 0
     },
-    "sail-horizon.com": {
-      "o": "CM Group",
+    "hsadspixel.net": {
+      "o": "HubSpot, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
         "Analytics",
+        "Audience Measurement",
         "Third-Party Analytics Marketing",
-        "Embedded Content"
+        "Action Pixels"
       ],
-      "p": 0.00384,
-      "f": 1
+      "p": 0.00272,
+      "f": 0
     },
-    "yotpo.com": {
-      "o": "Yotpo Ltd",
+    "marketo.net": {
+      "o": "Adobe Inc.",
       "c": [
+        "Ad Motivated Tracking",
         "Advertising",
         "Third-Party Analytics Marketing",
         "Embedded Content"
       ],
-      "p": 0.00393,
+      "p": 0.00262,
+      "f": 1
+    },
+    "paypal.com": {
+      "o": "PayPal, Inc.",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "SSO",
+        "Online Payment",
+        "Badge",
+        "Embedded Content"
+      ],
+      "p": 0.00292,
       "f": 2
     },
-    "d2wu036mkcz52n.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
+    "vimeocdn.com": {
+      "o": "Vimeo, LLC",
       "c": [
-        "CDN"
+        "CDN",
+        "Embedded Content"
       ],
-      "p": 0.00332,
-      "f": 0
-    },
-    "ezojs.com": {
-      "o": null,
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00271,
+      "p": 0.00272,
       "f": 3
     },
     "ezoic.net": {
@@ -2227,19 +2282,39 @@
         "Action Pixels",
         "Session Replay"
       ],
-      "p": 0.00271,
+      "p": 0.00292,
       "f": 1
     },
-    "onesignal.com": {
-      "o": "OneSignal",
+    "ezojs.com": {
+      "o": null,
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00282,
+      "f": 3
+    },
+    "sail-horizon.com": {
+      "o": "CM Group",
       "c": [
         "Ad Motivated Tracking",
+        "Advertising",
         "Analytics",
         "Third-Party Analytics Marketing",
         "Embedded Content"
       ],
-      "p": 0.00423,
-      "f": 2
+      "p": 0.00272,
+      "f": 1
+    },
+    "mxptint.net": {
+      "o": "Valassis Digital",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement"
+      ],
+      "p": 0.00719,
+      "f": 1
     },
     "jwpsrv.com": {
       "o": "LongTail Ad Solutions, Inc.",
@@ -2247,60 +2322,16 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00261,
+      "p": 0.00272,
       "f": 0
     },
-    "marketo.net": {
-      "o": "Adobe Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Third-Party Analytics Marketing",
-        "Embedded Content"
-      ],
-      "p": 0.00322,
-      "f": 1
-    },
-    "pro-market.net": {
-      "o": "Almondnet Group",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Audience Measurement"
-      ],
-      "p": 0.00357,
-      "f": 1
-    },
-    "d3j8vl19c1131u.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
+    "azurefd.net": {
+      "o": "Microsoft Corporation",
       "c": [
         "CDN"
       ],
-      "p": 0.00266,
-      "f": 0
-    },
-    "sentry-cdn.com": {
-      "o": "Functional Software, Inc.",
-      "c": [
-        "Analytics",
-        "CDN"
-      ],
-      "p": 0.00514,
-      "f": 2
-    },
-    "tinypass.com": {
-      "o": "Piano Software",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "SSO",
-        "Third-Party Analytics Marketing",
-        "Embedded Content"
-      ],
-      "p": 0.00271,
-      "f": 3
+      "p": 0.00343,
+      "f": 1
     },
     "tagcommander.com": {
       "o": "Fjord Technologies",
@@ -2311,54 +2342,21 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00877,
+      "p": 0.00887,
       "f": 2
     },
-    "trustarc.com": {
-      "o": "TrustArc Inc.",
-      "c": [
-        "Badge"
-      ],
-      "p": 0.00543,
-      "f": 1
-    },
-    "azurefd.net": {
-      "o": "Microsoft Corporation",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00272,
-      "f": 1
-    },
-    "d3k81ch9hvuctc.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00362,
-      "f": 0
-    },
-    "mktoresp.com": {
-      "o": "Adobe Inc.",
+    "mediarithmics.com": {
+      "o": "mediarithmics SAS",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
+        "Ad Fraud",
+        "Analytics",
         "Third-Party Analytics Marketing",
         "Embedded Content"
       ],
-      "p": 0.00262,
+      "p": 0.00342,
       "f": 0
-    },
-    "cxense.com": {
-      "o": "Piano Software",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00382,
-      "f": 2
     },
     "bazaarvoice.com": {
       "o": "Marlin Equity Partners",
@@ -2371,29 +2369,168 @@
         "Action Pixels",
         "Embedded Content"
       ],
-      "p": 0.00472,
+      "p": 0.00493,
       "f": 2
     },
-    "chimpstatic.com": {
-      "o": "Intuit Inc.",
+    "mktoresp.com": {
+      "o": "Adobe Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Third-Party Analytics Marketing",
+        "Embedded Content"
+      ],
+      "p": 0.00487,
+      "f": 0
+    },
+    "trial-eum-clientnsv4-s.akamaihd.net": {
+      "o": "Akamai Technologies",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00342,
+      "f": 0
+    },
+    "trial-eum-clienttons-s.akamaihd.net": {
+      "o": "Akamai Technologies",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00342,
+      "f": 0
+    },
+    "onesignal.com": {
+      "o": "OneSignal",
+      "c": [
+        "Ad Motivated Tracking",
+        "Analytics",
+        "Third-Party Analytics Marketing",
+        "Embedded Content"
+      ],
+      "p": 0.00362,
+      "f": 2
+    },
+    "colossusssp.com": {
+      "o": "Colossus Media, LLC",
+      "c": [
+        "Ad Motivated Tracking"
+      ],
+      "p": 0.00432,
+      "f": 0
+    },
+    "tinypass.com": {
+      "o": "Piano Software",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
         "Analytics",
         "Audience Measurement",
+        "SSO",
         "Third-Party Analytics Marketing",
+        "Embedded Content"
+      ],
+      "p": 0.0029,
+      "f": 3
+    },
+    "fonts.net": {
+      "o": "Monotype Imaging Inc.",
+      "c": [
+        "Action Pixels",
         "CDN"
       ],
-      "p": 0.00573,
-      "f": 1
+      "p": 0.00262,
+      "f": 0
     },
-    "eu-west-1.amazonaws.com": {
+    "cxense.com": {
+      "o": "Piano Software",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00377,
+      "f": 2
+    },
+    "ap-southeast-2.amazonaws.com": {
       "o": "Amazon Technologies, Inc.",
       "c": [
         "CDN"
       ],
-      "p": 0.00272,
+      "p": 0.00814,
+      "f": 2
+    },
+    "d3j8vl19c1131u.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00252,
+      "f": 0
+    },
+    "px-cloud.net": {
+      "o": "Human Security, Inc.",
+      "c": [
+        "Fraud Prevention"
+      ],
+      "p": 0.00262,
+      "f": 3
+    },
+    "trustarc.com": {
+      "o": "TrustArc Inc.",
+      "c": [
+        "Badge"
+      ],
+      "p": 0.00483,
       "f": 1
+    },
+    "sascdn.com": {
+      "o": "Smartadserver S.A.S",
+      "c": [
+        "Advertising"
+      ],
+      "p": 0.00322,
+      "f": 1
+    },
+    "fullstory.com": {
+      "o": "FullStory",
+      "c": [
+        "Analytics",
+        "Session Replay"
+      ],
+      "p": 0.00333,
+      "f": 2
+    },
+    "pro-market.net": {
+      "o": "Almondnet Group",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Audience Measurement"
+      ],
+      "p": 0.00338,
+      "f": 1
+    },
+    "segment.com": {
+      "o": "Segment.io, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Third-Party Analytics Marketing",
+        "Action Pixels"
+      ],
+      "p": 0.00262,
+      "f": 2
+    },
+    "adstanding.com": {
+      "o": "AdStanding",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00374,
+      "f": 0
     },
     "lightboxcdn.com": {
       "o": "Digioh, LLC",
@@ -2407,78 +2544,34 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00322,
+      "p": 0.00292,
       "f": 2
     },
-    "segment.com": {
-      "o": "Segment.io, Inc.",
+    "adtdp.com": {
+      "o": "CyberAgent, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00734,
+      "f": 0
+    },
+    "windows.net": {
+      "o": "Microsoft Corporation",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00323,
+      "f": 1
+    },
+    "spotxchange.com": {
+      "o": "SpotX, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
-        "Analytics",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
+        "Analytics"
       ],
-      "p": 0.00271,
-      "f": 2
-    },
-    "fonts.net": {
-      "o": "Monotype Imaging Inc.",
-      "c": [
-        "Action Pixels",
-        "CDN"
-      ],
-      "p": 0.00252,
-      "f": 0
-    },
-    "ap-southeast-2.amazonaws.com": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00814,
-      "f": 2
-    },
-    "sascdn.com": {
-      "o": "Smartadserver S.A.S",
-      "c": [
-        "Advertising"
-      ],
-      "p": 0.00261,
-      "f": 1
-    },
-    "scene7.com": {
-      "o": "Adobe Inc.",
-      "c": [
-        "Advertising",
-        "CDN"
-      ],
-      "p": 0.00251,
-      "f": 1
-    },
-    "fullstory.com": {
-      "o": "FullStory",
-      "c": [
-        "Analytics",
-        "Session Replay"
-      ],
-      "p": 0.00251,
-      "f": 2
-    },
-    "trial-eum-clientnsv4-s.akamaihd.net": {
-      "o": "Akamai Technologies",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00282,
-      "f": 0
-    },
-    "trial-eum-clienttons-s.akamaihd.net": {
-      "o": "Akamai Technologies",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00282,
+      "p": 0.00538,
       "f": 0
     },
     "cdnwidget.com": {
@@ -2487,8 +2580,57 @@
         "Unknown High Risk Behavior",
         "Obscure Ownership"
       ],
-      "p": 0.00285,
+      "p": 0.00286,
       "f": 0
+    },
+    "skimresources.com": {
+      "o": "Skimbit LTD",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics"
+      ],
+      "p": 0.00399,
+      "f": 1
+    },
+    "cquotient.com": {
+      "o": "Salesforce.com, Inc.",
+      "c": [
+        "Analytics"
+      ],
+      "p": 0.00312,
+      "f": 1
+    },
+    "securedvisit.com": {
+      "o": "4Cite Marketing",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00482,
+      "f": 0
+    },
+    "pubnation.com": {
+      "o": "OpenX Technologies Inc",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00555,
+      "f": 2
+    },
+    "scene7.com": {
+      "o": "Adobe Inc.",
+      "c": [
+        "Advertising",
+        "CDN"
+      ],
+      "p": 0.00362,
+      "f": 1
     },
     "cpx.to": {
       "o": "Captify Technologies Ltd.",
@@ -2503,128 +2645,6 @@
       "p": 0.00352,
       "f": 1
     },
-    "mediarithmics.com": {
-      "o": "mediarithmics SAS",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Analytics",
-        "Third-Party Analytics Marketing",
-        "Embedded Content"
-      ],
-      "p": 0.00291,
-      "f": 0
-    },
-    "px-cloud.net": {
-      "o": "Human Security, Inc.",
-      "c": [
-        "Fraud Prevention"
-      ],
-      "p": 0.00302,
-      "f": 3
-    },
-    "securedvisit.com": {
-      "o": "4Cite Marketing",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00532,
-      "f": 2
-    },
-    "vimeocdn.com": {
-      "o": "Vimeo, LLC",
-      "c": [
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00332,
-      "f": 3
-    },
-    "adtdp.com": {
-      "o": "CyberAgent, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00272,
-      "f": 0
-    },
-    "betweendigital.com": {
-      "o": "SSP Network Ltd",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00392,
-      "f": 0
-    },
-    "windows.net": {
-      "o": "Microsoft Corporation",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00313,
-      "f": 1
-    },
-    "skimresources.com": {
-      "o": "Skimbit LTD",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics"
-      ],
-      "p": 0.00414,
-      "f": 1
-    },
-    "exoclick.com": {
-      "o": "ExoClick, S.L.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00332,
-      "f": 1
-    },
-    "cquotient.com": {
-      "o": "Salesforce.com, Inc.",
-      "c": [
-        "Analytics"
-      ],
-      "p": 0.00322,
-      "f": 1
-    },
-    "paypal.com": {
-      "o": "PayPal, Inc.",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "SSO",
-        "Online Payment",
-        "Badge",
-        "Embedded Content"
-      ],
-      "p": 0.00282,
-      "f": 3
-    },
-    "trustx.org": {
-      "o": "DCN",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00683,
-      "f": 1
-    },
-    "gorgias.chat": {
-      "o": null,
-      "c": [
-        "Support Chat Widget"
-      ],
-      "p": 0.0067,
-      "f": 2
-    },
     "dtscout.com": {
       "o": "DTS Technology",
       "c": [
@@ -2632,16 +2652,95 @@
         "Advertising",
         "Analytics"
       ],
-      "p": 0.00251,
+      "p": 0.00272,
       "f": 1
+    },
+    "betweendigital.com": {
+      "o": "SSP Network Ltd",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00462,
+      "f": 0
+    },
+    "histats.com": {
+      "o": "wisecode s.r.l.",
+      "c": [
+        "Analytics",
+        "Audience Measurement"
+      ],
+      "p": 0.00281,
+      "f": 2
     },
     "cookiepro.com": {
       "o": "OneTrust LLC",
       "c": [
         "Consent Management Platform"
       ],
-      "p": 0.003,
+      "p": 0.00275,
       "f": 2
+    },
+    "tvsquared.com": {
+      "o": "TVSquared",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement"
+      ],
+      "p": 0.00272,
+      "f": 2
+    },
+    "tru.am": {
+      "o": "trueAnthem Corp",
+      "c": [
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00261,
+      "f": 1
+    },
+    "adlightning.com": {
+      "o": "Ad Lightning, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00322,
+      "f": 1
+    },
+    "d15kdpgjg3unno.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00273,
+      "f": 1
+    },
+    "forter.com": {
+      "o": "Forter Inc.",
+      "c": [
+        "Fraud Prevention"
+      ],
+      "p": 0.00262,
+      "f": 3
+    },
+    "adswizz.com": {
+      "o": "Sirius XM Holdings Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00262,
+      "f": 1
+    },
+    "d5yoctgpv4cpx.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00603,
+      "f": 0
     },
     "npttech.com": {
       "o": "Piano Software",
@@ -2654,29 +2753,16 @@
         "Third-Party Analytics Marketing",
         "Embedded Content"
       ],
-      "p": 0.00423,
+      "p": 0.00393,
       "f": 1
     },
-    "yastatic.net": {
-      "o": "Yandex LLC",
+    "site.com": {
+      "o": "Salesforce.com, Inc.",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Social - Share",
-        "CDN",
-        "Embedded Content"
+        "CDN"
       ],
-      "p": 0.00284,
-      "f": 3
-    },
-    "histats.com": {
-      "o": "wisecode s.r.l.",
-      "c": [
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.00302,
-      "f": 2
+      "p": 0.00252,
+      "f": 1
     },
     "sundaysky.com": {
       "o": "SundaySky Ltd.",
@@ -2686,227 +2772,8 @@
         "Audience Measurement",
         "Embedded Content"
       ],
-      "p": 0.00303,
+      "p": 0.00446,
       "f": 1
-    },
-    "technoratimedia.com": {
-      "o": "Synacor, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud"
-      ],
-      "p": 0.00625,
-      "f": 1
-    },
-    "cookiefirst.com": {
-      "o": "Digital Data Solutions B.V.",
-      "c": [
-        "Consent Management Platform"
-      ],
-      "p": 0.00252,
-      "f": 2
-    },
-    "d5yoctgpv4cpx.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00623,
-      "f": 0
-    },
-    "tvsquared.com": {
-      "o": "TVSquared",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.00291,
-      "f": 2
-    },
-    "segment.io": {
-      "o": "Segment.io, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
-      ],
-      "p": 0.00392,
-      "f": 1
-    },
-    "tru.am": {
-      "o": "trueAnthem Corp",
-      "c": [
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00312,
-      "f": 1
-    },
-    "appconsent.io": {
-      "o": "SFBX SAS",
-      "c": [
-        "Consent Management Platform"
-      ],
-      "p": 0.00594,
-      "f": 2
-    },
-    "spotxchange.com": {
-      "o": "SpotX, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics"
-      ],
-      "p": 0.00445,
-      "f": 0
-    },
-    "addthis.com": {
-      "o": "Oracle Corporation",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Social - Share",
-        "Embedded Content"
-      ],
-      "p": 0.00261,
-      "f": 0
-    },
-    "cdn-apple.com": {
-      "o": "Apple Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00312,
-      "f": 3
-    },
-    "d15kdpgjg3unno.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00261,
-      "f": 1
-    },
-    "tealiumiq.com": {
-      "o": "Tealium Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels",
-        "Session Replay"
-      ],
-      "p": 0.00373,
-      "f": 1
-    },
-    "website-files.com": {
-      "o": "Webflow, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00302,
-      "f": 2
-    },
-    "forter.com": {
-      "o": "Forter Inc.",
-      "c": [
-        "Fraud Prevention"
-      ],
-      "p": 0.00311,
-      "f": 3
-    },
-    "site.com": {
-      "o": "Salesforce.com, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00281,
-      "f": 1
-    },
-    "ampproject.org": {
-      "o": "Google LLC",
-      "c": [
-        "Advertising",
-        "CDN"
-      ],
-      "p": 0.00347,
-      "f": 3
-    },
-    "d3e54v103j8qbb.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00271,
-      "f": 1
-    },
-    "adstanding.com": {
-      "o": "AdStanding",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00282,
-      "f": 0
-    },
-    "microsoft.com": {
-      "o": "Microsoft Corporation",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "CDN"
-      ],
-      "p": 0.00251,
-      "f": 1
-    },
-    "youtube-nocookie.com": {
-      "o": "Google LLC",
-      "c": [
-        "Ad Motivated Tracking",
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00295,
-      "f": 3
-    },
-    "adlightning.com": {
-      "o": "Ad Lightning, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00291,
-      "f": 1
-    },
-    "krxd.net": {
-      "o": "Salesforce.com, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Audience Measurement"
-      ],
-      "p": 0.00422,
-      "f": 0
-    },
-    "mailchimp.com": {
-      "o": "Intuit Inc.",
-      "c": [
-        "Advertising",
-        "Third-Party Analytics Marketing",
-        "Embedded Content"
-      ],
-      "p": 0.00302,
-      "f": 2
     },
     "livechatinc.com": {
       "o": "LiveChat Inc",
@@ -2914,138 +2781,8 @@
         "Embedded Content",
         "Support Chat Widget"
       ],
-      "p": 0.00302,
+      "p": 0.00292,
       "f": 2
-    },
-    "instagram.com": {
-      "o": "Facebook, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Social - Share",
-        "Embedded Content",
-        "Social Network"
-      ],
-      "p": 0.00271,
-      "f": 1
-    },
-    "adswizz.com": {
-      "o": "Sirius XM Holdings Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00262,
-      "f": 1
-    },
-    "liveperson.net": {
-      "o": "LivePerson, Inc",
-      "c": [
-        "Ad Motivated Tracking",
-        "Analytics",
-        "Embedded Content",
-        "Support Chat Widget"
-      ],
-      "p": 0.00362,
-      "f": 2
-    },
-    "iubenda.com": {
-      "o": "iubenda s.r.l.",
-      "c": [
-        "Badge",
-        "Embedded Content",
-        "Non-Tracking"
-      ],
-      "p": 0.00316,
-      "f": 2
-    },
-    "branch.io": {
-      "o": "Branch Metrics, Inc.",
-      "c": [
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00251,
-      "f": 2
-    },
-    "statcounter.com": {
-      "o": "StatCounter",
-      "c": [
-        "Analytics"
-      ],
-      "p": 0.00261,
-      "f": 3
-    },
-    "media-amazon.com": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.0049,
-      "f": 2
-    },
-    "kampyle.com": {
-      "o": "Medallia Inc.",
-      "c": [
-        "Third-Party Analytics Marketing",
-        "Embedded Content"
-      ],
-      "p": 0.00482,
-      "f": 2
-    },
-    "zencdn.net": {
-      "o": "Brightcove, Inc.",
-      "c": [
-        "Advertising",
-        "Analytics",
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00481,
-      "f": 2
-    },
-    "usemessages.com": {
-      "o": "HubSpot, Inc.",
-      "c": [
-        "Embedded Content",
-        "Support Chat Widget"
-      ],
-      "p": 0.00251,
-      "f": 1
-    },
-    "mookie1.com": {
-      "o": "WPP plc",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
-      ],
-      "p": 0.00411,
-      "f": 1
-    },
-    "dynamicyield.com": {
-      "o": "Dynamic Yield",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Embedded Content"
-      ],
-      "p": 0.00302,
-      "f": 2
-    },
-    "digitaloceanspaces.com": {
-      "o": "DigitalOcean, LLC",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00302,
-      "f": 1
     },
     "paypalobjects.com": {
       "o": "PayPal, Inc.",
@@ -3058,77 +2795,19 @@
         "Badge",
         "Embedded Content"
       ],
-      "p": 0.00322,
+      "p": 0.00292,
       "f": 2
     },
-    "e-planning.net": {
-      "o": "Teroa S.A.",
+    "cookiefirst.com": {
+      "o": "Digital Data Solutions B.V.",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
+        "Consent Management Platform"
       ],
-      "p": 0.00464,
-      "f": 0
-    },
-    "getclicky.com": {
-      "o": "Roxr Software Ltd",
-      "c": [
-        "Ad Fraud",
-        "Analytics"
-      ],
-      "p": 0.00321,
-      "f": 0
-    },
-    "dyv1bugovvq1g.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00444,
-      "f": 0
-    },
-    "yimg.jp": {
-      "o": "LY-Corporation",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00442,
+      "p": 0.00262,
       "f": 2
     },
-    "igodigital.com": {
-      "o": "Salesforce.com, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00271,
-      "f": 0
-    },
-    "app.link": {
-      "o": "Branch Metrics, Inc.",
-      "c": [
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00423,
-      "f": 0
-    },
-    "crisp.chat": {
-      "o": "Crisp IM SARL",
-      "c": [
-        "Support Chat Widget"
-      ],
-      "p": 0.00423,
-      "f": 3
-    },
-    "blueconic.net": {
-      "o": "BlueConic, Inc.",
+    "segment.io": {
+      "o": "Segment.io, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
@@ -3136,38 +2815,240 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00318,
+      "p": 0.00402,
       "f": 1
     },
-    "realsrv.com": {
-      "o": "ExoClick, S.L.",
+    "rundsp.com": {
+      "o": "RUN",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics"
+      ],
+      "p": 0.00573,
+      "f": 0
+    },
+    "website-files.com": {
+      "o": "Webflow, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00282,
+      "f": 2
+    },
+    "cdn-apple.com": {
+      "o": "Apple Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00272,
+      "f": 3
+    },
+    "addthis.com": {
+      "o": "Oracle Corporation",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
         "Analytics",
-        "Third-Party Analytics Marketing"
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Social - Share",
+        "Embedded Content"
       ],
-      "p": 0.00251,
-      "f": 2
+      "p": 0.00262,
+      "f": 0
     },
-    "brightcove.net": {
-      "o": "Brightcove, Inc.",
+    "appconsent.io": {
+      "o": "SFBX SAS",
       "c": [
-        "Advertising",
-        "Analytics",
+        "Consent Management Platform"
+      ],
+      "p": 0.00555,
+      "f": 1
+    },
+    "youtube-nocookie.com": {
+      "o": "Google LLC",
+      "c": [
+        "Ad Motivated Tracking",
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00352,
+      "p": 0.0029,
+      "f": 3
+    },
+    "mailchimp.com": {
+      "o": "Intuit Inc.",
+      "c": [
+        "Advertising",
+        "Third-Party Analytics Marketing",
+        "Embedded Content"
+      ],
+      "p": 0.00322,
       "f": 2
     },
-    "dn0qt3r0xannq.cloudfront.net": {
+    "tealiumiq.com": {
+      "o": "Tealium Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Action Pixels",
+        "Session Replay"
+      ],
+      "p": 0.00252,
+      "f": 1
+    },
+    "d3e54v103j8qbb.cloudfront.net": {
       "o": "Amazon Technologies, Inc.",
       "c": [
         "CDN"
       ],
-      "p": 0.0032,
+      "p": 0.00262,
+      "f": 1
+    },
+    "branch.io": {
+      "o": "Branch Metrics, Inc.",
+      "c": [
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00256,
       "f": 2
+    },
+    "liveperson.net": {
+      "o": "LivePerson, Inc",
+      "c": [
+        "Ad Motivated Tracking",
+        "Analytics",
+        "Embedded Content",
+        "Support Chat Widget"
+      ],
+      "p": 0.00402,
+      "f": 2
+    },
+    "instagram.com": {
+      "o": "Facebook, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Social - Share",
+        "Embedded Content",
+        "Social Network"
+      ],
+      "p": 0.00281,
+      "f": 1
+    },
+    "media-amazon.com": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00497,
+      "f": 2
+    },
+    "krxd.net": {
+      "o": "Salesforce.com, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Audience Measurement"
+      ],
+      "p": 0.00462,
+      "f": 0
+    },
+    "kampyle.com": {
+      "o": "Medallia Inc.",
+      "c": [
+        "Third-Party Analytics Marketing",
+        "Embedded Content"
+      ],
+      "p": 0.00493,
+      "f": 2
+    },
+    "statcounter.com": {
+      "o": "StatCounter",
+      "c": [
+        "Analytics"
+      ],
+      "p": 0.00302,
+      "f": 3
+    },
+    "usemessages.com": {
+      "o": "HubSpot, Inc.",
+      "c": [
+        "Embedded Content",
+        "Support Chat Widget"
+      ],
+      "p": 0.00272,
+      "f": 1
+    },
+    "digitaloceanspaces.com": {
+      "o": "DigitalOcean, LLC",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00332,
+      "f": 2
+    },
+    "iubenda.com": {
+      "o": "iubenda s.r.l.",
+      "c": [
+        "Badge",
+        "Embedded Content",
+        "Non-Tracking"
+      ],
+      "p": 0.00316,
+      "f": 2
+    },
+    "intercomcdn.com": {
+      "o": "Intercom",
+      "c": [
+        "CDN",
+        "Embedded Content",
+        "Non-Tracking"
+      ],
+      "p": 0.00271,
+      "f": 2
+    },
+    "dynamicyield.com": {
+      "o": "Dynamic Yield",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Embedded Content"
+      ],
+      "p": 0.00282,
+      "f": 2
+    },
+    "intercom.io": {
+      "o": "Intercom",
+      "c": [
+        "Support Chat Widget"
+      ],
+      "p": 0.00262,
+      "f": 1
+    },
+    "d34r8q7sht0t9k.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00323,
+      "f": 1
+    },
+    "getclicky.com": {
+      "o": "Roxr Software Ltd",
+      "c": [
+        "Ad Fraud",
+        "Analytics"
+      ],
+      "p": 0.00282,
+      "f": 0
     },
     "impactradius-event.com": {
       "o": "Impact",
@@ -3178,38 +3059,95 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.00285,
+      "p": 0.00268,
       "f": 1
     },
-    "d34r8q7sht0t9k.cloudfront.net": {
+    "aspnetcdn.com": {
+      "o": "Microsoft Corporation",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00312,
+      "f": 1
+    },
+    "app.link": {
+      "o": "Branch Metrics, Inc.",
+      "c": [
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00432,
+      "f": 0
+    },
+    "zencdn.net": {
+      "o": "Brightcove, Inc.",
+      "c": [
+        "Advertising",
+        "Analytics",
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00261,
+      "f": 3
+    },
+    "mookie1.com": {
+      "o": "WPP plc",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Action Pixels"
+      ],
+      "p": 0.00403,
+      "f": 1
+    },
+    "yastatic.net": {
+      "o": "Yandex LLC",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Social - Share",
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00269,
+      "f": 3
+    },
+    "yimg.jp": {
+      "o": "LY-Corporation",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00429,
+      "f": 2
+    },
+    "kxcdn.com": {
+      "o": "proinity GmbH",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00252,
+      "f": 3
+    },
+    "dr4qe3ddw9y32.cloudfront.net": {
       "o": "Amazon Technologies, Inc.",
       "c": [
         "CDN"
       ],
-      "p": 0.00282,
+      "p": 0.0034,
       "f": 1
     },
-    "mixpanel.com": {
-      "o": "Mixpanel, Inc.",
+    "online-metrix.net": {
+      "o": "RELX Group",
       "c": [
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels",
-        "Session Replay"
+        "Fraud Prevention"
       ],
-      "p": 0.00412,
-      "f": 0
-    },
-    "adsco.re": {
-      "o": "Adscore Technologies DMCC",
-      "c": [
-        "Ad Motivated Tracking",
-        "Ad Fraud",
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.00253,
+      "p": 0.0035,
       "f": 3
     },
     "storygize.net": {
@@ -3220,111 +3158,31 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.0028,
+      "p": 0.00258,
       "f": 1
     },
-    "aspnetcdn.com": {
-      "o": "Microsoft Corporation",
+    "ampproject.org": {
+      "o": "Google LLC",
       "c": [
+        "Advertising",
         "CDN"
       ],
-      "p": 0.00251,
-      "f": 1
-    },
-    "mxpnl.com": {
-      "o": "Mixpanel, Inc.",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels",
-        "Session Replay"
-      ],
-      "p": 0.00328,
+      "p": 0.00313,
       "f": 2
     },
-    "intercom.io": {
-      "o": "Intercom",
-      "c": [
-        "Support Chat Widget"
-      ],
-      "p": 0.00281,
-      "f": 1
-    },
-    "pingdom.net": {
-      "o": "Pingdom AB",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "Action Pixels"
-      ],
-      "p": 0.00288,
-      "f": 3
-    },
-    "intercomcdn.com": {
-      "o": "Intercom",
-      "c": [
-        "CDN",
-        "Embedded Content",
-        "Non-Tracking"
-      ],
-      "p": 0.00281,
-      "f": 2
-    },
-    "basis.net": {
-      "o": "Centro, Inc.",
+    "microsoft.com": {
+      "o": "Microsoft Corporation",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
         "Analytics",
-        "Action Pixels"
-      ],
-      "p": 0.00388,
-      "f": 1
-    },
-    "chaturbate.com": {
-      "o": "Chaturbate, LLC",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Embedded Content"
+        "CDN"
       ],
       "p": 0.00262,
-      "f": 0
-    },
-    "msecnd.net": {
-      "o": "Microsoft Corporation",
-      "c": [
-        "Ad Motivated Tracking",
-        "Analytics",
-        "CDN"
-      ],
-      "p": 0.00372,
       "f": 1
     },
-    "mail.ru": {
-      "o": "VK Company Ltd.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Social - Share",
-        "Action Pixels",
-        "Embedded Content"
-      ],
-      "p": 0.00251,
-      "f": 3
-    },
-    "createjs.com": {
-      "o": "gskinner",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00371,
-      "f": 1
-    },
-    "revcontent.com": {
-      "o": "RevContent, LLC",
+    "igodigital.com": {
+      "o": "Salesforce.com, Inc.",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
@@ -3332,43 +3190,66 @@
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00368,
-      "f": 2
+      "p": 0.00292,
+      "f": 1
     },
-    "firebaseinstallations.googleapis.com": {
-      "o": "Google LLC",
-      "c": [
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00301,
-      "f": 0
-    },
-    "jwpcdn.com": {
-      "o": "LongTail Ad Solutions, Inc.",
-      "c": [
-        "Advertising",
-        "CDN",
-        "Embedded Content"
-      ],
-      "p": 0.00251,
-      "f": 2
-    },
-    "qsearch-a.akamaihd.net": {
-      "o": "Akamai Technologies",
+    "d19ayerf5ehaab.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
       "c": [
         "CDN"
       ],
-      "p": 0.00262,
+      "p": 0.00402,
       "f": 0
     },
-    "perimeterx.net": {
-      "o": "Human Security, Inc.",
+    "scarabresearch.com": {
+      "o": "SAP SE",
       "c": [
-        "Fraud Prevention"
+        "Advertising",
+        "Analytics"
       ],
-      "p": 0.00343,
-      "f": 0
+      "p": 0.00272,
+      "f": 2
+    },
+    "trustx.org": {
+      "o": "DCN",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00292,
+      "f": 1
+    },
+    "blueconic.net": {
+      "o": "BlueConic, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Third-Party Analytics Marketing",
+        "Action Pixels"
+      ],
+      "p": 0.00289,
+      "f": 1
+    },
+    "exoclick.com": {
+      "o": "ExoClick, S.L.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00271,
+      "f": 1
+    },
+    "brightcove.net": {
+      "o": "Brightcove, Inc.",
+      "c": [
+        "Advertising",
+        "Analytics",
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00372,
+      "f": 2
     },
     "lpsnmedia.net": {
       "o": "LivePerson, Inc",
@@ -3378,7 +3259,25 @@
         "Embedded Content",
         "Support Chat Widget"
       ],
-      "p": 0.00362,
+      "p": 0.00352,
+      "f": 2
+    },
+    "pingdom.net": {
+      "o": "Pingdom AB",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "Action Pixels"
+      ],
+      "p": 0.00277,
+      "f": 3
+    },
+    "cdninstagram.com": {
+      "o": "Facebook, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00382,
       "f": 2
     },
     "yieldlab.net": {
@@ -3387,16 +3286,24 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00362,
+      "p": 0.00382,
       "f": 0
     },
-    "online-metrix.net": {
-      "o": "RELX Group",
+    "d2mjzob2nc713b.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00382,
+      "f": 2
+    },
+    "perimeterx.net": {
+      "o": "Human Security, Inc.",
       "c": [
         "Fraud Prevention"
       ],
-      "p": 0.00307,
-      "f": 3
+      "p": 0.00262,
+      "f": 0
     },
     "quora.com": {
       "o": "Quora",
@@ -3408,34 +3315,148 @@
         "Embedded Content",
         "Social Network"
       ],
-      "p": 0.00343,
+      "p": 0.00322,
       "f": 1
+    },
+    "msecnd.net": {
+      "o": "Microsoft Corporation",
+      "c": [
+        "Ad Motivated Tracking",
+        "Analytics",
+        "CDN"
+      ],
+      "p": 0.00333,
+      "f": 1
+    },
+    "realsrv.com": {
+      "o": "ExoClick, S.L.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00372,
+      "f": 2
+    },
+    "transcend-cdn.com": {
+      "o": null,
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00313,
+      "f": 2
+    },
+    "basis.net": {
+      "o": "Centro, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Action Pixels"
+      ],
+      "p": 0.00365,
+      "f": 1
+    },
+    "dn0qt3r0xannq.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00316,
+      "f": 2
+    },
+    "firebaseinstallations.googleapis.com": {
+      "o": "Google LLC",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00272,
+      "f": 0
+    },
+    "crisp.chat": {
+      "o": "Crisp IM SARL",
+      "c": [
+        "Support Chat Widget"
+      ],
+      "p": 0.00363,
+      "f": 3
+    },
+    "trackcmp.net": {
+      "o": "ActiveCampaign, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Action Pixels"
+      ],
+      "p": 0.00284,
+      "f": 0
     },
     "ams-pageview-public.s3.amazonaws.com": {
       "o": "Amazon Technologies, Inc.",
       "c": [
         "CDN"
       ],
-      "p": 0.00292,
+      "p": 0.00252,
       "f": 0
     },
-    "kxcdn.com": {
-      "o": "proinity GmbH",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00344,
-      "f": 3
-    },
-    "lkqd.net": {
-      "o": "Nexstar Media Group",
+    "chaturbate.com": {
+      "o": "Chaturbate, LLC",
       "c": [
         "Ad Motivated Tracking",
         "Advertising",
+        "Embedded Content"
+      ],
+      "p": 0.00252,
+      "f": 1
+    },
+    "zopim.com": {
+      "o": "Zendesk, Inc.",
+      "c": [
+        "Embedded Content",
+        "Support Chat Widget"
+      ],
+      "p": 0.00352,
+      "f": 1
+    },
+    "revcontent.com": {
+      "o": "RevContent, LLC",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
         "Audience Measurement",
         "Third-Party Analytics Marketing"
       ],
-      "p": 0.00343,
+      "p": 0.00348,
+      "f": 2
+    },
+    "dmca.com": {
+      "o": "Digital Millennium Copyright Act Services Ltd.",
+      "c": [
+        "Badge",
+        "Non-Tracking"
+      ],
+      "p": 0.00313,
+      "f": 0
+    },
+    "jwpcdn.com": {
+      "o": "LongTail Ad Solutions, Inc.",
+      "c": [
+        "Advertising",
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00268,
+      "f": 2
+    },
+    "addshoppers.s3.amazonaws.com": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.0034,
       "f": 0
     },
     "dailymotion.com": {
@@ -3444,28 +3465,8 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00343,
+      "p": 0.00333,
       "f": 1
-    },
-    "dmca.com": {
-      "o": "Digital Millennium Copyright Act Services Ltd.",
-      "c": [
-        "Badge",
-        "Non-Tracking"
-      ],
-      "p": 0.00261,
-      "f": 0
-    },
-    "samplicio.us": {
-      "o": "Lucid Holdings, LLC",
-      "c": [
-        "Ad Motivated Tracking",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
-      ],
-      "p": 0.00336,
-      "f": 0
     },
     "d3mewz86hy02zo.cloudfront.net": {
       "o": "Amazon Technologies, Inc.",
@@ -3475,126 +3476,21 @@
       "p": 0.00332,
       "f": 0
     },
-    "scarabresearch.com": {
-      "o": "SAP SE",
-      "c": [
-        "Advertising",
-        "Analytics"
-      ],
-      "p": 0.00262,
-      "f": 2
-    },
     "datadome.co": {
       "o": "DataDome",
       "c": [
         "Fraud Prevention"
       ],
-      "p": 0.00313,
-      "f": 3
-    },
-    "futurecdn.net": {
-      "o": "Future Plc",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00332,
-      "f": 2
-    },
-    "d2mjzob2nc713b.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.0033,
-      "f": 2
-    },
-    "ispot.tv": {
-      "o": "iSpot.tv",
-      "c": [
-        "Advertising",
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.00266,
-      "f": 0
-    },
-    "tubemogul.com": {
-      "o": "Adobe Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement"
-      ],
       "p": 0.00323,
-      "f": 0
-    },
-    "mouseflow.com": {
-      "o": "Mouseflow",
-      "c": [
-        "Ad Motivated Tracking",
-        "Analytics",
-        "Third-Party Analytics Marketing",
-        "Action Pixels",
-        "Session Replay"
-      ],
-      "p": 0.00261,
-      "f": 2
-    },
-    "trackcmp.net": {
-      "o": "ActiveCampaign, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Action Pixels"
-      ],
-      "p": 0.00309,
-      "f": 0
-    },
-    "affec.tv": {
-      "o": "Affectv",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Ad Fraud",
-        "Audience Measurement"
-      ],
-      "p": 0.00321,
-      "f": 0
-    },
-    "transcend-cdn.com": {
-      "o": null,
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00306,
-      "f": 2
+      "f": 3
     },
     "yieldlove.com": {
       "o": "Yieldlove GmbH",
       "c": [
         "Advertising"
       ],
-      "p": 0.00262,
+      "p": 0.00282,
       "f": 2
-    },
-    "yandex.net": {
-      "o": "Yandex LLC",
-      "c": [
-        "CDN",
-        "Embedded Content",
-        "Session Replay"
-      ],
-      "p": 0.00312,
-      "f": 1
-    },
-    "colossusssp.com": {
-      "o": "Colossus Media, LLC",
-      "c": [
-        "Ad Motivated Tracking"
-      ],
-      "p": 0.00252,
-      "f": 0
     },
     "monetate.net": {
       "o": "Monetate, Inc.",
@@ -3607,16 +3503,28 @@
         "Action Pixels",
         "Embedded Content"
       ],
-      "p": 0.00311,
+      "p": 0.00322,
       "f": 2
     },
-    "d30qdagvt44524.cloudfront.net": {
-      "o": "Amazon Technologies, Inc.",
+    "qsearch-a.akamaihd.net": {
+      "o": "Akamai Technologies",
       "c": [
         "CDN"
       ],
-      "p": 0.00281,
+      "p": 0.00313,
       "f": 0
+    },
+    "mxpnl.com": {
+      "o": "Mixpanel, Inc.",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Action Pixels",
+        "Session Replay"
+      ],
+      "p": 0.00291,
+      "f": 2
     },
     "getsitecontrol.com": {
       "o": "GetWebCraft Limited",
@@ -3627,8 +3535,132 @@
         "Third-Party Analytics Marketing",
         "Embedded Content"
       ],
-      "p": 0.00292,
+      "p": 0.00302,
       "f": 2
+    },
+    "sojern.com": {
+      "o": "Sojern, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00313,
+      "f": 1
+    },
+    "stickyadstv.com": {
+      "o": "FreeWheel",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics"
+      ],
+      "p": 0.00313,
+      "f": 0
+    },
+    "userlike-cdn-widgets.s3-eu-west-1.amazonaws.com": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00312,
+      "f": 1
+    },
+    "futurecdn.net": {
+      "o": "Future Plc",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00312,
+      "f": 2
+    },
+    "mouseflow.com": {
+      "o": "Mouseflow",
+      "c": [
+        "Ad Motivated Tracking",
+        "Analytics",
+        "Third-Party Analytics Marketing",
+        "Action Pixels",
+        "Session Replay"
+      ],
+      "p": 0.00252,
+      "f": 2
+    },
+    "e-planning.net": {
+      "o": "Teroa S.A.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00299,
+      "f": 1
+    },
+    "ispot.tv": {
+      "o": "iSpot.tv",
+      "c": [
+        "Advertising",
+        "Analytics",
+        "Audience Measurement"
+      ],
+      "p": 0.00293,
+      "f": 0
+    },
+    "eloqua.com": {
+      "o": "Oracle Corporation",
+      "c": [
+        "Advertising",
+        "Analytics",
+        "Third-Party Analytics Marketing"
+      ],
+      "p": 0.00278,
+      "f": 1
+    },
+    "en25.com": {
+      "o": "Oracle Corporation",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00295,
+      "f": 1
+    },
+    "adsco.re": {
+      "o": "Adscore Technologies DMCC",
+      "c": [
+        "Ad Motivated Tracking",
+        "Ad Fraud",
+        "Analytics",
+        "Audience Measurement"
+      ],
+      "p": 0.00302,
+      "f": 3
+    },
+    "yahoo.co.jp": {
+      "o": "LY-Corporation",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00295,
+      "f": 1
+    },
+    "d30qdagvt44524.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00262,
+      "f": 0
+    },
+    "commander1.com": {
+      "o": "Fjord Technologies",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Action Pixels"
+      ],
+      "p": 0.00292,
+      "f": 0
     },
     "t.sni.global.fastly.net": {
       "o": "Fastly, Inc.",
@@ -3642,16 +3674,8 @@
         "Embedded Content",
         "Session Replay"
       ],
-      "p": 0.00251,
+      "p": 0.00261,
       "f": 1
-    },
-    "webvisor.org": {
-      "o": "Yandex LLC",
-      "c": [
-        "Session Replay"
-      ],
-      "p": 0.00302,
-      "f": 2
     },
     "serving-sys.com": {
       "o": "Amazon Technologies, Inc.",
@@ -3659,25 +3683,47 @@
         "Ad Motivated Tracking",
         "Advertising"
       ],
-      "p": 0.00301,
+      "p": 0.00291,
       "f": 0
     },
-    "yahoo.co.jp": {
-      "o": "LY-Corporation",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00301,
-      "f": 1
-    },
-    "squarespace.com": {
-      "o": "Squarespace, Inc",
+    "us-west-2.amazonaws.com": {
+      "o": "Amazon Technologies, Inc.",
       "c": [
         "CDN"
       ],
-      "p": 0.003,
-      "f": 3
+      "p": 0.00271,
+      "f": 0
+    },
+    "xp2023-pix.s3.amazonaws.com": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00282,
+      "f": 2
+    },
+    "affec.tv": {
+      "o": "Affectv",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Ad Fraud",
+        "Audience Measurement"
+      ],
+      "p": 0.00281,
+      "f": 0
+    },
+    "mixpanel.com": {
+      "o": "Mixpanel, Inc.",
+      "c": [
+        "Analytics",
+        "Audience Measurement",
+        "Third-Party Analytics Marketing",
+        "Action Pixels",
+        "Session Replay"
+      ],
+      "p": 0.00281,
+      "f": 0
     },
     "mapbox.com": {
       "o": "Mapbox Inc.",
@@ -3685,105 +3731,8 @@
         "CDN",
         "Embedded Content"
       ],
-      "p": 0.00294,
+      "p": 0.00279,
       "f": 2
-    },
-    "userlike-cdn-widgets.s3-eu-west-1.amazonaws.com": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00292,
-      "f": 1
-    },
-    "cdninstagram.com": {
-      "o": "Facebook, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00291,
-      "f": 2
-    },
-    "addshoppers.s3.amazonaws.com": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00288,
-      "f": 0
-    },
-    "evidon.com": {
-      "o": "Crownpeak Technology",
-      "c": [
-        "Analytics",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00282,
-      "f": 1
-    },
-    "s3.us-east-1.amazonaws.com": {
-      "o": "Amazon Technologies, Inc.",
-      "c": [
-        "CDN"
-      ],
-      "p": 0.00275,
-      "f": 1
-    },
-    "browser-update.org": {
-      "o": "Browser Update",
-      "c": [
-        "Badge",
-        "Embedded Content"
-      ],
-      "p": 0.00281,
-      "f": 2
-    },
-    "eloqua.com": {
-      "o": "Oracle Corporation",
-      "c": [
-        "Advertising",
-        "Analytics",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00253,
-      "f": 1
-    },
-    "en25.com": {
-      "o": "Oracle Corporation",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00276,
-      "f": 1
-    },
-    "usabilla.com": {
-      "o": "Momentive Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Analytics",
-        "Third-Party Analytics Marketing"
-      ],
-      "p": 0.00281,
-      "f": 1
-    },
-    "gemius.pl": {
-      "o": "Gemius S.A.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Audience Measurement"
-      ],
-      "p": 0.00281,
-      "f": 2
-    },
-    "tns-counter.ru": {
-      "o": "JSC ADFACT",
-      "c": [
-        "Analytics"
-      ],
-      "p": 0.00281,
-      "f": 1
     },
     "listrakbi.com": {
       "o": "Listrak",
@@ -3795,8 +3744,58 @@
         "Third-Party Analytics Marketing",
         "Action Pixels"
       ],
-      "p": 0.0028,
+      "p": 0.00277,
       "f": 2
+    },
+    "afcdn.com": {
+      "o": "auFeminin.com SA",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00272,
+      "f": 1
+    },
+    "firebase.googleapis.com": {
+      "o": "Google LLC",
+      "c": [
+        "CDN",
+        "Embedded Content"
+      ],
+      "p": 0.00262,
+      "f": 0
+    },
+    "linksynergy.com": {
+      "o": "Rakuten, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00262,
+      "f": 0
+    },
+    "github.com": {
+      "o": "GitHub, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00261,
+      "f": 0
+    },
+    "createjs.com": {
+      "o": "gskinner",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.0026,
+      "f": 1
+    },
+    "s3.us-east-1.amazonaws.com": {
+      "o": "Amazon Technologies, Inc.",
+      "c": [
+        "CDN"
+      ],
+      "p": 0.00252,
+      "f": 1
     },
     "ntv.io": {
       "o": "Nativo, Inc",
@@ -3805,48 +3804,8 @@
         "Advertising",
         "Analytics"
       ],
-      "p": 0.00265,
+      "p": 0.00252,
       "f": 2
-    },
-    "treasuredata.com": {
-      "o": "Treasure Data, Inc",
-      "c": [
-        "Ad Motivated Tracking",
-        "Analytics",
-        "Audience Measurement"
-      ],
-      "p": 0.00272,
-      "f": 2
-    },
-    "demandbase.com": {
-      "o": "Demandbase, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
-      ],
-      "p": 0.00271,
-      "f": 1
-    },
-    "sojern.com": {
-      "o": "Sojern, Inc.",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising"
-      ],
-      "p": 0.00266,
-      "f": 2
-    },
-    "zopim.com": {
-      "o": "Zendesk, Inc.",
-      "c": [
-        "Embedded Content",
-        "Support Chat Widget"
-      ],
-      "p": 0.00261,
-      "f": 1
     },
     "2o7.net": {
       "o": "Adobe Inc.",
@@ -3860,7 +3819,28 @@
       "p": 0.00252,
       "f": 0
     },
-    "d1mkq4fbm7j30i.cloudfront.net": {
+    "adscale.de": {
+      "o": "Ströer Group",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising"
+      ],
+      "p": 0.00252,
+      "f": 0
+    },
+    "demandbase.com": {
+      "o": "Demandbase, Inc.",
+      "c": [
+        "Ad Motivated Tracking",
+        "Advertising",
+        "Analytics",
+        "Third-Party Analytics Marketing",
+        "Action Pixels"
+      ],
+      "p": 0.00252,
+      "f": 1
+    },
+    "d2tbbu397eeoxj.cloudfront.net": {
       "o": "Amazon Technologies, Inc.",
       "c": [
         "CDN"
@@ -3868,47 +3848,12 @@
       "p": 0.00252,
       "f": 0
     },
-    "weborama.fr": {
-      "o": "Weborama",
+    "do69ll745l27z.cloudfront.net": {
+      "o": "Amazon Technologies, Inc.",
       "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics"
+        "CDN"
       ],
       "p": 0.00252,
-      "f": 0
-    },
-    "commander1.com": {
-      "o": "Fjord Technologies",
-      "c": [
-        "Analytics",
-        "Audience Measurement",
-        "Third-Party Analytics Marketing",
-        "Action Pixels"
-      ],
-      "p": 0.00252,
-      "f": 0
-    },
-    "rundsp.com": {
-      "o": "RUN",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics"
-      ],
-      "p": 0.00251,
-      "f": 0
-    },
-    "wt-eu02.net": {
-      "o": "Webtrekk GmbH",
-      "c": [
-        "Ad Motivated Tracking",
-        "Advertising",
-        "Analytics",
-        "Audience Measurement",
-        "Embedded Content"
-      ],
-      "p": 0.00251,
       "f": 2
     }
   }
