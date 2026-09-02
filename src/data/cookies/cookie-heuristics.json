@@ -1,6 +1,6 @@
 {
-  "version": "2026-08-10",
-  "totalCount": 2237,
+  "version": "2026-08-31",
+  "totalCount": 2239,
   "analytics": {
     "td": true,
     "FCCDCF": true,
@@ -390,7 +390,8 @@
     "HMACCOUNT": true,
     "plausible_": true,
     "_fathom": true,
-    "umami.": true
+    "umami.": true,
+    "__kmp": true
   },
   "advertising": {
     "AdID": true,
@@ -2072,7 +2073,8 @@
     "drift_": true,
     "tawk_": true,
     "lc_": true,
-    "_vercel_": true
+    "_vercel_": true,
+    "__kmp_dnt": true
   },
   "session": {
     "FPGSID": true,
