@@ -1,6 +1,6 @@
 {
-  "version": "2026-09-28",
-  "totalCount": 2239,
+  "version": "2026-10-19",
+  "totalCount": 2247,
   "analytics": {
     "td": true,
     "FCCDCF": true,
@@ -1243,7 +1243,10 @@
     "__exponea_etc__": true,
     "__exponea_time2__": true,
     "lantern": true,
-    "AwinChannelCookie": true
+    "AwinChannelCookie": true,
+    "wisepops_session": true,
+    "wisepops_visitor": true,
+    "wisepops": true
   },
   "necessary": {
     "cookiePreferences": true,
@@ -2074,7 +2077,12 @@
     "tawk_": true,
     "lc_": true,
     "_vercel_": true,
-    "__kmp_dnt": true
+    "__kmp_dnt": true,
+    "stat_track_off": true,
+    "wisepops_noshow": true,
+    "wisepops_props": true,
+    "wisepops_visits": true,
+    "wisepops_tld": true
   },
   "session": {
     "FPGSID": true,
